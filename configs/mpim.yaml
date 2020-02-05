@@ -1,0 +1,12 @@
+tencent:
+  base: &tencentbase
+    app:
+      id: "1111"
+    account:
+      admin: "1111"
+      type: "1111"
+    file:
+      privatekey: "1111"
+      command: "1111"
+  deva01:
+    <<: *tencentbase

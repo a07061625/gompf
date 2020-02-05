@@ -1,0 +1,18 @@
+provider:
+  base: &providerbase
+    corp:
+      id: "1111"
+    sso:
+      secret: "1111"
+    token: "1111"
+    aeskey: "1111"
+    suite:
+      id: 1111
+      key: "1111"
+      secret: "1111"
+    login:
+      appid: "1111"
+      appsecret: "1111"
+      urlcallback: "http://www.baidu.com"
+  deva01:
+    <<: *providerbase

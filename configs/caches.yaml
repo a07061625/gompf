@@ -1,0 +1,17 @@
+redis:
+  base: &redisbase
+    address: "127.0.0.1:6379"
+    password: ""
+    db: 0
+    idle: 30
+  deva01:
+    <<: *redisbase
+    address: "10.1.9.185:6379"
+memcache:
+  base: &memcachebase
+    idle: 30
+    servers:
+      - "10.0.0.1:11211"
+      - "10.0.0.2:11211"
+  deva01:
+    <<: *memcachebase

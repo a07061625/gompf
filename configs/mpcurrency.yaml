@@ -1,0 +1,22 @@
+amjisu:
+  base: &amjisubase
+    service:
+      protocol: "https"
+      domain: "jisuhuilv.market.alicloudapi.com"
+    app:
+      key: "1111"
+      secret: "1111"
+      code: "1111"
+  deva01:
+    <<: *amjisubase
+amyiyuan:
+  base: &amyiyuanbase
+    service:
+      protocol: "https"
+      domain: "ali-waihui.showapi.com"
+    app:
+      key: "1111"
+      secret: "1111"
+      code: "1111"
+  deva01:
+    <<: *amyiyuanbase

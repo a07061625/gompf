@@ -1,0 +1,22 @@
+mysql:
+  base: &mysqlbase
+    dbname: ""
+    idle: 30
+    dsn:
+      prefix: "root:password@tcp(127.0.0.1:3306)/"
+      params: "?charset=utf8mb4,utf8&timeout=1s&writeTimeout=2s&readTimeout=5s"
+  deva01:
+    <<: *mysqlbase
+    dbname: "aukeys_ads"
+    dsn:
+      prefix: "root:123456@tcp(10.1.9.185:3306)/"
+mongo:
+  base: &mongobase
+    dbname: ""
+    idle: 30
+    uris: "mongodb://root:password@10.0.0.1:27017,root:password@10.0.0.2:27017/"
+    params: "?connectTimeoutMS=2000&w=1&wtimeoutMS=3000"
+  deva01:
+    <<: *mongobase
+    dbname: "test"
+    uris: "mongodb://root:123456@10.0.0.1:27017,root:123456@10.0.0.2:27017/"

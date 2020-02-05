@@ -1,0 +1,33 @@
+amali:
+  base: &amalibase
+    service:
+      protocol: "https"
+      domain: "ali-deliver.showapi.com"
+    app:
+      key: "1111"
+      secret: "1111"
+      code: "1111"
+  deva01:
+    <<: *amalibase
+kd100:
+  base: &kd100base
+    app:
+      id: "1111"
+      key: "1111"
+  deva01:
+    <<: *kd100base
+kdbird:
+  base: &kdbirdbase
+    business:
+      id: "1111"
+    app:
+      key: "1111"
+  deva01:
+    <<: *kdbirdbase
+taobao:
+  base: &taobaobase
+    app:
+      key: "1111"
+      secret: "1111"
+  deva01:
+    <<: *taobaobase

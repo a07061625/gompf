@@ -1,0 +1,8 @@
+kodo:
+  base: &kodobase
+    access:
+      key: "1111"
+    secret:
+      key: "1111"
+  deva01:
+    <<: *kodobase

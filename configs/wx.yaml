@@ -1,0 +1,35 @@
+# 第三方开放平台配置
+open:
+  base: &openbase
+    appid: "1111"
+    secret: "1111"
+    token: "1111" # 消息校验token
+    aeskeybefore: "1111" # 旧消息加解密key
+    aeskeynow: "1111" # 新消息加解密key
+    url:
+      auth: "http://api2.xxx.cn" # 授权页面域名
+      authcallback: "http://api2.xxx.cn" # 授权页面回跳地址
+      minirebindadmin: "http://api2.xxx.cn" # 换绑小程序管理员回跳地址
+      minifastregister: "http://api2.xxx.cn" # 快速注册小程序回跳地址
+    domain:
+      miniserver: # 小程序服务域名
+          - "api1.xxx.cn"
+      miniwebview: # 小程序业务域名
+          - "api1.xxx.cn"
+  deva01:
+    <<: *openbase
+
+# 企业服务商配置
+provider:
+  base: &providerbase
+    corpid: "1111"
+    corpsecret: "1111"
+    token: "1111"
+    aeskey: "1111"
+    suiteid: "1111"
+    suitesecret: "1111"
+    url:
+      authsuite: "http://api2.xxx.cn"
+      authlogin: "http://api2.xxx.cn"
+  deva01:
+    <<: *providerbase

@@ -1,0 +1,44 @@
+aliyun:
+  base: &aliyunbase
+    region:
+      id: "cn-hangzhou"
+    access:
+      key: "1111"
+      secret: "1111"
+  deva01:
+    <<: *aliyunbase
+baidu:
+  base: &baidubase
+    app:
+      key: "1111"
+      secret: "1111"
+    device:
+      type: "0" # 设备类型 0:2.0升级到3.0的应用设置该值 3:安卓 4:苹果
+  deva01:
+    <<: *baidubase
+xinge:
+  base: &xingebase
+    android:
+      app:
+        id: "1111"
+        secret: "1111"
+    ios:
+      app:
+        id: "1111"
+        secret: "1111"
+  deva01:
+    <<: *xingebase
+jpush:
+  base: &jpushbase
+    app:
+      key: "1111"
+    master:
+      secret: "1111"
+    dev:
+      key: "1111"
+      secret: "1111"
+    group:
+      key: "1111"
+      secret: "1111"
+  deva01:
+    <<: *jpushbase

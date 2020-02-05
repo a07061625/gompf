@@ -1,0 +1,7 @@
+feyin:
+  base: &feyinbase
+    list:
+      - "1111_1111_1111"
+      - "1112_1112_1112"
+  deva01:
+    <<: *feyinbase

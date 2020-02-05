@@ -1,0 +1,12 @@
+zap:
+  base: &zapbase
+    suffix: ".log"
+    access: "access"
+    error: "error"
+    cron:
+      access: "0 0 0 * * *"
+      error: "0 0 0 * * *"
+    fields:
+      ttt: "111"
+  deva01:
+    <<: *zapbase

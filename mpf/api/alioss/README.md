@@ -1,0 +1,23 @@
+# 介绍
+## sample(样例)
+- new_bucket.go: 初始化Client
+- put_object.go: 上传文件,包括简单上传、断点续传上传等
+- append_object.go: 追加上传
+- get_object.go: 下载文件,包括流式下载、限定条件下载、文件压缩下载等
+- delete_object.go: 删除文件
+- copy_object.go: 同一存储空间内拷贝文件、跨存储空间拷贝文件、限定条件拷贝
+- list_objects.go: 列举文件,包括指定前缀的文件列举、指定个数的文件列举等
+- object_meta.go: 设置和读取文件元信息
+- object_acl.go: 设置和读取文件访问权限(ACL)
+- sign_url.go: 生成带签名的URL
+- cname_sample.go: 绑定自定义域名(CNAME)
+- create_bucket.go: 创建存储空间
+- list_buckets.go: 列举存储空间,包括默认参数列举和指定参数列举
+- bucket_acl.go: 设置存储空间的访问权限(ACL)
+- bucket_referer.go: 设置、读取、清除存储空间的防盗链
+- bucket_logging.go: 设置、读取、清除存储空间的访问日志
+- bucket_lifecycle.go: 设置、读取、清除文件的生命周期
+- bucket_cors.go: 设置、读取、清除存储空间的跨域访问
+- object_tagging.go: 设置、获取、删除对象标签,及对象标签和生命周期管理。
+- bucket_requestpayment.go: 存储空间的请求者付费模式
+- bucket_encryption.go: 设置、获取、删除Bucket加密
