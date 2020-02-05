@@ -7,6 +7,7 @@
 package mpf
 
 import (
+    "log"
     "os"
     "time"
 
@@ -92,26 +93,47 @@ func (ld *logDaily) getLogName(level string) string {
         fileName = ld.logAccess
     }
     fileName += "_" + time.Now().Format("20060102") + ld.logSuffix
-    return ld.logDir + "/" + EnvProjectKey() + "/" + fileName
+    logName := ld.logDir + "/" + fileName
+
+    fileInfo, err := os.Stat(logName)
+    if os.IsNotExist(err) {
+        f, err := os.Create(logName)
+        if err != nil {
+            log.Fatalln("create log file error:" + err.Error())
+        }
+        defer f.Close()
+    } else if err != nil {
+        log.Fatalln("log file error:" + err.Error())
+    } else if fileInfo.IsDir() {
+        log.Fatalln("log file is dir")
+    }
+
+    return logName
 }
 
 func (ld *logDaily) ChangeAccessLog() {
-    infoOutput, err := os.OpenFile(ld.getLogName("info"), os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
     if ld.accessFile.file != nil {
         ld.accessFile.file.Close()
     }
+
+    infoOutput, err := os.OpenFile(ld.getLogName("info"), os.O_RDWR|os.O_APPEND, 0666)
     if err == nil {
         ld.accessFile.file = infoOutput
+    } else {
+        log.Fatalln("access log error:" + err.Error())
     }
 }
 
 func (ld *logDaily) ChangeErrorLog() {
-    errOutput, err := os.OpenFile(ld.getLogName("error"), os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
     if ld.errorFile.file != nil {
         ld.errorFile.file.Close()
     }
+
+    errOutput, err := os.OpenFile(ld.getLogName("error"), os.O_RDWR|os.O_APPEND, 0666)
     if err == nil {
         ld.errorFile.file = errOutput
+    } else {
+        log.Fatalln("error log error:" + err.Error())
     }
 }
 

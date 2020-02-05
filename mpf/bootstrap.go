@@ -108,9 +108,13 @@ func LoadBoot(bs *bootstrap) {
         project.LoadProject(projectConfig)
 
         // 日志相关
+        insLog.logDir = bs.CheckDirLogs() + "/" + EnvProjectKey()
+        err := os.MkdirAll(insLog.logDir, os.ModePerm)
+        if err != nil {
+            log.Fatalln("log dir create fail:" + err.Error())
+        }
         logConfig := NewConfig().GetConfig("log")
         logConfigPrefix := "zap." + EnvProjectKey() + "."
-        insLog.logDir = bs.CheckDirLogs()
         insLog.SetLogAccess(logConfig.GetString(logConfigPrefix + "access"))
         insLog.SetLogError(logConfig.GetString(logConfigPrefix + "error"))
         insLog.SetLogSuffix(logConfig.GetString(logConfigPrefix + "suffix"))
