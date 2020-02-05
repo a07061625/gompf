@@ -17,7 +17,7 @@ require (
 	github.com/go-xorm/xorm v0.7.9
 	github.com/json-iterator/go v1.1.6
 	github.com/kataras/iris/v12 v12.1.1 // indirect
-	github.com/klauspost/compress v1.9.4 // indirect
+	github.com/klauspost/compress v1.9.8 // indirect
 	github.com/klauspost/cpuid v1.2.2 // indirect
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
@@ -31,9 +31,9 @@ require (
 	github.com/spf13/viper v1.6.1
 	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71 // indirect
 	github.com/stretchr/objx v0.2.0 // indirect
-	github.com/valyala/fasthttp v1.6.0
+    github.com/valyala/fasthttp v1.9.0
     github.com/valyala/tcplisten v0.0.0-20161114210144-ceec8f93295a
-    github.com/vmihailenco/msgpack/v4 v4.3.0
+	github.com/vmihailenco/msgpack/v4 v4.3.0
 	go.uber.org/atomic v1.5.1 // indirect
 	go.uber.org/multierr v1.4.0 // indirect
 	go.uber.org/zap v1.13.0
