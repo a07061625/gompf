@@ -2,4 +2,5 @@
 logs/
 go.sum
 *.exe
-./test*
+test
+test2
