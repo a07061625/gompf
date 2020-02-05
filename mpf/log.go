@@ -8,12 +8,9 @@ package mpf
 
 import (
     "os"
-    "strconv"
-    "sync"
     "time"
 
     "github.com/robfig/cron"
-    "github.com/spf13/viper"
     "go.uber.org/zap"
     "go.uber.org/zap/zapcore"
 )
@@ -135,38 +132,11 @@ func (ld *logDaily) SetLogSuffix(logSuffix string) {
 }
 
 var (
-    onceLog sync.Once
-    insLog  *logDaily
+    insLog *logDaily
 )
 
 func init() {
     insLog = &logDaily{nil, &logWriter{}, &logWriter{}, nil, "", "", "", ""}
-}
-
-func LoadLog(logDir string, conf *viper.Viper) {
-    onceLog.Do(func() {
-        prefixTag := "zap." + EnvProjectKey() + "."
-        insLog.logDir = logDir
-        insLog.SetLogAccess(conf.GetString(prefixTag + "access"))
-        insLog.SetLogError(conf.GetString(prefixTag + "error"))
-        insLog.SetLogSuffix(conf.GetString(prefixTag + "suffix"))
-
-        c := cron.New()
-        c.AddFunc(conf.GetString(prefixTag+"cron.access"), insLog.ChangeAccessLog)
-        c.AddFunc(conf.GetString(prefixTag+"cron.error"), insLog.ChangeErrorLog)
-        c.Start()
-        insLog.SetCron(c)
-        insLog.ChangeAccessLog()
-        insLog.ChangeErrorLog()
-
-        fields := conf.GetStringMapString(prefixTag + "fields")
-        fields["env_type"] = EnvType()
-        fields["env_project_tag"] = EnvProjectTag()
-        fields["env_project_module"] = EnvProjectModule()
-        fields["env_service_host"] = EnvServiceHost()
-        fields["env_service_port"] = strconv.Itoa(int(EnvServicePort()))
-        insLog.createLogger(fields)
-    })
 }
 
 func NewLogger() *zap.Logger {

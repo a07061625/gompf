@@ -1,32 +1,20 @@
 package main
 
 import (
-    "log"
     "os"
-    "strings"
 
     "github.com/a07061625/gompf/mpf"
-    "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/kataras/iris/v12"
     "github.com/valyala/tcplisten"
 )
 
 func init() {
-    dir, err := os.Getwd()
-    if err != nil {
-        log.Fatalln("get root dir error")
-    }
-
-    dirRoot := strings.Replace(dir, "\\", "/", -1)
-    configDir := dirRoot + "/configs"
-    mpf.LoadConfig(configDir)
-    serviceConfig := mpf.NewConfig().GetConfig("service")
-    mpf.LoadEnv(serviceConfig)
-    projectConfig := mpf.NewConfig().GetConfig("project")
-    project.LoadProject(projectConfig)
-    logDir := dirRoot + "/logs"
-    logConfig := mpf.NewConfig().GetConfig("log")
-    mpf.LoadLog(logDir, logConfig)
+    dirRoot, _ := os.Getwd()
+    bs := mpf.NewBootstrap()
+    bs.SetDirRoot(dirRoot)
+    bs.SetDirConfigs(dirRoot + "/configs")
+    bs.SetDirLogs(dirRoot + "/logs")
+    mpf.LoadBoot(bs)
 }
 
 func main() {

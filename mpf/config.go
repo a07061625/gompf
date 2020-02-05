@@ -7,8 +7,6 @@
 package mpf
 
 import (
-    "sync"
-
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mperr"
     "github.com/spf13/viper"
@@ -37,18 +35,11 @@ func (config *configViper) GetConfig(fileName string) *viper.Viper {
 }
 
 var (
-    onceConfig sync.Once
-    insConfig  *configViper
+    insConfig *configViper
 )
 
 func init() {
     insConfig = &configViper{make(map[string]*viper.Viper), ""}
-}
-
-func LoadConfig(dirConfigs string) {
-    onceConfig.Do(func() {
-        insConfig.dirConfigs = dirConfigs
-    })
 }
 
 func NewConfig() *configViper {

@@ -11,9 +11,6 @@ import (
     "log"
     "os"
     "regexp"
-    "sync"
-
-    "github.com/spf13/viper"
 )
 
 const (
@@ -25,6 +22,8 @@ const (
 )
 
 type env struct {
+    dirRoot string // 项目根目录
+
     envType string // 环境类型
 
     projectTag       string // 项目标识
@@ -35,6 +34,10 @@ type env struct {
     serviceHost string
     servicePort uint
     serviceType string
+}
+
+func EnvDirRoot() string {
+    return insEnv.dirRoot
 }
 
 func EnvType() string {
@@ -70,8 +73,7 @@ func EnvServiceType() string {
 }
 
 var (
-    onceEnv sync.Once
-    insEnv  *env
+    insEnv *env
 
     envType       = flag.String("mpet", EnvTypeProduct, "环境类型,只能是dev或product")
     projectTag    = flag.String("mppt", "", "项目标识,由小写字母和数字组成的3位长度字符串")
@@ -104,22 +106,4 @@ func init() {
     os.Setenv("MP_PROJECT_MODULE", insEnv.projectModule)
     os.Setenv("MP_PROJECT_KEY", insEnv.projectKey)
     os.Setenv("MP_PROJECT_KEY_MODULE", insEnv.projectKeyModule)
-}
-
-func LoadEnv(conf *viper.Viper) {
-    onceEnv.Do(func() {
-        serviceHost := conf.GetString(insEnv.envType + "." + insEnv.projectKeyModule + ".host")
-        servicePort := conf.GetUint(insEnv.envType + "." + insEnv.projectKeyModule + ".port")
-        serviceType := conf.GetString(insEnv.envType + "." + insEnv.projectKeyModule + ".type")
-        if (servicePort < 1024) || (servicePort > 65535) {
-            log.Fatalln("服务端口不合法")
-        }
-        if (serviceType != EnvServiceTypeApi) && (serviceType != EnvServiceTypeRpc) {
-            log.Fatalln("服务类型不支持")
-        }
-
-        insEnv.serviceHost = serviceHost
-        insEnv.servicePort = servicePort
-        insEnv.serviceType = serviceType
-    })
 }
