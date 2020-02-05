@@ -102,6 +102,7 @@ func LoadBoot(bs *bootstrap) {
         insEnv.servicePort = servicePort
         insEnv.serviceType = serviceType
         insEnv.dirRoot = bs.CheckDirRoot()
+        os.Setenv("MP_DIR_ROOT", insEnv.dirRoot)
 
         // 项目相关
         projectConfig := NewConfig().GetConfig("project")
