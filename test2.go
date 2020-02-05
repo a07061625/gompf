@@ -41,9 +41,9 @@ func main() {
         FastOpen:    true,
     }
 
-    l, err := listenerCfg.NewListener("tcp", ":8080")
+    l, err := listenerCfg.NewListener("tcp4", ":8080")
     if err != nil {
-        app.Logger().Fatal(err)
+        mpf.NewLogger().Error(err.Error())
     }
 
     app.Run(iris.Listener(l))
