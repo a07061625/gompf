@@ -3,6 +3,8 @@ package main
 import (
     "os"
 
+    "log"
+
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpframe"
     "github.com/a07061625/gompf/mpf/mpserver"
@@ -27,5 +29,12 @@ func main() {
     })
 
     go outer.GetNotify(server.App)
+
+    if server.Runner == nil {
+        log.Fatalln("Runner")
+    }
+    if len(server.RunConfigs) == 0 {
+        log.Fatalln("RunConfigs")
+    }
     server.App.Run(server.Runner, server.RunConfigs...)
 }

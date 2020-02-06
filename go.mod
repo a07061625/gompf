@@ -16,7 +16,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/xorm v0.7.9
 	github.com/json-iterator/go v1.1.6
-	github.com/kataras/iris/v12 v12.1.1 // indirect
+	github.com/kataras/iris/v12 v12.1.1
 	github.com/klauspost/compress v1.9.8 // indirect
 	github.com/klauspost/cpuid v1.2.2 // indirect
 	github.com/kr/pty v1.1.8 // indirect
