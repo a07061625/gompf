@@ -11,7 +11,6 @@ import (
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
-    "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mpframe"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
@@ -52,9 +51,7 @@ func (s *serverWeb) bindErrHandles() {
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
-            ctx.ContentType(project.HttpContentTypeJson)
             ctx.WriteString(mpf.JsonMarshal(result))
-            ctx.EndRequest()
         }
     }
     _, ok = s.errHandles[iris.StatusInternalServerError]
@@ -64,9 +61,7 @@ func (s *serverWeb) bindErrHandles() {
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonBaseServer
             result.Msg = "服务出错"
-            ctx.ContentType(project.HttpContentTypeJson)
             ctx.WriteString(mpf.JsonMarshal(result))
-            ctx.EndRequest()
         }
     }
 
@@ -75,7 +70,7 @@ func (s *serverWeb) bindErrHandles() {
     }
 }
 
-func (s *serverWeb) baseStart() {
+func (s *serverWeb) initRunConfig() {
     s.runConfigs = append(s.runConfigs, iris.WithCharset("UTF-8"))
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
@@ -89,8 +84,6 @@ func (s *serverWeb) baseStart() {
         })
     })
 
-    go s.outer.GetNotify(s.App)()
-
     listenCfg := tcplisten.Config{
         ReusePort:   true,
         DeferAccept: true,
@@ -101,6 +94,11 @@ func (s *serverWeb) baseStart() {
     if err != nil {
         log.Fatalln("listen error:" + err.Error())
     }
+}
+
+func (s *serverWeb) baseStart() {
+    go s.outer.GetNotify(s.App)()
+
     s.App.Run(iris.Listener(listen), s.runConfigs...)
 }
 
