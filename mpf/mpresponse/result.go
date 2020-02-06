@@ -17,11 +17,11 @@ import (
 
 // 请求响应
 type result struct {
-    ReqId string                 `json:"req_id"`
-    Code  uint                   `json:"code"`
-    Data  map[string]interface{} `json:"data"`
-    Msg   string                 `json:"msg"`
-    Time  int                    `json:"time"`
+    ReqId   string                 `json:"req_id"`
+    Code    uint                   `json:"code"`
+    Data    map[string]interface{} `json:"data"`
+    Msg     string                 `json:"msg"`
+    NowTime int                    `json:"now_time"`
 }
 
 func NewResult(reqId string) *result {
@@ -44,6 +44,6 @@ func NewResult(reqId string) *result {
     r.Code = errorcode.CommonBaseSuccess
     r.Data = make(map[string]interface{})
     r.Msg = ""
-    r.Time = nowTime
+    r.NowTime = nowTime
     return r
 }
