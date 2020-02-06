@@ -72,8 +72,10 @@ func (s *serverWeb) bindErrHandles() {
 
 func (s *serverWeb) baseStart() {
     s.runConfigs = append(s.runConfigs, iris.WithCharset("UTF-8"))
-    s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
+    s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
+    s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
+    s.runConfigs = append(s.runConfigs, iris.WithoutAutoFireStatusCode)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
     s.App.ConfigureHost(func(host *iris.Supervisor) {
