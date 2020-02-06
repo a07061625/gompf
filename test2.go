@@ -1,9 +1,8 @@
 package main
 
 import (
-    "os"
-
     "log"
+    "os"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpframe"
