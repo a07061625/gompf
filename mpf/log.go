@@ -58,14 +58,13 @@ func (ld *logDaily) createLogger(initFields map[string]string) {
     prodEncoder.TimeKey = "T"
     prodEncoder.LevelKey = "L"
     prodEncoder.NameKey = "N"
-    prodEncoder.CallerKey = "C"
-    prodEncoder.MessageKey = "M"
+    prodEncoder.CallerKey = ""
     prodEncoder.StacktraceKey = "S"
+    prodEncoder.MessageKey = "M"
     prodEncoder.LineEnding = zapcore.DefaultLineEnding
     prodEncoder.EncodeLevel = zapcore.CapitalLevelEncoder
     prodEncoder.EncodeTime = logEncodeTime
     prodEncoder.EncodeDuration = zapcore.StringDurationEncoder
-    prodEncoder.EncodeCaller = logEncodeCaller
     prodEncoder.EncodeName = zapcore.FullNameEncoder
 
     // 开启开发模式,调用跟踪
@@ -82,7 +81,7 @@ func (ld *logDaily) createLogger(initFields map[string]string) {
     fields := zap.Fields(arr...)
     highCore := zapcore.NewCore(zapcore.NewConsoleEncoder(prodEncoder), zapcore.AddSync(ld.errorFile), highPriority)
     lowCore := zapcore.NewCore(zapcore.NewConsoleEncoder(prodEncoder), zapcore.AddSync(ld.accessFile), lowPriority)
-    ld.Logger = zap.New(zapcore.NewTee(highCore, lowCore), caller, stacktrace, development, fields)
+    ld.Logger = zap.New(zapcore.NewTee(highCore, lowCore), fields, caller, stacktrace, development)
 }
 
 func (ld *logDaily) getLogName(level string) string {
