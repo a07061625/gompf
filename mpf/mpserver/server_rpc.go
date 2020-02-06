@@ -5,3 +5,11 @@
  * Time: 10:17
  */
 package mpserver
+
+type serverRpc struct {
+    serverWeb
+}
+
+func NewServerRpc() *serverRpc {
+    return &serverRpc{newServerWeb()}
+}

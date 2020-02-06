@@ -6,6 +6,7 @@
 - mpconstant: 常量
 - mpencrypt: 加解密
 - mperr: 自定义错误
+- mpframe: 框架
 - mpmq: 消息队列
 - mpreflect: 自定义反射
 - mprequest: 请求

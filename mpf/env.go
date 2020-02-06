@@ -31,9 +31,10 @@ type env struct {
     projectKey       string // 项目代号
     projectKeyModule string // 项目模块代号
 
-    serverHost string
-    serverPort uint
-    serverType string
+    serverHost   string
+    serverPort   int
+    serverDomain string
+    serverType   string
 }
 
 func EnvDirRoot() string {
@@ -64,8 +65,12 @@ func EnvServerHost() string {
     return insEnv.serverHost
 }
 
-func EnvServerPort() uint {
+func EnvServerPort() int {
     return insEnv.serverPort
+}
+
+func EnvServerDomain() string {
+    return insEnv.serverDomain
 }
 
 func EnvServerType() string {

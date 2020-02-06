@@ -90,7 +90,7 @@ func LoadBoot(bs *bootstrap) {
         serverConfig := NewConfig().GetConfig("server")
         serverConfigPrefix := EnvType() + "." + EnvProjectKeyModule() + "."
         serverHost := serverConfig.GetString(serverConfigPrefix + "host")
-        serverPort := serverConfig.GetUint(serverConfigPrefix + "port")
+        serverPort := serverConfig.GetInt(serverConfigPrefix + "port")
         serverType := serverConfig.GetString(serverConfigPrefix + "type")
         if (serverPort <= 1024) || (serverPort > 65535) {
             log.Fatalln("服务端口不合法")
@@ -101,6 +101,7 @@ func LoadBoot(bs *bootstrap) {
         insEnv.serverHost = serverHost
         insEnv.serverPort = serverPort
         insEnv.serverType = serverType
+        insEnv.serverDomain = serverHost + ":" + strconv.Itoa(serverPort)
         insEnv.dirRoot = bs.CheckDirRoot()
         os.Setenv("MP_DIR_ROOT", insEnv.dirRoot)
 

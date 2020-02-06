@@ -1,6 +1,6 @@
 base: &serverbase
   host: "127.0.0.1"
-  port: 9901
+  port: 8080
   type: "rpc"
 dev:
   a01api:

@@ -4,8 +4,9 @@ import (
     "os"
 
     "github.com/a07061625/gompf/mpf"
+    "github.com/a07061625/gompf/mpf/mpframe"
+    "github.com/a07061625/gompf/mpf/mpserver"
     "github.com/kataras/iris/v12"
-    "github.com/valyala/tcplisten"
 )
 
 func init() {
@@ -18,21 +19,12 @@ func init() {
 }
 
 func main() {
-    app := iris.New()
-    app.Get("/", func(ctx iris.Context) {
+    outer := mpframe.NewOuterHttp()
+    server := mpserver.NewServerHttp()
+    server.SetOuter(outer)
+    server.App.Get("/", func(ctx iris.Context) {
         ctx.HTML("<h1>Hello World!</h1>")
     })
 
-    listenerCfg := tcplisten.Config{
-        ReusePort:   true,
-        DeferAccept: true,
-        FastOpen:    true,
-    }
-
-    l, err := listenerCfg.NewListener("tcp4", ":8080")
-    if err != nil {
-        mpf.NewLogger().Error(err.Error())
-    }
-
-    app.Run(iris.Listener(l))
+    server.StartServer()
 }
