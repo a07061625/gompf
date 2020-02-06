@@ -39,5 +39,11 @@ func NewResult(reqId string) *result {
         trueReqId = mpf.HashMd5(needStr, "")
     }
 
-    return &result{trueReqId, errorcode.CommonBaseSuccess, make(map[string]interface{}), "", nowTime}
+    r := &result{}
+    r.ReqId = trueReqId
+    r.Code = errorcode.CommonBaseSuccess
+    r.Data = make(map[string]interface{})
+    r.Msg = ""
+    r.Time = nowTime
+    return r
 }
