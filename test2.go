@@ -1,7 +1,6 @@
 package main
 
 import (
-    "log"
     "os"
 
     "github.com/a07061625/gompf/mpf"
@@ -27,13 +26,5 @@ func main() {
         ctx.HTML("<h1>Hello World!</h1>")
     })
 
-    go outer.GetNotify(server.App)()
-
-    if server.Runner == nil {
-        log.Fatalln("Runner")
-    }
-    if len(server.RunConfigs) == 0 {
-        log.Fatalln("RunConfigs")
-    }
-    server.App.Run(server.Runner, server.RunConfigs...)
+    server.StartServer()
 }
