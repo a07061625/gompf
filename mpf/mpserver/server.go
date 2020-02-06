@@ -53,7 +53,6 @@ func (s *serverWeb) bindErrHandles() {
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
             ctx.JSON(result)
-            ctx.StatusCode(iris.StatusOK)
         }
     }
     _, ok = s.errHandles[iris.StatusInternalServerError]

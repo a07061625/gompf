@@ -4,6 +4,8 @@ import (
     "os"
 
     "github.com/a07061625/gompf/mpf"
+    "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
+    "github.com/a07061625/gompf/mpf/mperr"
     "github.com/a07061625/gompf/mpf/mpframe"
     "github.com/a07061625/gompf/mpf/mpserver"
     "github.com/kataras/iris/v12"
@@ -19,6 +21,8 @@ func init() {
 }
 
 func main() {
+    go mpf.ToolHandleError()()
+    panic(mperr.NewPushAliYun(errorcode.PushAliYunParam, "app key不合法", nil))
     outer := mpframe.NewOuterHttp()
     server := mpserver.NewServerHttp()
     server.SetOuter(outer)
