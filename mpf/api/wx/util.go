@@ -40,8 +40,8 @@ type utilWx struct {
 }
 
 // 生成SHA1算法安全签名
-func (util *utilWx) CreateSha1Sign(token string, nowTime int, nonceStr string, encryptMsg string) string {
-    s := []string{token, strconv.Itoa(nowTime), nonceStr, encryptMsg}
+func (util *utilWx) CreateSha1Sign(token string, nowTime int64, nonceStr string, encryptMsg string) string {
+    s := []string{token, strconv.FormatInt(nowTime, 10), nonceStr, encryptMsg}
     sort.Strings(s)
 
     return mpf.HashSha1(strings.Join(s, ""), "")
@@ -187,12 +187,12 @@ func (util *utilWx) EncryptXml(replyMsg string, appId string, appToken string, e
     }
 
     encryptMsg := base64.StdEncoding.EncodeToString(cipherData)
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     sign := util.CreateSha1Sign(appToken, nowTime, nonceStr, encryptMsg)
     resp := &WxResponse{}
     resp.Encrypt = WxCDATAText{"<![CDATA[" + encryptMsg + "]]>"}
     resp.MsgSignature = WxCDATAText{"<![CDATA[" + sign + "]]>"}
-    resp.TimeStamp = strconv.Itoa(nowTime)
+    resp.TimeStamp = strconv.FormatInt(nowTime, 10)
     resp.Nonce = WxCDATAText{"<![CDATA[" + nonceStr + "]]>"}
     encryptXml, err := xml.MarshalIndent(resp, " ", "  ")
     if err != nil {

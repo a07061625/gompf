@@ -56,9 +56,9 @@ func (pp *payPage) SetSubject(subject string) {
     }
 }
 
-func (pp *payPage) SetTimeExpire(timeExpire int) {
-    if timeExpire > time.Now().Second() {
-        et := time.Unix(int64(timeExpire), 0)
+func (pp *payPage) SetTimeExpire(timeExpire int64) {
+    if timeExpire > time.Now().Unix() {
+        et := time.Unix(timeExpire, 0)
         pp.BizContent["time_expire"] = et.Format("2006-01-02 03-04")
     } else {
         panic(mperr.NewAliPayTrade(errorcode.AliPayTradeParam, "绝对超时时间不合法", nil))

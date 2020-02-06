@@ -36,7 +36,7 @@ func (aig *authInfoGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     providerConf := dingtalk.NewConfig().GetProvider()
     suiteTicket := dingtalk.NewUtil().GetProviderSuiteTicket()
-    nowTime := strconv.Itoa(time.Now().Second())
+    nowTime := strconv.FormatInt(time.Now().Unix(), 10)
 
     aig.ReqData["timestamp"] = nowTime
     aig.ReqData["accessKey"] = providerConf.GetSuiteKey()

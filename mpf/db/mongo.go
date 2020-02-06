@@ -21,9 +21,9 @@ import (
 
 type dbMonGo struct {
     conn        *mongo.Client
-    connTime    int
-    refreshTime int
-    idleTime    int
+    connTime    int64
+    refreshTime int64
+    idleTime    int64
     dbName      string
     db          *mongo.Database
 }
@@ -47,13 +47,13 @@ func (database *dbMonGo) connect() {
 
     database.conn = conn
     database.db = database.conn.Database(database.dbName)
-    database.connTime = time.Now().Second()
-    database.idleTime = conf.GetInt("mongo." + mpf.EnvProjectKey() + ".idle")
+    database.connTime = time.Now().Unix()
+    database.idleTime = conf.GetInt64("mongo." + mpf.EnvProjectKey() + ".idle")
     database.refreshTime = database.connTime + database.idleTime
 }
 
 func (database *dbMonGo) Reconnect() {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     if database.conn == nil {
         database.connect()
     } else if database.refreshTime < nowTime {

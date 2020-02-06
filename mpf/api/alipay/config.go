@@ -25,7 +25,7 @@ type configAccount struct {
     pubKeyRsa  string // rsa公钥,包含-----BEGIN RSA PUBLIC KEY-----
     pubKeyAli  string // 支付宝公钥,包含-----BEGIN PUBLIC KEY-----
     valid      bool   // 配置有效状态
-    expireTime int    // 配置过期时间戳
+    expireTime int64  // 配置过期时间戳
 }
 
 func (c *configAccount) SetAppId(appId string) {
@@ -124,11 +124,11 @@ func (c *configAccount) IsValid() bool {
     return c.valid
 }
 
-func (c *configAccount) SetExpireTime(expireTime int) {
+func (c *configAccount) SetExpireTime(expireTime int64) {
     c.expireTime = expireTime
 }
 
-func (c *configAccount) GetExpireTime() int {
+func (c *configAccount) GetExpireTime() int64 {
     return c.expireTime
 }
 
@@ -142,12 +142,12 @@ type IAliPayConfig interface {
 
 type configAliPay struct {
     outer            IAliPayConfig             // 项目实现的接口,用于根据项目获取到相应的配置实例
-    accountClearTime int                       // 账号本地清理时间戳
+    accountClearTime int64                     // 账号本地清理时间戳
     accountList      map[string]*configAccount // 账号本地配置集合
 }
 
 func (c *configAliPay) getLocalAccount(appId string) *configAccount {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     expireTime := nowTime + project.TimeClearLocalAliPayAccount()
     if c.accountClearTime < nowTime {
         delList := make([]string, 0)

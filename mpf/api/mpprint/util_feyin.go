@@ -50,22 +50,22 @@ func (util *utilPrint) refreshFeYinAccessToken(appId string) map[string]interfac
 }
 
 func (util *utilPrint) GetFeYinAccessToken(appId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixPrintFeiYinAccount) + appId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     uniqueKey, ok := redisData["unique_key"]
     if ok && (uniqueKey == redisKey) {
-        eTime, _ := strconv.Atoi(redisData["expire_time"])
+        eTime, _ := strconv.ParseInt(redisData["expire_time"], 10, 64)
         if eTime >= nowTime {
             return redisData["access_token"]
         }
     }
 
     refreshRes := util.refreshFeYinAccessToken(appId)
-    expireTime := refreshRes["expires_in"].(int) + nowTime
+    expireTime := refreshRes["expires_in"].(int64) + nowTime
     activeTime := refreshRes["expires_in"].(time.Duration) + 100
     atData := make([]string, 0)
-    atData = append(atData, redisKey, "access_token", refreshRes["access_token"].(string), "expire_time", strconv.Itoa(expireTime), "unique_key", redisKey)
+    atData = append(atData, redisKey, "access_token", refreshRes["access_token"].(string), "expire_time", strconv.FormatInt(expireTime, 10), "unique_key", redisKey)
     cache.NewRedis().DoHmSet(atData)
     cache.NewRedis().GetConn().Expire(redisKey, activeTime*time.Second)
 

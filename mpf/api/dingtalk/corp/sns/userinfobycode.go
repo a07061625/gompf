@@ -42,7 +42,7 @@ func (uic *userInfoByCode) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     uic.ExtendData["tmp_auth_code"] = uic.tmpAuthCode
 
-    timestamp := strconv.Itoa(time.Now().Second())
+    timestamp := strconv.FormatInt(time.Now().Unix(), 10)
     if uic.atType == dingtalk.AccessTokenTypeCorp {
         conf := dingtalk.NewConfig().GetCorp(uic.corpId)
         uic.ReqData["accessKey"] = conf.GetLoginAppId()

@@ -231,7 +231,7 @@ func NewPlaceSearch() *placeSearch {
     ps.ReqData["coord_type"] = "3"
     ps.ReqData["page_size"] = "10"
     ps.ReqData["page_num"] = "0"
-    ps.ReqData["timestamp"] = strconv.Itoa(time.Now().Second())
+    ps.ReqData["timestamp"] = strconv.FormatInt(time.Now().Unix(), 10)
     ps.areaRegionCityLimit = "false"
     return ps
 }

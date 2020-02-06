@@ -159,7 +159,7 @@ type configJPushApp struct {
     secret     string // 密钥
     auth       string // 密文
     valid      bool   // 配置有效状态
-    expireTime int    // 配置过期时间戳
+    expireTime int64  // 配置过期时间戳
 }
 
 func (c *configJPushApp) SetKeyAndSecret(key, secret string) {
@@ -198,11 +198,11 @@ func (c *configJPushApp) IsValid() bool {
     return c.valid
 }
 
-func (c *configJPushApp) SetExpireTime(expireTime int) {
+func (c *configJPushApp) SetExpireTime(expireTime int64) {
     c.expireTime = expireTime
 }
 
-func (c *configJPushApp) GetExpireTime() int {
+func (c *configJPushApp) GetExpireTime() int64 {
     return c.expireTime
 }
 
@@ -215,7 +215,7 @@ type configJPushGroup struct {
     secret     string // 密钥
     auth       string // 密文
     valid      bool   // 配置有效状态
-    expireTime int    // 配置过期时间戳
+    expireTime int64  // 配置过期时间戳
 }
 
 func (c *configJPushGroup) SetKeyAndSecret(key, secret string) {
@@ -254,11 +254,11 @@ func (c *configJPushGroup) IsValid() bool {
     return c.valid
 }
 
-func (c *configJPushGroup) SetExpireTime(expireTime int) {
+func (c *configJPushGroup) SetExpireTime(expireTime int64) {
     c.expireTime = expireTime
 }
 
-func (c *configJPushGroup) GetExpireTime() int {
+func (c *configJPushGroup) GetExpireTime() int64 {
     return c.expireTime
 }
 
@@ -277,9 +277,9 @@ type configPush struct {
     xinGeAndroid        *configXinGe
     xinGeIos            *configXinGe
     jPushDev            *configJPushDev
-    jPushAppClearTime   int                          // 极光App本地清理时间戳
+    jPushAppClearTime   int64                        // 极光App本地清理时间戳
     jPushAppList        map[string]*configJPushApp   // 极光App本地配置集合
-    jPushGroupClearTime int                          // 极光分组本地清理时间戳
+    jPushGroupClearTime int64                        // 极光分组本地清理时间戳
     jPushGroupList      map[string]*configJPushGroup // 极光分组本地配置集合
 }
 
@@ -330,7 +330,7 @@ func (c *configPush) GetJPushDev() *configJPushDev {
 }
 
 func (c *configPush) getLocalJPushApp(key string) *configJPushApp {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     expireTime := nowTime + project.TimeClearLocalJPushApp()
     if c.jPushAppClearTime < nowTime {
         delList := make([]string, 0)
@@ -373,7 +373,7 @@ func (c *configPush) GetJPushAppList() map[string]*configJPushApp {
 }
 
 func (c *configPush) getLocalJPushGroup(key string) *configJPushGroup {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     expireTime := nowTime + project.TimeClearLocalJPushGroup()
     if c.jPushGroupClearTime < nowTime {
         delList := make([]string, 0)

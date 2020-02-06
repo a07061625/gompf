@@ -20,7 +20,7 @@ type agentGet struct {
 func (ag *agentGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     providerConf := dingtalk.NewConfig().GetProvider()
     suiteTicket := dingtalk.NewUtil().GetProviderSuiteTicket()
-    nowTime := strconv.Itoa(time.Now().Second())
+    nowTime := strconv.FormatInt(time.Now().Unix(), 10)
     corpConf := dingtalk.NewConfig().GetCorp(ag.corpId)
     agentInfo := corpConf.GetAgentInfo(ag.agentTag)
     ag.ExtendData["agentid"] = agentInfo["id"]

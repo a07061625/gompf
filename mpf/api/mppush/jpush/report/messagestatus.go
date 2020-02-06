@@ -23,7 +23,7 @@ type messageStatus struct {
     mppush.BaseJPush
     msgId            string   // 消息ID
     registrationList []string // 设备列表
-    dateTime         int      // 日期时间
+    dateTime         int64    // 日期时间
 }
 
 func (ms *messageStatus) SetMsgId(msgId string) {
@@ -50,7 +50,7 @@ func (ms *messageStatus) SetRegistrationList(registrationList []string) {
     }
 }
 
-func (ms *messageStatus) SetDateTime(dateTime int) {
+func (ms *messageStatus) SetDateTime(dateTime int64) {
     if dateTime > 0 {
         ms.dateTime = dateTime
     } else {
@@ -81,7 +81,7 @@ func (ms *messageStatus) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewMessageStatus(key string) *messageStatus {
     ms := &messageStatus{mppush.NewBaseJPush(mppush.JPushServiceDomainReport, key, "app"), "", make([]string, 0), 0}
-    ms.dateTime = time.Now().Second()
+    ms.dateTime = time.Now().Unix()
     ms.ServiceUri = "/v3/status/message"
     ms.ReqContentType = project.HttpContentTypeJson
     ms.ReqMethod = fasthttp.MethodPost

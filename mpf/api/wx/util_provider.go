@@ -54,13 +54,13 @@ func (util *utilWx) refreshProviderToken() map[string]interface{} {
 
 // 获取服务商凭证
 func (util *utilWx) GetProviderToken() string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     conf := NewConfig().GetProvider()
     redisKey := project.RedisPrefix(project.RedisPrefixWxProviderAccount) + conf.GetCorpId()
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     accessTokenKey, ok := redisData["at_key"]
     if ok && (accessTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["at_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["at_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["at_content"]
         }
@@ -68,9 +68,9 @@ func (util *utilWx) GetProviderToken() string {
 
     refreshRes := util.refreshProviderToken()
     accessToken := refreshRes["provider_access_token"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     ptData := make([]string, 0)
-    ptData = append(ptData, redisKey, "at_key", redisKey, "at_expire", strconv.Itoa(expireTime), "at_content", accessToken)
+    ptData = append(ptData, redisKey, "at_key", redisKey, "at_expire", strconv.FormatInt(expireTime, 10), "at_content", accessToken)
     cache.NewRedis().DoHmSet(ptData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return accessToken
@@ -134,13 +134,13 @@ func (util *utilWx) refreshProviderSuiteToken() map[string]interface{} {
 
 // 获取服务商第三方应用凭证
 func (util *utilWx) GetProviderSuiteToken() string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     conf := NewConfig().GetProvider()
     redisKey := project.RedisPrefix(project.RedisPrefixWxProviderSuite) + conf.GetSuiteId()
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     accessTokenKey, ok := redisData["at_key"]
     if ok && (accessTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["at_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["at_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["at_content"]
         }
@@ -148,9 +148,9 @@ func (util *utilWx) GetProviderSuiteToken() string {
 
     refreshRes := util.refreshProviderSuiteToken()
     accessToken := refreshRes["suite_access_token"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     atData := make([]string, 0)
-    atData = append(atData, redisKey, "at_key", redisKey, "at_expire", strconv.Itoa(expireTime), "at_content", accessToken)
+    atData = append(atData, redisKey, "at_key", redisKey, "at_expire", strconv.FormatInt(expireTime, 10), "at_content", accessToken)
     cache.NewRedis().DoHmSet(atData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return accessToken
@@ -226,12 +226,12 @@ func (util *utilWx) refreshProviderAuthorizeAccessToken(corpId string) map[strin
 
 // 获取服务商授权者访问令牌
 func (util *utilWx) GetProviderAuthorizeAccessToken(corpId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxProviderAuthorize) + corpId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     accessTokenKey, ok := redisData["at_key"]
     if ok && (accessTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["at_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["at_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["at_content"]
         }
@@ -239,9 +239,9 @@ func (util *utilWx) GetProviderAuthorizeAccessToken(corpId string) string {
 
     refreshRes := util.refreshProviderAuthorizeAccessToken(corpId)
     accessToken := refreshRes["access_token"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     atData := make([]string, 0)
-    atData = append(atData, redisKey, "at_key", redisKey, "at_expire", strconv.Itoa(expireTime), "at_content", accessToken)
+    atData = append(atData, redisKey, "at_key", redisKey, "at_expire", strconv.FormatInt(expireTime, 10), "at_content", accessToken)
     cache.NewRedis().DoHmSet(atData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return accessToken
@@ -249,12 +249,12 @@ func (util *utilWx) GetProviderAuthorizeAccessToken(corpId string) string {
 
 // 获取服务商授权者js ticket
 func (util *utilWx) GetProviderAuthorizeJsTicket(corpId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxProviderAuthorize) + corpId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     jsTicketKey, ok := redisData["jt_key"]
     if ok && (jsTicketKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["jt_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["jt_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["jt_content"]
         }
@@ -263,9 +263,9 @@ func (util *utilWx) GetProviderAuthorizeJsTicket(corpId string) string {
     accessToken := util.GetProviderAuthorizeAccessToken(corpId)
     refreshRes := util.refreshCorpJsTicket(accessToken)
     jsTicket := refreshRes["ticket"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     jtData := make([]string, 0)
-    jtData = append(jtData, redisKey, "jt_key", redisKey, "jt_content", jsTicket, "jt_expire", strconv.Itoa(expireTime))
+    jtData = append(jtData, redisKey, "jt_key", redisKey, "jt_content", jsTicket, "jt_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(jtData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return jsTicket

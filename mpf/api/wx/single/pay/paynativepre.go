@@ -56,7 +56,7 @@ func NewPayNativePre(appId string) *payNativePre {
     pnp.appId = appId
     pnp.ReqData["appid"] = conf.GetAppId()
     pnp.ReqData["mch_id"] = conf.GetPayMchId()
-    pnp.ReqData["time_stamp"] = strconv.Itoa(time.Now().Second())
+    pnp.ReqData["time_stamp"] = strconv.FormatInt(time.Now().Unix(), 10)
     pnp.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     return pnp
 }

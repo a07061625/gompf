@@ -35,7 +35,7 @@ type BaseCos struct {
     ReqUri         string            // 请求uri
     signParams     map[string]string // 参与签名的请求参数列表
     signHeaders    map[string]string // 参与签名的请求头列表
-    signExpireTime int               // 签名有效时间,单位为秒
+    signExpireTime int64             // 签名有效时间,单位为秒
 }
 
 func (cos *BaseCos) SetParamData(key, val string) {
@@ -50,7 +50,7 @@ func (cos *BaseCos) SetHeaderData(key, val string) {
     cos.signHeaders[lowerKey] = val
 }
 
-func (cos *BaseCos) SetSignExpireTime(signExpireTime int) {
+func (cos *BaseCos) SetSignExpireTime(signExpireTime int64) {
     if signExpireTime > 0 {
         cos.signExpireTime = signExpireTime
     } else {
@@ -81,9 +81,9 @@ func (cos *BaseCos) createSign() {
         headerValues.Add(sortHeaders[j].Key, sortHeaders[j].Val)
     }
 
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     endTime := nowTime + cos.signExpireTime
-    signTime := strconv.Itoa(nowTime) + ";" + strconv.Itoa(endTime)
+    signTime := strconv.FormatInt(nowTime, 10) + ";" + strconv.FormatInt(endTime, 10)
 
     conf := NewConfig().GetCos()
     signKey := mpf.HashSha1(signTime, conf.GetSecretKey())

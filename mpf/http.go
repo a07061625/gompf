@@ -86,15 +86,15 @@ func NewHttpResp() HttpResp {
 
 type HttpRespResult struct {
     ReqId string                 `json:"req_id"` // 请求ID
-    Time  int                    `json:"time"`   // 请求时间
+    Time  int64                  `json:"time"`   // 请求时间
     Code  uint                   `json:"code"`   // 状态码
     Msg   string                 `json:"msg"`    // 错误信息
     Data  map[string]interface{} `json:"data"`   // 响应数据
 }
 
 func NewHttpRespResult() HttpRespResult {
-    nowTime := time.Now().Second()
-    nonceStr := strconv.Itoa(nowTime) + ToolCreateNonceStr(8, "numlower")
+    nowTime := time.Now().Unix()
+    nonceStr := strconv.FormatInt(nowTime, 10) + ToolCreateNonceStr(8, "numlower")
     reqId := HashMd5(nonceStr, "")
     return HttpRespResult{reqId, nowTime, errorcode.CommonBaseSuccess, "", make(map[string]interface{})}
 }

@@ -22,14 +22,14 @@ type utilQCloud struct {
 
 // 生成权限策略签名
 func (util *utilQCloud) CreatePolicySign(policyConfig map[string]interface{}) map[string]string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     endTime := nowTime + 259200
 
     conf := NewConfig().GetCos()
     result := make(map[string]string)
     result["q-sign-algorithm"] = "sha1"
     result["q-ak"] = conf.GetSecretId()
-    result["q-key-time"] = strconv.Itoa(nowTime) + ";" + strconv.Itoa(endTime)
+    result["q-key-time"] = strconv.FormatInt(nowTime, 10) + ";" + strconv.FormatInt(endTime, 10)
 
     policyInfo := make(map[string]interface{})
     et := time.Unix(int64(endTime), 0)

@@ -55,9 +55,9 @@ func (pa *pushAll) SetDeployStatus(deployStatus int) {
     }
 }
 
-func (pa *pushAll) SetSendTime(sendTime int) {
-    if (sendTime - time.Now().Second()) > 60 {
-        pa.ReqData["send_time"] = strconv.Itoa(sendTime)
+func (pa *pushAll) SetSendTime(sendTime int64) {
+    if (sendTime - time.Now().Unix()) > 60 {
+        pa.ReqData["send_time"] = strconv.FormatInt(sendTime, 10)
     } else {
         panic(mperr.NewPushBaiDu(errorcode.PushBaiDuParam, "发送时间不合法", nil))
     }

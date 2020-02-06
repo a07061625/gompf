@@ -95,11 +95,11 @@ func (bd *BaseBaiDu) createSign(secret string) {
 }
 
 func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     conf := NewConfig().GetBaiDu()
     bd.ReqData["apikey"] = conf.GetAppKey()
-    bd.ReqData["timestamp"] = strconv.Itoa(nowTime)
-    bd.ReqData["expires"] = strconv.Itoa(nowTime + 60)
+    bd.ReqData["timestamp"] = strconv.FormatInt(nowTime, 10)
+    bd.ReqData["expires"] = strconv.FormatInt(nowTime+60, 10)
     if conf.GetDeviceType() == BaiDuDeviceTypeAll {
         bd.ReqData["device_type"] = BaiDuDeviceTypeAndroid
     } else {

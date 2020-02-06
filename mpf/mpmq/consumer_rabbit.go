@@ -49,7 +49,7 @@ func (c *consumerRabbit) connect(conf *viper.Viper) {
         panic(mperr.NewMQRabbit(errorcode.MQRabbitConnect, "rabbit出错", err))
     }
 
-    nonceStr := mpf.ToolCreateNonceStr(6, "numlower") + strconv.Itoa(time.Now().Second())
+    nonceStr := mpf.ToolCreateNonceStr(6, "numlower") + strconv.FormatInt(time.Now().Unix(), 10)
     queue, err := channel.QueueDeclare(
         "mpqueue"+mpf.EnvProjectKey()+nonceStr,
         true,

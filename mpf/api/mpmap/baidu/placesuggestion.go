@@ -90,6 +90,6 @@ func NewPlaceSuggestion() *placeSuggestion {
     ps.ReqData["city_limit"] = "true"
     ps.ReqData["coord_type"] = "3"
     ps.ReqData["ret_coordtype"] = "bd09ll"
-    ps.ReqData["timestamp"] = strconv.Itoa(time.Now().Second())
+    ps.ReqData["timestamp"] = strconv.FormatInt(time.Now().Unix(), 10)
     return ps
 }

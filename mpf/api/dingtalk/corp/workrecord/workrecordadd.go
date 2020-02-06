@@ -40,9 +40,9 @@ func (wra *workRecordAdd) SetUserId(userId string) {
     }
 }
 
-func (wra *workRecordAdd) SetCreateTime(createTime int) {
-    if createTime > time.Now().Second() {
-        wra.createTime = int64(1000 * createTime)
+func (wra *workRecordAdd) SetCreateTime(createTime int64) {
+    if createTime > time.Now().Unix() {
+        wra.createTime = 1000 * createTime
     } else {
         panic(mperr.NewDingTalkCorp(errorcode.DingTalkCorpParam, "待办时间不合法", nil))
     }

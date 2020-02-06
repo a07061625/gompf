@@ -33,8 +33,8 @@ type payMicro struct {
     totalFee   int                    // 订单金额
     goodsTag   string                 // 商品标记
     limitPay   string                 // 指定支付方式
-    startTime  int                    // 交易起始时间
-    expireTime int                    // 交易结束时间
+    startTime  int64                  // 交易起始时间
+    expireTime int64                  // 交易结束时间
     receipt    string                 // 电子发票入口开放标识
     authCode   string                 // 授权码
     sceneInfo  map[string]interface{} // 场景信息
@@ -100,8 +100,8 @@ func (pm *payMicro) SetLimitPay(limitPay string) {
     }
 }
 
-func (pm *payMicro) SetTime(startTime, expireTime int) {
-    nowTime := time.Now().Second()
+func (pm *payMicro) SetTime(startTime, expireTime int64) {
+    nowTime := time.Now().Unix()
     if startTime < 0 {
         panic(mperr.NewWxAccount(errorcode.WxAccountParam, "交易起始时间不合法", nil))
     } else if expireTime < 0 {

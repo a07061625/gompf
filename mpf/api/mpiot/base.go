@@ -120,7 +120,7 @@ func (t *BaseTencent) createTC3Sign(reqBody string) {
     conf := NewConfig().GetTencent()
     t.ReqHeader["X-TC-Region"] = conf.GetRegionId()
     now := time.Now()
-    nowTime := now.Second()
+    nowTime := now.Unix()
     dateStr := now.Format("2006-01-02")
     signHeaders := "content-type;host"
     canonicalRequest := "POST\n/\n\n"
@@ -130,7 +130,7 @@ func (t *BaseTencent) createTC3Sign(reqBody string) {
     canonicalRequest += mpf.HashSha256(reqBody, "")
     credentialScope := dateStr + "/" + t.serviceName + "/tc3_request"
     signStr := "TC3-HMAC-SHA256\n"
-    signStr += strconv.Itoa(nowTime) + "\n"
+    signStr += strconv.FormatInt(nowTime, 10) + "\n"
     signStr += credentialScope + "\n"
     signStr += mpf.HashSha256(canonicalRequest, "")
 
@@ -138,7 +138,7 @@ func (t *BaseTencent) createTC3Sign(reqBody string) {
     secretService := mpf.HashSha256(t.serviceName, secretDate)
     secretSign := mpf.HashSha256("tc3_request", secretService)
     signature := mpf.HashSha256(signStr, secretSign)
-    t.ReqHeader["X-TC-Timestamp"] = strconv.Itoa(nowTime)
+    t.ReqHeader["X-TC-Timestamp"] = strconv.FormatInt(nowTime, 10)
     t.ReqHeader["Authorization"] = "TC3-HMAC-SHA256 Credential=" + conf.GetSecretId() + "/" + credentialScope + ", SignedHeaders=" + signHeaders + ", Signature=" + signature
 }
 

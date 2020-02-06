@@ -119,7 +119,7 @@ func NewAppChatCreate(corpId, agentTag string) *appChatCreate {
     acc := &appChatCreate{wx.NewBaseWxCorp(), "", "", "", "", make([]string, 0), ""}
     acc.corpId = corpId
     acc.agentTag = agentTag
-    acc.chatId = mpf.ToolCreateNonceStr(8, "numlower") + strconv.Itoa(time.Now().Second())
+    acc.chatId = mpf.ToolCreateNonceStr(8, "numlower") + strconv.FormatInt(time.Now().Unix(), 10)
     acc.ReqContentType = project.HttpContentTypeJson
     acc.ReqMethod = fasthttp.MethodPost
     return acc

@@ -21,7 +21,7 @@ import (
 type singleCardConfig struct {
     BaseWxSingle
     appId     string
-    timestamp int
+    timestamp int64
     nonceStr  string
     signType  string // 签名方式
     shopId    string // 门店ID
@@ -59,7 +59,7 @@ func (cc *singleCardConfig) SetNeedJs(needJs bool) {
 }
 
 func (cc *singleCardConfig) checkData() {
-    cc.ReqData["timestamp"] = strconv.Itoa(cc.timestamp)
+    cc.ReqData["timestamp"] = strconv.FormatInt(cc.timestamp, 10)
 }
 
 func (cc *singleCardConfig) GetResult(getType string) map[string]interface{} {
@@ -88,7 +88,7 @@ func (cc *singleCardConfig) GetResult(getType string) map[string]interface{} {
 func NewSingleCardConfig(appId string) *singleCardConfig {
     cc := &singleCardConfig{NewBaseWxSingle(), "", 0, "", "", "", "", "", false}
     cc.appId = appId
-    cc.timestamp = time.Now().Second()
+    cc.timestamp = time.Now().Unix()
     cc.needJs = false
     cc.ReqData["nonceStr"] = mpf.ToolCreateNonceStr(32, "numlower")
     cc.ReqData["signType"] = "SHA1"

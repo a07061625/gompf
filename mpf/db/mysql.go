@@ -19,10 +19,10 @@ import (
 
 type dbMysql struct {
     conn        *xorm.Engine
-    connTime    int
+    connTime    int64
     dbName      string
-    refreshTime int
-    idleTime    int
+    refreshTime int64
+    idleTime    int64
 }
 
 func (database *dbMysql) connect() {
@@ -35,13 +35,13 @@ func (database *dbMysql) connect() {
     }
 
     database.conn = conn
-    database.connTime = time.Now().Second()
-    database.idleTime = conf.GetInt("mysql." + mpf.EnvProjectKey() + ".idle")
+    database.connTime = time.Now().Unix()
+    database.idleTime = conf.GetInt64("mysql." + mpf.EnvProjectKey() + ".idle")
     database.refreshTime = database.connTime + database.idleTime
 }
 
 func (database *dbMysql) Reconnect() {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     if database.conn == nil {
         database.connect()
     } else if database.refreshTime < nowTime {

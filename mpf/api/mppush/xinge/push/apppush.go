@@ -90,12 +90,12 @@ func (ap *appPush) SetExpireTime(expireTime int) {
     }
 }
 
-func (ap *appPush) SetSendTime(sendTime int) {
-    if sendTime < time.Now().Second() {
+func (ap *appPush) SetSendTime(sendTime int64) {
+    if sendTime < time.Now().Unix() {
         panic(mperr.NewPushXinGe(errorcode.PushXinGeParam, "发送时间不合法", nil))
     }
 
-    st := time.Unix(int64(sendTime), 0)
+    st := time.Unix(sendTime, 0)
     ap.ExtendData["send_time"] = st.Format("2006-01-02 03:04:05")
 }
 

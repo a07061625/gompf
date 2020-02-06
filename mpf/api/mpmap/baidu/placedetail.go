@@ -60,6 +60,6 @@ func NewPlaceDetail() *placeDetail {
     pd.SetServiceUri("/place/v2/detail")
     pd.SetRespTag("result")
     pd.ReqData["scope"] = "1"
-    pd.ReqData["timestamp"] = strconv.Itoa(time.Now().Second())
+    pd.ReqData["timestamp"] = strconv.FormatInt(time.Now().Unix(), 10)
     return pd
 }

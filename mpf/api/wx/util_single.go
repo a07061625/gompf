@@ -52,12 +52,12 @@ func (util *utilWx) refreshSingleAccessToken(appId string) map[string]interface{
 
 // 获取公众号或小程序访问令牌
 func (util *utilWx) GetSingleAccessToken(appId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxAccount) + appId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     accessTokenKey, ok := redisData["at_key"]
     if ok && (accessTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["at_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["at_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["at_content"]
         }
@@ -65,9 +65,9 @@ func (util *utilWx) GetSingleAccessToken(appId string) string {
 
     refreshRes := util.refreshSingleAccessToken(appId)
     accessToken := refreshRes["access_token"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     atData := make([]string, 0)
-    atData = append(atData, redisKey, "at_key", redisKey, "at_content", accessToken, "at_expire", strconv.Itoa(expireTime))
+    atData = append(atData, redisKey, "at_key", redisKey, "at_content", accessToken, "at_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(atData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return accessToken
@@ -104,12 +104,12 @@ func (util *utilWx) refreshSingleTicket(appId string, accessToken string, refres
 
 // 获取公众号或小程序js ticket
 func (util *utilWx) GetSingleJsTicket(appId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxAccount) + appId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     jsTicketKey, ok := redisData["jt_key"]
     if ok && (jsTicketKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["jt_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["jt_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["jt_content"]
         }
@@ -118,9 +118,9 @@ func (util *utilWx) GetSingleJsTicket(appId string) string {
     accessToken := util.GetSingleAccessToken(appId)
     refreshRes := util.refreshSingleTicket(appId, accessToken, "jsapi")
     jsTicket := refreshRes["ticket"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     jtData := make([]string, 0)
-    jtData = append(jtData, redisKey, "jt_key", redisKey, "jt_content", jsTicket, "jt_expire", strconv.Itoa(expireTime))
+    jtData = append(jtData, redisKey, "jt_key", redisKey, "jt_content", jsTicket, "jt_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(jtData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return jsTicket
@@ -128,12 +128,12 @@ func (util *utilWx) GetSingleJsTicket(appId string) string {
 
 // 获取公众号或小程序卡券 ticket
 func (util *utilWx) GetSingleCardTicket(appId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxAccount) + appId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     cardTicketKey, ok := redisData["ct_key"]
     if ok && (cardTicketKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["ct_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["ct_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["ct_content"]
         }
@@ -142,9 +142,9 @@ func (util *utilWx) GetSingleCardTicket(appId string) string {
     accessToken := util.GetSingleAccessToken(appId)
     refreshRes := util.refreshSingleTicket(appId, accessToken, "wx_card")
     cardTicket := refreshRes["ticket"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     ctData := make([]string, 0)
-    ctData = append(ctData, redisKey, "ct_key", redisKey, "ct_content", cardTicket, "ct_expire", strconv.Itoa(expireTime))
+    ctData = append(ctData, redisKey, "ct_key", redisKey, "ct_content", cardTicket, "ct_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(ctData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return cardTicket

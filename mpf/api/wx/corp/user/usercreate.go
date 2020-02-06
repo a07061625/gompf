@@ -253,7 +253,7 @@ func NewUserCreate(corpId, agentTag string) *userCreate {
     uc := &userCreate{wx.NewBaseWxCorp(), "", "", "", "", "", "", make([]int, 0), make([]int, 0), make([]int, 0), "", 0, "", "", "", 0, make(map[string]interface{}), false, make(map[string]interface{}), ""}
     uc.corpId = corpId
     uc.agentTag = agentTag
-    uc.userId = mpf.ToolCreateNonceStr(8, "numlower") + strconv.Itoa(time.Now().Second())
+    uc.userId = mpf.ToolCreateNonceStr(8, "numlower") + strconv.FormatInt(time.Now().Unix(), 10)
     uc.gender = 1
     uc.enableFlag = 1
     uc.inviteFlag = true

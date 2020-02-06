@@ -18,9 +18,9 @@ import (
 
 type cacheMem struct {
     conn        *memcache.Client
-    connTime    int
-    refreshTime int
-    idleTime    int
+    connTime    int64
+    refreshTime int64
+    idleTime    int64
 }
 
 func (c *cacheMem) connect() {
@@ -33,13 +33,13 @@ func (c *cacheMem) connect() {
         panic(mperr.NewCacheMem(errorcode.CacheMemCacheConnect, "memcache连接失败", pingErr))
     }
 
-    c.connTime = time.Now().Second()
-    c.idleTime = conf.GetInt("memcache." + mpf.EnvProjectKey() + ".idle")
+    c.connTime = time.Now().Unix()
+    c.idleTime = conf.GetInt64("memcache." + mpf.EnvProjectKey() + ".idle")
     c.refreshTime = c.connTime + c.idleTime
 }
 
 func (c *cacheMem) Reconnect() {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     if c.conn == nil {
         c.connect()
     } else if c.refreshTime < nowTime {

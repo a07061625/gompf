@@ -20,7 +20,7 @@ type configCorp struct {
     loginAppSecret   string                       // 登陆应用密钥
     loginUrlCallback string                       // 登陆应用回调地址
     valid            bool                         // 配置有效状态
-    expireTime       int                          // 配置过期时间戳
+    expireTime       int64                        // 配置过期时间戳
 }
 
 func (c *configCorp) SetCorpId(corpId string) {
@@ -121,11 +121,11 @@ func (c *configCorp) IsValid() bool {
     return c.valid
 }
 
-func (c *configCorp) SetExpireTime(expireTime int) {
+func (c *configCorp) SetExpireTime(expireTime int64) {
     c.expireTime = expireTime
 }
 
-func (c *configCorp) GetExpireTime() int {
+func (c *configCorp) GetExpireTime() int64 {
     return c.expireTime
 }
 
@@ -281,12 +281,12 @@ type IDingTalkConfig interface {
 type configDingTalk struct {
     outer         IDingTalkConfig
     provider      *configProvider
-    corpClearTime int                    // 企业号本地清理时间戳
+    corpClearTime int64                  // 企业号本地清理时间戳
     corpList      map[string]*configCorp // 企业号本地配置集合
 }
 
 func (c *configDingTalk) getLocalCorp(corpId string) *configCorp {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     expireTime := nowTime + project.TimeClearLocalDingTalkCorp()
     if c.corpClearTime < nowTime {
         delList := make([]string, 0)

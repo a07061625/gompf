@@ -21,10 +21,10 @@ import (
 type cacheRedis struct {
     conn        *redis.Client
     db          int
-    connTime    int
+    connTime    int64
     clientName  string
-    refreshTime int
-    idleTime    int
+    refreshTime int64
+    idleTime    int64
 }
 
 func (c *cacheRedis) connect() {
@@ -42,16 +42,16 @@ func (c *cacheRedis) connect() {
         panic(mperr.NewCacheRedis(errorcode.CacheRedisConnect, "redis连接失败", pingErr))
     }
 
-    c.connTime = time.Now().Second()
-    c.idleTime = conf.GetInt("redis." + mpf.EnvProjectKey() + ".idle")
+    c.connTime = time.Now().Unix()
+    c.idleTime = conf.GetInt64("redis." + mpf.EnvProjectKey() + ".idle")
     c.refreshTime = c.connTime + c.idleTime
-    clientKey := strconv.Itoa(c.connTime) + mpf.ToolCreateNonceStr(8, "numlower")
+    clientKey := strconv.FormatInt(c.connTime, 10) + mpf.ToolCreateNonceStr(8, "numlower")
     c.clientName = mpf.HashCrc32(clientKey, "")
     c.conn.Do("client", "setname", c.clientName)
 }
 
 func (c *cacheRedis) Reconnect() {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     if c.conn == nil {
         c.connect()
     } else if c.refreshTime < nowTime {

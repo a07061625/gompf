@@ -44,13 +44,13 @@ func (util *utilDingTalk) refreshCorpAccessToken(corpId, agentTag string) map[st
 
 // 获取企业号访问令牌
 func (util *utilDingTalk) GetCorpAccessToken(corpId, agentTag string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     agentInfo := NewConfig().GetCorp(corpId).GetAgentInfo(agentTag)
     redisKey := project.RedisPrefix(project.RedisPrefixDingTalkCorp) + corpId + "_" + agentInfo["id"]
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     accessTokenKey, ok := redisData["at_key"]
     if ok && (accessTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["at_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["at_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["at_content"]
         }
@@ -60,19 +60,19 @@ func (util *utilDingTalk) GetCorpAccessToken(corpId, agentTag string) string {
     accessToken := refreshRes["access_token"].(string)
     expireTime := nowTime + 7000
     atData := make([]string, 0)
-    atData = append(atData, redisKey, "at_key", redisKey, "at_content", accessToken, "at_expire", strconv.Itoa(expireTime))
+    atData = append(atData, redisKey, "at_key", redisKey, "at_content", accessToken, "at_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(atData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return accessToken
 }
 
 func (util *utilDingTalk) GetCorpSsoToken(corpId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixDingTalkCorp) + corpId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     ssoTokenKey, ok := redisData["sso_key"]
     if ok && (ssoTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["sso_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["sso_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["sso_content"]
         }
@@ -82,19 +82,19 @@ func (util *utilDingTalk) GetCorpSsoToken(corpId string) string {
     ssoToken := refreshRes["access_token"].(string)
     expireTime := nowTime + 7000
     stData := make([]string, 0)
-    stData = append(stData, redisKey, "sso_key", redisKey, "sso_content", ssoToken, "sso_expire", strconv.Itoa(expireTime))
+    stData = append(stData, redisKey, "sso_key", redisKey, "sso_content", ssoToken, "sso_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(stData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return ssoToken
 }
 
 func (util *utilDingTalk) GetCorpSnsToken(corpId string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixDingTalkCorp) + corpId
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     snsTokenKey, ok := redisData["sns_key"]
     if ok && (snsTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["sns_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["sns_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["sns_content"]
         }
@@ -104,19 +104,19 @@ func (util *utilDingTalk) GetCorpSnsToken(corpId string) string {
     snsToken := refreshRes["access_token"].(string)
     expireTime := nowTime + 7000
     stData := make([]string, 0)
-    stData = append(stData, redisKey, "sns_key", redisKey, "sns_content", snsToken, "sns_expire", strconv.Itoa(expireTime))
+    stData = append(stData, redisKey, "sns_key", redisKey, "sns_content", snsToken, "sns_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(stData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return snsToken
 }
 
 func (util *utilDingTalk) GetCorpUserSnsToken(corpId, openid, persistentCode string) string {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixDingTalkCorp) + corpId + "_" + mpf.HashCrc32(openid, "")
     redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
     snsTokenKey, ok := redisData["sns_key"]
     if ok && (snsTokenKey == redisKey) {
-        expireTime, _ := strconv.Atoi(redisData["sns_expire"])
+        expireTime, _ := strconv.ParseInt(redisData["sns_expire"], 10, 64)
         if expireTime >= nowTime {
             return redisData["sns_content"]
         }
@@ -124,9 +124,9 @@ func (util *utilDingTalk) GetCorpUserSnsToken(corpId, openid, persistentCode str
 
     refreshRes := util.refreshUserSnsToken(corpId, openid, persistentCode)
     snsToken := refreshRes["sns_token"].(string)
-    expireTime := refreshRes["expires_in"].(int) + nowTime - 10
+    expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     stData := make([]string, 0)
-    stData = append(stData, redisKey, "sns_key", redisKey, "sns_content", snsToken, "sns_expire", strconv.Itoa(expireTime))
+    stData = append(stData, redisKey, "sns_key", redisKey, "sns_content", snsToken, "sns_expire", strconv.FormatInt(expireTime, 10))
     cache.NewRedis().DoHmSet(stData)
     cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return snsToken

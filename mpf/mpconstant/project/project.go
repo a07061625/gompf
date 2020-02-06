@@ -102,12 +102,12 @@ type project struct {
     defaultLimit uint // 分页限制
 
     // 时间常量
-    timeClearLocalWxAccount     int // 清理本地微信公众号,单位为秒
-    timeClearLocalWxCorp        int // 清理本地微信企业号,单位为秒
-    timeClearLocalAliPayAccount int // 清理本地支付宝账号,单位为秒
-    timeClearLocalDingTalkCorp  int // 清理本地钉钉企业号,单位为秒
-    timeClearLocalJPushApp      int // 清理本地极光app,单位为秒
-    timeClearLocalJPushGroup    int // 清理本地极光分组,单位为秒
+    timeClearLocalWxAccount     int64 // 清理本地微信公众号,单位为秒
+    timeClearLocalWxCorp        int64 // 清理本地微信企业号,单位为秒
+    timeClearLocalAliPayAccount int64 // 清理本地支付宝账号,单位为秒
+    timeClearLocalDingTalkCorp  int64 // 清理本地钉钉企业号,单位为秒
+    timeClearLocalJPushApp      int64 // 清理本地极光app,单位为秒
+    timeClearLocalJPushGroup    int64 // 清理本地极光分组,单位为秒
 
     // redis前缀常量,6位长度由数字和小写字母组成的字符串,纯数字的是框架内部用,带字母的为项目用
     redisPrefix map[string]string
@@ -121,27 +121,27 @@ func DefaultLimit() uint {
     return ins.defaultLimit
 }
 
-func TimeClearLocalWxAccount() int {
+func TimeClearLocalWxAccount() int64 {
     return ins.timeClearLocalWxAccount
 }
 
-func TimeClearLocalWxCorp() int {
+func TimeClearLocalWxCorp() int64 {
     return ins.timeClearLocalWxCorp
 }
 
-func TimeClearLocalAliPayAccount() int {
+func TimeClearLocalAliPayAccount() int64 {
     return ins.timeClearLocalAliPayAccount
 }
 
-func TimeClearLocalDingTalkCorp() int {
+func TimeClearLocalDingTalkCorp() int64 {
     return ins.timeClearLocalDingTalkCorp
 }
 
-func TimeClearLocalJPushApp() int {
+func TimeClearLocalJPushApp() int64 {
     return ins.timeClearLocalJPushApp
 }
 
-func TimeClearLocalJPushGroup() int {
+func TimeClearLocalJPushGroup() int64 {
     return ins.timeClearLocalJPushGroup
 }
 
@@ -190,12 +190,12 @@ func LoadProject(conf *viper.Viper) {
         projectKey := os.Getenv("MP_PROJECT_KEY")
         ins.defaultPage = conf.GetUint(projectKey + ".defaultpage")
         ins.defaultLimit = conf.GetUint(projectKey + ".defaultlimit")
-        ins.timeClearLocalWxAccount = int(conf.GetUint(projectKey + ".time.clearlocal.wxaccount"))
-        ins.timeClearLocalWxCorp = int(conf.GetUint(projectKey + ".time.clearlocal.wxcorp"))
-        ins.timeClearLocalAliPayAccount = int(conf.GetUint(projectKey + ".time.clearlocal.alipayaccount"))
-        ins.timeClearLocalDingTalkCorp = int(conf.GetUint(projectKey + ".time.clearlocal.dingtalkcorp"))
-        ins.timeClearLocalJPushApp = int(conf.GetUint(projectKey + ".time.clearlocal.jpushapp"))
-        ins.timeClearLocalJPushGroup = int(conf.GetUint(projectKey + ".time.clearlocal.jpushgroup"))
+        ins.timeClearLocalWxAccount = int64(conf.GetUint64(projectKey + ".time.clearlocal.wxaccount"))
+        ins.timeClearLocalWxCorp = int64(conf.GetUint64(projectKey + ".time.clearlocal.wxcorp"))
+        ins.timeClearLocalAliPayAccount = int64(conf.GetUint64(projectKey + ".time.clearlocal.alipayaccount"))
+        ins.timeClearLocalDingTalkCorp = int64(conf.GetUint64(projectKey + ".time.clearlocal.dingtalkcorp"))
+        ins.timeClearLocalJPushApp = int64(conf.GetUint64(projectKey + ".time.clearlocal.jpushapp"))
+        ins.timeClearLocalJPushGroup = int64(conf.GetUint64(projectKey + ".time.clearlocal.jpushgroup"))
 
         redisKeyPrefix := "mp" + os.Getenv("MP_PROJECT_TAG")
         redisPrefixList := conf.GetStringMapString(projectKey + ".prefix.redis")

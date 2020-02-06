@@ -19,12 +19,12 @@ import (
 
 type singleJsConfig struct {
     BaseWxSingle
-    timestamp int
+    timestamp int64
     nonceStr  string
     url       string
 }
 
-func (jc *singleJsConfig) SetTimestamp(timestamp int) {
+func (jc *singleJsConfig) SetTimestamp(timestamp int64) {
     if timestamp > 1000000000 {
         jc.timestamp = timestamp
     } else {
@@ -52,7 +52,7 @@ func (jc *singleJsConfig) SetUrl(url string) {
 
 func (jc *singleJsConfig) GetResult(getType string) map[string]string {
     ticket := NewUtilWx().GetSingleCache(jc.ReqData["appId"], getType)
-    jc.ReqData["timestamp"] = strconv.Itoa(jc.timestamp)
+    jc.ReqData["timestamp"] = strconv.FormatInt(jc.timestamp, 10)
     signStr := "jsapi_ticket=" + ticket + "&noncestr=" + jc.ReqData["nonceStr"] + "&timestamp=" + jc.ReqData["timestamp"] + "&url=" + jc.url
     jc.ReqData["signature"] = mpf.HashSha1(signStr, "")
     return jc.ReqData
@@ -63,7 +63,7 @@ func NewSingleJsConfig(appId string) *singleJsConfig {
     jc := &singleJsConfig{NewBaseWxSingle(), 0, "", ""}
     jc.ReqData["appId"] = conf.GetAppId()
     jc.ReqData["nonceStr"] = mpf.ToolCreateNonceStr(32, "numlower")
-    jc.timestamp = time.Now().Second()
+    jc.timestamp = time.Now().Unix()
     jc.url = conf.GetPayAuthUrl()
     return jc
 }

@@ -26,7 +26,7 @@ type configSingle struct {
     sslCert      string // CERT PEM证书内容,包含---PUBLIC XXX---内容
     sslKey       string // KEY PEM证书内容,包含---PRIVATE XXX---内容
     valid        bool   // 配置有效状态
-    expireTime   int    // 配置过期时间戳
+    expireTime   int64  // 配置过期时间戳
 }
 
 func (c *configSingle) SetClientIp(clientIp string) {
@@ -118,11 +118,11 @@ func (c *configSingle) IsValid() bool {
     return c.valid
 }
 
-func (c *configSingle) SetExpireTime(expireTime int) {
+func (c *configSingle) SetExpireTime(expireTime int64) {
     c.expireTime = expireTime
 }
 
-func (c *configSingle) GetExpireTime() int {
+func (c *configSingle) GetExpireTime() int64 {
     return c.expireTime
 }
 
@@ -545,9 +545,9 @@ type configWx struct {
     outer            IWxConfig                 // 项目实现的接口,用于根据项目获取到相应的配置实例
     open             *configOpen               // 第三方平台配置
     provider         *configProvider           // 企业服务商配置
-    accountClearTime int                       // 公众号本地清理时间戳
+    accountClearTime int64                     // 公众号本地清理时间戳
     accountList      map[string]*configAccount // 公众号本地配置集合
-    corpClearTime    int                       // 企业号本地清理时间戳
+    corpClearTime    int64                     // 企业号本地清理时间戳
     corpList         map[string]*configCorp    // 企业号本地配置集合
 }
 
@@ -587,7 +587,7 @@ func (c *configWx) GetProvider() *configProvider {
 }
 
 func (c *configWx) getLocalAccount(appId string) *configAccount {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     expireTime := nowTime + project.TimeClearLocalWxAccount()
     if c.accountClearTime < nowTime {
         delList := make([]string, 0)
@@ -630,7 +630,7 @@ func (c *configWx) GetAccountList() map[string]*configAccount {
 }
 
 func (c *configWx) getLocalCorp(corpId string) *configCorp {
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     expireTime := nowTime + project.TimeClearLocalWxCorp()
     if c.corpClearTime < nowTime {
         delList := make([]string, 0)

@@ -175,7 +175,7 @@ func (util *utilAliPay) SendRequest(service IAliPayBase, errorCode uint) api.Api
 
 // 生成手机网页支付HTML代码
 func (util *utilAliPay) CreatePayWapHtml(data map[string]interface{}) string {
-    formId := "alipaywap" + mpf.ToolCreateNonceStr(6, "numlower") + strconv.Itoa(time.Now().Second())
+    formId := "alipaywap" + mpf.ToolCreateNonceStr(6, "numlower") + strconv.FormatInt(time.Now().Unix(), 10)
     html := "<form id=\"" + formId + "\" name=\"" + formId + "\" action=\"" + UrlGateWay + "?charset=utf-8\" method=\"POST\">"
     for k, v := range data {
         tv := ""

@@ -22,7 +22,7 @@ type singleCardAddConfig struct {
     BaseWxSingle
     appId     string                       // 应用ID
     cardList  map[string]map[string]string // 卡券列表
-    timestamp int                          // 时间戳
+    timestamp int64                        // 时间戳
     nonceStr  string                       // 随机字符串
     needJs    bool                         // JS签名标识,true:需要JS签名 false:不需要JS签名
 }
@@ -49,7 +49,7 @@ func (cec *singleCardAddConfig) checkData() {
 func (cec *singleCardAddConfig) GetResult(getType string) map[string]interface{} {
     cec.checkData()
     ticket := NewUtilWx().GetSingleCache(cec.appId, getType)
-    timeStr := strconv.Itoa(cec.timestamp)
+    timeStr := strconv.FormatInt(cec.timestamp, 10)
     result := make(map[string]interface{})
 
     cards := make([]map[string]string, 0)
@@ -81,7 +81,7 @@ func (cec *singleCardAddConfig) GetResult(getType string) map[string]interface{}
 func NewSingleCardAddConfig(appId string) *singleCardAddConfig {
     cec := &singleCardAddConfig{NewBaseWxSingle(), "", make(map[string]map[string]string), 0, "", false}
     cec.appId = appId
-    cec.timestamp = time.Now().Second()
+    cec.timestamp = time.Now().Unix()
     cec.nonceStr = mpf.ToolCreateNonceStr(32, "numlower")
     cec.needJs = false
     return cec
