@@ -52,7 +52,7 @@ func (s *serverWeb) bindErrHandles() {
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
-            ctx.WriteString(mpf.JsonMarshal(result))
+            ctx.JSON(result)
             ctx.StatusCode(iris.StatusOK)
         }
     }
@@ -63,7 +63,7 @@ func (s *serverWeb) bindErrHandles() {
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonBaseServer
             result.Msg = "服务出错"
-            ctx.WriteString(mpf.JsonMarshal(result))
+            ctx.JSON(result)
         }
     }
 
