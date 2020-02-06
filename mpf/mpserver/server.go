@@ -8,6 +8,7 @@ package mpserver
 
 import (
     "log"
+    "net"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
@@ -70,7 +71,7 @@ func (s *serverWeb) bindErrHandles() {
     }
 }
 
-func (s *serverWeb) initRunConfig() {
+func (s *serverWeb) initRunConfig() net.Listener {
     s.runConfigs = append(s.runConfigs, iris.WithCharset("UTF-8"))
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
@@ -94,11 +95,15 @@ func (s *serverWeb) initRunConfig() {
     if err != nil {
         log.Fatalln("listen error:" + err.Error())
     }
+
+    return listen
 }
 
 func (s *serverWeb) baseStart() {
     go s.outer.GetNotify(s.App)()
 
+    s.bindErrHandles()
+    listen := s.initRunConfig()
     s.App.Run(iris.Listener(listen), s.runConfigs...)
 }
 
