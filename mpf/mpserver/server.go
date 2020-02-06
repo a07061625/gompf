@@ -22,12 +22,12 @@ type IServerWeb interface {
 
 type serverWeb struct {
     App        *iris.Application
-    outer      mpframe.IOuterWeb
+    outer      *mpframe.IOuterWeb
     RunConfigs []iris.Configurator
     Runner     iris.Runner
 }
 
-func (s serverWeb) SetOuter(outer mpframe.IOuterWeb) {
+func (s serverWeb) SetOuter(outer *mpframe.IOuterWeb) {
     s.outer = outer
 }
 
