@@ -17,25 +17,24 @@ import (
 
 type IServerWeb interface {
     SetOuter(outer mpframe.IOuterWeb)
-    StartServer()
+    initServer()
 }
 
 type serverWeb struct {
     App        *iris.Application
     outer      mpframe.IOuterWeb
-    runConfigs []iris.Configurator
+    RunConfigs []iris.Configurator
+    Runner     iris.Runner
 }
 
 func (s serverWeb) SetOuter(outer mpframe.IOuterWeb) {
     s.outer = outer
 }
 
-func (s serverWeb) AddRunConfig(conf iris.Configurator) {
-    s.runConfigs = append(s.runConfigs, conf)
-}
-
-func (s serverWeb) baseStart() {
-    go s.outer.GetNotify(s.App)()
+func (s serverWeb) baseInit() {
+    s.App = iris.New()
+    s.RunConfigs = make([]iris.Configurator, 0)
+    s.RunConfigs = append(s.RunConfigs, iris.WithoutInterruptHandler)
 
     listenCfg := tcplisten.Config{
         ReusePort:   true,
@@ -47,14 +46,9 @@ func (s serverWeb) baseStart() {
     if err != nil {
         log.Fatalln("listen error:" + err.Error())
     }
-
-    s.App.Run(iris.Listener(listen), s.runConfigs...)
+    s.Runner = iris.Listener(listen)
 }
 
 func newServerWeb() serverWeb {
-    s := serverWeb{}
-    s.App = iris.New()
-    s.runConfigs = make([]iris.Configurator, 0)
-    s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
-    return s
+    return serverWeb{}
 }

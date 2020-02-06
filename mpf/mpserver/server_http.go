@@ -10,10 +10,12 @@ type serverHttp struct {
     serverWeb
 }
 
-func (s *serverHttp) StartServer() {
-    s.baseStart()
+func (s *serverHttp) initServer() {
+    s.baseInit()
 }
 
 func NewServerHttp() *serverHttp {
-    return &serverHttp{newServerWeb()}
+    s := &serverHttp{newServerWeb()}
+    s.initServer()
+    return s
 }

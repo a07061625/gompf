@@ -26,5 +26,6 @@ func main() {
         ctx.HTML("<h1>Hello World!</h1>")
     })
 
-    server.StartServer()
+    go outer.GetNotify(server.App)
+    server.App.Run(server.Runner, server.RunConfigs...)
 }
