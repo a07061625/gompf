@@ -6,21 +6,14 @@
  */
 package mpserver
 
-import "log"
-
 type serverHttp struct {
     serverWeb
 }
 
-func (s *serverHttp) initServer() {
-    s.initBase()
+func (s *serverHttp) StartServer() {
+    s.baseStart()
 }
 
 func NewServerHttp() *serverHttp {
-    s := &serverHttp{newServerWeb()}
-    s.initServer()
-    if s.Runner == nil {
-        log.Println("http")
-    }
-    return s
+    return &serverHttp{newServerWeb()}
 }
