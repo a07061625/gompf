@@ -87,20 +87,20 @@ func LoadBoot(bs *bootstrap) {
         insConfig.dirConfigs = bs.CheckDirConfigs()
 
         // 环境相关
-        serviceConfig := NewConfig().GetConfig("service")
-        serviceConfigPrefix := EnvType() + "." + EnvProjectKeyModule() + "."
-        serviceHost := serviceConfig.GetString(serviceConfigPrefix + "host")
-        servicePort := serviceConfig.GetUint(serviceConfigPrefix + "port")
-        serviceType := serviceConfig.GetString(serviceConfigPrefix + "type")
-        if (servicePort <= 1024) || (servicePort > 65535) {
+        serverConfig := NewConfig().GetConfig("server")
+        serverConfigPrefix := EnvType() + "." + EnvProjectKeyModule() + "."
+        serverHost := serverConfig.GetString(serverConfigPrefix + "host")
+        serverPort := serverConfig.GetUint(serverConfigPrefix + "port")
+        serverType := serverConfig.GetString(serverConfigPrefix + "type")
+        if (serverPort <= 1024) || (serverPort > 65535) {
             log.Fatalln("服务端口不合法")
         }
-        if (serviceType != EnvServiceTypeApi) && (serviceType != EnvServiceTypeRpc) {
+        if (serverType != EnvServerTypeApi) && (serverType != EnvServerTypeRpc) {
             log.Fatalln("服务类型不支持")
         }
-        insEnv.serviceHost = serviceHost
-        insEnv.servicePort = servicePort
-        insEnv.serviceType = serviceType
+        insEnv.serverHost = serverHost
+        insEnv.serverPort = serverPort
+        insEnv.serverType = serverType
         insEnv.dirRoot = bs.CheckDirRoot()
         os.Setenv("MP_DIR_ROOT", insEnv.dirRoot)
 
@@ -132,8 +132,8 @@ func LoadBoot(bs *bootstrap) {
         fields["env_type"] = EnvType()
         fields["env_project_tag"] = EnvProjectTag()
         fields["env_project_module"] = EnvProjectModule()
-        fields["env_service_host"] = serviceHost
-        fields["env_service_port"] = strconv.Itoa(int(servicePort))
+        fields["env_server_host"] = serverHost
+        fields["env_server_port"] = strconv.Itoa(int(serverPort))
         insLog.createLogger(fields)
     })
 }

@@ -1,8 +1,8 @@
-base: &servicebase
+base: &serverbase
   host: "127.0.0.1"
   port: 9901
   type: "rpc"
 dev:
   a01api:
-    <<: *servicebase
+    <<: *serverbase
     type: "api"

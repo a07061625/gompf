@@ -17,8 +17,8 @@ const (
     EnvTypeDev     = "dev"     // 环境类型-测试
     EnvTypeProduct = "product" // 环境类型-生产
 
-    EnvServiceTypeApi = "api" // 服务类型-API
-    EnvServiceTypeRpc = "rpc" // 服务类型-RPC
+    EnvServerTypeApi = "api" // 服务类型-API
+    EnvServerTypeRpc = "rpc" // 服务类型-RPC
 )
 
 type env struct {
@@ -31,9 +31,9 @@ type env struct {
     projectKey       string // 项目代号
     projectKeyModule string // 项目模块代号
 
-    serviceHost string
-    servicePort uint
-    serviceType string
+    serverHost string
+    serverPort uint
+    serverType string
 }
 
 func EnvDirRoot() string {
@@ -60,16 +60,16 @@ func EnvProjectKeyModule() string {
     return insEnv.projectKeyModule
 }
 
-func EnvServiceHost() string {
-    return insEnv.serviceHost
+func EnvServerHost() string {
+    return insEnv.serverHost
 }
 
-func EnvServicePort() uint {
-    return insEnv.servicePort
+func EnvServerPort() uint {
+    return insEnv.serverPort
 }
 
-func EnvServiceType() string {
-    return insEnv.serviceType
+func EnvServerType() string {
+    return insEnv.serverType
 }
 
 var (
