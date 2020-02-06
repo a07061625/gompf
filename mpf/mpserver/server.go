@@ -36,6 +36,7 @@ func (s *serverWeb) AddRunConfig(conf iris.Configurator) {
 
 func (s *serverWeb) baseStart() {
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
+    s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
     go s.outer.GetNotify(s.App)()
 
