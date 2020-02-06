@@ -44,3 +44,7 @@ func main() {
     call("f2", "100", 66)
     call("f3")
 }
+
+// https://github.com/kataras/iris/blob/master/_examples/http-listening/custom-listener/unix-reuseport/main.go
+// https://www.ganymedenil.com/2019/05/23/go-standard-library-by-close-the-application-gracefully.html
+// https://studyiris.com/doc/irisDoc/Host.html
