@@ -9,8 +9,11 @@ package mpserver
 import (
     "log"
 
+    "strconv"
+
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
+    "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mpframe"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
@@ -51,6 +54,7 @@ func (s *serverWeb) bindErrHandles() {
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
+            ctx.ContentType(project.HttpContentTypeJson)
             ctx.WriteString(mpf.JsonMarshal(result))
         }
     }
@@ -61,6 +65,7 @@ func (s *serverWeb) bindErrHandles() {
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonBaseServer
             result.Msg = "服务出错"
+            ctx.ContentType(project.HttpContentTypeJson)
             ctx.WriteString(mpf.JsonMarshal(result))
         }
     }
@@ -68,6 +73,13 @@ func (s *serverWeb) bindErrHandles() {
     for k, v := range s.errHandles {
         s.App.OnErrorCode(k, v)
     }
+    s.App.OnAnyErrorCode(func(ctx iris.Context) {
+        result := mpresponse.NewResult("")
+        result.Code = errorcode.CommonBaseServer
+        result.Msg = "服务出错" + strconv.Itoa(ctx.GetStatusCode())
+        ctx.ContentType(project.HttpContentTypeJson)
+        ctx.WriteString(mpf.JsonMarshal(result))
+    })
 }
 
 func (s *serverWeb) baseStart() {
