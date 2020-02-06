@@ -20,13 +20,13 @@ import (
 )
 
 const (
-    LogTypeDebug  = "DEBUG"
-    LogTypeWarn   = "WARN"
-    LogTypeInfo   = "INFO"
-    LogTypeError  = "ERROR"
-    LogTypeDPanic = "DPANIC"
-    LogTypePanic  = "PANIC"
-    LogTypeFatal  = "FATAL"
+    LogTypeDebug  = 1
+    LogTypeWarn   = 2
+    LogTypeInfo   = 3
+    LogTypeError  = 4
+    LogTypeDPanic = 5
+    LogTypePanic  = 6
+    LogTypeFatal  = 7
 )
 
 type LogField struct {
@@ -75,8 +75,6 @@ func (ld *logDaily) createLogger() {
     prodEncoder.StacktraceKey = "S"
     prodEncoder.MessageKey = "M"
     prodEncoder.LineEnding = zapcore.DefaultLineEnding
-    prodEncoder.EncodeDuration = zapcore.StringDurationEncoder
-    prodEncoder.EncodeName = zapcore.FullNameEncoder
 
     // 开启开发模式,调用跟踪
     caller := zap.AddCaller()
@@ -141,7 +139,7 @@ func (ld *logDaily) ChangeErrorLog() {
     }
 }
 
-func (ld *logDaily) log(level, msg string, fields ...LogField) {
+func (ld *logDaily) log(level int, msg string, fields ...LogField) {
     fieldList := make(map[string]interface{})
     if len(ld.loggerFields) > 0 {
         for k, v := range ld.loggerFields {
@@ -155,25 +153,36 @@ func (ld *logDaily) log(level, msg string, fields ...LogField) {
     }
 
     fieldJson, _ := json.Marshal(fieldList)
-    logMsg := time.Now().Format("2006-01-02 03:04:05.000") + " | " + level + " | " + os.Getenv("MP_REQ_ID") + ld.logPrefix
-    logMsg += " | " + string(fieldJson) + "\n" + msg
+    prefixStr := time.Now().Format("2006-01-02 03:04:05.000")
+    logMsg := " | " + os.Getenv("MP_REQ_ID") + ld.logPrefix + " | " + string(fieldJson) + "\n msg: " + msg
+    if level >= LogTypeError {
+        logMsg += "\n stack:"
+    }
     switch level {
     case LogTypeInfo:
-        ld.logger.Info(logMsg)
+        prefixStr += " | INFO"
+        ld.logger.Info(prefixStr + logMsg)
     case LogTypeError:
-        ld.logger.Error(logMsg)
+        prefixStr += " | ERROR"
+        ld.logger.Error(prefixStr + logMsg)
     case LogTypeFatal:
-        ld.logger.Fatal(logMsg)
+        prefixStr += " | FATAL"
+        ld.logger.Fatal(prefixStr + logMsg)
     case LogTypeWarn:
-        ld.logger.Warn(logMsg)
+        prefixStr += " | WARN"
+        ld.logger.Warn(prefixStr + logMsg)
     case LogTypeDebug:
-        ld.logger.Debug(logMsg)
+        prefixStr += " | DEBUG"
+        ld.logger.Debug(prefixStr + logMsg)
     case LogTypeDPanic:
-        ld.logger.DPanic(logMsg)
+        prefixStr += " | DPANIC"
+        ld.logger.DPanic(prefixStr + logMsg)
     case LogTypePanic:
-        ld.logger.Panic(logMsg)
+        prefixStr += " | PANIC"
+        ld.logger.Panic(prefixStr + logMsg)
     default:
-        ld.logger.Info(logMsg)
+        prefixStr += " | INFO"
+        ld.logger.Info(prefixStr + logMsg)
     }
 }
 
