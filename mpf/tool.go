@@ -11,6 +11,7 @@ import (
     "math/rand"
     "time"
 
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/vmihailenco/msgpack/v4"
 )
 
@@ -59,7 +60,7 @@ func ToolCreateNonceStr(length int, dataType string) string {
 func ToolPack(data interface{}) ([]byte, error) {
     res, err := msgpack.Marshal(data)
     if err != nil {
-        NewLogger().Error("pack data error: " + err.Error())
+        mplog.LogError("pack data error: " + err.Error())
         return nil, err
     }
     return res, nil
@@ -69,7 +70,7 @@ func ToolPack(data interface{}) ([]byte, error) {
 func ToolUnpack(data []byte, item *interface{}) error {
     err := msgpack.Unmarshal(data, item)
     if err != nil {
-        NewLogger().Error("unpack data error: " + err.Error())
+        mplog.LogError("unpack data error: " + err.Error())
         return err
     }
     return nil
@@ -89,7 +90,7 @@ func ToolHandleError() func() {
         if p := recover(); p != nil {
             err, ok := p.(error)
             if ok {
-                NewLogger().Error(err.Error())
+                mplog.LogError(err.Error())
                 return
             }
             fmt.Printf("%#v\n", p)

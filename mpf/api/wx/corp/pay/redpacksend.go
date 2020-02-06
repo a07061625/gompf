@@ -20,6 +20,7 @@ import (
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/valyala/fasthttp"
 )
 
@@ -197,11 +198,11 @@ func (rps *redPackSend) SendRequest() api.ApiResult {
     respData := make(map[string]string)
     xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
     if respData["return_code"] == "FAIL" {
-        mpf.NewLogger().Error(respData["return_msg"])
+        mplog.LogError(respData["return_msg"])
         result.Code = errorcode.WxCorpRequestPost
         result.Msg = respData["return_msg"]
     } else if respData["result_code"] == "FAIL" {
-        mpf.NewLogger().Error(respData["err_code"])
+        mplog.LogError(respData["err_code"])
         result.Code = errorcode.WxCorpRequestPost
         result.Msg = respData["err_code_des"]
     } else {

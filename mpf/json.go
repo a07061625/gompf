@@ -9,6 +9,7 @@ package mpf
 import (
     "strings"
 
+    "github.com/a07061625/gompf/mpf/mplog"
     jsoniter "github.com/json-iterator/go"
 )
 
@@ -28,7 +29,7 @@ func init() {
 func JsonMarshal(data interface{}) string {
     res, err := insJson.Config.Marshal(data)
     if err != nil {
-        NewLogger().Error(err.Error())
+        mplog.LogError(err.Error())
     }
     return string(res)
 }

@@ -13,6 +13,7 @@ import (
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpframe"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
     "github.com/valyala/tcplisten"
@@ -48,7 +49,7 @@ func (s *serverWeb) bindErrHandles() {
     _, ok := s.errHandles[iris.StatusNotFound]
     if !ok {
         s.errHandles[iris.StatusNotFound] = func(ctx iris.Context) {
-            mpf.NewLogger().Info("uri:" + ctx.RequestPath(false) + " not exist")
+            mplog.LogInfo("uri:" + ctx.RequestPath(false) + " not exist")
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
@@ -58,7 +59,7 @@ func (s *serverWeb) bindErrHandles() {
     _, ok = s.errHandles[iris.StatusInternalServerError]
     if !ok {
         s.errHandles[iris.StatusInternalServerError] = func(ctx iris.Context) {
-            mpf.NewLogger().Error("uri:" + ctx.RequestPath(false) + " error")
+            mplog.LogError("uri:" + ctx.RequestPath(false) + " error")
             result := mpresponse.NewResult("")
             result.Code = errorcode.CommonBaseServer
             result.Msg = "服务出错"
@@ -80,7 +81,7 @@ func (s *serverWeb) initRunConfig() net.Listener {
 
     s.App.ConfigureHost(func(host *iris.Supervisor) {
         host.RegisterOnShutdown(func() {
-            mpf.NewLogger().Info("server shut down")
+            mplog.LogInfo("server shut down")
         })
     })
 

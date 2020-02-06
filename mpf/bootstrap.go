@@ -14,7 +14,7 @@ import (
     "sync"
 
     "github.com/a07061625/gompf/mpf/mpconstant/project"
-    "github.com/robfig/cron"
+    "github.com/a07061625/gompf/mpf/mplog"
 )
 
 type bootstrap struct {
@@ -110,31 +110,16 @@ func LoadBoot(bs *bootstrap) {
         project.LoadProject(projectConfig)
 
         // 日志相关
-        insLog.logDir = bs.CheckDirLogs() + "/" + EnvProjectKey()
-        err := os.MkdirAll(insLog.logDir, os.ModePerm)
-        if err != nil {
-            log.Fatalln("log dir create fail:" + err.Error())
-        }
         logConfig := NewConfig().GetConfig("log")
-        logConfigPrefix := "zap." + EnvProjectKey() + "."
-        insLog.SetLogAccess(logConfig.GetString(logConfigPrefix + "access"))
-        insLog.SetLogError(logConfig.GetString(logConfigPrefix + "error"))
-        insLog.SetLogSuffix(logConfig.GetString(logConfigPrefix + "suffix"))
-
-        c := cron.New()
-        c.AddFunc(logConfig.GetString(logConfigPrefix+"cron.access"), insLog.ChangeAccessLog)
-        c.AddFunc(logConfig.GetString(logConfigPrefix+"cron.error"), insLog.ChangeErrorLog)
-        c.Start()
-        insLog.SetCron(c)
-        insLog.ChangeAccessLog()
-        insLog.ChangeErrorLog()
-
-        fields := logConfig.GetStringMapString(logConfigPrefix + "fields")
-        fields["env_type"] = EnvType()
-        fields["env_project_tag"] = EnvProjectTag()
-        fields["env_project_module"] = EnvProjectModule()
-        fields["env_server_host"] = serverHost
-        fields["env_server_port"] = strconv.Itoa(int(serverPort))
-        insLog.createLogger(fields)
+        loggerFields := make(map[string]interface{})
+        loggerFields["env_type"] = EnvType()
+        loggerFields["env_project_tag"] = EnvProjectTag()
+        loggerFields["env_project_module"] = EnvProjectModule()
+        loggerFields["env_server_host"] = serverHost
+        loggerFields["env_server_port"] = serverPort
+        logExtend := make(map[string]interface{})
+        logExtend["log_dir"] = bs.CheckDirLogs() + "/" + EnvProjectKey()
+        logExtend["conf_prefix"] = "zap." + EnvProjectKey() + "."
+        mplog.Load(logConfig, loggerFields, logExtend)
     })
 }

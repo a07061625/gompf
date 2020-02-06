@@ -19,7 +19,6 @@ func init() {
 }
 
 func main() {
-    mpf.NewLogger().Error("test1111")
     outer := mpframe.NewOuterHttp()
     server := mpserver.NewServerHttp()
     server.SetOuter(outer)

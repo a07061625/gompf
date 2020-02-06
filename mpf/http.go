@@ -15,6 +15,7 @@ import (
 
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/valyala/fasthttp"
 )
 
@@ -138,7 +139,7 @@ func HttpSendReq(client *fasthttp.Client, req *fasthttp.Request, timeout time.Du
             result.Cookies[string(key)] = append(result.Cookies[string(key)], string(value))
         })
     } else {
-        NewLogger().Error("send http req fail,reason: " + err.Error())
+        mplog.LogError("send http req fail,reason: " + err.Error())
         result.RespCode = errorcode.CommonRequestFail
         result.Msg = err.Error()
     }

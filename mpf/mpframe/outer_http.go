@@ -14,7 +14,7 @@ import (
     "syscall"
     "time"
 
-    "github.com/a07061625/gompf/mpf"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/kataras/iris/v12"
 )
 
@@ -35,7 +35,7 @@ func (oh *outerHttp) GetNotify(app *iris.Application) func() {
 
         select {
         case s := <-ch:
-            mpf.NewLogger().Info("shutdown on signal " + fmt.Sprintf("%#v", s))
+            mplog.LogInfo("shutdown on signal " + fmt.Sprintf("%#v", s))
 
             timeout := 5 * time.Second
             ctx, _ := context.WithTimeout(context.Background(), timeout)

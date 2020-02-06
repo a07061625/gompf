@@ -14,6 +14,7 @@ import (
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mperr"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/spf13/viper"
     "github.com/streadway/amqp"
 )
@@ -106,11 +107,11 @@ func (c *consumerRabbit) PullData(topic string) (interface{}, error) {
 
 func (c *consumerRabbit) Shutdown() int {
     if err := c.channel.Cancel(c.consumerName, true); err != nil {
-        mpf.NewLogger().Error("Consumer cancel failed: " + err.Error())
+        mplog.LogError("Consumer cancel failed: " + err.Error())
         return 1
     }
     if err := c.conn.Close(); err != nil {
-        mpf.NewLogger().Error("AMQP connection close error: " + err.Error())
+        mplog.LogError("AMQP connection close error: " + err.Error())
         return 1
     }
     return 0

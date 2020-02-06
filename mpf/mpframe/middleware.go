@@ -7,7 +7,7 @@
 package mpframe
 
 import (
-    "github.com/a07061625/gompf/mpf"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/kataras/iris/v12"
 )
 
@@ -16,7 +16,7 @@ type mwGlobal struct {
 
 func (mw *mwGlobal) BeforeRequest() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        mpf.NewLogger().Info("request: " + ctx.FullRequestURI() + " enter")
+        mplog.LogInfo("request: " + ctx.FullRequestURI() + " enter")
         ctx.Next()
     }
 }
@@ -38,14 +38,14 @@ func (mw *mwGlobal) AfterRouter() func(ctx iris.Context) {
 
 func (mw *mwGlobal) BeforeAction() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        mpf.NewLogger().Info("request: " + ctx.FullRequestURI() + "action: " + ctx.Path() + " enter")
+        mplog.LogInfo("request: " + ctx.FullRequestURI() + "action: " + ctx.Path() + " enter")
         ctx.Next()
     }
 }
 
 func (mw *mwGlobal) AfterAction() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        mpf.NewLogger().Info("request: " + ctx.FullRequestURI() + "action: " + ctx.Path() + " exit")
+        mplog.LogInfo("request: " + ctx.FullRequestURI() + "action: " + ctx.Path() + " exit")
         ctx.Next()
     }
 }
@@ -62,7 +62,7 @@ func (mw *mwGlobal) SendResponse() func(ctx iris.Context) {
 
 func (mw *mwGlobal) AfterResponse() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        mpf.NewLogger().Info("request: " + ctx.FullRequestURI() + " exit")
+        mplog.LogInfo("request: " + ctx.FullRequestURI() + " exit")
         ctx.Next()
     }
 }
