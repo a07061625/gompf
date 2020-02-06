@@ -35,7 +35,7 @@ func NewResult(reqId string) *result {
     if match {
         trueReqId = reqId
     } else {
-        needStr := mpf.ToolCreateNonceStr(8, "total") + strconv.Itoa(nowTime)
+        needStr := mpf.ToolCreateNonceStr(8, "total") + strconv.FormatInt(nowTime, 10)
         trueReqId = mpf.HashMd5(needStr, "")
     }
 
