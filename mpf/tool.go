@@ -9,6 +9,8 @@ package mpf
 import (
     "fmt"
     "math/rand"
+    "os"
+    "strconv"
     "time"
 
     "github.com/a07061625/gompf/mpf/mplog"
@@ -82,6 +84,29 @@ func ToolUnpack(data []byte, item *interface{}) error {
 func ToolCreateRandNum(startNum, maxNum int) int {
     rand.Seed(time.Now().Unix())
     return rand.Intn(maxNum) + startNum
+}
+
+// 生成请求ID
+func ToolCreateReqId(reqId string) string {
+    trueId := reqId
+    if len(trueId) != 32 {
+        nowTime := time.Now().Unix()
+        needStr := ToolCreateNonceStr(8, "total") + strconv.FormatInt(nowTime, 10)
+        trueId = HashMd5(needStr, "")
+    }
+    os.Setenv("MP_REQ_ID", trueId)
+
+    return trueId
+}
+
+// 获取请求ID
+func ToolGetReqId() string {
+    reqId := os.Getenv("MP_REQ_ID")
+    if len(reqId) == 32 {
+        return reqId
+    } else {
+        return ToolCreateReqId("")
+    }
 }
 
 // 处理错误

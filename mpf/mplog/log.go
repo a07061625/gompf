@@ -52,6 +52,7 @@ type logDaily struct {
     accessFile   *logWriter
     errorFile    *logWriter
     cron         *cron.Cron
+    logPrefix    string
     logDir       string
     logAccess    string
     logError     string
@@ -154,7 +155,7 @@ func (ld *logDaily) log(level, msg string, fields ...LogField) {
     }
 
     fieldJson, _ := json.Marshal(fieldList)
-    logMsg := time.Now().Format("2006-01-02 03:04:05.000") + " | " + level
+    logMsg := time.Now().Format("2006-01-02 03:04:05.000") + " | " + level + " | " + os.Getenv("MP_REQ_ID") + ld.logPrefix
     logMsg += " | " + string(fieldJson) + "\n" + msg
     switch level {
     case LogTypeInfo:
@@ -191,7 +192,11 @@ func init() {
 
 func Load(conf *viper.Viper, fields map[string]interface{}, extend map[string]interface{}) {
     once.Do(func() {
-        // 日志相关
+        ins.logPrefix = " | " + extend["server_host"].(string)
+        ins.logPrefix += " | " + extend["server_port"].(string)
+        ins.logPrefix += " | " + extend["env_type"].(string) + extend["project_tag"].(string)
+        ins.logPrefix += " | " + extend["project_module"].(string)
+
         ins.logDir = extend["log_dir"].(string)
         err := os.MkdirAll(ins.logDir, os.ModePerm)
         if err != nil {

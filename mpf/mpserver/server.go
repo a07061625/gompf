@@ -50,7 +50,7 @@ func (s *serverWeb) bindErrHandles() {
     if !ok {
         s.errHandles[iris.StatusNotFound] = func(ctx iris.Context) {
             mplog.LogInfo("uri:" + ctx.RequestPath(false) + " not exist")
-            result := mpresponse.NewResult("")
+            result := mpresponse.NewResult()
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
             ctx.JSON(result)
@@ -60,7 +60,7 @@ func (s *serverWeb) bindErrHandles() {
     if !ok {
         s.errHandles[iris.StatusInternalServerError] = func(ctx iris.Context) {
             mplog.LogError("uri:" + ctx.RequestPath(false) + " error")
-            result := mpresponse.NewResult("")
+            result := mpresponse.NewResult()
             result.Code = errorcode.CommonBaseServer
             result.Msg = "服务出错"
             ctx.JSON(result)

@@ -112,14 +112,14 @@ func LoadBoot(bs *bootstrap) {
         // 日志相关
         logConfig := NewConfig().GetConfig("log")
         loggerFields := make(map[string]interface{})
-        loggerFields["env_type"] = EnvType()
-        loggerFields["env_project_tag"] = EnvProjectTag()
-        loggerFields["env_project_module"] = EnvProjectModule()
-        loggerFields["env_server_host"] = serverHost
-        loggerFields["env_server_port"] = serverPort
         logExtend := make(map[string]interface{})
         logExtend["log_dir"] = bs.CheckDirLogs() + "/" + EnvProjectKey()
         logExtend["conf_prefix"] = "zap." + EnvProjectKey() + "."
+        logExtend["env_type"] = EnvType()
+        logExtend["project_tag"] = EnvProjectTag()
+        logExtend["project_module"] = EnvProjectModule()
+        logExtend["server_host"] = serverHost
+        logExtend["server_port"] = strconv.Itoa(serverPort)
         mplog.Load(logConfig, loggerFields, logExtend)
     })
 }

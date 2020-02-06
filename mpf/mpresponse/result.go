@@ -7,8 +7,6 @@
 package mpresponse
 
 import (
-    "regexp"
-    "strconv"
     "time"
 
     "github.com/a07061625/gompf/mpf"
@@ -24,26 +22,12 @@ type result struct {
     Time  int64                  `json:"time"`
 }
 
-func NewResult(reqId string) *result {
-    match := false
-    if len(reqId) > 0 {
-        match, _ = regexp.MatchString(`^[0-9a-z]{32}$`, reqId)
-    }
-
-    nowTime := time.Now().Unix()
-    trueReqId := ""
-    if match {
-        trueReqId = reqId
-    } else {
-        needStr := mpf.ToolCreateNonceStr(8, "total") + strconv.FormatInt(nowTime, 10)
-        trueReqId = mpf.HashMd5(needStr, "")
-    }
-
+func NewResult() *result {
     r := &result{}
-    r.ReqId = trueReqId
+    r.ReqId = mpf.ToolGetReqId()
     r.Code = errorcode.CommonBaseSuccess
     r.Data = make(map[string]interface{})
     r.Msg = ""
-    r.Time = nowTime
+    r.Time = time.Now().Unix()
     return r
 }
