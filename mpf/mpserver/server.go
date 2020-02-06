@@ -53,6 +53,7 @@ func (s *serverWeb) bindErrHandles() {
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
             ctx.WriteString(mpf.JsonMarshal(result))
+            ctx.StatusCode(iris.StatusOK)
         }
     }
     _, ok = s.errHandles[iris.StatusInternalServerError]
@@ -76,7 +77,6 @@ func (s *serverWeb) initRunConfig() net.Listener {
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
-    s.runConfigs = append(s.runConfigs, iris.WithoutAutoFireStatusCode)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
     s.App.ConfigureHost(func(host *iris.Supervisor) {
