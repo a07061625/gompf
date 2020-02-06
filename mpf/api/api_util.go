@@ -13,7 +13,7 @@ import (
 type UtilApi struct {
 }
 
-func (util UtilApi) SendOuter(service IApiOuter, errorCode uint) (mpf.HttpResp, ApiResult) {
+func (util *UtilApi) SendOuter(service IApiOuter, errorCode uint) (mpf.HttpResp, ApiResult) {
     client, req := service.CheckData()
     resp := mpf.HttpSendReq(client, req, service.GetReqTimeout())
     result := NewApiResult()

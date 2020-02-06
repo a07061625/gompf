@@ -21,7 +21,7 @@ type BaseYun253 struct {
     Password string // API密码
 }
 
-func (b BaseYun253) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (b *BaseYun253) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 

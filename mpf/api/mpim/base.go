@@ -29,7 +29,7 @@ type BaseTencent struct {
     ExtendData map[string]interface{}
 }
 
-func (im BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (im *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     randNum := mpf.ToolCreateRandNum(10000000, 89999999)
     conf := NewConfigTencent()
     im.ReqData = make(map[string]string)

@@ -29,16 +29,16 @@ type BaseAliPay struct {
     urlReturnBase string                 // 跳转基础url地址
 }
 
-func (ap BaseAliPay) SetMethod(method string) {
+func (ap *BaseAliPay) SetMethod(method string) {
     ap.ReqData["method"] = method
     ap.respTag = strings.Replace(method, ".", "_", -1) + "_response"
 }
 
-func (ap BaseAliPay) GetRespTag() string {
+func (ap *BaseAliPay) GetRespTag() string {
     return ap.respTag
 }
 
-func (ap BaseAliPay) SetUrlNotify(notifyFlag bool) {
+func (ap *BaseAliPay) SetUrlNotify(notifyFlag bool) {
     if notifyFlag {
         ap.ReqData["notify_url"] = ap.urlNotify
     } else {
@@ -46,7 +46,7 @@ func (ap BaseAliPay) SetUrlNotify(notifyFlag bool) {
     }
 }
 
-func (ap BaseAliPay) SetUrlReturn(urlReturn string) {
+func (ap *BaseAliPay) SetUrlReturn(urlReturn string) {
     match, _ := regexp.MatchString(project.RegexUrlHttp, urlReturn)
     if match {
         ap.ReqData["return_url"] = ap.urlReturnBase + url.QueryEscape(urlReturn)
@@ -55,7 +55,7 @@ func (ap BaseAliPay) SetUrlReturn(urlReturn string) {
     }
 }
 
-func (ap BaseAliPay) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (ap *BaseAliPay) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     ap.ReqData["biz_content"] = mpf.JsonMarshal(ap.BizContent)
     delete(ap.ReqData, "sign")
     sign := NewUtil().CreateSign(ap.ReqData, ap.ReqData["sign_type"])

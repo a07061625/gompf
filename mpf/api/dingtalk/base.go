@@ -14,7 +14,7 @@ type baseDingTalk struct {
     ExtendData map[string]interface{}
 }
 
-func (dt baseDingTalk) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (dt *baseDingTalk) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 

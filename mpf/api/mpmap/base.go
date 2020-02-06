@@ -24,11 +24,11 @@ type baseMap struct {
     respTag string // 响应标识
 }
 
-func (m baseMap) GetRespTag() string {
+func (m *baseMap) GetRespTag() string {
     return m.respTag
 }
 
-func (m baseMap) SetRespTag(respTag string) {
+func (m *baseMap) SetRespTag(respTag string) {
     m.respTag = respTag
 }
 
@@ -48,12 +48,12 @@ type BaseBaiDu struct {
     reqRefer      string // 请求引用地址
 }
 
-func (m BaseBaiDu) SetServiceUri(uri string) {
+func (m *BaseBaiDu) SetServiceUri(uri string) {
     m.serviceUri = uri
     m.ReqUrl = m.serviceDomain + uri
 }
 
-func (m BaseBaiDu) SetCheckType(checkType string) {
+func (m *BaseBaiDu) SetCheckType(checkType string) {
     _, ok := BdCheckTypes[checkType]
     if ok {
         m.checkType = checkType
@@ -62,7 +62,7 @@ func (m BaseBaiDu) SetCheckType(checkType string) {
     }
 }
 
-func (m BaseBaiDu) SetSk(sk string) {
+func (m *BaseBaiDu) SetSk(sk string) {
     match, _ := regexp.MatchString(`^[0-9a-z]{32}$`, sk)
     if match {
         m.sk = sk
@@ -71,7 +71,7 @@ func (m BaseBaiDu) SetSk(sk string) {
     }
 }
 
-func (m BaseBaiDu) SetReqRefer(reqRefer string) {
+func (m *BaseBaiDu) SetReqRefer(reqRefer string) {
     match, _ := regexp.MatchString(project.RegexUrlHttp, reqRefer)
     if match {
         m.reqRefer = reqRefer
@@ -80,7 +80,7 @@ func (m BaseBaiDu) SetReqRefer(reqRefer string) {
     }
 }
 
-func (m BaseBaiDu) verifyData() {
+func (m *BaseBaiDu) verifyData() {
     m.ReqData["ak"] = m.ak
     m.ReqData["output"] = m.output
 
@@ -104,7 +104,7 @@ func (m BaseBaiDu) verifyData() {
     m.ReqUrl += "?" + mpf.HttpCreateParams(m.ReqData, "key", 1)
 }
 
-func (m BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (m *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     m.verifyData()
 
     client := &fasthttp.Client{}
@@ -150,12 +150,12 @@ type BaseGaoDe struct {
     secret        string // 应用密钥
 }
 
-func (m BaseGaoDe) SetServiceUri(uri string) {
+func (m *BaseGaoDe) SetServiceUri(uri string) {
     m.serviceUri = uri
     m.ReqUrl = m.serviceDomain + uri
 }
 
-func (m BaseGaoDe) createSign() {
+func (m *BaseGaoDe) createSign() {
     m.ReqData["key"] = m.key
     m.ReqData["output"] = "JSON"
 
@@ -165,7 +165,7 @@ func (m BaseGaoDe) createSign() {
     m.ReqUrl += "?" + mpf.HttpCreateParams(m.ReqData, "key", 1)
 }
 
-func (m BaseGaoDe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (m *BaseGaoDe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     m.createSign()
 
     client := &fasthttp.Client{}
@@ -201,11 +201,11 @@ type BaseTencent struct {
     getType       string // 获取类型
 }
 
-func (t BaseTencent) SetServiceUrl(serviceUrl string) {
+func (t *BaseTencent) SetServiceUrl(serviceUrl string) {
     t.serviceUrl = serviceUrl
 }
 
-func (t BaseTencent) SetAppIdentifier(appIdentifier string) {
+func (t *BaseTencent) SetAppIdentifier(appIdentifier string) {
     if len(appIdentifier) > 0 {
         t.appIdentifier = appIdentifier
     } else {
@@ -213,7 +213,7 @@ func (t BaseTencent) SetAppIdentifier(appIdentifier string) {
     }
 }
 
-func (t BaseTencent) SetGetType(getType string) {
+func (t *BaseTencent) SetGetType(getType string) {
     _, ok := TencentGetTypes[getType]
     if ok {
         t.getType = getType
@@ -222,7 +222,7 @@ func (t BaseTencent) SetGetType(getType string) {
     }
 }
 
-func (t BaseTencent) verifyData() {
+func (t *BaseTencent) verifyData() {
     t.ReqData["key"] = t.key
 
     switch t.getType {
@@ -242,7 +242,7 @@ func (t BaseTencent) verifyData() {
     t.ReqUrl = t.serviceUrl + "?" + mpf.HttpCreateParams(t.ReqData, "key", 1)
 }
 
-func (t BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     t.verifyData()
 
     client := &fasthttp.Client{}

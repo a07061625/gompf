@@ -31,7 +31,7 @@ type BaseFeYin struct {
     appId string // 应用ID
 }
 
-func (p BaseFeYin) SetAppId(appId string) {
+func (p *BaseFeYin) SetAppId(appId string) {
     match, _ := regexp.MatchString(project.RegexDigitAlpha, appId)
     if match {
         p.appId = appId
@@ -40,11 +40,11 @@ func (p BaseFeYin) SetAppId(appId string) {
     }
 }
 
-func (p BaseFeYin) GetAppId() string {
+func (p *BaseFeYin) GetAppId() string {
     return p.appId
 }
 
-func (p BaseFeYin) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (p *BaseFeYin) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 

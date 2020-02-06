@@ -38,19 +38,19 @@ type BaseCos struct {
     signExpireTime int               // 签名有效时间,单位为秒
 }
 
-func (cos BaseCos) SetParamData(key, val string) {
+func (cos *BaseCos) SetParamData(key, val string) {
     lowerKey := strings.ToLower(key)
     cos.ReqData[key] = val
     cos.signParams[lowerKey] = val
 }
 
-func (cos BaseCos) SetHeaderData(key, val string) {
+func (cos *BaseCos) SetHeaderData(key, val string) {
     lowerKey := strings.ToLower(key)
     cos.ReqHeader[key] = val
     cos.signHeaders[lowerKey] = val
 }
 
-func (cos BaseCos) SetSignExpireTime(signExpireTime int) {
+func (cos *BaseCos) SetSignExpireTime(signExpireTime int) {
     if signExpireTime > 0 {
         cos.signExpireTime = signExpireTime
     } else {
@@ -58,7 +58,7 @@ func (cos BaseCos) SetSignExpireTime(signExpireTime int) {
     }
 }
 
-func (cos BaseCos) createSign() {
+func (cos *BaseCos) createSign() {
     pkParams := mpf.NewHttpParamKey(cos.signParams)
     sort.Sort(pkParams)
     sortParams := pkParams.Params
@@ -98,7 +98,7 @@ func (cos BaseCos) createSign() {
     cos.ReqHeader["Authorization"] += "&q-signature=" + mpf.HashSha1(signStr, signKey)
 }
 
-func (cos BaseCos) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (cos *BaseCos) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     cos.createSign()
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}

@@ -29,7 +29,7 @@ type configSingle struct {
     expireTime   int    // 配置过期时间戳
 }
 
-func (c configSingle) SetClientIp(clientIp string) {
+func (c *configSingle) SetClientIp(clientIp string) {
     match, _ := regexp.MatchString(project.RegexIp, "."+clientIp)
     if match {
         c.clientIp = clientIp
@@ -38,11 +38,11 @@ func (c configSingle) SetClientIp(clientIp string) {
     }
 }
 
-func (c configSingle) GetClientIp() string {
+func (c *configSingle) GetClientIp() string {
     return c.clientIp
 }
 
-func (c configSingle) SetPayMchId(payMchId string) {
+func (c *configSingle) SetPayMchId(payMchId string) {
     match, _ := regexp.MatchString(project.RegexDigit, payMchId)
     if match {
         c.payMchId = payMchId
@@ -51,11 +51,11 @@ func (c configSingle) SetPayMchId(payMchId string) {
     }
 }
 
-func (c configSingle) GetPayMchId() string {
+func (c *configSingle) GetPayMchId() string {
     return c.payMchId
 }
 
-func (c configSingle) SetPayKey(payKey string) {
+func (c *configSingle) SetPayKey(payKey string) {
     match, _ := regexp.MatchString(`^[0-9a-zA-Z]{32}$`, payKey)
     if match {
         c.payKey = payKey
@@ -64,11 +64,11 @@ func (c configSingle) SetPayKey(payKey string) {
     }
 }
 
-func (c configSingle) GetPayKey() string {
+func (c *configSingle) GetPayKey() string {
     return c.payKey
 }
 
-func (c configSingle) SetPayNotifyUrl(payNotifyUrl string) {
+func (c *configSingle) SetPayNotifyUrl(payNotifyUrl string) {
     match, _ := regexp.MatchString(project.RegexUrlHttp, payNotifyUrl)
     if match {
         c.payNotifyUrl = payNotifyUrl
@@ -77,11 +77,11 @@ func (c configSingle) SetPayNotifyUrl(payNotifyUrl string) {
     }
 }
 
-func (c configSingle) GetPayNotifyUrl() string {
+func (c *configSingle) GetPayNotifyUrl() string {
     return c.payNotifyUrl
 }
 
-func (c configSingle) SetPayAuthUrl(payAuthUrl string) {
+func (c *configSingle) SetPayAuthUrl(payAuthUrl string) {
     match, _ := regexp.MatchString(project.RegexUrlHttp, payAuthUrl)
     if match {
         c.payAuthUrl = payAuthUrl
@@ -90,39 +90,39 @@ func (c configSingle) SetPayAuthUrl(payAuthUrl string) {
     }
 }
 
-func (c configSingle) GetPayAuthUrl() string {
+func (c *configSingle) GetPayAuthUrl() string {
     return c.payAuthUrl
 }
 
-func (c configSingle) SetSslCert(sslCert string) {
+func (c *configSingle) SetSslCert(sslCert string) {
     c.sslCert = sslCert
 }
 
-func (c configSingle) GetSslCert() string {
+func (c *configSingle) GetSslCert() string {
     return c.sslCert
 }
 
-func (c configSingle) SetSslKey(sslKey string) {
+func (c *configSingle) SetSslKey(sslKey string) {
     c.sslKey = sslKey
 }
 
-func (c configSingle) GetSslKey() string {
+func (c *configSingle) GetSslKey() string {
     return c.sslKey
 }
 
-func (c configSingle) SetValid(valid bool) {
+func (c *configSingle) SetValid(valid bool) {
     c.valid = valid
 }
 
-func (c configSingle) IsValid() bool {
+func (c *configSingle) IsValid() bool {
     return c.valid
 }
 
-func (c configSingle) SetExpireTime(expireTime int) {
+func (c *configSingle) SetExpireTime(expireTime int) {
     c.expireTime = expireTime
 }
 
-func (c configSingle) GetExpireTime() int {
+func (c *configSingle) GetExpireTime() int {
     return c.expireTime
 }
 

@@ -68,7 +68,7 @@ type ApiOuter struct {
     apiCommon
 }
 
-func (api ApiOuter) GetReqTimeout() time.Duration {
+func (api *ApiOuter) GetReqTimeout() time.Duration {
     return api.ReqTimeout
 }
 
@@ -81,7 +81,7 @@ type ApiInner struct {
     apiCommon
 }
 
-func (api ApiInner) SendInner(client *fasthttp.Client, req *fasthttp.Request, errorCode uint) (mpf.HttpResp, ApiResult) {
+func (api *ApiInner) SendInner(client *fasthttp.Client, req *fasthttp.Request, errorCode uint) (mpf.HttpResp, ApiResult) {
     resp := mpf.HttpSendReq(client, req, api.ReqTimeout)
     result := NewApiResult()
     if resp.RespCode > 0 {

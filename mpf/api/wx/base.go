@@ -7,9 +7,8 @@
 package wx
 
 import (
-    "encoding/xml"
-
     "crypto/tls"
+    "encoding/xml"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/api"
@@ -60,7 +59,7 @@ type baseWx struct {
     api.ApiInner
 }
 
-func (bw baseWx) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (bw *baseWx) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
@@ -84,21 +83,21 @@ type BaseWxAccount struct {
     baseWx
 }
 
-func (a BaseWxAccount) SetPayAccount(accountConfig *ConfigAccount, merchantType string) {
+func (wa *BaseWxAccount) SetPayAccount(accountConfig *configAccount, merchantType string) {
     switch merchantType {
     case AccountMerchantTypeSelf:
-        a.ReqData["appid"] = accountConfig.GetAppId()
-        a.ReqData["mch_id"] = accountConfig.GetPayMchId()
+        wa.ReqData["appid"] = accountConfig.GetAppId()
+        wa.ReqData["mch_id"] = accountConfig.GetPayMchId()
     case AccountMerchantTypeSub:
         merchantAppId := accountConfig.GetMerchantAppId()
         if len(merchantAppId) == 0 {
             panic(mperr.NewWxAccount(errorcode.WxAccountParam, "服务商微信号不能为空", nil))
         }
         merchantConfig := NewConfig().GetAccount(merchantAppId)
-        a.ReqData["appid"] = merchantConfig.GetAppId()
-        a.ReqData["mch_id"] = merchantConfig.GetPayMchId()
-        a.ReqData["sub_appid"] = accountConfig.GetAppId()
-        a.ReqData["sub_mch_id"] = accountConfig.GetPayMchId()
+        wa.ReqData["appid"] = merchantConfig.GetAppId()
+        wa.ReqData["mch_id"] = merchantConfig.GetPayMchId()
+        wa.ReqData["sub_appid"] = accountConfig.GetAppId()
+        wa.ReqData["sub_mch_id"] = accountConfig.GetPayMchId()
     default:
         panic(mperr.NewWxAccount(errorcode.WxAccountParam, "商户类型不合法", nil))
     }

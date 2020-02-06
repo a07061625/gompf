@@ -30,7 +30,7 @@ type BaseAMAli struct {
     ServiceUri string // 服务uri
 }
 
-func (l BaseAMAli) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (l *BaseAMAli) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     conf := NewConfigAMAli()
     l.ReqUrl = conf.serviceAddress + l.ServiceUri
     l.ReqHeader["Authorization"] = "APPCODE " + conf.GetAppCode()
@@ -59,7 +59,7 @@ type BaseKd100 struct {
     ExtendData map[string]interface{}
 }
 
-func (l BaseKd100) createSign() {
+func (l *BaseKd100) createSign() {
     conf := NewConfigKd100()
     l.ReqData = make(map[string]string)
     l.ReqData["customer"] = conf.GetAppId()
@@ -69,7 +69,7 @@ func (l BaseKd100) createSign() {
     l.ReqUrl = "https://poll.kuaidi100.com/poll/query.do"
 }
 
-func (l BaseKd100) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (l *BaseKd100) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     l.createSign()
 
     client := &fasthttp.Client{}
@@ -96,7 +96,7 @@ type BaseKdBird struct {
     ExtendData map[string]interface{}
 }
 
-func (l BaseKdBird) createSign() {
+func (l *BaseKdBird) createSign() {
     conf := NewConfigKdBird()
     l.ReqData["RequestData"] = mpf.JsonMarshal(l.ExtendData)
     signStr := mpf.HashMd5(l.ReqData["RequestData"]+conf.GetAppKey(), "")
@@ -107,7 +107,7 @@ func (l BaseKdBird) createSign() {
     l.ReqMethod = fasthttp.MethodPost
 }
 
-func (l BaseKdBird) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (l *BaseKdBird) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     l.createSign()
 
     client := &fasthttp.Client{}

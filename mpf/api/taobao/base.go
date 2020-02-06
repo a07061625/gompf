@@ -23,18 +23,18 @@ type BaseTaoBao struct {
     AppSecret string // 应用密钥
 }
 
-func (b BaseTaoBao) SetMethod(method string) {
+func (b *BaseTaoBao) SetMethod(method string) {
     b.ReqData["method"] = method
     trueMethod := strings.TrimPrefix(method, "taobao.")
     b.respTag = strings.Replace(trueMethod, ".", "_", -1) + "_response"
 }
 
-func (b BaseTaoBao) GetRespTag() string {
+func (b *BaseTaoBao) GetRespTag() string {
     return b.respTag
 }
 
 // 生成签名
-func (b BaseTaoBao) createSign() {
+func (b *BaseTaoBao) createSign() {
     delete(b.ReqData, "sign")
     signStr := mpf.HttpCreateParams(b.ReqData, "key", 5)
     sign := ""
@@ -46,7 +46,7 @@ func (b BaseTaoBao) createSign() {
     b.ReqData["sign"] = strings.ToUpper(sign)
 }
 
-func (b BaseTaoBao) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (b *BaseTaoBao) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     b.ReqData["app_key"] = b.AppKey
     b.createSign()
     reqBody := mpf.HttpCreateParams(b.ReqData, "key", 1)

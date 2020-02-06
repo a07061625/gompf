@@ -36,7 +36,7 @@ type BaseXinGe struct {
     ServiceUri string // 服务URI
 }
 
-func (xg BaseXinGe) setPlatform(platform string) {
+func (xg *BaseXinGe) setPlatform(platform string) {
     if (platform == XinGePlatformTypeAndroid) || (platform == XinGePlatformTypeIOS) {
         xg.platform = platform
     } else {
@@ -44,7 +44,7 @@ func (xg BaseXinGe) setPlatform(platform string) {
     }
 }
 
-func (xg BaseXinGe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (xg *BaseXinGe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     if xg.platform == XinGePlatformTypeAndroid {
         conf := NewConfig().GetXinGeAndroid()
         xg.ReqHeader["Authorization"] = conf.GetAppAuth()
@@ -81,7 +81,7 @@ type BaseBaiDu struct {
     ServiceUri string // 服务URI
 }
 
-func (bd BaseBaiDu) createSign(secret string) {
+func (bd *BaseBaiDu) createSign(secret string) {
     signStr := bd.ReqMethod + bd.ReqUrl
     delete(bd.ReqData, "sign")
     pkParams := mpf.NewHttpParamKey(bd.ReqData)
@@ -94,7 +94,7 @@ func (bd BaseBaiDu) createSign(secret string) {
     bd.ReqData["sign"] = mpf.HashMd5(url.QueryEscape(signStr), "")
 }
 
-func (bd BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     nowTime := time.Now().Second()
     conf := NewConfig().GetBaiDu()
     bd.ReqData["apikey"] = conf.GetAppKey()
@@ -136,14 +136,14 @@ type BaseJPush struct {
     ServiceUri    string // 服务URI
 }
 
-func (jp BaseJPush) GetServiceUrl() string {
+func (jp *BaseJPush) GetServiceUrl() string {
     return jp.serviceDomain + jp.ServiceUri
 }
 
 // 获取授权字符串
 //   key: 应用标识
 //   authType: 授权类型 app:应用 group:分组 dev:开发
-func (jp BaseJPush) getServiceAuth(key, authType string) string {
+func (jp *BaseJPush) getServiceAuth(key, authType string) string {
     switch authType {
     case "app":
         conf := NewConfig().GetJPushApp(key)
@@ -157,7 +157,7 @@ func (jp BaseJPush) getServiceAuth(key, authType string) string {
     }
 }
 
-func (jp BaseJPush) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (jp *BaseJPush) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 

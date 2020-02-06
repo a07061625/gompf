@@ -28,7 +28,7 @@ type BaseAMJiSu struct {
     ServiceUri string // 服务uri
 }
 
-func (c BaseAMJiSu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (c *BaseAMJiSu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     conf := NewConfigAMJiSu()
     c.ReqUrl = conf.serviceAddress + c.ServiceUri
     c.ReqHeader["Authorization"] = "APPCODE " + conf.GetAppCode()
@@ -57,7 +57,7 @@ type BaseAMYiYuan struct {
     ServiceUri string // 服务uri
 }
 
-func (c BaseAMYiYuan) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (c *BaseAMYiYuan) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     conf := NewConfigAMYiYuan()
     c.ReqUrl = conf.serviceAddress + c.ServiceUri
     c.ReqHeader["Authorization"] = "APPCODE " + conf.GetAppCode()

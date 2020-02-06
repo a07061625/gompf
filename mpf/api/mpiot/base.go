@@ -37,7 +37,7 @@ type BaseBaiDu struct {
     ServiceUri      string // 服务URI
 }
 
-func (bd BaseBaiDu) SetServiceProtocol(serviceProtocol string) {
+func (bd *BaseBaiDu) SetServiceProtocol(serviceProtocol string) {
     if (serviceProtocol == "http") || (serviceProtocol == "https") {
         bd.serviceProtocol = serviceProtocol
     } else {
@@ -45,7 +45,7 @@ func (bd BaseBaiDu) SetServiceProtocol(serviceProtocol string) {
     }
 }
 
-func (bd BaseBaiDu) SetServiceDomain(serviceDomain string) {
+func (bd *BaseBaiDu) SetServiceDomain(serviceDomain string) {
     _, ok := BaiDuDomains[serviceDomain]
     if ok {
         bd.serviceDomain = serviceDomain
@@ -55,11 +55,11 @@ func (bd BaseBaiDu) SetServiceDomain(serviceDomain string) {
     }
 }
 
-func (bd BaseBaiDu) GetServiceUrl() string {
+func (bd *BaseBaiDu) GetServiceUrl() string {
     return bd.serviceProtocol + "://" + bd.serviceDomain + bd.ServiceUri
 }
 
-func (bd BaseBaiDu) createSign() string {
+func (bd *BaseBaiDu) createSign() string {
     needStr := bd.ReqMethod + "\n" + url.QueryEscape(bd.ServiceUri)
 
     delete(bd.ReqData, "authorization")
@@ -75,7 +75,7 @@ func (bd BaseBaiDu) createSign() string {
     return authPrefix + "/" + reqHeader + "/" + mpf.HashSha256(needStr, signKey)
 }
 
-func (bd BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     bd.ReqHeader["Authorization"] = bd.createSign()
 
     client := &fasthttp.Client{}
@@ -107,7 +107,7 @@ type BaseTencent struct {
     serviceName   string // 服务名称
 }
 
-func (t BaseTencent) SetServiceDomain(serviceDomain string) {
+func (t *BaseTencent) SetServiceDomain(serviceDomain string) {
     if len(serviceDomain) > 0 {
         t.serviceDomain = serviceDomain
         t.ReqHeader["Host"] = serviceDomain
@@ -116,7 +116,7 @@ func (t BaseTencent) SetServiceDomain(serviceDomain string) {
     }
 }
 
-func (t BaseTencent) createTC3Sign(reqBody string) {
+func (t *BaseTencent) createTC3Sign(reqBody string) {
     conf := NewConfig().GetTencent()
     t.ReqHeader["X-TC-Region"] = conf.GetRegionId()
     now := time.Now()
@@ -142,7 +142,7 @@ func (t BaseTencent) createTC3Sign(reqBody string) {
     t.ReqHeader["Authorization"] = "TC3-HMAC-SHA256 Credential=" + conf.GetSecretId() + "/" + credentialScope + ", SignedHeaders=" + signHeaders + ", Signature=" + signature
 }
 
-func (t BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
+func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := mpf.HttpCreateParams(t.ReqData, "none", 1)
     t.createTC3Sign(reqBody)
 
