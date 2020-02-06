@@ -17,11 +17,11 @@ import (
 
 // 请求响应
 type result struct {
-    ReqId   string                 `json:"req_id"`
-    Code    uint                   `json:"code"`
-    Data    map[string]interface{} `json:"data"`
-    Msg     string                 `json:"msg"`
-    NowTime int                    `json:"now_time"`
+    ReqId string                 `json:"req_id"`
+    Code  uint                   `json:"code"`
+    Data  map[string]interface{} `json:"data"`
+    Msg   string                 `json:"msg"`
+    Time  int64                  `json:"time"`
 }
 
 func NewResult(reqId string) *result {
@@ -30,7 +30,7 @@ func NewResult(reqId string) *result {
         match, _ = regexp.MatchString(`^[0-9a-z]{32}$`, reqId)
     }
 
-    nowTime := time.Now().Second()
+    nowTime := time.Now().Unix()
     trueReqId := ""
     if match {
         trueReqId = reqId
@@ -44,6 +44,6 @@ func NewResult(reqId string) *result {
     r.Code = errorcode.CommonBaseSuccess
     r.Data = make(map[string]interface{})
     r.Msg = ""
-    r.NowTime = nowTime
+    r.Time = nowTime
     return r
 }
