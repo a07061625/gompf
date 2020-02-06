@@ -31,7 +31,7 @@ func (s serverWeb) SetOuter(outer mpframe.IOuterWeb) {
     s.outer = outer
 }
 
-func (s serverWeb) initBase() {
+func (s *serverWeb) initBase() {
     s.RunConfigs = append(s.RunConfigs, iris.WithoutInterruptHandler)
 
     listenCfg := tcplisten.Config{

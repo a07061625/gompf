@@ -27,7 +27,7 @@ func main() {
         ctx.HTML("<h1>Hello World!</h1>")
     })
 
-    go outer.GetNotify(server.App)
+    go outer.GetNotify(server.App)()
 
     if server.Runner == nil {
         log.Fatalln("Runner")
