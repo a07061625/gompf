@@ -27,7 +27,6 @@ type IServerWeb interface {
 type serverWeb struct {
     outer      mpframe.IOuterWeb
     runConfigs []iris.Configurator
-    errHandles map[int]func(ctx iris.Context)
     mwHandles  map[int][]func(ctx iris.Context)
     App        *iris.Application
 }
@@ -51,33 +50,6 @@ func (s *serverWeb) AddMiddlewareHandle(event int, handler func(ctx iris.Context
         s.mwHandles[event] = make([]func(ctx iris.Context), 0)
     }
     s.mwHandles[event] = append(s.mwHandles[event], handler)
-}
-
-func (s *serverWeb) AddErrHandle(statusCode int, handler func(ctx iris.Context)) {
-    if (statusCode >= 100) && (statusCode < 600) {
-        s.errHandles[statusCode] = handler
-    }
-}
-
-func (s *serverWeb) BindErrHandles() {
-    _, ok := s.errHandles[iris.StatusNotFound]
-    if !ok {
-        s.errHandles[iris.StatusNotFound] = func(ctx iris.Context) {
-            mplog.LogInfo("uri:" + ctx.RequestPath(false) + " not exist")
-            ctx.Redirect("http://"+ctx.Host()+"/error/404", 200)
-        }
-    }
-    _, ok = s.errHandles[iris.StatusInternalServerError]
-    if !ok {
-        s.errHandles[iris.StatusInternalServerError] = func(ctx iris.Context) {
-            mplog.LogError("uri:" + ctx.RequestPath(false) + " error")
-            ctx.Redirect("http://"+ctx.Host()+"/error/500", 200)
-        }
-    }
-
-    for k, v := range s.errHandles {
-        s.App.OnErrorCode(k, v)
-    }
 }
 
 func (s *serverWeb) baseStart() {
@@ -106,7 +78,6 @@ func newServerWeb() serverWeb {
     s := serverWeb{}
     s.App = iris.New()
     s.runConfigs = make([]iris.Configurator, 0)
-    s.errHandles = make(map[int]func(ctx iris.Context))
     s.mwHandles = make(map[int][]func(ctx iris.Context))
     return s
 }
