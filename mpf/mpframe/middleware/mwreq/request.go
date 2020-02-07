@@ -20,18 +20,12 @@ import (
 
 func NewIrisBefore() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        params := make(map[string]interface{})
-        for i := 0; i >= 0; i++ {
-            val, ok := ctx.Values().GetEntryAt(i)
-            if ok {
-                params[val.Key] = val.ValueRaw
-            } else {
-                break
-            }
+        logPrefix := ctx.FullRequestURI()
+        if len(ctx.Request().URL.RawQuery) > 0 {
+            logPrefix += "?" + ctx.Request().URL.RawQuery
         }
-        paramStr := mpf.JsonMarshal(params)
+        mplog.LogInfo(logPrefix + " request-enter")
 
-        mplog.LogInfo(ctx.Request().URL.String() + " request-enter,params: " + paramStr)
         reqId := ctx.PostValueDefault("_req_id", "")
         mpf.ToolCreateReqId(reqId)
 
@@ -74,9 +68,9 @@ func NewIrisBefore() func(ctx iris.Context) {
         defer func() {
             costTime := time.Since(reqStart).Seconds()
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
-            mplog.LogInfo(ctx.FullRequestURI() + " request-exist,cost_time: " + costTimeStr + "s")
+            mplog.LogInfo(logPrefix + " request-exist,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_request"].(float64) {
-                mplog.LogWarn("handle " + ctx.FullRequestURI() + " request-timeout,cost_time: " + costTimeStr + "s,params: " + paramStr)
+                mplog.LogWarn("handle " + logPrefix + " request-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
 

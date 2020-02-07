@@ -16,7 +16,12 @@ import (
 
 func NewIrisBefore() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        mplog.LogInfo(ctx.FullRequestURI() + " action-enter")
+        logPrefix := ctx.FullRequestURI()
+        if len(ctx.Request().URL.RawQuery) > 0 {
+            logPrefix += "?" + ctx.Request().URL.RawQuery
+        }
+
+        mplog.LogInfo(logPrefix + " action-enter")
 
         // 业务结束日志
         actionStart := time.Now()
@@ -25,7 +30,7 @@ func NewIrisBefore() func(ctx iris.Context) {
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
             mplog.LogInfo(ctx.FullRequestURI() + " action-exist,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_action"].(float64) {
-                mplog.LogWarn("handle " + ctx.FullRequestURI() + " action-timeout,cost_time: " + costTimeStr + "s,params: " + string(ctx.Values().Serialize()))
+                mplog.LogWarn("handle " + logPrefix + " action-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
         ctx.Next()
