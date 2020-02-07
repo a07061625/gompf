@@ -20,14 +20,17 @@ import (
 
 func NewIrisBefore() func(ctx iris.Context) {
     return func(ctx iris.Context) {
+        reqId := ""
+        if mpf.EnvServerTypeRpc == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
+            reqId = ctx.PostValueDefault("_req_id", "")
+        }
+        mpf.ToolCreateReqId(reqId)
+
         logPrefix := ctx.FullRequestURI()
         if len(ctx.Request().URL.RawQuery) > 0 {
             logPrefix += "?" + ctx.Request().URL.RawQuery
         }
         mplog.LogInfo(logPrefix + " request-enter")
-
-        reqId := ctx.PostValueDefault("_req_id", "")
-        mpf.ToolCreateReqId(reqId)
 
         // 兜底错误捕获
         defer func() {
