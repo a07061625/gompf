@@ -20,7 +20,18 @@ import (
 
 func NewIrisBefore() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        mplog.LogInfo(ctx.FullRequestURI() + " request-enter,params: " + mpf.JsonMarshal(ctx.Values()))
+        params := make(map[string]interface{})
+        for i := 0; i >= 0; i++ {
+            val, ok := ctx.Values().GetEntryAt(i)
+            if ok {
+                params[val.Key] = val.ValueRaw
+            } else {
+                break
+            }
+        }
+        paramStr := mpf.JsonMarshal(params)
+
+        mplog.LogInfo(ctx.Request().URL.String() + " request-enter,params: " + paramStr)
         reqId := ctx.PostValueDefault("_req_id", "")
         mpf.ToolCreateReqId(reqId)
 
@@ -65,7 +76,7 @@ func NewIrisBefore() func(ctx iris.Context) {
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
             mplog.LogInfo(ctx.FullRequestURI() + " request-exist,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_request"].(float64) {
-                mplog.LogWarn("handle " + ctx.FullRequestURI() + " request-timeout,cost_time: " + costTimeStr + "s,params: " + mpf.JsonMarshal(ctx.Values()))
+                mplog.LogWarn("handle " + ctx.FullRequestURI() + " request-timeout,cost_time: " + costTimeStr + "s,params: " + paramStr)
             }
         }()
 
