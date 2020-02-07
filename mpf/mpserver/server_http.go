@@ -33,7 +33,7 @@ func (s *serverHttp) initConfig() {
 }
 
 func (s *serverHttp) initMiddleware() {
-    s.App.Use(mwreq.NewIrisBefore())
+    s.App.UseGlobal(mwreq.NewIrisBefore())
 }
 
 func (s *serverHttp) StartServer() {

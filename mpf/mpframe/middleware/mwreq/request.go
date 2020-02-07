@@ -20,7 +20,7 @@ import (
 
 func NewIrisBefore() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        mplog.LogInfo(ctx.FullRequestURI() + " request-enter,params: " + string(ctx.Values().Serialize()))
+        mplog.LogInfo(ctx.FullRequestURI() + " request-enter,params: " + mpf.JsonMarshal(ctx.Values()))
         reqId := ctx.PostValueDefault("_req_id", "")
         mpf.ToolCreateReqId(reqId)
 
@@ -65,7 +65,7 @@ func NewIrisBefore() func(ctx iris.Context) {
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
             mplog.LogInfo(ctx.FullRequestURI() + " request-exist,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_request"].(float64) {
-                mplog.LogWarn("handle " + ctx.FullRequestURI() + " request-timeout,cost_time: " + costTimeStr + "s,params: " + string(ctx.Values().Serialize()))
+                mplog.LogWarn("handle " + ctx.FullRequestURI() + " request-timeout,cost_time: " + costTimeStr + "s,params: " + mpf.JsonMarshal(ctx.Values()))
             }
         }()
 
