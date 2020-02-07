@@ -61,7 +61,7 @@ func (s *serverWeb) AddErrHandle(statusCode int, handler func(ctx iris.Context))
     }
 }
 
-func (s *serverWeb) bindErrHandles() {
+func (s *serverWeb) BindErrHandles() {
     _, ok := s.errHandles[iris.StatusNotFound]
     if !ok {
         s.errHandles[iris.StatusNotFound] = func(ctx iris.Context) {
@@ -90,8 +90,6 @@ func (s *serverWeb) bindErrHandles() {
 
 func (s *serverWeb) baseStart() {
     go s.outer.GetNotify(s.App)()
-
-    s.bindErrHandles()
 
     s.App.ConfigureHost(func(host *iris.Supervisor) {
         host.RegisterOnShutdown(func() {

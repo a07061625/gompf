@@ -22,8 +22,10 @@ func main() {
     outer := mpframe.NewOuterHttp()
     server := mpserver.NewServerHttp()
     server.SetOuter(outer)
+    server.BindErrHandles()
     server.App.Get("/", func(ctx iris.Context) {
         ctx.HTML("<h1>Hello World!</h1>")
+        ctx.Next()
     })
 
     server.StartServer()
