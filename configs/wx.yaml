@@ -13,9 +13,9 @@ open:
       minifastregister: "http://api2.xxx.cn" # 快速注册小程序回跳地址
     domain:
       miniserver: # 小程序服务域名
-          - "api1.xxx.cn"
+        - "api1.xxx.cn"
       miniwebview: # 小程序业务域名
-          - "api1.xxx.cn"
+        - "api1.xxx.cn"
   deva01:
     <<: *openbase
 

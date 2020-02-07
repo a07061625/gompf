@@ -5,7 +5,9 @@ import (
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
-    "github.com/a07061625/gompf/mpf/mpframe"
+    "github.com/a07061625/gompf/mpf/mpconstant/frame"
+    "github.com/a07061625/gompf/mpf/mpframe/middleware/globalprefix"
+    "github.com/a07061625/gompf/mpf/mpframe/mpserv"
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/a07061625/gompf/mpf/mpserver"
@@ -22,7 +24,8 @@ func init() {
 }
 
 func main() {
-    outer := mpframe.NewOuterHttp()
+    outer := mpserv.NewSimpleOuter()
+    outer.AddGlobalMiddleware(frame.MWEventGlobalPrefix, globalprefix.NewSimpleRequestLog(), globalprefix.NewSimpleRecover(), globalprefix.NewSimpleActionLog())
     server := mpserver.NewServerHttp()
     server.SetOuter(outer)
     server.App.Get("/", func(ctx iris.Context) {

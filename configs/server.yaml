@@ -5,6 +5,15 @@ base: &serverbase
   timeout:
     request: 3.0
     action: 3.0
+  mvc:
+    module:
+      default: "index"
+      accept:
+        - "index"
+    controller:
+      default: "index"
+    action:
+      default: "index"
 dev:
   a01api:
     <<: *serverbase

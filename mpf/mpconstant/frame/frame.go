@@ -7,28 +7,10 @@
 package frame
 
 const (
-    MiddlewareEventRequestBefore  = 1
-    MiddlewareEventRequestAfter   = 2
-    MiddlewareEventRouteBefore    = 3
-    MiddlewareEventRouteAfter     = 4
-    MiddlewareEventActionBefore   = 5
-    MiddlewareEventActionAfter    = 6
-    MiddlewareEventResponseBefore = 7
-    MiddlewareEventResponseAfter  = 8
+    MWEventGlobalPrefix    = 1 // 全局事件-前置处理
+    MWEventGlobalSuffix    = 2 // 全局事件-后置处理
+    MWEventMvcModule       = 1 // mvc事件-模块处理
+    MWEventMvcController   = 2 // mvc事件-控制器处理
+    MWEventMvcActionPrefix = 3 // mvc事件-前置动作处理
+    MWEventMvcActionSuffix = 4 // mvc事件-后置动作处理
 )
-
-var (
-    TotalMiddlewareEvent map[int]string
-)
-
-func init() {
-    TotalMiddlewareEvent = make(map[int]string)
-    TotalMiddlewareEvent[MiddlewareEventRequestBefore] = "request_before"
-    TotalMiddlewareEvent[MiddlewareEventRequestAfter] = "request_after"
-    TotalMiddlewareEvent[MiddlewareEventRouteBefore] = "route_before"
-    TotalMiddlewareEvent[MiddlewareEventRouteAfter] = "route_after"
-    TotalMiddlewareEvent[MiddlewareEventActionBefore] = "action_before"
-    TotalMiddlewareEvent[MiddlewareEventActionAfter] = "action_after"
-    TotalMiddlewareEvent[MiddlewareEventResponseBefore] = "response_before"
-    TotalMiddlewareEvent[MiddlewareEventResponseAfter] = "response_after"
-}

@@ -11,55 +11,77 @@ import (
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/frame"
-    "github.com/a07061625/gompf/mpf/mpframe"
+    "github.com/a07061625/gompf/mpf/mpframe/mpserv"
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/kataras/iris/v12"
+    "github.com/spf13/viper"
     "github.com/valyala/tcplisten"
 )
 
-type IServerWeb interface {
-    initConfig()
-    initMiddleware()
-    SetOuter(outer mpframe.IOuterWeb)
+type IServerSimple interface {
+    bootServer()
+    SetOuter(outer mpserv.IServerOuter)
     StartServer()
+    AddRunConfig(configs ...iris.Configurator)
 }
 
-type serverWeb struct {
-    outer      mpframe.IOuterWeb
+type serverSimple struct {
+    outer      mpserv.IServerOuter
     runConfigs []iris.Configurator
-    mwHandles  map[int][]func(ctx iris.Context)
     App        *iris.Application
 }
 
-func (s *serverWeb) SetOuter(outer mpframe.IOuterWeb) {
+func (s *serverSimple) SetOuter(outer mpserv.IServerOuter) {
     s.outer = outer
 }
 
-func (s *serverWeb) AddRunConfig(conf iris.Configurator) {
-    s.runConfigs = append(s.runConfigs, conf)
+func (s *serverSimple) AddRunConfig(configs ...iris.Configurator) {
+    if len(configs) > 0 {
+        s.runConfigs = append(s.runConfigs, configs...)
+    }
 }
 
-func (s *serverWeb) AddMiddlewareHandle(event int, handler func(ctx iris.Context)) {
-    _, ok := frame.TotalMiddlewareEvent[event]
-    if !ok {
-        return
-    }
+func (s *serverSimple) bootSimple(conf *viper.Viper) {
+    confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_host", conf.GetString(confPrefix+"host")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_port", conf.GetInt(confPrefix+"port")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_type", conf.GetString(confPrefix+"type")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_request", conf.GetFloat64(confPrefix+"timeout.request")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_action", conf.GetFloat64(confPrefix+"timeout.action")))
 
-    _, ok = s.mwHandles[event]
-    if !ok {
-        s.mwHandles[event] = make([]func(ctx iris.Context), 0)
-    }
-    s.mwHandles[event] = append(s.mwHandles[event], handler)
-}
+    s.runConfigs = append(s.runConfigs, iris.WithCharset("UTF-8"))
+    s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
+    s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
+    s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
+    s.runConfigs = append(s.runConfigs, iris.WithoutAutoFireStatusCode)
+    s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
-func (s *serverWeb) baseStart() {
-    go s.outer.GetNotify(s.App)()
+    mwGlobalList := s.outer.GetGlobalMiddleware()
+    for eventType, handles := range mwGlobalList {
+        handleNum := len(handles)
+        if handleNum == 0 {
+            continue
+        }
+        if eventType == frame.MWEventGlobalPrefix {
+            for i := 0; i < handleNum; i++ {
+                s.App.UseGlobal(handles[i])
+            }
+        } else {
+            for i := 0; i < handleNum; i++ {
+                s.App.DoneGlobal(handles[i])
+            }
+        }
+    }
 
     s.App.ConfigureHost(func(host *iris.Supervisor) {
         host.RegisterOnShutdown(func() {
             mplog.LogInfo("server shut down")
         })
     })
+}
+
+func (s *serverSimple) startSimple() {
+    go s.outer.GetNotify(s.App)()
 
     listenCfg := tcplisten.Config{
         ReusePort:   true,
@@ -74,10 +96,9 @@ func (s *serverWeb) baseStart() {
     s.App.Run(iris.Listener(listen), s.runConfigs...)
 }
 
-func newServerWeb() serverWeb {
-    s := serverWeb{}
+func newServerSimple() serverSimple {
+    s := serverSimple{}
     s.App = iris.New()
     s.runConfigs = make([]iris.Configurator, 0)
-    s.mwHandles = make(map[int][]func(ctx iris.Context))
     return s
 }
