@@ -25,23 +25,22 @@ func main() {
     outer := mpframe.NewOuterHttp()
     server := mpserver.NewServerHttp()
     server.SetOuter(outer)
-    server.BindErrHandles()
     server.App.Get("/", func(ctx iris.Context) {
         mplog.LogError("wwwwww")
         ctx.HTML("<h1>Hello World!</h1>")
         ctx.Next()
     })
-    server.App.Get("/error/404", func(ctx iris.Context) {
+    server.App.Any("/{directory:path}", func(ctx iris.Context) {
         result := mpresponse.NewResult()
-        result.Code = errorcode.CommonRequestResourceEmpty
-        result.Msg = "接口不存在"
-        ctx.JSON(result)
-        ctx.Next()
-    })
-    server.App.Get("/error/500", func(ctx iris.Context) {
-        result := mpresponse.NewResult()
-        result.Code = errorcode.CommonBaseServer
-        result.Msg = "服务出错"
+        directory := ctx.Params().Get("directory")
+        if directory == "error/500" {
+            result.Code = errorcode.CommonBaseServer
+            result.Msg = "服务出错"
+        } else {
+            mplog.LogInfo("uri: /" + directory + " not exist")
+            result.Code = errorcode.CommonRequestResourceEmpty
+            result.Msg = "接口不存在"
+        }
         ctx.JSON(result)
         ctx.Next()
     })
