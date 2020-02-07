@@ -25,7 +25,7 @@ func init() {
 
 func main() {
     outer := mpserv.NewSimpleOuter()
-    outer.AddGlobalMiddleware(frame.MWEventGlobalPrefix, globalprefix.NewSimpleRequestLog(), globalprefix.NewSimpleRecover(), globalprefix.NewSimpleActionLog())
+    outer.AddGlobalMiddleware(frame.MWEventGlobalPrefix, globalprefix.NewSimpleRequestLog(), globalprefix.NewSimpleRecover())
     server := mpserver.NewServerHttp()
     server.SetOuter(outer)
     server.App.Get("/", func(ctx iris.Context) {

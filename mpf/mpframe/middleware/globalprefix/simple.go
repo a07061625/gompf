@@ -26,23 +26,24 @@ func NewSimpleRequestLog() func(ctx iris.Context) {
 
         reqId := ""
         if mpf.EnvServerTypeRpc == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
-            reqId = ctx.PostValueDefault("_req_id", "")
+            reqId = ctx.PostValueDefault(project.DataParamKeyReqId, "")
         }
         mpf.ToolCreateReqId(reqId)
 
-        logPrefix := ctx.FullRequestURI()
+        reqUrl := ctx.FullRequestURI()
         if len(ctx.Request().URL.RawQuery) > 0 {
-            logPrefix += "?" + ctx.Request().URL.RawQuery
+            reqUrl += "?" + ctx.Request().URL.RawQuery
         }
-        mplog.LogInfo(logPrefix + " request-enter")
+        ctx.Values().Set(project.DataParamKeyUrl, reqUrl)
+        mplog.LogInfo(reqUrl + " request-enter")
 
         reqStart := time.Now()
         defer func() {
             costTime := time.Since(reqStart).Seconds()
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
-            mplog.LogInfo(logPrefix + " request-exist,cost_time: " + costTimeStr + "s")
+            mplog.LogInfo(reqUrl + " request-exist,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_request"].(float64) {
-                mplog.LogWarn("handle " + logPrefix + " request-timeout,cost_time: " + costTimeStr + "s")
+                mplog.LogWarn("handle " + reqUrl + " request-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
 
@@ -86,30 +87,6 @@ func NewSimpleRecover() func(ctx iris.Context) {
             }
         }()
 
-        ctx.Next()
-    }
-}
-
-// 动作日志
-func NewSimpleActionLog() func(ctx iris.Context) {
-    return func(ctx iris.Context) {
-        logPrefix := ctx.FullRequestURI()
-        if len(ctx.Request().URL.RawQuery) > 0 {
-            logPrefix += "?" + ctx.Request().URL.RawQuery
-        }
-
-        mplog.LogInfo(logPrefix + " action-enter")
-
-        // 业务结束日志
-        actionStart := time.Now()
-        defer func() {
-            costTime := time.Since(actionStart).Seconds()
-            costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
-            mplog.LogInfo(logPrefix + " action-exist,cost_time: " + costTimeStr + "s")
-            if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_action"].(float64) {
-                mplog.LogWarn("handle " + logPrefix + " action-timeout,cost_time: " + costTimeStr + "s")
-            }
-        }()
         ctx.Next()
     }
 }

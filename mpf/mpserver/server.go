@@ -47,6 +47,7 @@ func (s *serverSimple) bootSimple(conf *viper.Viper) {
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_port", conf.GetInt(confPrefix+"port")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_type", conf.GetString(confPrefix+"type")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_request", conf.GetFloat64(confPrefix+"timeout.request")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_controller", conf.GetFloat64(confPrefix+"timeout.controller")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_action", conf.GetFloat64(confPrefix+"timeout.action")))
 
     s.runConfigs = append(s.runConfigs, iris.WithCharset("UTF-8"))
@@ -91,7 +92,7 @@ func (s *serverSimple) startSimple() {
 
     listen, err := listenCfg.NewListener("tcp4", mpf.EnvServerDomain())
     if err != nil {
-        log.Fatalln("listen error:" + err.Error())
+        log.Fatalln("listen error: " + err.Error())
     }
     s.App.Run(iris.Listener(listen), s.runConfigs...)
 }

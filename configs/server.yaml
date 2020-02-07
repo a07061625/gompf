@@ -4,6 +4,7 @@ base: &serverbase
   type: "rpc"
   timeout:
     request: 3.0
+    controller: 3.0
     action: 3.0
   mvc:
     module:

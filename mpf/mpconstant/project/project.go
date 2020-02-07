@@ -35,7 +35,9 @@ const (
     RegexUrlHttp    = `^(http|https)://\S+$`                           // http链接
 
     // 数据
-    DataPrefixXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" // 前缀-xml
+    DataPrefixXml     = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" // 前缀-xml
+    DataParamKeyReqId = "_mp_req_id"                                 // 请求参数键名-请求ID
+    DataParamKeyUrl   = "_mp_url"                                    // 请求参数键名-请求url
 
     // redis前缀常量内部键名
     RedisPrefixCommonUniqueId = "common_unique_id" // 公用-唯一ID
