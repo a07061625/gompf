@@ -38,6 +38,7 @@ func (s *serverHttp) initMiddleware() {
 
 func (s *serverHttp) StartServer() {
     s.initConfig()
+    s.initMiddleware()
     s.baseStart()
 }
 
