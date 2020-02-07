@@ -29,7 +29,6 @@ func (s *serverHttp) initConfig() {
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
-    s.runConfigs = append(s.runConfigs, iris.WithoutAutoFireStatusCode)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 }
 

@@ -64,14 +64,14 @@ func (s *serverWeb) BindErrHandles() {
     if !ok {
         s.errHandles[iris.StatusNotFound] = func(ctx iris.Context) {
             mplog.LogInfo("uri:" + ctx.RequestPath(false) + " not exist")
-            ctx.Redirect("/error/404")
+            ctx.Redirect("http://"+ctx.Host()+"/error/404", 200)
         }
     }
     _, ok = s.errHandles[iris.StatusInternalServerError]
     if !ok {
         s.errHandles[iris.StatusInternalServerError] = func(ctx iris.Context) {
             mplog.LogError("uri:" + ctx.RequestPath(false) + " error")
-            ctx.Redirect("/error/500")
+            ctx.Redirect("http://"+ctx.Host()+"/error/500", 200)
         }
     }
 

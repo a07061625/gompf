@@ -6,6 +6,7 @@ import (
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpframe"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/a07061625/gompf/mpf/mpserver"
     "github.com/kataras/iris/v12"
@@ -26,6 +27,7 @@ func main() {
     server.SetOuter(outer)
     server.BindErrHandles()
     server.App.Get("/", func(ctx iris.Context) {
+        mplog.LogError("wwwwww")
         ctx.HTML("<h1>Hello World!</h1>")
         ctx.Next()
     })
