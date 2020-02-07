@@ -10,11 +10,9 @@ import (
     "log"
 
     "github.com/a07061625/gompf/mpf"
-    "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/frame"
     "github.com/a07061625/gompf/mpf/mpframe"
     "github.com/a07061625/gompf/mpf/mplog"
-    "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
     "github.com/valyala/tcplisten"
 )
@@ -66,20 +64,14 @@ func (s *serverWeb) BindErrHandles() {
     if !ok {
         s.errHandles[iris.StatusNotFound] = func(ctx iris.Context) {
             mplog.LogInfo("uri:" + ctx.RequestPath(false) + " not exist")
-            result := mpresponse.NewResult()
-            result.Code = errorcode.CommonRequestResourceEmpty
-            result.Msg = "接口不存在"
-            ctx.JSON(result)
+            ctx.Redirect("/error/404")
         }
     }
     _, ok = s.errHandles[iris.StatusInternalServerError]
     if !ok {
         s.errHandles[iris.StatusInternalServerError] = func(ctx iris.Context) {
             mplog.LogError("uri:" + ctx.RequestPath(false) + " error")
-            result := mpresponse.NewResult()
-            result.Code = errorcode.CommonBaseServer
-            result.Msg = "服务出错"
-            ctx.JSON(result)
+            ctx.Redirect("/error/500")
         }
     }
 
