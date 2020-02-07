@@ -8,10 +8,10 @@ package mpserver
 
 import (
     "log"
-    "net"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
+    "github.com/a07061625/gompf/mpf/mpconstant/frame"
     "github.com/a07061625/gompf/mpf/mpframe"
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
@@ -20,6 +20,8 @@ import (
 )
 
 type IServerWeb interface {
+    initConfig()
+    initMiddleware()
     SetOuter(outer mpframe.IOuterWeb)
     StartServer()
 }
@@ -28,6 +30,7 @@ type serverWeb struct {
     outer      mpframe.IOuterWeb
     runConfigs []iris.Configurator
     errHandles map[int]func(ctx iris.Context)
+    mwHandles  map[int][]func(ctx iris.Context)
     App        *iris.Application
 }
 
@@ -37,6 +40,19 @@ func (s *serverWeb) SetOuter(outer mpframe.IOuterWeb) {
 
 func (s *serverWeb) AddRunConfig(conf iris.Configurator) {
     s.runConfigs = append(s.runConfigs, conf)
+}
+
+func (s *serverWeb) AddMiddlewareHandle(event int, handler func(ctx iris.Context)) {
+    _, ok := frame.TotalMiddlewareEvent[event]
+    if !ok {
+        return
+    }
+
+    _, ok = s.mwHandles[event]
+    if !ok {
+        s.mwHandles[event] = make([]func(ctx iris.Context), 0)
+    }
+    s.mwHandles[event] = append(s.mwHandles[event], handler)
 }
 
 func (s *serverWeb) AddErrHandle(statusCode int, handler func(ctx iris.Context)) {
@@ -72,12 +88,10 @@ func (s *serverWeb) bindErrHandles() {
     }
 }
 
-func (s *serverWeb) initRunConfig() net.Listener {
-    s.runConfigs = append(s.runConfigs, iris.WithCharset("UTF-8"))
-    s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
-    s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
-    s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
-    s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
+func (s *serverWeb) baseStart() {
+    go s.outer.GetNotify(s.App)()
+
+    s.bindErrHandles()
 
     s.App.ConfigureHost(func(host *iris.Supervisor) {
         host.RegisterOnShutdown(func() {
@@ -95,15 +109,6 @@ func (s *serverWeb) initRunConfig() net.Listener {
     if err != nil {
         log.Fatalln("listen error:" + err.Error())
     }
-
-    return listen
-}
-
-func (s *serverWeb) baseStart() {
-    go s.outer.GetNotify(s.App)()
-
-    s.bindErrHandles()
-    listen := s.initRunConfig()
     s.App.Run(iris.Listener(listen), s.runConfigs...)
 }
 
@@ -112,5 +117,6 @@ func newServerWeb() serverWeb {
     s.App = iris.New()
     s.runConfigs = make([]iris.Configurator, 0)
     s.errHandles = make(map[int]func(ctx iris.Context))
+    s.mwHandles = make(map[int][]func(ctx iris.Context))
     return s
 }

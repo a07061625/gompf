@@ -12,8 +12,9 @@ const (
      */
 
     // 1-9999为框架内部预留
-    TypeInnerJson   uint = 1
-    TypeInnerServer uint = 2
+    TypeInnerJson      uint = 1
+    TypeInnerServer    uint = 2
+    TypeInnerValidator uint = 3
 
     // 地图
     TypeMapTencent uint = 10000

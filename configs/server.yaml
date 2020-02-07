@@ -2,6 +2,9 @@ base: &serverbase
   host: "127.0.0.1"
   port: 8080
   type: "rpc"
+  timeout:
+    request: 3.0
+    action: 3.0
 dev:
   a01api:
     <<: *serverbase

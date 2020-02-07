@@ -35,6 +35,10 @@ func NewInnerServer(code uint, msg string, err error) *ErrorCommon {
     return &ErrorCommon{TypeInnerServer, "服务错误", code, msg, err}
 }
 
+func NewInnerValidator(code uint, msg string, err error) *ErrorCommon {
+    return &ErrorCommon{TypeInnerValidator, "校验器错误", code, msg, err}
+}
+
 func NewMapTencent(code uint, msg string, err error) *ErrorCommon {
     return &ErrorCommon{TypeMapTencent, "腾讯地图错误", code, msg, err}
 }

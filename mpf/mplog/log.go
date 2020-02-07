@@ -154,9 +154,9 @@ func (ld *logDaily) log(level int, msg string, fields ...LogField) {
 
     fieldJson, _ := json.Marshal(fieldList)
     prefixStr := time.Now().Format("2006-01-02 03:04:05.000")
-    logMsg := " | " + os.Getenv("MP_REQ_ID") + ld.logPrefix + " | " + string(fieldJson) + "\n" + "msg: " + msg
+    logMsg := " | " + os.Getenv("MP_REQ_ID") + ld.logPrefix + " | " + string(fieldJson) + "\n" + "Msg: " + msg
     if level >= LogTypeError {
-        logMsg += "\n" + "stack:"
+        logMsg += "\n" + "Stack:"
     }
     switch level {
     case LogTypeInfo:

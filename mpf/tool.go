@@ -7,7 +7,6 @@
 package mpf
 
 import (
-    "fmt"
     "math/rand"
     "os"
     "strconv"
@@ -106,19 +105,5 @@ func ToolGetReqId() string {
         return reqId
     } else {
         return ToolCreateReqId("")
-    }
-}
-
-// 处理错误
-func ToolHandleError() func() {
-    return func() {
-        if p := recover(); p != nil {
-            err, ok := p.(error)
-            if ok {
-                mplog.LogError(err.Error())
-                return
-            }
-            fmt.Printf("%#v\n", p)
-        }
     }
 }
