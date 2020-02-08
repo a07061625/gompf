@@ -14,8 +14,8 @@ import (
     "os/signal"
     "reflect"
     "regexp"
+    "runtime"
     "strings"
-    "sync"
     "syscall"
     "time"
 
@@ -39,7 +39,7 @@ type IServerBasic interface {
 }
 
 type basic struct {
-    once       sync.Once
+    routeFlag  bool // 路由标识 true:已设置 false:未设置
     serverConf *viper.Viper
     app        *iris.Application
     runConfigs []iris.Configurator
@@ -80,103 +80,124 @@ func (s *basic) formatUri(name string) string {
     return strings.ToLower(strings.TrimPrefix(needStr, "-"))
 }
 
-func (s *basic) getRouteParams(tag, val string) (string, string, string, bool) {
-    trueTag := strings.TrimSpace(tag)
-    if (len(trueTag) == 0) || (len(val) == 0) {
-        return "", "", "", false
-    }
-    valList := strings.Split(val, "|")
-    if len(valList) != 2 {
-        return "", "", "", false
-    }
-    reqMethod := strings.TrimSpace(valList[0])
-    if len(reqMethod) == 0 {
-        return "", "", "", false
-    }
-    uri := strings.TrimSpace(valList[1])
-    if len(uri) == 0 {
-        return "", "", "", false
-    }
-    actionName := "Action" + strings.Title(trueTag)
-
-    return actionName, strings.ToUpper(reqMethod), uri, true
-}
-
 func (s *basic) registerActionRoute(groupUri string, controller controllers.IControllerBasic) {
-    registers := controller.GetRegisters()
-    if len(registers) == 0 {
+    refControllerVal := reflect.ValueOf(controller)
+    methodNum := refControllerVal.NumMethod()
+    if methodNum <= 0 {
         return
     }
 
-    refController := reflect.ValueOf(controller)
-    routeGroup := s.app.Party(groupUri)
-    for tag, val := range registers {
-        actionName, reqMethod, uri, ok := s.getRouteParams(tag, val)
+    refControllerType := reflect.TypeOf(controller)
+    groupRoute := s.app.Party(groupUri)
+    for i := 0; i < methodNum; i++ {
+        funcName := runtime.FuncForPC(refControllerType.Method(i).Func.Pointer()).Name()
+        funcNameList := strings.Split(funcName, ".")
+        methodName := funcNameList[len(funcNameList)-1]
+        if len(methodName) <= 6 {
+            continue
+        }
+        if !strings.HasPrefix(methodName, "Action") {
+            continue
+        }
+
+        refAction := refControllerVal.Method(i)
+        _, ok := refAction.Interface().(func(ctx iris.Context) interface{})
         if !ok {
             continue
         }
-        refAction := refController.MethodByName(actionName)
-        if !refAction.IsValid() {
+
+        actionTag := s.formatUri(strings.TrimPrefix(methodName, "Action"))
+        if len(actionTag) == 0 {
             continue
         }
-        res := refAction.Call(make([]reflect.Value, 0))
-        mwList := controller.GetMwActionBefore(tag)
-        mwList = append(mwList, res[0].Interface().(func(ctx iris.Context)))
-        mwAfter := controller.GetMwActionAfter(tag)
+        actionUri := "/" + actionTag
+
+        mwList := controller.GetMwActionBefore(actionTag)
+        mwList = append(mwList, func(ctx iris.Context) {
+            args := []reflect.Value{reflect.ValueOf(ctx)}
+            callRes := refAction.Call(args)
+            actionRes := callRes[0].Interface()
+            strRes, ok := actionRes.(string)
+            if ok {
+                ctx.WriteString(strRes)
+                ctx.ContentType(project.HttpContentTypeText)
+            } else {
+                result := mpresponse.NewResultBasic()
+                if actionRes != nil {
+                    result.Data = actionRes
+                } else {
+                    result.Data = make(map[string]string)
+                }
+                ctx.WriteString(mpf.JsonMarshal(result))
+                ctx.ContentType(project.HttpContentTypeJson)
+            }
+
+            ctx.Next()
+        })
+        mwAfter := controller.GetMwActionAfter(actionTag)
         mwList = append(mwList, mwAfter...)
-        mwList = append(mwList, controller.SendResp())
         mwNum := len(mwList)
         for i := 0; i < mwNum; i++ {
-            routeGroup.HandleMany(reqMethod, uri, mwList[i])
+            groupRoute.HandleMany("GET POST", actionUri, mwList[i])
         }
     }
 }
 
 func (s *basic) SetRoute(controllers ...controllers.IControllerBasic) {
-    s.once.Do(func() {
-        controllerNum := len(controllers)
-        if controllerNum > 0 {
-            controllerUri := ""
-            blocks := s.serverConf.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
-            for i := 0; i < controllerNum; i++ {
-                objType := reflect.TypeOf(controllers[i])
-                typeNameList := strings.Split(objType.String(), ".")
-                if len(typeNameList) < 2 {
-                    continue
-                }
+    if s.routeFlag {
+        return
+    }
 
-                // 校验版块
-                packageName := strings.TrimPrefix(typeNameList[0], "*")
-                _, ok := blocks[packageName]
-                if !ok {
-                    continue
-                }
-                controllerUri = "/" + packageName
-
-                // 校验控制器
-                if !strings.HasSuffix(typeNameList[1], "Controller") {
-                    continue
-                }
-                controllerUri += "/" + s.formatUri(strings.TrimSuffix(typeNameList[1], "Controller"))
-                s.registerActionRoute(controllerUri, controllers[i])
+    controllerNum := len(controllers)
+    if controllerNum > 0 {
+        uriPrefix := ""
+        blocks := s.serverConf.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
+        for i := 0; i < controllerNum; i++ {
+            objType := reflect.TypeOf(controllers[i])
+            typeNameList := strings.Split(objType.String(), ".")
+            if len(typeNameList) < 2 {
+                continue
             }
+
+            // 校验版块
+            packageName := strings.TrimPrefix(typeNameList[0], "*")
+            match, _ := regexp.MatchString(`^[a-z]+$`, packageName)
+            if !match {
+                continue
+            }
+            _, ok := blocks[packageName]
+            if !ok {
+                continue
+            }
+            uriPrefix = "/" + packageName
+
+            // 校验控制器
+            if !strings.HasSuffix(typeNameList[1], "Controller") {
+                continue
+            }
+            controllerUri := s.formatUri(strings.TrimSuffix(typeNameList[1], "Controller"))
+            if len(controllerUri) == 0 {
+                continue
+            }
+            uriPrefix += "/" + controllerUri
+            s.registerActionRoute(uriPrefix, controllers[i])
         }
+    }
 
-        s.app.Any("/{directory:path}", func(ctx iris.Context) {
-            result := mpresponse.NewResultBasic()
-            directory := ctx.Params().Get("directory")
-            if directory == "error/500" {
-                result.Code = errorcode.CommonBaseServer
-                result.Msg = "服务出错"
-            } else {
-                mplog.LogInfo("uri: /" + directory + " not exist")
-                result.Code = errorcode.CommonRequestResourceEmpty
-                result.Msg = "接口不存在"
-            }
-            ctx.JSON(result)
-            ctx.ContentType(project.HttpContentTypeJson)
-            ctx.Next()
-        })
+    s.app.Any("/{directory:path}", func(ctx iris.Context) {
+        result := mpresponse.NewResultBasic()
+        directory := ctx.Params().Get("directory")
+        if directory == "error/500" {
+            result.Code = errorcode.CommonBaseServer
+            result.Msg = "服务出错"
+        } else {
+            mplog.LogInfo("uri: /" + directory + " not exist")
+            result.Code = errorcode.CommonRequestResourceEmpty
+            result.Msg = "接口不存在"
+        }
+        ctx.JSON(result)
+        ctx.ContentType(project.HttpContentTypeJson)
+        ctx.Next()
     })
 }
 
@@ -243,6 +264,7 @@ func (s *basic) startBasic() {
 
 func newBasic(conf *viper.Viper) basic {
     s := basic{}
+    s.routeFlag = false
     s.serverConf = conf
     s.app = iris.New()
     s.runConfigs = make([]iris.Configurator, 0)

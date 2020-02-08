@@ -15,18 +15,18 @@ import (
 
 // 请求响应
 type ResultBasic struct {
-    ReqId string                 `json:"req_id"`
-    Code  uint                   `json:"code"`
-    Data  map[string]interface{} `json:"data"`
-    Msg   string                 `json:"msg"`
-    Time  int64                  `json:"time"`
+    ReqId string      `json:"req_id"`
+    Code  uint        `json:"code"`
+    Data  interface{} `json:"data"`
+    Msg   string      `json:"msg"`
+    Time  int64       `json:"time"`
 }
 
 func NewResultBasic() *ResultBasic {
     r := &ResultBasic{}
     r.ReqId = mpf.ToolGetReqId()
     r.Code = errorcode.CommonBaseSuccess
-    r.Data = make(map[string]interface{})
+    r.Data = nil
     r.Msg = ""
     r.Time = time.Now().Unix()
     return r
