@@ -7,7 +7,7 @@
 package frontend
 
 import (
-    "github.com/kataras/iris/v12"
+    "github.com/kataras/iris/v12/context"
 )
 
 type indexController struct {
@@ -18,7 +18,7 @@ func NewIndex() *indexController {
     return &indexController{newCommon()}
 }
 
-func (c *indexController) ActionGetName(ctx iris.Context) interface{} {
+func (c *indexController) ActionGetName(ctx context.Context) interface{} {
     name := ctx.Params().GetStringDefault("name", "jiangwei")
     result := make(map[string]string)
     result["myname"] = name
