@@ -7,7 +7,7 @@
 package mpserver
 
 import (
-    "context"
+    context2 "context"
     "fmt"
     "log"
     "os"
@@ -27,7 +27,7 @@ import (
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
-    context2 "github.com/kataras/iris/v12/context"
+    "github.com/kataras/iris/v12/context"
     "github.com/spf13/viper"
     "github.com/valyala/tcplisten"
 )
@@ -36,7 +36,7 @@ type IServerBasic interface {
     bootServer()
     StartServer()
     AddRunConfig(configs ...iris.Configurator)
-    SetMwGlobal(mwType bool, mwList ...func(ctx iris.Context))
+    SetMwGlobal(mwType bool, mwList ...context.Handler)
     SetRoute(controllers ...controllers.IControllerBasic)
 }
 
@@ -55,7 +55,7 @@ func (s *basic) AddRunConfig(configs ...iris.Configurator) {
 
 // 设置全局中间件
 //   mwType: bool 中间件类型,true:前置 false:后置
-func (s *basic) SetMwGlobal(mwType bool, mwList ...func(ctx iris.Context)) {
+func (s *basic) SetMwGlobal(mwType bool, mwList ...context.Handler) {
     if len(mwList) == 0 {
         return
     }
@@ -69,18 +69,6 @@ func (s *basic) SetMwGlobal(mwType bool, mwList ...func(ctx iris.Context)) {
             s.app.DoneGlobal(v)
         }
     }
-}
-
-func (s *basic) transferMwList(mwList []func(ctx iris.Context)) []context2.Handler {
-    mwNum := len(mwList)
-    handles := make([]context2.Handler, mwNum)
-    if mwNum > 0 {
-        for i := 0; i < mwNum; i++ {
-            handles = append(handles, context2.Handler(mwList[i]))
-        }
-    }
-
-    return handles
 }
 
 func (s *basic) formatUri(name string) string {
@@ -102,10 +90,8 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
     }
 
     refControllerType := reflect.TypeOf(controller)
-    groupPrefixHandles := s.transferMwList(controller.GetMwController(true))
-    groupSuffixHandles := s.transferMwList(controller.GetMwController(false))
-    groupRoute := s.app.Party(groupUri, groupPrefixHandles...)
-    groupRoute.Done(groupSuffixHandles...)
+    groupRoute := s.app.Party(groupUri, controller.GetMwController(true)...)
+    groupRoute.Done(controller.GetMwController(false)...)
     for i := 0; i < methodNum; i++ {
         funcName := runtime.FuncForPC(refControllerType.Method(i).Func.Pointer()).Name()
         funcNameList := strings.Split(funcName, ".")
@@ -118,7 +104,7 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
         }
 
         refAction := refControllerVal.Method(i)
-        _, ok := refAction.Interface().(func(ctx iris.Context) interface{})
+        _, ok := refAction.Interface().(func(ctx context.Context) interface{})
         if !ok {
             continue
         }
@@ -130,7 +116,7 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
         actionUri := "/" + actionTag
 
         actionMwList := controller.GetMwAction(true, actionTag)
-        actionMwList = append(actionMwList, func(ctx iris.Context) {
+        actionMwList = append(actionMwList, func(ctx context.Context) {
             args := []reflect.Value{reflect.ValueOf(ctx)}
             callRes := refAction.Call(args)
             actionRes := callRes[0].Interface()
@@ -150,8 +136,7 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
             ctx.Next()
         })
         actionMwList = append(actionMwList, controller.GetMwAction(false, actionTag)...)
-        actionHandles := s.transferMwList(actionMwList)
-        groupRoute.Any(actionUri, actionHandles...)
+        groupRoute.Any(actionUri, actionMwList...)
     }
 }
 
@@ -196,7 +181,7 @@ func (s *basic) SetRoute(controllers ...controllers.IControllerBasic) {
         }
     }
 
-    s.app.Any("/{directory:path}", func(ctx iris.Context) {
+    s.app.Any("/{directory:path}", func(ctx context.Context) {
         result := mpresponse.NewResultBasic()
         directory := ctx.Params().Get("directory")
         if directory == "error/500" {
@@ -233,7 +218,7 @@ func (s *basic) bootBasic() {
             mplog.LogInfo("server shut down")
         })
     })
-    s.app.OnAnyErrorCode(func(ctx iris.Context) {
+    s.app.OnAnyErrorCode(func(ctx context.Context) {
         mplog.LogError("HTTP ERROR CODE: " + strconv.Itoa(ctx.GetStatusCode()))
         result := mpresponse.NewResultBasic()
         result.Code = errorcode.CommonBaseServer
@@ -260,7 +245,7 @@ func (s *basic) listenNotify() {
             mplog.LogInfo("shutdown on signal " + fmt.Sprintf("%#v", s))
 
             timeout := 5 * time.Second
-            ctx, _ := context.WithTimeout(context.Background(), timeout)
+            ctx, _ := context2.WithTimeout(context2.Background(), timeout)
             app.Shutdown(ctx)
         }
     }(s.app)

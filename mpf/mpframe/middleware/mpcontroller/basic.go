@@ -12,12 +12,12 @@ import (
 
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mplog"
-    "github.com/kataras/iris/v12"
+    "github.com/kataras/iris/v12/context"
 )
 
 // 控制器日志
-func NewBasicLog() func(ctx iris.Context) {
-    return func(ctx iris.Context) {
+func NewBasicLog() context.Handler {
+    return func(ctx context.Context) {
         reqUrl := ""
         urlEntry, ok := ctx.Values().GetEntry(project.DataParamKeyUrl)
         if ok {

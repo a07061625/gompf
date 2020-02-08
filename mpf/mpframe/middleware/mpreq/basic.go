@@ -17,11 +17,12 @@ import (
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
+    "github.com/kataras/iris/v12/context"
 )
 
 // 请求日志
-func NewBasicLog() func(ctx iris.Context) {
-    return func(ctx iris.Context) {
+func NewBasicLog() context.Handler {
+    return func(ctx context.Context) {
         reqId := ""
         if mpf.EnvServerTypeRpc == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
             reqId = ctx.PostValueDefault(project.DataParamKeyReqId, "")
@@ -50,8 +51,8 @@ func NewBasicLog() func(ctx iris.Context) {
 }
 
 // 错误捕获
-func NewBasicRecover() func(ctx iris.Context) {
-    return func(ctx iris.Context) {
+func NewBasicRecover() context.Handler {
+    return func(ctx context.Context) {
         defer func() {
             if r := recover(); r != nil {
                 if ctx.IsStopped() {
@@ -90,8 +91,8 @@ func NewBasicRecover() func(ctx iris.Context) {
 }
 
 // 请求头处理
-func NewBasicHeader() func(ctx iris.Context) {
-    return func(ctx iris.Context) {
+func NewBasicHeader() context.Handler {
+    return func(ctx context.Context) {
         if (ctx.Method() != iris.MethodGet) && (ctx.Method() != iris.MethodPost) {
             result := mpresponse.NewResultBasic()
             result.Code = errorcode.CommonRequestMethod
