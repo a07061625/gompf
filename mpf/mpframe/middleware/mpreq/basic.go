@@ -79,12 +79,26 @@ func NewBasicRecover() func(ctx iris.Context) {
                 if len(errMsg) > 0 {
                     mplog.LogError(errMsg)
                 }
-                ctx.JSON(result)
-                ctx.ResponseWriter().WriteHeader(iris.StatusOK)
+                ctx.ContentType(project.HttpContentTypeJson)
+                ctx.WriteString(mpf.JsonMarshal(result))
                 ctx.StopExecution()
             }
         }()
 
         ctx.Next()
+    }
+}
+
+// 请求头处理
+func NewBasicHeader() func(ctx iris.Context) {
+    return func(ctx iris.Context) {
+        if (ctx.Method() != iris.MethodGet) && (ctx.Method() != iris.MethodPost) {
+            result := mpresponse.NewResultBasic()
+            result.Code = errorcode.CommonRequestMethod
+            result.Msg = "请求方式不允许"
+            ctx.ContentType(project.HttpContentTypeJson)
+            ctx.WriteString(mpf.JsonMarshal(result))
+            ctx.StopExecution()
+        }
     }
 }

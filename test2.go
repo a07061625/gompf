@@ -22,7 +22,7 @@ func init() {
 func main() {
     conf := mpf.NewConfig().GetConfig("server")
     server := mpserver.NewBasicHttp(conf)
-    server.SetMwGlobal(true, mpreq.NewBasicLog(), mpreq.NewBasicRecover())
+    server.SetMwGlobal(true, mpreq.NewBasicLog(), mpreq.NewBasicHeader(), mpreq.NewBasicRecover())
     server.SetMwGlobal(false, mpresp.NewBasicClear())
     server.SetRoute(frontend.NewIndex())
     server.StartServer()

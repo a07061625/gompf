@@ -26,7 +26,7 @@ func NewResultBasic() *ResultBasic {
     r := &ResultBasic{}
     r.ReqId = mpf.ToolGetReqId()
     r.Code = errorcode.CommonBaseSuccess
-    r.Data = nil
+    r.Data = make(map[string]interface{})
     r.Msg = ""
     r.Time = time.Now().Unix()
     return r

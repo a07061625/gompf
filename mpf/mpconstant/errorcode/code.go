@@ -19,6 +19,7 @@ const (
     CommonRequestTimeout       uint = 30003 // 请求超时
     CommonRequestResourceEmpty uint = 30004 // 请求资源不存在
     CommonRequestFormat        uint = 30005 // 请求格式错误
+    CommonRequestMethod        uint = 30006 // 请求方式错误
 
     // 公共响应
     CommonResponseEmpty  uint = 30050 // 响应为空

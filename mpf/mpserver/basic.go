@@ -125,8 +125,6 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
                 result := mpresponse.NewResultBasic()
                 if actionRes != nil {
                     result.Data = actionRes
-                } else {
-                    result.Data = make(map[string]string)
                 }
                 ctx.WriteString(mpf.JsonMarshal(result))
                 ctx.ContentType(project.HttpContentTypeJson)
@@ -138,7 +136,7 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
         mwList = append(mwList, mwAfter...)
         mwNum := len(mwList)
         for i := 0; i < mwNum; i++ {
-            groupRoute.HandleMany("GET POST", actionUri, mwList[i])
+            groupRoute.Any(actionUri, mwList[i])
         }
     }
 }
