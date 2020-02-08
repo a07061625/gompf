@@ -18,9 +18,11 @@ const (
     // http常量
     HttpHeadKeyCookie        = "Set-Cookie"                                       // 请求头名称-cookie
     HttpHeadKeyContentLength = "Content-Length"                                   // 请求头名称-内容长度
-    HttpContentTypeForm      = "application/x-www-form-urlencoded; charset=utf-8" // 请求内容类型-表单
-    HttpContentTypeJson      = "application/json; charset=utf-8"                  // 请求内容类型-json
-    HttpContentTypeXml       = "application/xml; charset=utf-8"                   // 请求内容类型-xml
+    HttpContentTypeForm      = "application/x-www-form-urlencoded; charset=utf-8" // http内容类型-表单
+    HttpContentTypeJson      = "application/json; charset=utf-8"                  // http内容类型-json
+    HttpContentTypeXml       = "application/xml; charset=utf-8"                   // http内容类型-xml
+    HttpContentTypeHtml      = "text/html; charset=utf-8"                         // http内容类型-html
+    HttpContentTypeText      = "text/plain; charset=utf-8"                        // http内容类型-text
 
     // 正则表达式
     RegexWxOpenid   = `^[0-9a-zA-Z\-_]{28}$`                           // 微信openid

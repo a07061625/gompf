@@ -7,14 +7,11 @@ base: &serverbase
     controller: 3.0
     action: 3.0
   mvc:
-    module:
-      default: "index"
+    block:
       accept:
-        - "index"
-    controller:
-      default: "index"
-    action:
-      default: "index"
+        index: "默认"
+        frontend: "前端"
+        backend: "后端"
 dev:
   a01api:
     <<: *serverbase

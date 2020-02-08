@@ -1,10 +1,10 @@
 /**
  * Created by GoLand.
  * User: 姜伟
- * Date: 2020/2/7 0007
- * Time: 23:41
+ * Date: 2020/2/8 0008
+ * Time: 12:48
  */
-package globalprefix
+package mpreq
 
 import (
     "strconv"
@@ -20,10 +20,8 @@ import (
 )
 
 // 请求日志
-func NewSimpleRequestLog() func(ctx iris.Context) {
+func NewBasicLog() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        ctx.ContentType(project.HttpContentTypeJson)
-
         reqId := ""
         if mpf.EnvServerTypeRpc == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
             reqId = ctx.PostValueDefault(project.DataParamKeyReqId, "")
@@ -52,7 +50,7 @@ func NewSimpleRequestLog() func(ctx iris.Context) {
 }
 
 // 错误捕获
-func NewSimpleRecover() func(ctx iris.Context) {
+func NewBasicRecover() func(ctx iris.Context) {
     return func(ctx iris.Context) {
         defer func() {
             if r := recover(); r != nil {
@@ -61,7 +59,7 @@ func NewSimpleRecover() func(ctx iris.Context) {
                 }
 
                 errMsg := ""
-                result := mpresponse.NewResult()
+                result := mpresponse.NewResultBasic()
                 if err1, ok := r.(*mperr.ErrorCommon); ok {
                     if err1.Type != mperr.TypeInnerValidator {
                         errMsg = err1.Msg
@@ -82,7 +80,7 @@ func NewSimpleRecover() func(ctx iris.Context) {
                     mplog.LogError(errMsg)
                 }
                 ctx.JSON(result)
-                ctx.StatusCode(iris.StatusOK)
+                ctx.ResponseWriter().WriteHeader(iris.StatusOK)
                 ctx.StopExecution()
             }
         }()

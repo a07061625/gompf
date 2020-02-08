@@ -1,10 +1,10 @@
 /**
  * Created by GoLand.
  * User: 姜伟
- * Date: 2020/2/7 0007
- * Time: 23:43
+ * Date: 2020/2/8 0008
+ * Time: 12:48
  */
-package mvcaction
+package mpaction
 
 import (
     "strconv"
@@ -16,9 +16,13 @@ import (
 )
 
 // 动作日志
-func NewSimpleLog() func(ctx iris.Context) {
+func NewBasicLog() func(ctx iris.Context) {
     return func(ctx iris.Context) {
-        reqUrl := ctx.Values().GetStringDefault(project.DataParamKeyUrl, "")
+        reqUrl := ""
+        urlEntry, ok := ctx.Values().GetEntry(project.DataParamKeyUrl)
+        if ok {
+            reqUrl = urlEntry.ValueRaw.(string)
+        }
         mplog.LogInfo(reqUrl + " action-enter")
 
         // 业务结束日志

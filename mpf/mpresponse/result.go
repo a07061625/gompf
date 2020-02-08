@@ -14,7 +14,7 @@ import (
 )
 
 // 请求响应
-type result struct {
+type ResultBasic struct {
     ReqId string                 `json:"req_id"`
     Code  uint                   `json:"code"`
     Data  map[string]interface{} `json:"data"`
@@ -22,8 +22,8 @@ type result struct {
     Time  int64                  `json:"time"`
 }
 
-func NewResult() *result {
-    r := &result{}
+func NewResultBasic() *ResultBasic {
+    r := &ResultBasic{}
     r.ReqId = mpf.ToolGetReqId()
     r.Code = errorcode.CommonBaseSuccess
     r.Data = make(map[string]interface{})
