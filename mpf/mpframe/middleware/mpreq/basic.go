@@ -101,5 +101,7 @@ func NewBasicHeader() context.Handler {
             ctx.WriteString(mpf.JsonMarshal(result))
             ctx.StopExecution()
         }
+
+        ctx.Next()
     }
 }
