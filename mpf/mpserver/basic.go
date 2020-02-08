@@ -135,33 +135,31 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
 func (s *basic) SetRoute(controllers ...controllers.IControllerBasic) {
     s.once.Do(func() {
         controllerNum := len(controllers)
-        if controllerNum == 0 {
-            return
-        }
+        if controllerNum > 0 {
+            controllerUri := ""
+            blocks := s.serverConf.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
+            for i := 0; i < controllerNum; i++ {
+                objType := reflect.TypeOf(controllers[i])
+                typeNameList := strings.Split(objType.String(), ".")
+                if len(typeNameList) < 2 {
+                    continue
+                }
 
-        controllerUri := ""
-        blocks := s.serverConf.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
-        for i := 0; i < controllerNum; i++ {
-            objType := reflect.TypeOf(controllers[i])
-            typeNameList := strings.Split(objType.String(), ".")
-            if len(typeNameList) < 2 {
-                continue
-            }
+                // 校验版块
+                packageName := strings.TrimPrefix(typeNameList[0], "*")
+                _, ok := blocks[packageName]
+                if !ok {
+                    continue
+                }
+                controllerUri = "/" + packageName
 
-            // 校验版块
-            packageName := strings.TrimPrefix(typeNameList[0], "*")
-            _, ok := blocks[packageName]
-            if !ok {
-                continue
+                // 校验控制器
+                if !strings.HasSuffix(typeNameList[1], "Controller") {
+                    continue
+                }
+                controllerUri += "/" + s.formatUri(strings.TrimSuffix(typeNameList[1], "Controller"))
+                s.registerActionRoute(controllerUri, controllers[i])
             }
-            controllerUri = "/" + packageName
-
-            // 校验控制器
-            if !strings.HasSuffix(typeNameList[1], "Controller") {
-                continue
-            }
-            controllerUri += "/" + s.formatUri(strings.TrimSuffix(typeNameList[1], "Controller"))
-            s.registerActionRoute(controllerUri, controllers[i])
         }
 
         s.app.Any("/{directory:path}", func(ctx iris.Context) {
