@@ -15,6 +15,7 @@ import (
     "reflect"
     "regexp"
     "runtime"
+    "strconv"
     "strings"
     "syscall"
     "time"
@@ -26,6 +27,7 @@ import (
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
+    context2 "github.com/kataras/iris/v12/context"
     "github.com/spf13/viper"
     "github.com/valyala/tcplisten"
 )
@@ -69,6 +71,18 @@ func (s *basic) SetMwGlobal(mwType bool, mwList ...func(ctx iris.Context)) {
     }
 }
 
+func (s *basic) transferMwList(mwList []func(ctx iris.Context)) []context2.Handler {
+    mwNum := len(mwList)
+    handles := make([]context2.Handler, mwNum)
+    if mwNum > 0 {
+        for i := 0; i < mwNum; i++ {
+            handles = append(handles, context2.Handler(mwList[i]))
+        }
+    }
+
+    return handles
+}
+
 func (s *basic) formatUri(name string) string {
     match, _ := regexp.MatchString(`^[a-zA-Z]+$`, name)
     if !match {
@@ -88,7 +102,10 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
     }
 
     refControllerType := reflect.TypeOf(controller)
-    groupRoute := s.app.Party(groupUri)
+    groupPrefixHandles := s.transferMwList(controller.GetMwController(true))
+    groupSuffixHandles := s.transferMwList(controller.GetMwController(false))
+    groupRoute := s.app.Party(groupUri, groupPrefixHandles...)
+    groupRoute.Done(groupSuffixHandles...)
     for i := 0; i < methodNum; i++ {
         funcName := runtime.FuncForPC(refControllerType.Method(i).Func.Pointer()).Name()
         funcNameList := strings.Split(funcName, ".")
@@ -112,8 +129,8 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
         }
         actionUri := "/" + actionTag
 
-        mwList := controller.GetMwActionBefore(actionTag)
-        mwList = append(mwList, func(ctx iris.Context) {
+        actionMwList := controller.GetMwAction(true, actionTag)
+        actionMwList = append(actionMwList, func(ctx iris.Context) {
             args := []reflect.Value{reflect.ValueOf(ctx)}
             callRes := refAction.Call(args)
             actionRes := callRes[0].Interface()
@@ -132,12 +149,9 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
 
             ctx.Next()
         })
-        mwAfter := controller.GetMwActionAfter(actionTag)
-        mwList = append(mwList, mwAfter...)
-        mwNum := len(mwList)
-        for i := 0; i < mwNum; i++ {
-            groupRoute.Any(actionUri, mwList[i])
-        }
+        actionMwList = append(actionMwList, controller.GetMwAction(false, actionTag)...)
+        actionHandles := s.transferMwList(actionMwList)
+        groupRoute.Any(actionUri, actionHandles...)
     }
 }
 
@@ -193,7 +207,7 @@ func (s *basic) SetRoute(controllers ...controllers.IControllerBasic) {
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口不存在"
         }
-        ctx.JSON(result)
+        ctx.WriteString(mpf.JsonMarshal(result))
         ctx.ContentType(project.HttpContentTypeJson)
         ctx.Next()
     })
@@ -212,13 +226,21 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
-    s.runConfigs = append(s.runConfigs, iris.WithoutAutoFireStatusCode)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
     s.app.ConfigureHost(func(host *iris.Supervisor) {
         host.RegisterOnShutdown(func() {
             mplog.LogInfo("server shut down")
         })
+    })
+    s.app.OnAnyErrorCode(func(ctx iris.Context) {
+        mplog.LogError("HTTP ERROR CODE: " + strconv.Itoa(ctx.GetStatusCode()))
+        result := mpresponse.NewResultBasic()
+        result.Code = errorcode.CommonBaseServer
+        result.Msg = "服务出错"
+        ctx.WriteString(mpf.JsonMarshal(result))
+        ctx.ContentType(project.HttpContentTypeJson)
+        ctx.StopExecution()
     })
 }
 

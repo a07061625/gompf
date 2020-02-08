@@ -13,47 +13,49 @@ import (
 )
 
 type IControllerBasic interface {
-    GetMwActionBefore(tag string) []func(ctx iris.Context) // 获取动作的前置中间件
-    GetMwActionAfter(tag string) []func(ctx iris.Context)  // 获取动作的后置中间件
+    GetMwController(isPrefix bool) []func(ctx iris.Context)         // 获取动作的中间件
+    GetMwAction(isPrefix bool, tag string) []func(ctx iris.Context) // 获取动作的中间件
 }
 
 type ControllerBasic struct {
-    MwControllerBefore []func(ctx iris.Context)            // 控制器前置中间件
-    MwControllerAfter  []func(ctx iris.Context)            // 控制器后置中间件
-    MwActionBefore     map[string][]func(ctx iris.Context) // 动作前置中间件
-    MwActionAfter      map[string][]func(ctx iris.Context) // 动作后置中间件
+    MwControllerPrefix []func(ctx iris.Context)            // 控制器前置中间件
+    MwControllerSuffix []func(ctx iris.Context)            // 控制器后置中间件
+    MwActionPrefix     map[string][]func(ctx iris.Context) // 动作前置中间件
+    MwActionSuffix     map[string][]func(ctx iris.Context) // 动作后置中间件
 }
 
-func (c *ControllerBasic) GetMwActionBefore(tag string) []func(ctx iris.Context) {
-    mwList := make([]func(ctx iris.Context), 0)
-    mwList = append(mwList, c.MwControllerBefore...)
-
-    handles, ok := c.MwActionBefore[tag]
-    if ok && (len(handles) > 0) {
-        mwList = append(mwList, handles...)
+func (c *ControllerBasic) GetMwController(isPrefix bool) []func(ctx iris.Context) {
+    if isPrefix {
+        return c.MwControllerPrefix
+    } else {
+        return c.MwControllerSuffix
     }
-
-    return mwList
 }
 
-func (c *ControllerBasic) GetMwActionAfter(tag string) []func(ctx iris.Context) {
-    mwList := make([]func(ctx iris.Context), 0)
-
-    handles, ok := c.MwActionAfter[tag]
-    if ok && (len(handles) > 0) {
-        mwList = append(mwList, handles...)
+func (c *ControllerBasic) GetMwAction(isPrefix bool, tag string) []func(ctx iris.Context) {
+    if isPrefix {
+        handles, ok := c.MwActionPrefix[tag]
+        if ok {
+            return handles
+        } else {
+            return make([]func(ctx iris.Context), 0)
+        }
+    } else {
+        handles, ok := c.MwActionSuffix[tag]
+        if ok {
+            return handles
+        } else {
+            return make([]func(ctx iris.Context), 0)
+        }
     }
-    mwList = append(mwList, c.MwControllerAfter...)
-
-    return mwList
 }
 
 func NewControllerBasic() ControllerBasic {
     c := ControllerBasic{}
-    c.MwControllerBefore = make([]func(ctx iris.Context), 0)
-    c.MwControllerBefore = append(c.MwControllerBefore, mpcontroller.NewBasicLog(), mpaction.NewBasicLog())
-    c.MwControllerAfter = make([]func(ctx iris.Context), 0)
-    c.MwActionBefore = make(map[string][]func(ctx iris.Context))
-    c.MwActionAfter = make(map[string][]func(ctx iris.Context))
+    c.MwControllerPrefix = make([]func(ctx iris.Context), 0)
+    c.MwControllerPrefix = append(c.MwControllerPrefix, mpcontroller.NewBasicLog(), mpaction.NewBasicLog())
+    c.MwControllerSuffix = make([]func(ctx iris.Context), 0)
+    c.MwActionPrefix = make(map[string][]func(ctx iris.Context))
+    c.MwActionSuffix = make(map[string][]func(ctx iris.Context))
     return c
 }
