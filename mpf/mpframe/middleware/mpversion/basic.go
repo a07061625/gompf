@@ -1,5 +1,7 @@
 /**
- * Created by GoLand.
+ * 版本中间件,需要设置请求头,下面两个方式任选其一
+ *   Accept: "application/json; version=1.0"
+ *   Accept-Version: "1.0"
  * User: 姜伟
  * Date: 2020/2/9 0009
  * Time: 23:38
