@@ -40,6 +40,8 @@ func NewBasicError() context.Handler {
             ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
             ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
             ctx.StopExecution()
+        } else {
+            ctx.Next()
         }
     }
 }

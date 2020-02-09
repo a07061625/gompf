@@ -38,6 +38,8 @@ func NewBasicSend() context.Handler {
             ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
             ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
         }
+
+        ctx.Next()
     }
 }
 

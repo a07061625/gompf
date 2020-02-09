@@ -35,6 +35,8 @@ func NewBasicInit() context.Handler {
             reqUrl += "?" + ctx.Request().URL.RawQuery
         }
         ctx.Values().Set(project.DataParamKeyReqUrl, reqUrl)
+
+        ctx.Next()
     }
 }
 
@@ -53,6 +55,8 @@ func NewBasicLog() context.Handler {
                 mplog.LogWarn("handle " + reqUrl + " request-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
+
+        ctx.Next()
     }
 }
 
@@ -92,5 +96,7 @@ func NewBasicRecover() context.Handler {
                 ctx.StopExecution()
             }
         }()
+
+        ctx.Next()
     }
 }
