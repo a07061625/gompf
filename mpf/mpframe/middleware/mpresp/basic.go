@@ -21,13 +21,14 @@ func NewBasicSend() context.Handler {
     return func(ctx context.Context) {
         respData, ok := ctx.Values().GetEntry(project.DataParamKeyRespData)
         if ok {
-            data, ok := respData.ValueRaw.(string)
-            if ok {
+            data := respData.Value()
+            switch data.(type) {
+            case string:
                 ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeText)
-                ctx.Recorder().SetBodyString(data)
-            } else {
+                ctx.Recorder().SetBodyString(data.(string))
+            default:
                 result := mpresponse.NewResultBasic()
-                result.Data = data
+                result.Data = data.(interface{})
                 ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
                 ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
             }
