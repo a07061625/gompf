@@ -50,6 +50,7 @@ func NewBasicEnd() context.Handler {
         os.Unsetenv(project.DataParamKeyReqId)
         ctx.Values().Remove(project.DataParamKeyReqUrl)
         ctx.Values().Remove(project.DataParamKeyRespData)
-        ctx.EndRequest()
+        // 最后退出上下文的时候,不要用ctx.EndRequest(),它会导致响应的数据被复制一份
+        ctx.StopExecution()
     }
 }
