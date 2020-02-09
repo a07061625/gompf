@@ -94,8 +94,8 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
     // 无需显式调用ctx.Next(),自动触发下一个handle
     groupRoute.SetExecutionRules(iris.ExecutionRules{
         Begin: iris.ExecutionOptions{true},
-        Done:  iris.ExecutionOptions{true},
         Main:  iris.ExecutionOptions{true},
+        Done:  iris.ExecutionOptions{true},
     })
     groupRoute.Use(controller.GetMwController(true)...)
     groupRoute.Done(controller.GetMwController(false)...)
