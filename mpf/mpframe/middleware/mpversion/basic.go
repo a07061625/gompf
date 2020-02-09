@@ -28,7 +28,7 @@ func NewBasicError() context.Handler {
         maxVersion := ctx.Application().ConfigurationReadOnly().GetOther()["version_max"].(string)
         if apiVersion == versioning.NotFound {
             errMsg = "API版本必须填写"
-        } else if versioning.Match(ctx, "<= "+minVersion) {
+        } else if versioning.Match(ctx, "< "+minVersion) {
             errMsg = "API版本已废弃"
         } else if versioning.Match(ctx, "> "+maxVersion) {
             errMsg = "API版本不支持"
