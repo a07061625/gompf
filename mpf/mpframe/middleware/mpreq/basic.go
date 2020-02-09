@@ -91,8 +91,8 @@ func NewBasicRecover() context.Handler {
                     mplog.LogError(errMsg)
                 }
 
-                ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
-                ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
+                ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
+                ctx.WriteString(mpf.JsonMarshal(result))
                 ctx.StopExecution()
             }
         }()

@@ -37,8 +37,8 @@ func NewBasicError() context.Handler {
             result := mpresponse.NewResultBasic()
             result.Code = errorcode.CommonRequestFormat
             result.Msg = errMsg
-            ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
-            ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
+            ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
+            ctx.WriteString(mpf.JsonMarshal(result))
             ctx.StopExecution()
         } else {
             ctx.Next()

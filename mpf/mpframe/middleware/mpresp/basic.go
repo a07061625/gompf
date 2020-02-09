@@ -24,20 +24,20 @@ func NewBasicSend() context.Handler {
             data := respData.Value()
             switch data.(type) {
             case string:
-                ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeText)
-                ctx.Recorder().SetBodyString(data.(string))
+                ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeText)
+                ctx.WriteString(data.(string))
             default:
                 result := mpresponse.NewResultBasic()
                 result.Data = data.(interface{})
-                ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
-                ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
+                ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
+                ctx.WriteString(mpf.JsonMarshal(result))
             }
         } else {
             result := mpresponse.NewResultBasic()
             result.Code = errorcode.CommonBaseServer
             result.Msg = "响应数据不能为空"
-            ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
-            ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
+            ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
+            ctx.WriteString(mpf.JsonMarshal(result))
         }
 
         ctx.Next()
