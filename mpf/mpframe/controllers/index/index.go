@@ -9,7 +9,3 @@ package index
 type indexController struct {
     common
 }
-
-func NewIndex() *indexController {
-    return &indexController{newCommon()}
-}

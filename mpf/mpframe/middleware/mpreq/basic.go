@@ -16,7 +16,6 @@ import (
     "github.com/a07061625/gompf/mpf/mperr"
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
-    "github.com/kataras/iris/v12"
     "github.com/kataras/iris/v12/context"
 )
 
@@ -85,22 +84,6 @@ func NewBasicRecover() context.Handler {
                 ctx.StopExecution()
             }
         }()
-
-        ctx.Next()
-    }
-}
-
-// 请求头处理
-func NewBasicHeader() context.Handler {
-    return func(ctx context.Context) {
-        if (ctx.Method() != iris.MethodGet) && (ctx.Method() != iris.MethodPost) {
-            result := mpresponse.NewResultBasic()
-            result.Code = errorcode.CommonRequestMethod
-            result.Msg = "请求方式不允许"
-            ctx.ContentType(project.HttpContentTypeJson)
-            ctx.WriteString(mpf.JsonMarshal(result))
-            ctx.StopExecution()
-        }
 
         ctx.Next()
     }

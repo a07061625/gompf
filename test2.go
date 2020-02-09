@@ -4,7 +4,10 @@ import (
     "os"
 
     "github.com/a07061625/gompf/mpf"
+    "github.com/a07061625/gompf/mpf/mpframe/controllers"
+    "github.com/a07061625/gompf/mpf/mpframe/controllers/backend"
     "github.com/a07061625/gompf/mpf/mpframe/controllers/frontend"
+    "github.com/a07061625/gompf/mpf/mpframe/controllers/index"
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpreq"
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpresp"
     "github.com/a07061625/gompf/mpf/mpserver"
@@ -20,10 +23,14 @@ func init() {
 }
 
 func main() {
-    conf := mpf.NewConfig().GetConfig("server")
-    server := mpserver.NewBasicHttp(conf)
-    server.SetMwGlobal(true, mpreq.NewBasicLog(), mpreq.NewBasicHeader(), mpreq.NewBasicRecover())
+    mpRouter := controllers.NewRouter()
+    mpRouter.RegisterGroup(index.NewRouter())
+    mpRouter.RegisterGroup(frontend.NewRouter())
+    mpRouter.RegisterGroup(backend.NewRouter())
+
+    server := mpserver.NewBasic()
+    server.SetMwGlobal(true, mpreq.NewBasicLog(), mpreq.NewBasicRecover())
     server.SetMwGlobal(false, mpresp.NewBasicClear())
-    server.SetRoute(frontend.NewIndex())
+    server.SetRoute(mpRouter.GetControllers()...)
     server.StartServer()
 }

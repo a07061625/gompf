@@ -7,7 +7,7 @@
 package mpserver
 
 import (
-    context2 "context"
+    stdContext "context"
     "fmt"
     "log"
     "os"
@@ -17,6 +17,7 @@ import (
     "runtime"
     "strconv"
     "strings"
+    "sync"
     "syscall"
     "time"
 
@@ -113,7 +114,6 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
         if len(actionTag) == 0 {
             continue
         }
-        actionUri := "/" + actionTag
 
         actionMwList := controller.GetMwAction(true, actionTag)
         actionMwList = append(actionMwList, func(ctx context.Context) {
@@ -136,7 +136,9 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
             ctx.Next()
         })
         actionMwList = append(actionMwList, controller.GetMwAction(false, actionTag)...)
-        groupRoute.Any(actionUri, actionMwList...)
+        actionUri := "/" + actionTag + " /" + actionTag + "/{directory:path}"
+        groupRoute.HandleMany(iris.MethodGet, actionUri, actionMwList...)
+        groupRoute.HandleMany(iris.MethodPost, actionUri, actionMwList...)
     }
 }
 
@@ -144,58 +146,45 @@ func (s *basic) SetRoute(controllers ...controllers.IControllerBasic) {
     if s.routeFlag {
         return
     }
+    s.routeFlag = true
 
     controllerNum := len(controllers)
-    if controllerNum > 0 {
-        uriPrefix := ""
-        blocks := s.serverConf.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
-        for i := 0; i < controllerNum; i++ {
-            objType := reflect.TypeOf(controllers[i])
-            typeNameList := strings.Split(objType.String(), ".")
-            if len(typeNameList) < 2 {
-                continue
-            }
-
-            // 校验版块
-            packageName := strings.TrimPrefix(typeNameList[0], "*")
-            match, _ := regexp.MatchString(`^[a-z]+$`, packageName)
-            if !match {
-                continue
-            }
-            _, ok := blocks[packageName]
-            if !ok {
-                continue
-            }
-            uriPrefix = "/" + packageName
-
-            // 校验控制器
-            if !strings.HasSuffix(typeNameList[1], "Controller") {
-                continue
-            }
-            controllerUri := s.formatUri(strings.TrimSuffix(typeNameList[1], "Controller"))
-            if len(controllerUri) == 0 {
-                continue
-            }
-            uriPrefix += "/" + controllerUri
-            s.registerActionRoute(uriPrefix, controllers[i])
-        }
+    if controllerNum <= 0 {
+        return
     }
 
-    s.app.Any("/{directory:path}", func(ctx context.Context) {
-        result := mpresponse.NewResultBasic()
-        directory := ctx.Params().Get("directory")
-        if directory == "error/500" {
-            result.Code = errorcode.CommonBaseServer
-            result.Msg = "服务出错"
-        } else {
-            mplog.LogInfo("uri: /" + directory + " not exist")
-            result.Code = errorcode.CommonRequestResourceEmpty
-            result.Msg = "接口不存在"
+    uriPrefix := ""
+    blocks := s.serverConf.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
+    for i := 0; i < controllerNum; i++ {
+        objType := reflect.TypeOf(controllers[i])
+        typeNameList := strings.Split(objType.String(), ".")
+        if len(typeNameList) < 2 {
+            continue
         }
-        ctx.WriteString(mpf.JsonMarshal(result))
-        ctx.ContentType(project.HttpContentTypeJson)
-        ctx.Next()
-    })
+
+        // 校验版块
+        packageName := strings.TrimPrefix(typeNameList[0], "*")
+        match, _ := regexp.MatchString(`^[a-z]+$`, packageName)
+        if !match {
+            continue
+        }
+        _, ok := blocks[packageName]
+        if !ok {
+            continue
+        }
+        uriPrefix = "/" + packageName
+
+        // 校验控制器
+        if !strings.HasSuffix(typeNameList[1], "Controller") {
+            continue
+        }
+        controllerUri := s.formatUri(strings.TrimSuffix(typeNameList[1], "Controller"))
+        if len(controllerUri) == 0 {
+            continue
+        }
+        uriPrefix += "/" + controllerUri
+        s.registerActionRoute(uriPrefix, controllers[i])
+    }
 }
 
 func (s *basic) bootBasic() {
@@ -211,6 +200,7 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
+    s.runConfigs = append(s.runConfigs, iris.WithoutBodyConsumptionOnUnmarshal)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
     s.app.ConfigureHost(func(host *iris.Supervisor) {
@@ -219,10 +209,22 @@ func (s *basic) bootBasic() {
         })
     })
     s.app.OnAnyErrorCode(func(ctx context.Context) {
-        mplog.LogError("HTTP ERROR CODE: " + strconv.Itoa(ctx.GetStatusCode()))
+        logMsg := "HTTP ERROR CODE: " + strconv.Itoa(ctx.GetStatusCode()) + " URI: " + ctx.Path()
         result := mpresponse.NewResultBasic()
-        result.Code = errorcode.CommonBaseServer
-        result.Msg = "服务出错"
+        switch ctx.GetStatusCode() {
+        case iris.StatusNotFound:
+            mplog.LogInfo(logMsg)
+            result.Code = errorcode.CommonRequestResourceEmpty
+            result.Msg = "接口不存在"
+        case iris.StatusMethodNotAllowed:
+            mplog.LogInfo(logMsg)
+            result.Code = errorcode.CommonRequestMethod
+            result.Msg = "请求方式不支持"
+        default:
+            mplog.LogError(logMsg)
+            result.Code = errorcode.CommonBaseServer
+            result.Msg = "服务出错"
+        }
         ctx.WriteString(mpf.JsonMarshal(result))
         ctx.ContentType(project.HttpContentTypeJson)
         ctx.StopExecution()
@@ -245,7 +247,7 @@ func (s *basic) listenNotify() {
             mplog.LogInfo("shutdown on signal " + fmt.Sprintf("%#v", s))
 
             timeout := 5 * time.Second
-            ctx, _ := context2.WithTimeout(context2.Background(), timeout)
+            ctx, _ := stdContext.WithTimeout(stdContext.Background(), timeout)
             app.Shutdown(ctx)
         }
     }(s.app)
@@ -274,4 +276,33 @@ func newBasic(conf *viper.Viper) basic {
     s.app = iris.New()
     s.runConfigs = make([]iris.Configurator, 0)
     return s
+}
+
+type basicHttp struct {
+    basic
+}
+
+func (s *basicHttp) bootServer() {
+    s.bootBasic()
+}
+
+func (s *basicHttp) StartServer() {
+    s.bootServer()
+    s.startBasic()
+}
+
+var (
+    onceBasic sync.Once
+    insBasic  IServerBasic
+)
+
+func NewBasic() IServerBasic {
+    onceBasic.Do(func() {
+        conf := mpf.NewConfig().GetConfig("server")
+        if mpf.EnvServerType() == mpf.EnvServerTypeApi {
+            insBasic = &basicHttp{newBasic(conf)}
+        }
+    })
+
+    return insBasic
 }

@@ -14,13 +14,9 @@ type indexController struct {
     common
 }
 
-func NewIndex() *indexController {
-    return &indexController{newCommon()}
-}
-
 func (c *indexController) ActionGetName(ctx context.Context) interface{} {
-    name := ctx.Params().GetStringDefault("name", "jiangwei")
     result := make(map[string]string)
-    result["myname"] = name
+    result["myname"] = ctx.URLParamDefault("name", "jiangwei")
+    result["directory"] = ctx.Params().GetStringDefault("directory", "999999")
     return result
 }
