@@ -50,7 +50,7 @@ func NewBasicLog() context.Handler {
         defer func() {
             costTime := time.Since(reqStart).Seconds()
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
-            mplog.LogInfo(reqUrl + " request-exist,cost_time: " + costTimeStr + "s")
+            mplog.LogInfo(reqUrl + " request-exit,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_request"].(float64) {
                 mplog.LogWarn("handle " + reqUrl + " request-timeout,cost_time: " + costTimeStr + "s")
             }
