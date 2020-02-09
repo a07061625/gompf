@@ -90,9 +90,17 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
         return
     }
 
-    refControllerType := reflect.TypeOf(controller)
-    groupRoute := s.app.Party(groupUri, controller.GetMwController(true)...)
+    groupRoute := s.app.Party(groupUri)
+    // 无需显式调用ctx.Next(),自动触发下一个handle
+    groupRoute.SetExecutionRules(iris.ExecutionRules{
+        Begin: iris.ExecutionOptions{true},
+        Done:  iris.ExecutionOptions{true},
+        Main:  iris.ExecutionOptions{true},
+    })
+    groupRoute.Use(controller.GetMwController(true)...)
     groupRoute.Done(controller.GetMwController(false)...)
+
+    refControllerType := reflect.TypeOf(controller)
     for i := 0; i < methodNum; i++ {
         funcName := runtime.FuncForPC(refControllerType.Method(i).Func.Pointer()).Name()
         funcNameList := strings.Split(funcName, ".")
@@ -195,13 +203,6 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
     s.runConfigs = append(s.runConfigs, iris.WithoutBodyConsumptionOnUnmarshal)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
-
-    // 无需显式调用ctx.Next(),自动触发下一个handle
-    s.app.SetExecutionRules(iris.ExecutionRules{
-        Begin: iris.ExecutionOptions{true},
-        Done:  iris.ExecutionOptions{true},
-        Main:  iris.ExecutionOptions{true},
-    })
 
     s.app.ConfigureHost(func(host *iris.Supervisor) {
         host.RegisterOnShutdown(func() {
