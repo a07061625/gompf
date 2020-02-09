@@ -17,6 +17,7 @@ import (
 const (
     // http常量
     HttpHeadKeyCookie        = "Set-Cookie"                                       // 请求头名称-cookie
+    HttpHeadKeyContentType   = "Content-Type"                                     // 请求头名称-内容类型
     HttpHeadKeyContentLength = "Content-Length"                                   // 请求头名称-内容长度
     HttpContentTypeForm      = "application/x-www-form-urlencoded; charset=utf-8" // http内容类型-表单
     HttpContentTypeJson      = "application/json; charset=utf-8"                  // http内容类型-json
@@ -37,9 +38,10 @@ const (
     RegexUrlHttp    = `^(http|https)://\S+$`                           // http链接
 
     // 数据
-    DataPrefixXml     = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" // 前缀-xml
-    DataParamKeyReqId = "_mp_req_id"                                 // 请求参数键名-请求ID
-    DataParamKeyUrl   = "_mp_url"                                    // 请求参数键名-请求url
+    DataPrefixXml        = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" // 前缀-xml
+    DataParamKeyReqId    = "_mp_req_id"                                 // 参数键名-请求ID
+    DataParamKeyReqUrl   = "_mp_req_url"                                // 参数键名-请求url
+    DataParamKeyRespData = "_mp_resp_data"                              // 参数键名-响应数据
 
     // redis前缀常量内部键名
     RedisPrefixCommonUniqueId = "common_unique_id" // 公用-唯一ID

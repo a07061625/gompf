@@ -19,6 +19,14 @@ const (
 
     EnvServerTypeApi = "api" // 服务类型-API
     EnvServerTypeRpc = "rpc" // 服务类型-RPC
+
+    GoEnvReqId            = "MP_REQ_ID"
+    GoEnvDirRoot          = "MP_DIR_ROOT"
+    GoEnvEnvType          = "MP_ENV_TYPE"
+    GoEnvProjectTag       = "MP_PROJECT_TAG"
+    GoEnvProjectModule    = "MP_PROJECT_MODULE"
+    GoEnvProjectKey       = "MP_PROJECT_KEY"
+    GoEnvProjectKeyModule = "MP_PROJECT_KEY_MODULE"
 )
 
 type env struct {
@@ -106,9 +114,9 @@ func init() {
     insEnv.projectModule = *projectModule
     insEnv.projectKey = *envType + *projectTag
     insEnv.projectKeyModule = *projectTag + *projectModule
-    os.Setenv("MP_ENV_TYPE", insEnv.envType)
-    os.Setenv("MP_PROJECT_TAG", insEnv.projectTag)
-    os.Setenv("MP_PROJECT_MODULE", insEnv.projectModule)
-    os.Setenv("MP_PROJECT_KEY", insEnv.projectKey)
-    os.Setenv("MP_PROJECT_KEY_MODULE", insEnv.projectKeyModule)
+    os.Setenv(GoEnvEnvType, insEnv.envType)
+    os.Setenv(GoEnvProjectTag, insEnv.projectTag)
+    os.Setenv(GoEnvProjectModule, insEnv.projectModule)
+    os.Setenv(GoEnvProjectKey, insEnv.projectKey)
+    os.Setenv(GoEnvProjectKeyModule, insEnv.projectKeyModule)
 }

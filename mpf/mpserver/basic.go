@@ -37,7 +37,7 @@ type IServerBasic interface {
     bootServer()
     StartServer()
     AddRunConfig(configs ...iris.Configurator)
-    SetMwGlobal(mwType bool, mwList ...context.Handler)
+    SetMwGlobal(isPrefix bool, mwList ...context.Handler)
     SetRoute(controllers ...controllers.IControllerBasic)
 }
 
@@ -55,13 +55,13 @@ func (s *basic) AddRunConfig(configs ...iris.Configurator) {
 }
 
 // 设置全局中间件
-//   mwType: bool 中间件类型,true:前置 false:后置
-func (s *basic) SetMwGlobal(mwType bool, mwList ...context.Handler) {
+//   isPrefix: 中间件类型,true:前置 false:后置
+func (s *basic) SetMwGlobal(isPrefix bool, mwList ...context.Handler) {
     if len(mwList) == 0 {
         return
     }
 
-    if mwType {
+    if isPrefix {
         for _, v := range mwList {
             s.app.UseGlobal(v)
         }
@@ -120,20 +120,9 @@ func (s *basic) registerActionRoute(groupUri string, controller controllers.ICon
             args := []reflect.Value{reflect.ValueOf(ctx)}
             callRes := refAction.Call(args)
             actionRes := callRes[0].Interface()
-            strRes, ok := actionRes.(string)
-            if ok {
-                ctx.WriteString(strRes)
-                ctx.ContentType(project.HttpContentTypeText)
-            } else {
-                result := mpresponse.NewResultBasic()
-                if actionRes != nil {
-                    result.Data = actionRes
-                }
-                ctx.WriteString(mpf.JsonMarshal(result))
-                ctx.ContentType(project.HttpContentTypeJson)
+            if actionRes != nil {
+                ctx.Values().Set(project.DataParamKeyRespData, actionRes)
             }
-
-            ctx.Next()
         })
         actionMwList = append(actionMwList, controller.GetMwAction(false, actionTag)...)
         actionUri := "/" + actionTag + " /" + actionTag + "/{directory:path}"
@@ -192,6 +181,10 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_host", s.serverConf.GetString(confPrefix+"host")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_port", s.serverConf.GetInt(confPrefix+"port")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("server_type", s.serverConf.GetString(confPrefix+"type")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("version_min", s.serverConf.GetString(confPrefix+"version.min")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("version_deprecated", s.serverConf.GetString(confPrefix+"version.deprecated")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("version_current", s.serverConf.GetString(confPrefix+"version.current")))
+    s.runConfigs = append(s.runConfigs, iris.WithOtherValue("version_max", s.serverConf.GetString(confPrefix+"version.max")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_request", s.serverConf.GetFloat64(confPrefix+"timeout.request")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_controller", s.serverConf.GetFloat64(confPrefix+"timeout.controller")))
     s.runConfigs = append(s.runConfigs, iris.WithOtherValue("timeout_action", s.serverConf.GetFloat64(confPrefix+"timeout.action")))
@@ -202,6 +195,13 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
     s.runConfigs = append(s.runConfigs, iris.WithoutBodyConsumptionOnUnmarshal)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
+
+    // 无需显式调用ctx.Next(),自动触发下一个handle
+    s.app.SetExecutionRules(iris.ExecutionRules{
+        Begin: iris.ExecutionOptions{true},
+        Done:  iris.ExecutionOptions{true},
+        Main:  iris.ExecutionOptions{true},
+    })
 
     s.app.ConfigureHost(func(host *iris.Supervisor) {
         host.RegisterOnShutdown(func() {
@@ -296,9 +296,8 @@ var (
     insBasic  IServerBasic
 )
 
-func NewBasic() IServerBasic {
+func NewBasic(conf *viper.Viper) IServerBasic {
     onceBasic.Do(func() {
-        conf := mpf.NewConfig().GetConfig("server")
         if mpf.EnvServerType() == mpf.EnvServerTypeApi {
             insBasic = &basicHttp{newBasic(conf)}
         }

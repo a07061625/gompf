@@ -18,11 +18,7 @@ import (
 // 动作日志
 func NewBasicLog() context.Handler {
     return func(ctx context.Context) {
-        reqUrl := ""
-        urlEntry, ok := ctx.Values().GetEntry(project.DataParamKeyUrl)
-        if ok {
-            reqUrl = urlEntry.ValueRaw.(string)
-        }
+        reqUrl := ctx.Values().GetString(project.DataParamKeyReqUrl)
         mplog.LogInfo(reqUrl + " action-enter")
 
         // 业务结束日志
@@ -35,7 +31,5 @@ func NewBasicLog() context.Handler {
                 mplog.LogWarn("handle " + reqUrl + " action-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
-
-        ctx.Next()
     }
 }

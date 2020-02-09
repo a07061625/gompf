@@ -19,9 +19,11 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
-// 请求日志
-func NewBasicLog() context.Handler {
+// 请求初始化
+func NewBasicInit() context.Handler {
     return func(ctx context.Context) {
+        ctx.Record()
+
         reqId := ""
         if mpf.EnvServerTypeRpc == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
             reqId = ctx.PostValueDefault(project.DataParamKeyReqId, "")
@@ -32,7 +34,14 @@ func NewBasicLog() context.Handler {
         if len(ctx.Request().URL.RawQuery) > 0 {
             reqUrl += "?" + ctx.Request().URL.RawQuery
         }
-        ctx.Values().Set(project.DataParamKeyUrl, reqUrl)
+        ctx.Values().Set(project.DataParamKeyReqUrl, reqUrl)
+    }
+}
+
+// 请求日志
+func NewBasicLog() context.Handler {
+    return func(ctx context.Context) {
+        reqUrl := ctx.Values().GetString(project.DataParamKeyReqUrl)
         mplog.LogInfo(reqUrl + " request-enter")
 
         reqStart := time.Now()
@@ -44,8 +53,6 @@ func NewBasicLog() context.Handler {
                 mplog.LogWarn("handle " + reqUrl + " request-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
-
-        ctx.Next()
     }
 }
 
@@ -79,12 +86,11 @@ func NewBasicRecover() context.Handler {
                 if len(errMsg) > 0 {
                     mplog.LogError(errMsg)
                 }
-                ctx.ContentType(project.HttpContentTypeJson)
-                ctx.WriteString(mpf.JsonMarshal(result))
+
+                ctx.Recorder().Header().Set(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
+                ctx.Recorder().SetBodyString(mpf.JsonMarshal(result))
                 ctx.StopExecution()
             }
         }()
-
-        ctx.Next()
     }
 }

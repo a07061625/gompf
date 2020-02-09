@@ -93,14 +93,14 @@ func ToolCreateReqId(reqId string) string {
         needStr := ToolCreateNonceStr(8, "total") + strconv.FormatInt(nowTime, 10)
         trueId = HashMd5(needStr, "")
     }
-    os.Setenv("MP_REQ_ID", trueId)
+    os.Setenv(GoEnvReqId, trueId)
 
     return trueId
 }
 
 // 获取请求ID
 func ToolGetReqId() string {
-    reqId := os.Getenv("MP_REQ_ID")
+    reqId := os.Getenv(GoEnvReqId)
     if len(reqId) == 32 {
         return reqId
     } else {
