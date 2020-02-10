@@ -202,6 +202,7 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithoutStartupLog)
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
+    s.runConfigs = append(s.runConfigs, iris.WithoutPathCorrectionRedirection)
     s.runConfigs = append(s.runConfigs, iris.WithoutBodyConsumptionOnUnmarshal)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
@@ -213,31 +214,32 @@ func (s *basic) bootBasic() {
     s.app.OnAnyErrorCode(func(ctx context.Context) {
         statusCode := ctx.GetStatusCode()
         logMsg := "HTTP ERROR CODE: " + strconv.Itoa(statusCode) + " URI: " + ctx.Path()
-        problem := mpresponse.NewResultProblem()
-        problem.Title = "服务错误"
-        problem.Status = statusCode
+        result := mpresponse.NewResultProblem()
+        result.Title = "服务错误"
+        result.Status = statusCode
 
         switch statusCode {
         case iris.StatusNotFound:
             mplog.LogInfo(logMsg)
-            problem.Type = "internal-address-not-exist"
-            problem.Detail = "接口地址不存在"
-            problem.Code = errorcode.CommonRequestResourceEmpty
-            problem.Msg = "接口地址不存在"
+            result.Type = "internal-address-not-exist"
+            result.Detail = "接口地址不存在"
+            result.Code = errorcode.CommonRequestResourceEmpty
+            result.Msg = "接口地址不存在"
         case iris.StatusMethodNotAllowed:
             mplog.LogInfo(logMsg)
-            problem.Type = "internal-method-not-allow"
-            problem.Detail = "请求方式不支持"
-            problem.Code = errorcode.CommonRequestMethod
-            problem.Msg = "请求方式不支持"
+            result.Type = "internal-method-not-allow"
+            result.Detail = "请求方式不支持"
+            result.Code = errorcode.CommonRequestMethod
+            result.Msg = "请求方式不支持"
         default:
             mplog.LogError(logMsg)
-            problem.Type = "internal-other"
-            problem.Detail = "其他错误"
-            problem.Code = errorcode.CommonBaseServer
-            problem.Msg = "其他服务错误"
+            result.Type = "internal-other"
+            result.Detail = "其他错误"
+            result.Code = errorcode.CommonBaseServer
+            result.Msg = "其他服务错误"
         }
-        ctx.Do(mpresp.NewBasicHandlersProblem(problem, 30*time.Second))
+        ctx.Problem(mpresp.GetProblemHandleBasic(result, 30*time.Second))
+        mpresp.NewBasicEnd()(ctx)
     })
 }
 

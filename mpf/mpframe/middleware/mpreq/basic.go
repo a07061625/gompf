@@ -71,35 +71,36 @@ func NewBasicRecover() context.Handler {
                 }
 
                 errMsg := ""
-                problem := mpresponse.NewResultProblem()
-                problem.Type = "business"
-                problem.Title = "业务错误"
+                result := mpresponse.NewResultProblem()
+                result.Type = "business"
+                result.Title = "业务错误"
                 if err1, ok := r.(*mperr.ErrorCommon); ok {
                     if err1.Type == mperr.TypeInnerValidator {
-                        problem.Detail = "接口参数错误"
+                        result.Detail = "接口参数错误"
                     } else {
                         errMsg = err1.Msg
-                        problem.Detail = "公共业务错误"
+                        result.Detail = "公共业务错误"
                     }
-                    problem.Code = err1.Code
-                    problem.Msg = err1.Msg
+                    result.Code = err1.Code
+                    result.Msg = err1.Msg
                 } else if err2, ok := r.(error); ok {
                     errMsg = err2.Error()
-                    problem.Detail = "基础服务错误"
-                    problem.Code = errorcode.CommonBaseServer
-                    problem.Msg = errMsg
+                    result.Detail = "基础服务错误"
+                    result.Code = errorcode.CommonBaseServer
+                    result.Msg = errMsg
                 } else {
                     errMsg = "请求出错"
-                    problem.Detail = "其他服务错误"
-                    problem.Code = errorcode.CommonBaseServer
-                    problem.Msg = errMsg
+                    result.Detail = "其他服务错误"
+                    result.Code = errorcode.CommonBaseServer
+                    result.Msg = errMsg
                 }
 
                 if len(errMsg) > 0 {
                     mplog.LogError(errMsg)
                 }
 
-                ctx.Do(mpresp.NewBasicHandlersProblem(problem, 30*time.Second))
+                ctx.Problem(mpresp.GetProblemHandleBasic(result, 30*time.Second))
+                mpresp.NewBasicEnd()(ctx)
             }
         }()
 

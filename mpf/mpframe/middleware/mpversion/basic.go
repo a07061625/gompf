@@ -41,13 +41,14 @@ func NewBasicError() context.Handler {
             errMsg = "API版本不支持"
         }
         if len(errMsg) > 0 {
-            problem := mpresponse.NewResultProblem()
-            problem.Type = errType
-            problem.Title = "API版本错误"
-            problem.Detail = errDetail
-            problem.Code = errorcode.CommonRequestFormat
-            problem.Msg = errMsg
-            ctx.Do(mpresp.NewBasicHandlersProblem(problem, 30*time.Second))
+            result := mpresponse.NewResultProblem()
+            result.Type = errType
+            result.Title = "API版本错误"
+            result.Detail = errDetail
+            result.Code = errorcode.CommonRequestFormat
+            result.Msg = errMsg
+            ctx.Problem(mpresp.GetProblemHandleBasic(result, 30*time.Second))
+            mpresp.NewBasicEnd()(ctx)
         } else {
             ctx.Next()
         }
