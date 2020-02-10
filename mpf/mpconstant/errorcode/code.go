@@ -29,6 +29,10 @@ const (
     CommonJsonMarshal   uint = 30100 // 压缩错误
     CommonJsonUnmarshal uint = 30101 // 解析错误
 
+    // 公共校验器
+    CommonValidatorSign uint = 30150 // 校验器-签名错误
+    CommonValidatorRule uint = 30151 // 校验器-规则错误
+
     // 缓存,取值范围100000-100099
     CacheRedisConnect    uint = 100000 // redis-连接错误
     CacheRedisOperate    uint = 100001 // redis-操作错误
