@@ -21,7 +21,7 @@ import (
 type IServerBase interface {
     AddIrisConf(configs ...iris.Configurator)
     SetGlobalMiddleware(isPrefix bool, middlewareList ...context.Handler)
-    SetRoutes(controllers ...controllers.IControllerBasic)
+    SetRouters(controllers ...controllers.IControllerBasic)
     StartServer()
 }
 

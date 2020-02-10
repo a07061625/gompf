@@ -29,32 +29,30 @@ func main() {
     server := mpserver.NewServer(conf)
 
     // 全局前置中间件
-    mwGlobalPrefix := make([]context.Handler, 0)
-    mwGlobalPrefix = append(mwGlobalPrefix, mpreq.NewBasicInit())
-    mwGlobalPrefix = append(mwGlobalPrefix, mpreq.NewBasicRecover())
-    mwGlobalPrefix = append(mwGlobalPrefix, mpreq.NewBasicLog())
-    mwGlobalPrefix = append(mwGlobalPrefix, mpversion.NewBasicError())
-    server.SetGlobalMiddleware(true, mwGlobalPrefix...)
+    middlewarePrefix := make([]context.Handler, 0)
+    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicInit())
+    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicRecover())
+    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicLog())
+    middlewarePrefix = append(middlewarePrefix, mpversion.NewBasicError())
+    server.SetGlobalMiddleware(true, middlewarePrefix...)
 
     // 全局后置中间件
     confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
-    versionDeprecated := conf.GetString(confPrefix + "version.deprecated")
-    versionMax := conf.GetString(confPrefix + "version.max")
-    versionKey1 := "< " + versionDeprecated
-    versionKey2 := ">= " + versionDeprecated + ", < " + versionMax
-    mwVersionList := make(map[string]context.Handler)
-    mwVersionList[versionKey1] = mpversion.NewBasicDeprecated(mpresp.NewBasicSend(), "WARNING! You are using deprecated version of API", "Please use right version of API as soon as possible")
-    mwVersionList[versionKey2] = mpresp.NewBasicSend()
-    mwGlobalSuffix := make([]context.Handler, 0)
-    mwGlobalSuffix = append(mwGlobalSuffix, mpversion.NewBasicMatcher(mwVersionList))
-    mwGlobalSuffix = append(mwGlobalSuffix, mpresp.NewBasicEnd())
-    server.SetGlobalMiddleware(false, mwGlobalSuffix...)
+    versionKey1 := "< " + conf.GetString(confPrefix+"version.deprecated")
+    versionKey2 := ">= " + conf.GetString(confPrefix+"version.deprecated") + ", < " + conf.GetString(confPrefix+"version.max")
+    middlewareVersion := make(map[string]context.Handler)
+    middlewareVersion[versionKey1] = mpversion.NewBasicDeprecated(mpresp.NewBasicSend(), "WARNING! You are using deprecated version of API", "Please use right version of API as soon as possible")
+    middlewareVersion[versionKey2] = mpresp.NewBasicSend()
+    middlewareSuffix := make([]context.Handler, 0)
+    middlewareSuffix = append(middlewareSuffix, mpversion.NewBasicMatcher(middlewareVersion))
+    middlewareSuffix = append(middlewareSuffix, mpresp.NewBasicEnd())
+    server.SetGlobalMiddleware(false, middlewareSuffix...)
 
     // 注册路由
-    mpRouter := controllers.NewRouter()
-    mpRouter.RegisterGroup(index.NewRouter())
-    mpRouter.RegisterGroup(frontend.NewRouter())
-    mpRouter.RegisterGroup(backend.NewRouter())
-    server.SetRoutes(mpRouter.GetControllers()...)
+    routers := controllers.NewRouter()
+    routers.RegisterGroup(index.NewRouter())
+    routers.RegisterGroup(frontend.NewRouter())
+    routers.RegisterGroup(backend.NewRouter())
+    server.SetRouters(routers.GetControllers()...)
     server.StartServer()
 }
