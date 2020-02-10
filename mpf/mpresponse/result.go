@@ -11,6 +11,7 @@ import (
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
+    "github.com/kataras/iris/v12"
 )
 
 type resultBasic struct {
@@ -49,5 +50,5 @@ type ResultProblem struct {
 }
 
 func NewResultProblem() *ResultProblem {
-    return &ResultProblem{newResultBasic(), "", 400, "", ""}
+    return &ResultProblem{newResultBasic(), "", iris.StatusInternalServerError, "", ""}
 }

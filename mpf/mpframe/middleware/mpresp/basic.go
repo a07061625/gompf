@@ -31,7 +31,7 @@ func GetProblemHandleBasic(result *mpresponse.ResultProblem, retryAfter interfac
     problem.Key("msg", result.Msg)
 
     return problem, iris.ProblemOptions{
-        JSON:       context.JSON{Indent: ""},
+        JSON:       context.JSON{Indent: "  "},
         RetryAfter: retryAfter,
     }
 }
@@ -72,6 +72,7 @@ func HandleEndBasic(ctx context.Context) {
     os.Unsetenv(project.DataParamKeyReqId)
     ctx.Values().Remove(project.DataParamKeyReqUrl)
     ctx.Values().Remove(project.DataParamKeyRespData)
+    ctx.StatusCode(iris.StatusOK)
     // 最后退出上下文的时候,不要用ctx.EndRequest(),它会导致响应的数据被复制一份
     ctx.StopExecution()
 }
