@@ -39,13 +39,9 @@ func NewBasicLog() context.Handler {
     }
 }
 
-// 简单签名验证
+// 简单签名验证(只有api模块验证签名)
 func NewBasicSignSimple() context.Handler {
     return func(ctx context.Context) {
-        if mpf.EnvServerTypeApi != ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
-            return
-        }
-
         errMsg := ""
         sign := ctx.URLParamDefault("_sign", "")
         if len(errMsg) == 0 {

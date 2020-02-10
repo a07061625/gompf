@@ -15,5 +15,6 @@ type common struct {
 }
 
 func newCommon() common {
-    return common{controllers.NewControllerBasic()}
+    c := common{controllers.NewControllerBasic()}
+    return c
 }

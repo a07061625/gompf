@@ -61,7 +61,7 @@ func NewControllerBasic() ControllerBasic {
     c := ControllerBasic{}
     c.Validators = make(map[string]*mpvalidator.Filters)
     c.MwControllerPrefix = make([]context.Handler, 0)
-    c.MwControllerPrefix = append(c.MwControllerPrefix, mpcontroller.NewBasicLog(), mpaction.NewBasicLog(), mpaction.NewBasicSignSimple())
+    c.MwControllerPrefix = append(c.MwControllerPrefix, mpcontroller.NewBasicLog(), mpaction.NewBasicLog())
     c.MwControllerSuffix = make([]context.Handler, 0)
     c.MwActionPrefix = make(map[string][]context.Handler)
     c.MwActionSuffix = make(map[string][]context.Handler)
