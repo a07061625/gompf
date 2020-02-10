@@ -30,7 +30,8 @@ const (
 )
 
 type env struct {
-    dirRoot string // 项目根目录
+    dirRoot    string // 项目根目录
+    dirConfigs string // 配置目录
 
     envType string // 环境类型
 
@@ -47,6 +48,10 @@ type env struct {
 
 func EnvDirRoot() string {
     return insEnv.dirRoot
+}
+
+func EnvDirConfigs() string {
+    return insEnv.dirConfigs
 }
 
 func EnvType() string {

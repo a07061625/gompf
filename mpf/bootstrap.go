@@ -103,6 +103,7 @@ func LoadBoot(bs *bootstrap) {
         insEnv.serverType = serverType
         insEnv.serverDomain = serverHost + ":" + strconv.Itoa(serverPort)
         insEnv.dirRoot = bs.CheckDirRoot()
+        insEnv.dirConfigs = bs.CheckDirConfigs()
         os.Setenv(GoEnvDirRoot, insEnv.dirRoot)
 
         // 项目相关

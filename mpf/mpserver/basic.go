@@ -206,7 +206,7 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithoutBodyConsumptionOnUnmarshal)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
-    s.app.I18n.Load(mpf.NewBootstrap().CheckDirConfigs()+"/i18n/*/*.ini", "zh-CN", "en-US")
+    s.app.I18n.Load(mpf.EnvDirConfigs()+"/i18n/*/*.ini", "zh-CN", "en-US")
     s.app.I18n.PathRedirect = false
     s.app.I18n.URLParameter = s.serverConf.GetString(confPrefix + "reqparam.i18n")
 
