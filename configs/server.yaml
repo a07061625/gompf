@@ -2,6 +2,9 @@ base: &serverbase
   host: "127.0.0.1"
   port: 8080
   type: "rpc"
+  reqparam: # 请求参数名
+    i18n: "lang" # 国际化
+  i18n:
   version:
     min: "1.1.0"
     deprecated: "1.5.0"
