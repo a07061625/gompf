@@ -25,6 +25,7 @@ import (
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
+    "github.com/a07061625/gompf/mpf/mpframe/middleware/mpresp"
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12"
@@ -210,25 +211,33 @@ func (s *basic) bootBasic() {
         })
     })
     s.app.OnAnyErrorCode(func(ctx context.Context) {
-        logMsg := "HTTP ERROR CODE: " + strconv.Itoa(ctx.GetStatusCode()) + " URI: " + ctx.Path()
-        result := mpresponse.NewResultBasic()
-        switch ctx.GetStatusCode() {
+        statusCode := ctx.GetStatusCode()
+        logMsg := "HTTP ERROR CODE: " + strconv.Itoa(statusCode) + " URI: " + ctx.Path()
+        problem := mpresponse.NewResultProblem()
+        problem.Title = "服务错误"
+        problem.Status = statusCode
+
+        switch statusCode {
         case iris.StatusNotFound:
             mplog.LogInfo(logMsg)
-            result.Code = errorcode.CommonRequestResourceEmpty
-            result.Msg = "接口不存在"
+            problem.Type = "internal-address-not-exist"
+            problem.Detail = "接口地址不存在"
+            problem.Code = errorcode.CommonRequestResourceEmpty
+            problem.Msg = "接口地址不存在"
         case iris.StatusMethodNotAllowed:
             mplog.LogInfo(logMsg)
-            result.Code = errorcode.CommonRequestMethod
-            result.Msg = "请求方式不支持"
+            problem.Type = "internal-method-not-allow"
+            problem.Detail = "请求方式不支持"
+            problem.Code = errorcode.CommonRequestMethod
+            problem.Msg = "请求方式不支持"
         default:
             mplog.LogError(logMsg)
-            result.Code = errorcode.CommonBaseServer
-            result.Msg = "服务出错"
+            problem.Type = "internal-other"
+            problem.Detail = "其他错误"
+            problem.Code = errorcode.CommonBaseServer
+            problem.Msg = "其他服务错误"
         }
-        ctx.WriteString(mpf.JsonMarshal(result))
-        ctx.ContentType(project.HttpContentTypeJson)
-        ctx.StopExecution()
+        ctx.Do(mpresp.NewBasicHandlersProblem(problem, 30*time.Second))
     })
 }
 

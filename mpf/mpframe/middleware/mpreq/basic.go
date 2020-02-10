@@ -14,6 +14,7 @@ import (
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
+    "github.com/a07061625/gompf/mpf/mpframe/middleware/mpresp"
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
     "github.com/kataras/iris/v12/context"
@@ -70,30 +71,35 @@ func NewBasicRecover() context.Handler {
                 }
 
                 errMsg := ""
-                result := mpresponse.NewResultBasic()
+                problem := mpresponse.NewResultProblem()
+                problem.Type = "business"
+                problem.Title = "业务错误"
                 if err1, ok := r.(*mperr.ErrorCommon); ok {
-                    if err1.Type != mperr.TypeInnerValidator {
+                    if err1.Type == mperr.TypeInnerValidator {
+                        problem.Detail = "接口参数错误"
+                    } else {
                         errMsg = err1.Msg
+                        problem.Detail = "公共业务错误"
                     }
-                    result.Code = err1.Code
-                    result.Msg = err1.Msg
+                    problem.Code = err1.Code
+                    problem.Msg = err1.Msg
                 } else if err2, ok := r.(error); ok {
                     errMsg = err2.Error()
-                    result.Code = errorcode.CommonBaseServer
-                    result.Msg = errMsg
+                    problem.Detail = "基础服务错误"
+                    problem.Code = errorcode.CommonBaseServer
+                    problem.Msg = errMsg
                 } else {
                     errMsg = "请求出错"
-                    result.Code = errorcode.CommonBaseServer
-                    result.Msg = errMsg
+                    problem.Detail = "其他服务错误"
+                    problem.Code = errorcode.CommonBaseServer
+                    problem.Msg = errMsg
                 }
 
                 if len(errMsg) > 0 {
                     mplog.LogError(errMsg)
                 }
 
-                ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
-                ctx.WriteString(mpf.JsonMarshal(result))
-                ctx.StopExecution()
+                ctx.Do(mpresp.NewBasicHandlersProblem(problem, 30*time.Second))
             }
         }()
 

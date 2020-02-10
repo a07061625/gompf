@@ -13,21 +13,41 @@ import (
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
 )
 
-// 请求响应
-type ResultBasic struct {
-    ReqId string      `json:"req_id"`
-    Code  uint        `json:"code"`
-    Data  interface{} `json:"data"`
-    Msg   string      `json:"msg"`
-    Time  int64       `json:"time"`
+type resultBasic struct {
+    ReqId string `json:"req_id",xml:"ReqId"` // 请求ID
+    Code  uint   `json:"code",xml:"Code"`    // 状态码
+    Time  int64  `json:"time",xml:"Time"`    // 当前时间戳
+    Msg   string `json:"msg",xml:"Msg"`      // 错误信息
 }
 
-func NewResultBasic() *ResultBasic {
-    r := &ResultBasic{}
+func newResultBasic() resultBasic {
+    r := resultBasic{}
     r.ReqId = mpf.ToolGetReqId()
     r.Code = errorcode.CommonBaseSuccess
-    r.Data = make(map[string]interface{})
-    r.Msg = ""
     r.Time = time.Now().Unix()
+    r.Msg = ""
     return r
+}
+
+// 接口响应,用于请求正常情况
+type ResultApi struct {
+    resultBasic
+    Data interface{} `json:"data",xml:"Data"` // 响应数据
+}
+
+func NewResultApi() *ResultApi {
+    return &ResultApi{newResultBasic(), make(map[string]interface{})}
+}
+
+// 问题响应,用于请求出问题情况
+type ResultProblem struct {
+    resultBasic
+    Type   string `json:"type",xml:"Type"`     // 问题类型
+    Status int    `json:"status",xml:"Status"` // 问题状态
+    Title  string `json:"title",xml:"Title"`   // 问题标题
+    Detail string `json:"detail",xml:"Detail"` // 问题详情
+}
+
+func NewResultProblem() *ResultProblem {
+    return &ResultProblem{newResultBasic(), "", 400, "", ""}
 }
