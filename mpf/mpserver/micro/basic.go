@@ -203,6 +203,9 @@ func (s *basic) bootBasic() {
     s.runConfigs = append(s.runConfigs, iris.WithOptimizations)
     s.runConfigs = append(s.runConfigs, iris.WithoutInterruptHandler)
     s.runConfigs = append(s.runConfigs, iris.WithoutPathCorrectionRedirection)
+    s.runConfigs = append(s.runConfigs, iris.WithRemoteAddrHeader("X-Real-Ip"))
+    s.runConfigs = append(s.runConfigs, iris.WithRemoteAddrHeader("X-Forwarded-For"))
+    s.runConfigs = append(s.runConfigs, iris.WithRemoteAddrHeader("CF-Connecting-IP"))
     s.runConfigs = append(s.runConfigs, iris.WithoutBodyConsumptionOnUnmarshal)
     s.runConfigs = append(s.runConfigs, iris.WithoutServerError(iris.ErrServerClosed))
 
