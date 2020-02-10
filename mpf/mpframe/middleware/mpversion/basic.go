@@ -43,7 +43,7 @@ func NewBasicError() context.Handler {
         if len(errMsg) > 0 {
             result := mpresponse.NewResultProblem()
             result.Type = errType
-            result.Title = "API版本错误"
+            result.Title = "版本错误"
             result.Detail = errDetail
             result.Code = errorcode.CommonRequestFormat
             result.Msg = errMsg
