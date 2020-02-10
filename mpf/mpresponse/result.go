@@ -44,11 +44,10 @@ func NewResultApi() *ResultApi {
 type ResultProblem struct {
     resultBasic
     Type   string `json:"type",xml:"Type"`     // 问题类型
-    Status int    `json:"status",xml:"Status"` // 问题状态
     Title  string `json:"title",xml:"Title"`   // 问题标题
-    Detail string `json:"detail",xml:"Detail"` // 问题详情
+    Status int    `json:"status",xml:"Status"` // 问题状态
 }
 
 func NewResultProblem() *ResultProblem {
-    return &ResultProblem{newResultBasic(), "", iris.StatusInternalServerError, "", ""}
+    return &ResultProblem{newResultBasic(), "", "", iris.StatusInternalServerError}
 }

@@ -75,22 +75,17 @@ func NewBasicRecover() context.Handler {
                 result.Type = "business"
                 result.Title = "业务错误"
                 if err1, ok := r.(*mperr.ErrorCommon); ok {
-                    if err1.Type == mperr.TypeInnerValidator {
-                        result.Detail = "接口参数错误"
-                    } else {
+                    if err1.Type != mperr.TypeInnerValidator {
                         errMsg = err1.Msg
-                        result.Detail = "公共业务错误"
                     }
                     result.Code = err1.Code
                     result.Msg = err1.Msg
                 } else if err2, ok := r.(error); ok {
                     errMsg = err2.Error()
-                    result.Detail = "基础服务错误"
                     result.Code = errorcode.CommonBaseServer
                     result.Msg = errMsg
                 } else {
                     errMsg = "请求出错"
-                    result.Detail = "其他服务错误"
                     result.Code = errorcode.CommonBaseServer
                     result.Msg = errMsg
                 }

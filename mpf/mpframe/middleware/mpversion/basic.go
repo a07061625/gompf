@@ -22,29 +22,24 @@ import (
 func NewBasicError() context.Handler {
     return func(ctx context.Context) {
         errType := ""
-        errDetail := ""
         errMsg := ""
         apiVersion := versioning.GetVersion(ctx)
         minVersion := ctx.Application().ConfigurationReadOnly().GetOther()["version_min"].(string)
         maxVersion := ctx.Application().ConfigurationReadOnly().GetOther()["version_max"].(string)
         if apiVersion == versioning.NotFound {
             errType = "version-empty"
-            errDetail = "版本号未设置"
             errMsg = "API版本必须填写"
         } else if versioning.Match(ctx, "< "+minVersion) {
             errType = "version-abandoned"
-            errDetail = "版本号已废弃"
             errMsg = "API版本已废弃"
         } else if versioning.Match(ctx, "> "+maxVersion) {
             errType = "version-unsupported"
-            errDetail = "版本号不支持"
             errMsg = "API版本不支持"
         }
         if len(errMsg) > 0 {
             result := mpresponse.NewResultProblem()
             result.Type = errType
             result.Title = "版本错误"
-            result.Detail = errDetail
             result.Code = errorcode.CommonRequestFormat
             result.Msg = errMsg
             ctx.Problem(mpresp.GetProblemHandleBasic(result, 30*time.Second))

@@ -222,19 +222,16 @@ func (s *basic) bootBasic() {
         case iris.StatusNotFound:
             mplog.LogInfo(logMsg)
             result.Type = "internal-address-not-exist"
-            result.Detail = "接口地址不存在"
             result.Code = errorcode.CommonRequestResourceEmpty
             result.Msg = "接口地址不存在"
         case iris.StatusMethodNotAllowed:
             mplog.LogInfo(logMsg)
             result.Type = "internal-method-not-allow"
-            result.Detail = "请求方式不支持"
             result.Code = errorcode.CommonRequestMethod
             result.Msg = "请求方式不支持"
         default:
             mplog.LogError(logMsg)
             result.Type = "internal-other"
-            result.Detail = "其他错误"
             result.Code = errorcode.CommonBaseServer
             result.Msg = "其他服务错误"
         }

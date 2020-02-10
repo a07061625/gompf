@@ -23,7 +23,6 @@ func GetProblemHandleBasic(result *mpresponse.ResultProblem, retryAfter interfac
     problem := iris.NewProblem()
     problem.Type("/error/" + result.Type)
     problem.Title(result.Title)
-    problem.Detail(result.Detail)
     problem.Status(result.Status)
     problem.Key("req_id", result.ReqId)
     problem.Key("code", result.Code)
@@ -58,7 +57,6 @@ func NewBasicSend() context.Handler {
             result := mpresponse.NewResultProblem()
             result.Type = "response-empty"
             result.Title = "响应错误"
-            result.Detail = "响应数据未设置"
             result.Code = errorcode.CommonResponseEmpty
             result.Msg = "响应数据不能为空"
             ctx.Problem(GetProblemHandleBasic(result, 30*time.Second))
