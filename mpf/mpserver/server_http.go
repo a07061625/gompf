@@ -5,3 +5,11 @@
  * Time: 1:15
  */
 package mpserver
+
+type serverHttp struct {
+    serverBase
+}
+
+func (s *serverHttp) StartServer() {
+    s.bootstrap()
+}

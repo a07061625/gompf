@@ -26,7 +26,7 @@ func init() {
 
 func main() {
     conf := mpf.NewConfig().GetConfig("server")
-    server := mpserver.NewBasic(conf)
+    server := mpserver.NewServer(conf)
 
     // 全局前置中间件
     mwGlobalPrefix := make([]context.Handler, 0)
@@ -34,7 +34,7 @@ func main() {
     mwGlobalPrefix = append(mwGlobalPrefix, mpreq.NewBasicRecover())
     mwGlobalPrefix = append(mwGlobalPrefix, mpreq.NewBasicLog())
     mwGlobalPrefix = append(mwGlobalPrefix, mpversion.NewBasicError())
-    server.SetMwGlobal(true, mwGlobalPrefix...)
+    server.SetGlobalMiddleware(true, mwGlobalPrefix...)
 
     // 全局后置中间件
     confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
@@ -48,13 +48,13 @@ func main() {
     mwGlobalSuffix := make([]context.Handler, 0)
     mwGlobalSuffix = append(mwGlobalSuffix, mpversion.NewBasicMatcher(mwVersionList))
     mwGlobalSuffix = append(mwGlobalSuffix, mpresp.NewBasicEnd())
-    server.SetMwGlobal(false, mwGlobalSuffix...)
+    server.SetGlobalMiddleware(false, mwGlobalSuffix...)
 
     // 注册路由
     mpRouter := controllers.NewRouter()
     mpRouter.RegisterGroup(index.NewRouter())
     mpRouter.RegisterGroup(frontend.NewRouter())
     mpRouter.RegisterGroup(backend.NewRouter())
-    server.SetRoute(mpRouter.GetControllers()...)
+    server.SetRoutes(mpRouter.GetControllers()...)
     server.StartServer()
 }
