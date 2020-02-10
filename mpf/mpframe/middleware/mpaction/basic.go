@@ -44,7 +44,7 @@ func NewBasicSignSimple() context.Handler {
     return func(ctx context.Context) {
         errMsg := ""
         sign := ctx.URLParamDefault("_sign", "")
-        if len(errMsg) == 0 {
+        if len(sign) == 0 {
             errMsg = "签名不能为空"
         } else if match, _ := regexp.MatchString(`^[0-9]{10}[0-9a-z]+$`, sign); !match {
             errMsg = "签名不合法"
