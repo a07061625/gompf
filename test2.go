@@ -16,10 +16,14 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
+var (
+    envType       = flag.String("mpet", mpf.EnvTypeProduct, "环境类型,只能是dev或product")
+    projectTag    = flag.String("mppt", "", "项目标识,由小写字母和数字组成的3位长度字符串")
+    projectModule = flag.String("mppm", "", "项目模块,由字母和数字组成的字符串")
+)
+
 func init() {
-    envType := flag.String("mpet", mpf.EnvTypeProduct, "环境类型,只能是dev或product")
-    projectTag := flag.String("mppt", "", "项目标识,由小写字母和数字组成的3位长度字符串")
-    projectModule := flag.String("mppm", "", "项目模块,由字母和数字组成的字符串")
+    flag.Parse()
 
     dirRoot, _ := os.Getwd()
     bs := mpf.NewBootstrap()
@@ -33,8 +37,6 @@ func init() {
 }
 
 func main() {
-    flag.Parse()
-
     conf := mpf.NewConfig().GetConfig("server")
     server := mpserver.NewServer(conf)
 
