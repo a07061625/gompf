@@ -10,8 +10,10 @@ const (
     EnvTypeDev     = "dev"     // 环境类型-测试
     EnvTypeProduct = "product" // 环境类型-生产
 
-    EnvServerTypeApi = "api" // 服务类型-API
-    EnvServerTypeRpc = "rpc" // 服务类型-RPC
+    EnvServerTypeApi    = "api"    // 服务类型-API
+    EnvServerTypeRpc    = "rpc"    // 服务类型-RPC
+    EnvServerModeDaemon = "daemon" // 服务运行模式-守护进程
+    EnvServerModeChild  = "child"  // 服务运行模式-子进程
 
     GoEnvReqId            = "MP_REQ_ID"
     GoEnvDirRoot          = "MP_DIR_ROOT"
@@ -20,6 +22,7 @@ const (
     GoEnvProjectModule    = "MP_PROJECT_MODULE"
     GoEnvProjectKey       = "MP_PROJECT_KEY"
     GoEnvProjectKeyModule = "MP_PROJECT_KEY_MODULE"
+    GoEnvServerMode       = "MP_SERVER_MODE" // 服务运行模式 daemon:守护进程 child:子进程
 )
 
 type env struct {

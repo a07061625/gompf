@@ -93,7 +93,7 @@ func (s *serverBase) SetRouters(controllers ...controllers.IControllerBasic) {
     }
 
     uriPrefix := ""
-    blocks := s.confServer.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
+    blocks := s.serverConf.GetStringMapString(mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + ".mvc.block.accept")
     for i := 0; i < controllerNum; i++ {
         objType := reflect.TypeOf(controllers[i])
         typeNameList := strings.Split(objType.String(), ".")

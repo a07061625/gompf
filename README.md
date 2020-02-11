@@ -18,6 +18,7 @@ go语言多功能框架(go multi-purpose frame),集成多种常用功能,包括�
 ### 必填
 - -mppt: 项目标识,小写字母和数字组成的3位长度字符串
 - -mppm: 项目模块,字母和数字组成的字符串
+- -mpot: 操作类型,start:启动服务 stop:停止服务 restart:重启服务
 
 ### 选填
 - -mpet: 环境类型,默认为product,dev:测试 product:生产

@@ -10,12 +10,18 @@ type serverHttp struct {
     serverBase
 }
 
-func (s *serverHttp) ReStart() {
+func (s *serverHttp) init() {
+    s.initBase()
+}
+
+func (s *serverHttp) Restart() {
+    s.restartBase()
 }
 
 func (s *serverHttp) Start() {
-    s.bootstrap()
+    s.startBase()
 }
 
 func (s *serverHttp) Stop() {
+    s.stopBase()
 }

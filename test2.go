@@ -4,6 +4,8 @@ import (
     "flag"
     "os"
 
+    "fmt"
+
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
     "github.com/a07061625/gompf/mpf/mpframe/controllers/backend"
@@ -20,6 +22,7 @@ var (
     envType       = flag.String("mpet", mpf.EnvTypeProduct, "环境类型,只能是dev或product")
     projectTag    = flag.String("mppt", "", "项目标识,由小写字母和数字组成的3位长度字符串")
     projectModule = flag.String("mppm", "", "项目模块,由字母和数字组成的字符串")
+    optionType    = flag.String("mpot", "", "操作类型,start:启动服务 stop:停止服务 restart:重启服务")
 )
 
 func init() {
@@ -35,8 +38,6 @@ func init() {
     bs.SetProjectModule(*projectModule)
     mpf.LoadBoot(bs)
 }
-
-//https://github.com/tim1020/godaemon/blob/master/server.go
 
 func main() {
     conf := mpf.NewConfig().GetConfig("server")
@@ -68,5 +69,21 @@ func main() {
     routers.RegisterGroup(frontend.NewRouter())
     routers.RegisterGroup(backend.NewRouter())
     server.SetRouters(routers.GetControllers()...)
-    server.Start()
+
+    if os.Getenv(mpf.GoEnvServerMode) != mpf.EnvServerModeChild { // 主进程
+        switch *optionType {
+        case "start":
+            server.Start()
+        case "stop":
+            server.Stop()
+        case "restart":
+            server.Restart()
+        default:
+            fmt.Println("操作类型必须是以下其一: start|stop|restart")
+        }
+        // 主进程退出
+        os.Exit(0)
+    }
+
+    go server.ListenNotify()
 }
