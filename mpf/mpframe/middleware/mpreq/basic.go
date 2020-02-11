@@ -32,6 +32,12 @@ func NewBasicBegin() context.Handler {
         case iris.MethodGet:
         case iris.MethodPost:
         case iris.MethodOptions:
+            httpOrigin := r.Header.Get("Origin")
+            if len(httpOrigin) > 0 {
+                w.Header().Set("Access-Control-Allow-Origin", httpOrigin)
+            } else {
+                w.Header().Set("Access-Control-Allow-Origin", "*")
+            }
             w.Header().Set("Access-Control-Max-Age", "86400")
             w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE, X_Requested_With")
             w.Header().Set("Access-Control-Allow-Headers", "origin, no-cache, x-requested-with, x_requested_with, if-modified-since, accept, content-type, authorization")
