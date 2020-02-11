@@ -87,11 +87,6 @@ func (s *serverBase) registerRouteAction(groupUri string, controller controllers
 }
 
 func (s *serverBase) SetRouters(controllers ...controllers.IControllerBasic) {
-    if s.routeFlag {
-        return
-    }
-    s.routeFlag = true
-
     controllerNum := len(controllers)
     if controllerNum <= 0 {
         return

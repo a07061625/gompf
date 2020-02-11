@@ -1,22 +1,22 @@
 base: &serverbase
-  host: "127.0.0.1"
-  port: 8080
-  type: "rpc"
+  host: "127.0.0.1" # 服务域名
+  port: 8080 # 服务占用端口
+  type: "rpc" # 服务类型 api:网关入口 rpc:模块
   reqparam: # 请求参数名
     i18n: "lang" # 国际化
-  i18n:
   version:
-    min: "1.1.0"
-    deprecated: "1.5.0"
-    current: "1.8.0"
-    max: "2.0.0"
+    min: "1.1.0" # 最低支持版本
+    deprecated: "1.5.0" # 失效的版本
+    current: "1.8.0" # 当前版本
+    max: "2.0.0" # 最高支持版本
   timeout:
-    request: 3.0
-    controller: 3.0
-    action: 3.0
+    shutdown: 5 # 优雅关闭服务等待时间,单位为秒
+    request: 3.0 # 请求处理最大超时时间,单位为秒
+    controller: 3.0 # 控制器处理最大超时时间,单位为秒
+    action: 3.0 # 动作处理最大超时时间,单位为秒
   mvc:
     block:
-      accept:
+      accept: # 支持的版块
         index: "默认"
         frontend: "前端"
         backend: "后端"

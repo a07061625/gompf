@@ -8,7 +8,10 @@ package mpserver
 
 import (
     "log"
+    "net"
+    "os"
     "sync"
+    "time"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
@@ -19,17 +22,23 @@ import (
 )
 
 type IServerBase interface {
-    AddIrisConf(configs ...iris.Configurator)
-    SetGlobalMiddleware(isPrefix bool, middlewareList ...context.Handler)
-    SetRouters(controllers ...controllers.IControllerBasic)
-    StartServer()
+    AddIrisConf(configs ...iris.Configurator)                             // 添加iris配置
+    SetGlobalMiddleware(isPrefix bool, middlewareList ...context.Handler) // 设置全局中间件
+    SetRouters(controllers ...controllers.IControllerBasic)               // 设置路由
+    GetCmdArgs() []string                                                 // 获取命令行参数
+    GetListenerConf() (tcplisten.Config, string)
+    Reload(listener net.Listener) error // 重启服务
+    Start(listener net.Listener)        // 启动服务,由于停止服务会立即执行,因此启动服务不要放在主进程中,要放到go协程
+    Stop()                              // 停止服务
 }
 
 type serverBase struct {
-    app        *iris.Application
-    confIris   []iris.Configurator
-    confServer *viper.Viper
-    routeFlag  bool // 路由标识 true:已设置 false:未设置
+    app             *iris.Application
+    cmdArgs         []string
+    timeoutShutdown time.Duration
+    confListener    tcplisten.Config
+    confIris        []iris.Configurator
+    confServer      *viper.Viper
 }
 
 // 设置全局中间件
@@ -45,6 +54,10 @@ func (s *serverBase) SetGlobalMiddleware(isPrefix bool, middlewareList ...contex
     } else {
         s.app.DoneGlobal(middlewareList...)
     }
+}
+
+func (s *serverBase) GetCmdArgs() []string {
+    return s.cmdArgs
 }
 
 func (s *serverBase) bootstrap() {
@@ -68,8 +81,15 @@ func (s *serverBase) bootstrap() {
 func newServerBase(conf *viper.Viper) serverBase {
     s := serverBase{}
     s.app = iris.New()
+    s.cmdArgs = make([]string, 0)
+    s.cmdArgs = os.Args[1:]
+    s.timeoutShutdown = 0
+    s.confListener = tcplisten.Config{
+        ReusePort:   true,
+        DeferAccept: true,
+        FastOpen:    true,
+    }
     s.confServer = conf
-    s.routeFlag = false
     s.initConf()
     return s
 }

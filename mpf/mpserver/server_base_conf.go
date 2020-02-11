@@ -7,8 +7,11 @@
 package mpserver
 
 import (
+    "time"
+
     "github.com/a07061625/gompf/mpf"
     "github.com/kataras/iris/v12"
+    "github.com/valyala/tcplisten"
 )
 
 func (s *serverBase) AddIrisConf(configs ...iris.Configurator) {
@@ -17,9 +20,13 @@ func (s *serverBase) AddIrisConf(configs ...iris.Configurator) {
     }
 }
 
+func (s *serverBase) GetListenerConf() (tcplisten.Config, string) {
+    return s.confListener, mpf.EnvServerDomain()
+}
+
 func (s *serverBase) initConf() {
-    s.confIris = make([]iris.Configurator, 20)
     confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
+    s.confIris = make([]iris.Configurator, 20)
     s.confIris[0] = iris.WithoutStartupLog
     s.confIris[1] = iris.WithoutInterruptHandler
     s.confIris[2] = iris.WithoutPathCorrectionRedirection
@@ -40,6 +47,8 @@ func (s *serverBase) initConf() {
     s.confIris[17] = iris.WithOtherValue("timeout_request", s.confServer.GetFloat64(confPrefix+"timeout.request"))
     s.confIris[18] = iris.WithOtherValue("timeout_controller", s.confServer.GetFloat64(confPrefix+"timeout.controller"))
     s.confIris[19] = iris.WithOtherValue("timeout_action", s.confServer.GetFloat64(confPrefix+"timeout.action"))
+
+    s.timeoutShutdown = time.Duration(s.confServer.GetInt(confPrefix+"timeout.shutdown")) * time.Second
 
     // 国际化配置文件只能是以./开始,否则会报错
     s.app.I18n.Load("./configs/i18n/*/*.ini", "zh-CN", "en-US")

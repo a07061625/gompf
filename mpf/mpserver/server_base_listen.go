@@ -8,6 +8,7 @@ package mpserver
 
 import (
     stdContext "context"
+    "net"
     "os"
     "os/signal"
     "strconv"
@@ -70,4 +71,14 @@ func (s *serverBase) listenNotify() {
             app.Shutdown(ctx)
         }
     }(s.app)
+}
+
+func (s *serverBase) Reload(listener net.Listener) error {
+    return nil
+}
+
+func (s *serverBase) Start(listener net.Listener) {
+}
+
+func (s *serverBase) Stop() {
 }
