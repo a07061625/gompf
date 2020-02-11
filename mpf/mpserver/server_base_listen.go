@@ -55,6 +55,7 @@ func (s *serverBase) checkRunning() bool {
 
 // 创建子进程
 func (s *serverBase) forkChild() (net.Listener, error) {
+    os.Setenv(mpf.GoEnvServerMode, mpf.EnvServerModeChild)
     f := os.NewFile(3, "")
     listener, err := net.FileListener(f)
     if err != nil {
@@ -71,7 +72,6 @@ func (s *serverBase) forkChild() (net.Listener, error) {
         return nil, err
     }
 
-    os.Setenv(mpf.GoEnvServerMode, mpf.EnvServerModeChild)
     s.savePid(pid)
     s.pid = pid
     return listener, nil
@@ -79,6 +79,7 @@ func (s *serverBase) forkChild() (net.Listener, error) {
 
 // 创建守护进程
 func (s *serverBase) forkDaemon() (net.Listener, error) {
+    os.Setenv(mpf.GoEnvServerMode, mpf.EnvServerModeDaemon)
     listenCfg := tcplisten.Config{
         ReusePort:   true,
         DeferAccept: true,
@@ -98,7 +99,6 @@ func (s *serverBase) forkDaemon() (net.Listener, error) {
         return nil, err
     }
 
-    os.Setenv(mpf.GoEnvServerMode, mpf.EnvServerModeDaemon)
     s.savePid(pid)
     s.pid = pid
     return listener, nil

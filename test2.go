@@ -2,9 +2,8 @@ package main
 
 import (
     "flag"
-    "os"
-
     "fmt"
+    "os"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
