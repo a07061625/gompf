@@ -10,6 +10,8 @@ import (
     "strconv"
     "time"
 
+    "net/http"
+
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
@@ -17,8 +19,17 @@ import (
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpresp"
     "github.com/a07061625/gompf/mpf/mplog"
     "github.com/a07061625/gompf/mpf/mpresponse"
+    "github.com/kataras/iris/v12"
     "github.com/kataras/iris/v12/context"
 )
+
+// 请求开始
+func NewBasicBegin() context.Handler {
+    return iris.FromStd(func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+        mplog.LogInfo("http://" + r.Host + r.URL.String() + " request-begin")
+        next(w, r)
+    })
+}
 
 // 请求初始化
 func NewBasicInit() context.Handler {

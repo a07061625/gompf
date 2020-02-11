@@ -44,6 +44,7 @@ func main() {
 
     // 全局前置中间件
     middlewarePrefix := make([]context.Handler, 0)
+    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicBegin())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicInit())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicRecover())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicLog())
