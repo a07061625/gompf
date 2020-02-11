@@ -74,6 +74,7 @@ func HandleEndBasic(ctx context.Context) {
     ctx.Header("Connection", "close") // 解决大量ESTABLISHED状态请求问题
     // 最后退出上下文的时候,不要用ctx.EndRequest(),它会导致响应的数据被复制一份
     ctx.StopExecution()
+    ctx.Recorder().EndResponse()
 }
 
 // 请求响应结束
