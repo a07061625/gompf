@@ -7,10 +7,9 @@
 package mpreq
 
 import (
+    "net/http"
     "strconv"
     "time"
-
-    "net/http"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
