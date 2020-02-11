@@ -38,10 +38,11 @@ const (
     RegexUrlHttp    = `^(http|https)://\S+$`                           // http链接
 
     // 数据
-    DataPrefixXml        = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" // 前缀-xml
-    DataParamKeyReqId    = "_mp_req_id"                                 // 参数键名-请求ID
-    DataParamKeyReqUrl   = "_mp_req_url"                                // 参数键名-请求url
-    DataParamKeyRespData = "_mp_resp_data"                              // 参数键名-响应数据
+    DataPrefixXml        = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    DataParamKeyReqId    = "_mp_req_id"    // 参数键名-请求ID
+    DataParamKeyReqUrl   = "_mp_req_url"   // 参数键名-请求url
+    DataParamKeyRespData = "_mp_resp_data" // 参数键名-响应数据
+    DataParamKeyRespType = "_mp_resp_type" // 参数键名-响应类型
 
     // redis前缀常量内部键名
     RedisPrefixCommonUniqueId = "common_unique_id" // 公用-唯一ID

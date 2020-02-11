@@ -25,8 +25,31 @@ import (
 // 请求开始
 func NewBasicBegin() context.Handler {
     return iris.FromStd(func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-        mplog.LogInfo("http://" + r.Host + r.URL.String() + " request-begin")
-        next(w, r)
+        mplog.LogInfo(r.Method + " http://" + r.Host + r.URL.String() + " request-begin")
+
+        beginTag := 0
+        switch r.Method {
+        case iris.MethodGet:
+        case iris.MethodPost:
+        case iris.MethodOptions:
+            w.Header().Set("Access-Control-Max-Age", "86400")
+            w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE, X_Requested_With")
+            w.Header().Set("Access-Control-Allow-Headers", "origin, no-cache, x-requested-with, x_requested_with, if-modified-since, accept, content-type, authorization")
+            w.Header().Set("Content-Length", "0")
+            w.Header().Set("Content-Type", project.HttpContentTypeText)
+            beginTag = 1
+        default:
+            beginTag = 2
+        }
+
+        switch beginTag {
+        case 1:
+            w.WriteHeader(iris.StatusOK)
+        case 2:
+            w.WriteHeader(iris.StatusMethodNotAllowed)
+        default:
+            next(w, r)
+        }
     })
 }
 

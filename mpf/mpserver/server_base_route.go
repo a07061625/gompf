@@ -81,7 +81,8 @@ func (s *serverBase) registerRouteAction(groupUri string, controller controllers
         })
         actionMwList = append(actionMwList, controller.GetMwAction(false, actionTag)...)
         actionUri := "/" + actionTag + " /" + actionTag + "/{directory:path}"
-        groupRoute.CreateRoutes([]string{iris.MethodGet, iris.MethodPost}, actionUri, actionMwList...)
+        groupRoute.HandleMany(iris.MethodGet, actionUri, actionMwList...)
+        groupRoute.HandleMany(iris.MethodPost, actionUri, actionMwList...)
     }
 }
 

@@ -43,12 +43,11 @@ func NewBasicSend() context.Handler {
             data := respData.Value()
             switch data.(type) {
             case string:
-                ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeText)
+                ctx.Values().Set(project.DataParamKeyRespType, project.HttpContentTypeText)
                 ctx.WriteString(data.(string))
             default:
                 result := mpresponse.NewResultApi()
                 result.Data = data.(interface{})
-                ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
                 ctx.WriteString(mpf.JsonMarshal(result))
             }
 
@@ -67,11 +66,21 @@ func NewBasicSend() context.Handler {
 
 // 请求最终清理
 func HandleEndBasic(ctx context.Context) {
+    ctx.StatusCode(iris.StatusOK)
+    ctx.Header("Connection", "close") // 解决大量ESTABLISHED状态请求问题
+    // 设置响应数据类型
+    ctx.Recorder().Header().Del(project.HttpHeadKeyContentType)
+    respType, ok := ctx.Values().GetEntry(project.DataParamKeyRespType)
+    if ok && (project.HttpContentTypeText == respType.Value().(string)) {
+        ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeText)
+    } else {
+        ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
+    }
+
     os.Unsetenv(project.DataParamKeyReqId)
     ctx.Values().Remove(project.DataParamKeyReqUrl)
     ctx.Values().Remove(project.DataParamKeyRespData)
-    ctx.StatusCode(iris.StatusOK)
-    ctx.Header("Connection", "close") // 解决大量ESTABLISHED状态请求问题
+    ctx.Values().Remove(project.DataParamKeyRespType)
     // 最后退出上下文的时候,不要用ctx.EndRequest(),它会导致响应的数据被复制一份
     ctx.StopExecution()
     ctx.Recorder().EndResponse()
