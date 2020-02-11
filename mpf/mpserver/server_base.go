@@ -11,8 +11,15 @@ import (
     "sync"
     "time"
 
+    "strconv"
+
+    "os"
+
+    "io/ioutil"
+
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
+    "github.com/a07061625/gompf/mpf/mplog"
     "github.com/kataras/iris/v12"
     "github.com/kataras/iris/v12/context"
     "github.com/spf13/viper"
@@ -33,6 +40,8 @@ type serverBase struct {
     timeoutShutdown time.Duration
     confIris        []iris.Configurator
     confServer      *viper.Viper
+    pidFile         string
+    pid             int
 }
 
 // 设置全局中间件
@@ -68,12 +77,44 @@ func (s *serverBase) bootstrap() {
     s.app.Run(iris.Listener(listen), s.confIris...)
 }
 
+func (s *serverBase) getPid() int {
+    pid := 0
+    if f, err := os.Open(s.pidFile); err == nil {
+        pidStr, _ := ioutil.ReadAll(f)
+        pid, _ = strconv.Atoi(string(pidStr))
+        defer f.Close()
+    }
+
+    return pid
+}
+
+func (s *serverBase) savePid(pid int) {
+    f, err := os.OpenFile(s.pidFile, os.O_CREATE|os.O_WRONLY, 0666)
+    if err != nil {
+        mplog.LogInfo("write pid file error: " + err.Error())
+        return
+    }
+    defer f.Close()
+    f.WriteString(strconv.Itoa(pid))
+}
+
+// 发一个信号为0到指定进程ID,如果没有错误发生,表示进程存活
+func (s *serverBase) checkRunning() bool {
+    if s.pid <= 0 {
+        return false
+    }
+
+    return true
+}
+
 func newServerBase(conf *viper.Viper) serverBase {
     s := serverBase{}
     s.app = iris.New()
     s.timeoutShutdown = 0
     s.confServer = conf
     s.initConf()
+    s.pidFile = mpf.EnvDirRoot() + "/pid/" + mpf.EnvProjectKey() + strconv.Itoa(mpf.EnvServerPort()) + ".pid"
+    s.pid = s.getPid()
     return s
 }
 

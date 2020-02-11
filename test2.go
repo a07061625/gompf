@@ -36,6 +36,8 @@ func init() {
     mpf.LoadBoot(bs)
 }
 
+//https://github.com/tim1020/godaemon/blob/master/server.go
+
 func main() {
     conf := mpf.NewConfig().GetConfig("server")
     server := mpserver.NewServer(conf)
