@@ -9,6 +9,7 @@ package mpf
 import (
     "log"
     "os"
+    "regexp"
     "strconv"
     "strings"
     "sync"
@@ -18,9 +19,12 @@ import (
 )
 
 type bootstrap struct {
-    dirRoot    string // 项目根目录
-    dirConfigs string // 配置目录
-    dirLogs    string // 日志目录
+    dirRoot       string // 项目根目录
+    dirConfigs    string // 配置目录
+    dirLogs       string // 日志目录
+    envType       string // 环境类型
+    projectTag    string // 项目标识
+    projectModule string // 项目模块
 }
 
 func (bs *bootstrap) formatDir(dir string) string {
@@ -73,8 +77,45 @@ func (bs *bootstrap) CheckDirLogs() string {
     return bs.dirLogs
 }
 
+func (bs *bootstrap) SetEnvType(envType string) {
+    bs.envType = envType
+}
+
+func (bs *bootstrap) CheckEnvType() string {
+    if (bs.envType != EnvTypeDev) && (bs.envType != EnvTypeProduct) {
+        log.Fatalln("环境类型不支持")
+    }
+
+    return bs.envType
+}
+
+func (bs *bootstrap) SetProjectTag(projectTag string) {
+    bs.projectTag = projectTag
+}
+
+func (bs *bootstrap) CheckProjectTag() string {
+    match, _ := regexp.MatchString(`^[0-9a-z]{3}$`, bs.projectTag)
+    if !match {
+        log.Fatalln("项目标识不合法")
+    }
+
+    return bs.projectTag
+}
+
+func (bs *bootstrap) SetProjectModule(projectModule string) {
+    bs.projectModule = projectModule
+}
+
+func (bs *bootstrap) CheckProjectModule() string {
+    match, _ := regexp.MatchString(`^[0-9a-zA-Z]+$`, bs.projectModule)
+    if !match {
+        log.Fatalln("项目模块不合法")
+    }
+    return bs.projectModule
+}
+
 func NewBootstrap() *bootstrap {
-    return &bootstrap{"", "", ""}
+    return &bootstrap{"", "", "", "", "", ""}
 }
 
 var (
@@ -85,6 +126,17 @@ func LoadBoot(bs *bootstrap) {
     onceBoot.Do(func() {
         // 配置相关
         insConfig.dirConfigs = bs.CheckDirConfigs()
+
+        insEnv.envType = bs.CheckEnvType()
+        insEnv.projectTag = bs.CheckProjectTag()
+        insEnv.projectModule = bs.CheckProjectModule()
+        insEnv.projectKey = bs.CheckEnvType() + bs.CheckProjectTag()
+        insEnv.projectKeyModule = bs.CheckProjectTag() + bs.CheckProjectModule()
+        os.Setenv(GoEnvEnvType, insEnv.envType)
+        os.Setenv(GoEnvProjectTag, insEnv.projectTag)
+        os.Setenv(GoEnvProjectModule, insEnv.projectModule)
+        os.Setenv(GoEnvProjectKey, insEnv.projectKey)
+        os.Setenv(GoEnvProjectKeyModule, insEnv.projectKeyModule)
 
         // 环境相关
         serverConfig := NewConfig().GetConfig("server")

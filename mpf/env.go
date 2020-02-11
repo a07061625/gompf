@@ -6,13 +6,6 @@
  */
 package mpf
 
-import (
-    "flag"
-    "log"
-    "os"
-    "regexp"
-)
-
 const (
     EnvTypeDev     = "dev"     // 环境类型-测试
     EnvTypeProduct = "product" // 环境类型-生产
@@ -92,36 +85,8 @@ func EnvServerType() string {
 
 var (
     insEnv *env
-
-    envType       = flag.String("mpet", EnvTypeProduct, "环境类型,只能是dev或product")
-    projectTag    = flag.String("mppt", "", "项目标识,由小写字母和数字组成的3位长度字符串")
-    projectModule = flag.String("mppm", "", "项目模块,由字母和数字组成的字符串")
 )
 
 func init() {
-    flag.Parse()
-
-    if (*envType != EnvTypeDev) && (*envType != EnvTypeProduct) {
-        log.Fatalln("环境类型不支持")
-    }
-    match, _ := regexp.MatchString(`^[0-9a-z]{3}$`, *projectTag)
-    if !match {
-        log.Fatalln("项目标识不合法")
-    }
-    match, _ = regexp.MatchString(`^[0-9a-zA-Z]+$`, *projectModule)
-    if !match {
-        log.Fatalln("项目模块不合法")
-    }
-
     insEnv = &env{}
-    insEnv.envType = *envType
-    insEnv.projectTag = *projectTag
-    insEnv.projectModule = *projectModule
-    insEnv.projectKey = *envType + *projectTag
-    insEnv.projectKeyModule = *projectTag + *projectModule
-    os.Setenv(GoEnvEnvType, insEnv.envType)
-    os.Setenv(GoEnvProjectTag, insEnv.projectTag)
-    os.Setenv(GoEnvProjectModule, insEnv.projectModule)
-    os.Setenv(GoEnvProjectKey, insEnv.projectKey)
-    os.Setenv(GoEnvProjectKeyModule, insEnv.projectKeyModule)
 }

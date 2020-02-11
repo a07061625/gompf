@@ -1,6 +1,7 @@
 package main
 
 import (
+    "flag"
     "os"
 
     "github.com/a07061625/gompf/mpf"
@@ -16,15 +17,24 @@ import (
 )
 
 func init() {
+    envType := flag.String("mpet", mpf.EnvTypeProduct, "环境类型,只能是dev或product")
+    projectTag := flag.String("mppt", "", "项目标识,由小写字母和数字组成的3位长度字符串")
+    projectModule := flag.String("mppm", "", "项目模块,由字母和数字组成的字符串")
+
     dirRoot, _ := os.Getwd()
     bs := mpf.NewBootstrap()
     bs.SetDirRoot(dirRoot)
     bs.SetDirConfigs(dirRoot + "/configs")
     bs.SetDirLogs(dirRoot + "/logs")
+    bs.SetEnvType(*envType)
+    bs.SetProjectTag(*projectTag)
+    bs.SetProjectModule(*projectModule)
     mpf.LoadBoot(bs)
 }
 
 func main() {
+    flag.Parse()
+
     conf := mpf.NewConfig().GetConfig("server")
     server := mpserver.NewServer(conf)
 
@@ -54,5 +64,5 @@ func main() {
     routers.RegisterGroup(frontend.NewRouter())
     routers.RegisterGroup(backend.NewRouter())
     server.SetRouters(routers.GetControllers()...)
-    server.StartServer()
+    server.Start()
 }

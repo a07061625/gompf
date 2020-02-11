@@ -8,7 +8,6 @@ package mpserver
 
 import (
     stdContext "context"
-    "net"
     "os"
     "os/signal"
     "strconv"
@@ -54,7 +53,7 @@ func (s *serverBase) listenErrorCode() {
 }
 
 func (s *serverBase) listenNotify() {
-    go func(app *iris.Application) {
+    go func(app *iris.Application, timeout time.Duration) {
         ch := make(chan os.Signal, 1)
         signal.Notify(ch,
             os.Interrupt,
@@ -66,19 +65,8 @@ func (s *serverBase) listenNotify() {
 
         select {
         case <-ch:
-            timeout := 5 * time.Second
             ctx, _ := stdContext.WithTimeout(stdContext.Background(), timeout)
             app.Shutdown(ctx)
         }
-    }(s.app)
-}
-
-func (s *serverBase) Reload(listener net.Listener) error {
-    return nil
-}
-
-func (s *serverBase) Start(listener net.Listener) {
-}
-
-func (s *serverBase) Stop() {
+    }(s.app, s.timeoutShutdown)
 }

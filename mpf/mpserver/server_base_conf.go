@@ -11,17 +11,12 @@ import (
 
     "github.com/a07061625/gompf/mpf"
     "github.com/kataras/iris/v12"
-    "github.com/valyala/tcplisten"
 )
 
 func (s *serverBase) AddIrisConf(configs ...iris.Configurator) {
     if len(configs) > 0 {
         s.confIris = append(s.confIris, configs...)
     }
-}
-
-func (s *serverBase) GetListenerConf() (tcplisten.Config, string) {
-    return s.confListener, mpf.EnvServerDomain()
 }
 
 func (s *serverBase) initConf() {
