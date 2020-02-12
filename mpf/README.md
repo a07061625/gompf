@@ -3,6 +3,7 @@
 - api: 外部接口
 - cache: 缓存
 - db: 数据库
+- mpapp: 应用
 - mpconstant: 常量
 - mpencrypt: 加解密
 - mperr: 自定义错误

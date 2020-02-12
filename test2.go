@@ -6,6 +6,7 @@ import (
     "os"
 
     "github.com/a07061625/gompf/mpf"
+    "github.com/a07061625/gompf/mpf/mpapp"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
     "github.com/a07061625/gompf/mpf/mpframe/controllers/backend"
     "github.com/a07061625/gompf/mpf/mpframe/controllers/frontend"
@@ -13,8 +14,8 @@ import (
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpreq"
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpresp"
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpversion"
-    "github.com/a07061625/gompf/mpf/mpserver"
     "github.com/kataras/iris/v12/context"
+    "github.com/kataras/iris/v12/i18n"
 )
 
 var (
@@ -39,8 +40,7 @@ func init() {
 }
 
 func main() {
-    conf := mpf.NewConfig().GetConfig("server")
-    server := mpserver.NewServer(conf)
+    app := mpapp.New()
 
     // 全局前置中间件
     middlewarePrefix := make([]context.Handler, 0)
@@ -49,9 +49,10 @@ func main() {
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicRecover())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicLog())
     middlewarePrefix = append(middlewarePrefix, mpversion.NewBasicError())
-    server.SetGlobalMiddleware(true, middlewarePrefix...)
+    app.SetMiddleware(true, middlewarePrefix...)
 
     // 全局后置中间件
+    conf := mpf.NewConfig().GetConfig("server")
     confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
     versionKey1 := "< " + conf.GetString(confPrefix+"version.deprecated")
     versionKey2 := ">= " + conf.GetString(confPrefix+"version.deprecated") + ", < " + conf.GetString(confPrefix+"version.max")
@@ -61,14 +62,35 @@ func main() {
     middlewareSuffix := make([]context.Handler, 0)
     middlewareSuffix = append(middlewareSuffix, mpversion.NewBasicMatcher(middlewareVersion))
     middlewareSuffix = append(middlewareSuffix, mpresp.NewBasicEnd())
-    server.SetGlobalMiddleware(false, middlewareSuffix...)
+    app.SetMiddleware(false, middlewarePrefix...)
 
-    // 注册路由
+    configOther := make(map[string]interface{})
+    configOther["server_host"] = conf.GetString(confPrefix + "host")
+    configOther["server_port"] = conf.GetInt(confPrefix + "port")
+    configOther["server_type"] = conf.GetString(confPrefix + "type")
+    configOther["version_min"] = conf.GetString(confPrefix + "version.min")
+    configOther["version_deprecated"] = conf.GetString(confPrefix + "version.deprecated")
+    configOther["version_current"] = conf.GetString(confPrefix + "version.current")
+    configOther["version_max"] = conf.GetString(confPrefix + "version.max")
+    configOther["timeout_request"] = conf.GetFloat64(confPrefix + "timeout.request")
+    configOther["timeout_controller"] = conf.GetFloat64(confPrefix + "timeout.controller")
+    configOther["timeout_action"] = conf.GetFloat64(confPrefix + "timeout.action")
+    app.SetConfOther(configOther)
+
+    confI18n := &i18n.I18n{}
+    confI18n.Load("./configs/i18n/*/*.ini", "zh-CN", "en-US")
+    confI18n.PathRedirect = false
+    confI18n.URLParameter = conf.GetString(confPrefix + "reqparam.i18n")
+    app.SetConfI18n(confI18n)
+
+    app.SetRouterBlocks(conf.GetStringMapString(confPrefix + "mvc.block.accept"))
     routers := controllers.NewRouter()
     routers.RegisterGroup(index.NewRouter())
     routers.RegisterGroup(frontend.NewRouter())
     routers.RegisterGroup(backend.NewRouter())
-    server.SetRouters(routers.GetControllers()...)
+    app.SetRouters(routers.GetControllers()...)
+
+    app.Build()
 
     if os.Getenv(mpf.GoEnvServerMode) != mpf.EnvServerModeChild { // 主进程
         switch *optionType {
