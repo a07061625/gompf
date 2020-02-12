@@ -4,4 +4,4 @@ pid/
 go.sum
 *.exe
 test
-test2
+server

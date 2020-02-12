@@ -6,24 +6,24 @@ import (
     "time"
 )
 
-type ConnManager struct {
+type connManager struct {
     sync.WaitGroup
     Counter      int
     mux          sync.Mutex
     idleConnList map[string]net.Conn
 }
 
-func (cm *ConnManager) add(delta int) {
+func (cm *connManager) Add(delta int) {
     cm.Counter += delta
     cm.WaitGroup.Add(delta)
 }
 
-func (cm *ConnManager) done() {
+func (cm *connManager) Done() {
     cm.Counter--
     cm.WaitGroup.Done()
 }
 
-func (cm *ConnManager) close(t time.Duration) {
+func (cm *connManager) Close(t time.Duration) {
     cm.mux.Lock()
     dt := time.Now().Add(t)
     for _, c := range cm.idleConnList {
@@ -35,21 +35,22 @@ func (cm *ConnManager) close(t time.Duration) {
     return
 }
 
-func (cm *ConnManager) rmIdleConn(key string) {
+func (cm *connManager) RemoveIdleConn(key string) {
     cm.mux.Lock()
     delete(cm.idleConnList, key)
     cm.mux.Unlock()
 }
 
-func (cm *ConnManager) addIdleConn(key string, conn net.Conn) {
+func (cm *connManager) AddIdleConn(key string, conn net.Conn) {
     cm.mux.Lock()
     cm.idleConnList[key] = conn
     cm.mux.Unlock()
 }
 
-func newConnManager() *ConnManager {
-    cm := &ConnManager{}
+func newConnManager() *connManager {
+    cm := &connManager{}
     cm.WaitGroup = sync.WaitGroup{}
+    cm.Counter = 0
     cm.idleConnList = make(map[string]net.Conn)
     return cm
 }

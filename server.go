@@ -2,8 +2,9 @@ package main
 
 import (
     "flag"
-    "fmt"
     "os"
+    "strconv"
+    "time"
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpapp"
@@ -14,6 +15,7 @@ import (
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpreq"
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpresp"
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpversion"
+    "github.com/a07061625/gompf/mpf/mpserver"
     "github.com/kataras/iris/v12/context"
     "github.com/kataras/iris/v12/i18n"
 )
@@ -92,20 +94,10 @@ func main() {
 
     app.Build()
 
-    if os.Getenv(mpf.GoEnvServerMode) != mpf.EnvServerModeChild { // 主进程
-        switch *optionType {
-        case "start":
-            server.Start()
-        case "stop":
-            server.Stop()
-        case "restart":
-            server.Restart()
-        default:
-            fmt.Println("操作类型必须是以下其一: start|stop|restart")
-        }
-        // 主进程退出
-        os.Exit(0)
-    }
-
-    go server.ListenNotify()
+    timeoutShutdown = time.Duration(conf.GetInt(mpf.EnvType()+"."+mpf.EnvProjectKeyModule()+"."+"timeout.shutdown")) * time.Second
+    serverTag = mpf.EnvProjectKey() + strconv.Itoa(mpf.EnvServerPort())
+    pidFile = mpf.EnvDirRoot() + "/pid/" + serverTag + ".pid"
+    pid = getPid()
+    server = mpserver.New(mpf.EnvServerDomain(), app.GetInstance())
+    manageServer()
 }
