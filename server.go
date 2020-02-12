@@ -143,7 +143,7 @@ func main() {
     appBasic := mpapp.New()
     // 全局前置中间件
     middlewarePrefix := make([]context.Handler, 0)
-    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicBegin())
+    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicBeginIris())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicInit())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicRecover())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicLog())
@@ -199,6 +199,7 @@ func main() {
         WriteTimeout:      timeoutList["write"],
         IdleTimeout:       timeoutList["idle"],
     }
+    server.SetKeepAlivesEnabled(false)
 
     if *optionType == "start" {
         logMsg := "server " + serverTag

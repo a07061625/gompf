@@ -22,9 +22,14 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
-// 请求开始(FromStd方法,如果是两个参数对应处理net/http类型请求,如果是三个参数对应处理中间件类型)
-func NewBasicBegin() context.Handler {
-    return iris.FromStd(func(w http.ResponseWriter, r *http.Request) {
+// 请求开始,针对iris
+func NewBasicBeginIris() context.Handler {
+    return iris.FromStd(NewBasicBeginHttp())
+}
+
+// 请求开始,针对net/http
+func NewBasicBeginHttp() func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+    return func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
         mplog.LogInfo(r.Method + " http://" + r.Host + r.URL.String() + " request-begin")
 
         beginTag := 0
@@ -52,7 +57,8 @@ func NewBasicBegin() context.Handler {
             w.WriteHeader(beginTag)
             return
         }
-    })
+        next.ServeHTTP(w, r)
+    }
 }
 
 // 请求初始化
