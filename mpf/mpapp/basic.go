@@ -41,7 +41,11 @@ func (app *appBasic) SetMiddleware(isPrefix bool, middlewareList ...context.Hand
     }
 }
 
-func (app *appBasic) Build() {
+func (app *appBasic) Init() {
+    if app.initFlag {
+        return
+    }
+
     app.initFlag = true
     app.initConf()
     app.instance.UseGlobal(app.mwPrefix...)
@@ -75,11 +79,6 @@ func (app *appBasic) Build() {
         ctx.Problem(mpresp.GetProblemHandleBasic(result, 30*time.Second))
         mpresp.NewBasicEnd()(ctx)
     })
-
-    err := app.instance.Build()
-    if err != nil {
-        mplog.LogFatal("app build error: " + err.Error())
-    }
 }
 
 var (
