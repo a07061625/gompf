@@ -31,7 +31,7 @@ func NewBasicBegin() context.Handler {
         switch r.Method {
         case iris.MethodGet:
         case iris.MethodPost:
-        case iris.MethodOptions:
+        case iris.MethodOptions: // 处理跨域名
             httpOrigin := r.Header.Get("Origin")
             if len(httpOrigin) > 0 {
                 w.Header().Set("Access-Control-Allow-Origin", httpOrigin)
@@ -43,19 +43,16 @@ func NewBasicBegin() context.Handler {
             w.Header().Set("Access-Control-Allow-Headers", "origin, no-cache, x-requested-with, x_requested_with, if-modified-since, accept, content-type, authorization")
             w.Header().Set("Content-Length", "0")
             w.Header().Set("Content-Type", project.HttpContentTypeText)
-            beginTag = 1
+            beginTag = iris.StatusOK
         default:
-            beginTag = 2
+            beginTag = iris.StatusMethodNotAllowed
         }
 
-        switch beginTag {
-        case 1:
-            w.WriteHeader(iris.StatusOK)
-        case 2:
-            w.WriteHeader(iris.StatusMethodNotAllowed)
-        default:
-            next(w, r)
+        if beginTag > 0 {
+            w.WriteHeader(beginTag)
+            return
         }
+        next(w, r)
     })
 }
 
