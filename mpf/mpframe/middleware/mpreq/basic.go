@@ -31,7 +31,7 @@ func NewBasicBegin() context.Handler {
         switch r.Method {
         case iris.MethodGet:
         case iris.MethodPost:
-        case iris.MethodOptions: // 处理跨域名
+        case iris.MethodOptions: // 处理跨域
             httpOrigin := r.Header.Get("Origin")
             if len(httpOrigin) > 0 {
                 w.Header().Set("Access-Control-Allow-Origin", httpOrigin)
