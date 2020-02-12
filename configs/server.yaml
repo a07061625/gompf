@@ -10,7 +10,11 @@ base: &serverbase
     current: "1.8.0" # 当前版本
     max: "2.0.0" # 最高支持版本
   timeout:
-    shutdown: 5 # 优雅关闭服务等待时间,单位为秒
+    read: 15 # 读取数据超时时间,单位为秒
+    readheader: 3 # 读取请求头超时时间,单位为秒
+    write: 6 # 写数据超时时间,单位为秒
+    idle: 3 # 空闲等待超时时间,单位为秒
+    shutdown: 8 # 服务关闭超时时间,单位为秒
     request: 3.0 # 请求处理最大超时时间,单位为秒
     controller: 3.0 # 控制器处理最大超时时间,单位为秒
     action: 3.0 # 动作处理最大超时时间,单位为秒
