@@ -85,6 +85,8 @@ func (s *serverBasic) listenNotify() {
 // 启动服务
 //   startType: int 1:启动 2:重启
 func (s *serverBasic) Start(startType int) {
+    s.savePid(99999)
+    os.Exit(0)
     logMsg := "server " + s.serverTag
     if s.checkRunning() {
         fmt.Println(logMsg + " is running")
