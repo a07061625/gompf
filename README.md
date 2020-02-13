@@ -28,8 +28,6 @@ go语言多功能框架(go multi-purpose frame),集成多种常用功能,包括�
 - configs: 配置文件
 - mpf: 源码
 
-https://www.cnblogs.com/ascii0x03/p/8781643.html
-
 ## 自定义常量
 - MP_DIR_ROOT: 项目根目录
 - MP_ENV_TYPE: 环境类型
