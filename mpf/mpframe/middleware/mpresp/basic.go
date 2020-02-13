@@ -10,7 +10,6 @@ import (
     "os"
     "time"
 
-    "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mpresponse"
@@ -48,7 +47,7 @@ func NewBasicSend() context.Handler {
             default:
                 result := mpresponse.NewResultApi()
                 result.Data = data.(interface{})
-                ctx.WriteString(mpf.JsonMarshal(result))
+                ctx.JSON(result, context.JSON{Indent: "  "})
             }
 
             ctx.Next()
