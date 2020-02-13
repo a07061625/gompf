@@ -17,6 +17,7 @@ require (
 	github.com/go-xorm/xorm v0.7.9
 	github.com/json-iterator/go v1.1.6
 	github.com/kataras/iris/v12 v12.1.1
+	github.com/kataras/neffos v0.0.14 // indirect
 	github.com/klauspost/compress v1.9.8 // indirect
 	github.com/klauspost/cpuid v1.2.2 // indirect
 	github.com/kr/pty v1.1.8 // indirect
@@ -39,7 +40,6 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/lint v0.0.0-20191125180803-fdd1cda4f05f // indirect
 	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect
-	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/sys v0.0.0-20191210023423-ac6580df4449 // indirect
 	golang.org/x/tools v0.0.0-20191216221442-1d943b090355 // indirect
 	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 // indirect

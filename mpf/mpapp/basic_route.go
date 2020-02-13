@@ -8,7 +8,6 @@ import (
 
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
-    "github.com/a07061625/gompf/mpf/mpframe/middleware/mpspecial"
     "github.com/kataras/iris/v12"
     "github.com/kataras/iris/v12/context"
 )
@@ -84,9 +83,7 @@ func (app *appBasic) registerRouteAction(groupUri string, controller controllers
         })
         actionMwList = append(actionMwList, controller.GetMwAction(false, actionTag)...)
         actionUri := "/" + actionTag + " /" + actionTag + "/{directory:path}"
-        groupRoute.HandleMany(iris.MethodGet, actionUri, actionMwList...)
-        groupRoute.HandleMany(iris.MethodPost, actionUri, actionMwList...)
-        groupRoute.HandleMany(iris.MethodOptions, actionUri, mpspecial.NewBasicEmpty())
+        groupRoute.HandleMany(iris.MethodGet+" "+iris.MethodPost, actionUri, actionMwList...)
     }
 }
 
