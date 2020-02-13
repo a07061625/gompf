@@ -1,0 +1,15 @@
+tcp:
+  base: &tlbase
+    ReusePort: true # 端口重用
+    DeferAccept: true # 只当一个链接有数据时是才会从accept中返回
+    FastOpen: true # 允许服务器和客户端在连接建立握手阶段交换数据,从而使应用节省了一个RTT的时延
+    Backlog: 1024 # 请求队列长度
+    KeepAlive: true # 是否保持长链接
+    KeepAlivePeriod: 60 # 长链接有效时间,单位为秒
+    NoDelay: true # 是否延迟等待
+    Linger: 0 # 延时关闭
+    Deadline: 15 # 请求超时时间,单位为秒
+    ReadDeadline: 8 # 读数据超时时间,单位为秒
+    WriteDeadline: 5 # 写数据超时时间,单位为秒
+  deva01:
+    <<: *tlbase

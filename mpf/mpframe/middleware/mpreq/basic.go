@@ -57,7 +57,7 @@ func NewBasicBeginHttp() func(w http.ResponseWriter, r *http.Request, next http.
             w.WriteHeader(beginTag)
             return
         }
-        next.ServeHTTP(w, r)
+        next(w, r)
     }
 }
 

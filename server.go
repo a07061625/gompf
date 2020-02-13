@@ -6,7 +6,6 @@ import (
     "fmt"
     "io/ioutil"
     "log"
-    "net/http"
     "os"
     "os/signal"
     "strconv"
@@ -23,6 +22,7 @@ import (
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpresp"
     "github.com/a07061625/gompf/mpf/mpframe/middleware/mpversion"
     "github.com/a07061625/gompf/mpf/mplog"
+    "github.com/a07061625/gompf/mpf/mpserver"
     "github.com/kataras/iris/v12"
     "github.com/kataras/iris/v12/context"
     "github.com/kataras/iris/v12/i18n"
@@ -67,7 +67,8 @@ func listenNotify() {
     select {
     case sig := <-signals:
         mplog.LogInfo("server " + serverTag + " shutdown by signal " + sig.String())
-        ctx, _ := stdContext.WithTimeout(stdContext.Background(), timeoutList["shutdown"])
+        timeout := 10 * time.Second
+        ctx, _ := stdContext.WithTimeout(stdContext.Background(), timeout)
         app.Shutdown(ctx)
     }
 }
@@ -88,11 +89,10 @@ func stop() {
 }
 
 var (
-    app         *iris.Application
-    timeoutList map[string]time.Duration // 超时时间列表
-    serverTag   = ""                     // 服务标识
-    pidFile     = ""                     // 进程ID文件
-    pid         = 0                      // 进程ID
+    app       *iris.Application
+    serverTag = "" // 服务标识
+    pidFile   = "" // 进程ID文件
+    pid       = 0  // 进程ID
 
     envType       = flag.String("mpet", mpf.EnvTypeProduct, "环境类型,只能是dev或product")
     projectTag    = flag.String("mppt", "", "项目标识,由小写字母和数字组成的3位长度字符串")
@@ -112,8 +112,6 @@ func init() {
     bs.SetProjectTag(*projectTag)
     bs.SetProjectModule(*projectModule)
     mpf.LoadBoot(bs)
-
-    timeoutList = make(map[string]time.Duration)
 }
 
 func main() {
@@ -132,24 +130,18 @@ func main() {
         os.Exit(1)
     }
 
-    conf := mpf.NewConfig().GetConfig("server")
-    confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
-    timeoutList["read"] = time.Duration(conf.GetInt(confPrefix+"timeout.read")) * time.Second
-    timeoutList["readheader"] = time.Duration(conf.GetInt(confPrefix+"timeout.readheader")) * time.Second
-    timeoutList["write"] = time.Duration(conf.GetInt(confPrefix+"timeout.write")) * time.Second
-    timeoutList["idle"] = time.Duration(conf.GetInt(confPrefix+"timeout.idle")) * time.Second
-    timeoutList["shutdown"] = time.Duration(conf.GetInt(confPrefix+"timeout.shutdown")) * time.Second
-
     appBasic := mpapp.New()
     // 全局前置中间件
     middlewarePrefix := make([]context.Handler, 0)
-    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicBeginIris())
+    //middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicBeginIris())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicInit())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicRecover())
     middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicLog())
     middlewarePrefix = append(middlewarePrefix, mpversion.NewBasicError())
     appBasic.SetMiddleware(true, middlewarePrefix...)
 
+    conf := mpf.NewConfig().GetConfig("server")
+    confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
     // 全局后置中间件
     versionKey1 := "< " + conf.GetString(confPrefix+"version.deprecated")
     versionKey2 := ">= " + conf.GetString(confPrefix+"version.deprecated") + ", < " + conf.GetString(confPrefix+"version.max")
@@ -192,15 +184,7 @@ func main() {
 
     go listenNotify()
 
-    server := &http.Server{
-        Addr:              mpf.EnvServerDomain(),
-        ReadTimeout:       timeoutList["read"],
-        ReadHeaderTimeout: timeoutList["readheader"],
-        WriteTimeout:      timeoutList["write"],
-        IdleTimeout:       timeoutList["idle"],
-    }
-    server.SetKeepAlivesEnabled(false)
-
+    listener := mpserver.NewListenerTcp(mpf.EnvServerDomain())
     if *optionType == "start" {
         logMsg := "server " + serverTag
         if checkRunning() {
@@ -210,7 +194,7 @@ func main() {
 
         pid = os.Getpid()
         savePid(pid)
-        err := app.Run(iris.Server(server))
+        err := app.Run(iris.Listener(listener))
         if err != nil {
             log.Fatalln(logMsg + " start error: " + err.Error())
         }
@@ -232,7 +216,7 @@ func main() {
             if status {
                 pid = os.Getpid()
                 savePid(pid)
-                err := app.Run(iris.Server(server))
+                err := app.Run(iris.Listener(listener))
                 if err != nil {
                     log.Fatalln("server " + serverTag + " restart error: " + err.Error())
                 }
