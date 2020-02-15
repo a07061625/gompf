@@ -139,6 +139,7 @@ func (s *serverWebSocket) Handler() context.Handler {
         if conn == nil {
             return
         }
+        defer s.RemoveConnection(key)
 
         go func() {
             closeFlag := false
