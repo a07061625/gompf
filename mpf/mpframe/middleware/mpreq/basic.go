@@ -27,29 +27,11 @@ func NewBasicBegin() context.Handler {
     return iris.FromStd(func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
         mplog.LogInfo(r.Method + " http://" + r.Host + r.URL.String() + " request-begin")
 
-        w.Header().Set("Access-Control-Allow-Credentials", "true")
-        httpOrigin := r.Header.Get("Origin")
-        if len(httpOrigin) > 0 {
-            w.Header().Set("Access-Control-Allow-Origin", httpOrigin)
-        } else {
-            w.Header().Set("Access-Control-Allow-Origin", "*")
-        }
+        // cors跨域由lua处理
 
-        switch r.Method {
-        case iris.MethodGet:
-        case iris.MethodPost:
-        case iris.MethodOptions: // 处理跨域
-            w.Header().Set("Access-Control-Max-Age", "86400")
-            w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE, X_Requested_With")
-            w.Header().Set("Access-Control-Allow-Headers", "origin, no-cache, x-requested-with, x_requested_with, if-modified-since, accept, content-type, authorization")
-            w.Header().Set("Content-Length", "0")
-            w.Header().Set("Content-Type", project.HttpContentTypeText)
-            w.WriteHeader(iris.StatusOK)
-            return
-        default:
+        if (r.Method != iris.MethodGet) && (r.Method != iris.MethodPost) {
             w.WriteHeader(iris.StatusMethodNotAllowed)
         }
-
         next(w, r)
     })
 }
