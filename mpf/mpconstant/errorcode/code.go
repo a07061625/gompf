@@ -8,10 +8,11 @@ package errorcode
 
 const (
     // 公共基础,取值范围10000-99999
-    CommonBaseSuccess uint = 0     // 成功
-    CommonBaseMin     uint = 10000 // 最小错误码
-    CommonBaseInner   uint = 10000 // 内部错误
-    CommonBaseServer  uint = 10001 // 服务错误
+    CommonBaseSuccess   uint = 0     // 成功
+    CommonBaseMin       uint = 10000 // 最小错误码
+    CommonBaseInner     uint = 10000 // 内部错误
+    CommonBaseServer    uint = 10001 // 服务错误
+    CommonBaseWebSocket uint = 10002 // WebSocket服务错误
 
     // 公共请求
     CommonRequestFail          uint = 30001 // 请求失败

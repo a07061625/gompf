@@ -20,9 +20,9 @@ import (
 // 获取错误处理
 func GetProblemHandleBasic(result *mpresponse.ResultProblem, retryAfter interface{}) (context.Problem, context.ProblemOptions) {
     problem := iris.NewProblem()
-    problem.Type("/error/" + result.Type)
     problem.Title(result.Title)
     problem.Status(result.Status)
+    problem.Key("tag", result.Tag)
     problem.Key("req_id", result.ReqId)
     problem.Key("code", result.Code)
     problem.Key("time", result.Time)
@@ -53,7 +53,7 @@ func NewBasicSend() context.Handler {
             ctx.Next()
         } else {
             result := mpresponse.NewResultProblem()
-            result.Type = "response-empty"
+            result.Tag = "response-empty"
             result.Title = "响应错误"
             result.Code = errorcode.CommonResponseEmpty
             result.Msg = "响应数据不能为空"

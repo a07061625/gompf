@@ -106,7 +106,7 @@ func NewBasicRecover() context.Handler {
 
                 errMsg := ""
                 result := mpresponse.NewResultProblem()
-                result.Type = "business"
+                result.Tag = "business"
                 result.Title = "业务错误"
                 if err1, ok := r.(*mperr.ErrorCommon); ok {
                     if err1.Type != mperr.TypeInnerValidator {

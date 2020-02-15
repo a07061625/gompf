@@ -79,7 +79,7 @@ func NewBasicSignSimple() context.Handler {
 
         if len(errMsg) > 0 {
             result := mpresponse.NewResultProblem()
-            result.Type = "validator-sign"
+            result.Tag = "validator-sign"
             result.Title = "签名错误"
             result.Code = errorcode.CommonValidatorSign
             result.Msg = errMsg

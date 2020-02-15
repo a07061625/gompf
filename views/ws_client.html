@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket Client</title>
+</head>
+<body>
+    <h1>Echo Test</h1>
+    <input title="send data" type="text" id="sendTxt"/>
+    <button id="sendBtn">发送</button>
+    <div id="recv"></div>
+    <script type="text/javascript">
+        let ws = new WebSocket("ws://127.0.0.1:8080/websocket/demo");
+        ws.onopen = function () {
+            // body...
+            console.log("websocket open");
+            document.getElementById('recv').innerHTML = 'Connected';
+        };
+        ws.oncolse = function (e) {
+            // body...
+            console.log("consoled");
+        };
+        ws.onmessage = function (e) {
+            // body...
+            console.log(e.data);
+            document.getElementById('recv').innerHTML = e.data;
+        };
+        document.getElementById('sendBtn').onclick = function () {
+            let txt = document.getElementById('sendTxt').value;
+            console.log(txt);
+            ws.send(txt)
+        }
+    </script>
+</body>
+</html>

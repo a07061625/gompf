@@ -23,11 +23,15 @@ type resultBasic struct {
 
 func newResultBasic() resultBasic {
     r := resultBasic{}
+    r.refreshBasic()
+    return r
+}
+
+func (r *resultBasic) refreshBasic() {
     r.ReqId = mpf.ToolGetReqId()
     r.Code = errorcode.CommonBaseSuccess
     r.Time = time.Now().Unix()
     r.Msg = ""
-    return r
 }
 
 // 接口响应,用于请求正常情况
@@ -36,18 +40,34 @@ type ResultApi struct {
     Data interface{} `json:"data",xml:"Data"` // 响应数据
 }
 
+func (r *ResultApi) Refresh() {
+    r.refreshBasic()
+    r.Data = make(map[string]interface{})
+}
+
 func NewResultApi() *ResultApi {
-    return &ResultApi{newResultBasic(), make(map[string]interface{})}
+    r := &ResultApi{}
+    r.Refresh()
+    return r
 }
 
 // 问题响应,用于请求出问题情况
 type ResultProblem struct {
     resultBasic
-    Type   string `json:"type",xml:"Type"`     // 问题类型
+    Tag    string `json:"tag",xml:"Tag"`       // 问题标识
     Title  string `json:"title",xml:"Title"`   // 问题标题
     Status int    `json:"status",xml:"Status"` // 问题状态
 }
 
+func (r *ResultProblem) Refresh() {
+    r.refreshBasic()
+    r.Tag = ""
+    r.Title = ""
+    r.Status = iris.StatusInternalServerError
+}
+
 func NewResultProblem() *ResultProblem {
-    return &ResultProblem{newResultBasic(), "", "", iris.StatusInternalServerError}
+    r := &ResultProblem{}
+    r.Refresh()
+    return r
 }

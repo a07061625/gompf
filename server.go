@@ -6,6 +6,7 @@ import (
     "fmt"
     "io/ioutil"
     "log"
+    "net/http"
     "os"
     "os/signal"
     "strconv"
@@ -90,6 +91,7 @@ func stop() {
 
 var (
     app       *iris.Application
+    ws        mpserver.IServerWebSocket
     serverTag = "" // 服务标识
     pidFile   = "" // 进程ID文件
     pid       = 0  // 进程ID
@@ -130,57 +132,55 @@ func main() {
         os.Exit(1)
     }
 
-    appBasic := mpapp.New()
-    // 全局前置中间件
-    middlewarePrefix := make([]context.Handler, 0)
-    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicBegin())
-    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicInit())
-    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicRecover())
-    middlewarePrefix = append(middlewarePrefix, mpreq.NewBasicLog())
-    middlewarePrefix = append(middlewarePrefix, mpversion.NewBasicError())
-    appBasic.SetMiddleware(true, middlewarePrefix...)
-
     conf := mpf.NewConfig().GetConfig("server")
     confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
+    appBasic := mpapp.New()
+    // 全局前置中间件
+    appBasic.SetGlobalMiddlewarePrefix(mpreq.NewBasicBegin(), mpreq.NewBasicInit(), mpreq.NewBasicRecover(), mpreq.NewBasicLog(), mpversion.NewBasicError())
     // 全局后置中间件
     versionKey1 := "< " + conf.GetString(confPrefix+"version.deprecated")
     versionKey2 := ">= " + conf.GetString(confPrefix+"version.deprecated") + ", < " + conf.GetString(confPrefix+"version.max")
     middlewareVersion := make(map[string]context.Handler)
     middlewareVersion[versionKey1] = mpversion.NewBasicDeprecated(mpresp.NewBasicSend(), "WARNING! You are using deprecated version of API", "Please use right version of API as soon as possible")
     middlewareVersion[versionKey2] = mpresp.NewBasicSend()
-    middlewareSuffix := make([]context.Handler, 0)
-    middlewareSuffix = append(middlewareSuffix, mpversion.NewBasicMatcher(middlewareVersion))
-    middlewareSuffix = append(middlewareSuffix, mpresp.NewBasicEnd())
-    appBasic.SetMiddleware(false, middlewareSuffix...)
+    appBasic.SetGlobalMiddlewareSuffix(mpversion.NewBasicMatcher(middlewareVersion), mpresp.NewBasicEnd())
 
-    configOther := make(map[string]interface{})
-    configOther["server_host"] = conf.GetString(confPrefix + "host")
-    configOther["server_port"] = conf.GetInt(confPrefix + "port")
-    configOther["server_type"] = conf.GetString(confPrefix + "type")
-    configOther["version_min"] = conf.GetString(confPrefix + "version.min")
-    configOther["version_deprecated"] = conf.GetString(confPrefix + "version.deprecated")
-    configOther["version_current"] = conf.GetString(confPrefix + "version.current")
-    configOther["version_max"] = conf.GetString(confPrefix + "version.max")
-    configOther["timeout_request"] = conf.GetFloat64(confPrefix + "timeout.request")
-    configOther["timeout_controller"] = conf.GetFloat64(confPrefix + "timeout.controller")
-    configOther["timeout_action"] = conf.GetFloat64(confPrefix + "timeout.action")
-    appBasic.SetConfOther(configOther)
+    // 应用配置
+    appBasic.SetConfApp()
 
-    confI18n := &i18n.I18n{}
-    confI18n.Load("./configs/i18n/*/*.ini", "zh-CN", "en-US")
-    confI18n.PathRedirect = false
-    confI18n.URLParameter = conf.GetString(confPrefix + "reqparam.i18n")
-    appBasic.SetConfI18n(confI18n)
+    // 国际化配置,配置文件路径只能是以./开始,代表从main.go文件所在目录开始,否则会报错
+    i18nConf := &i18n.I18n{}
+    i18nConf.Load("./configs/i18n/*/*.ini", "zh-CN", "en-US")
+    i18nConf.PathRedirect = false
+    i18nConf.URLParameter = conf.GetString(confPrefix + "reqparam.i18n")
+    appBasic.SetConfI18n(i18nConf)
 
-    appBasic.SetRouterBlocks(conf.GetStringMapString(confPrefix + "mvc.block.accept"))
+    // 路由
+    blocks := conf.GetStringMapString(confPrefix + "mvc.block.accept")
     routers := controllers.NewRouter()
     routers.RegisterGroup(index.NewRouter())
     routers.RegisterGroup(frontend.NewRouter())
     routers.RegisterGroup(backend.NewRouter())
-    appBasic.SetRouters(routers.GetControllers()...)
+    appBasic.SetRouters(blocks, routers.GetControllers())
 
-    appBasic.Init()
+    // 错误处理
+    appBasic.SetErrorHandler()
+
     app = appBasic.GetInstance()
+
+    // 对接第三方应用
+    ws = mpserver.NewServerWebSocket() // web socket
+    app.WrapRouter(func(w http.ResponseWriter, r *http.Request, router http.HandlerFunc) {
+        path := r.URL.Path
+        if path == "/websocket/demo" {
+            ctx := app.ContextPool.Acquire(w, r)
+            defer app.ContextPool.Release(ctx)
+            ws.Handler()(ctx)
+            return
+        }
+
+        router.ServeHTTP(w, r)
+    })
 
     go listenNotify()
 

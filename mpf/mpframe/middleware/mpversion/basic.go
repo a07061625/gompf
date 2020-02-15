@@ -21,24 +21,24 @@ import (
 // 版本错误
 func NewBasicError() context.Handler {
     return func(ctx context.Context) {
-        errType := ""
+        errTag := ""
         errMsg := ""
         apiVersion := versioning.GetVersion(ctx)
         minVersion := ctx.Application().ConfigurationReadOnly().GetOther()["version_min"].(string)
         maxVersion := ctx.Application().ConfigurationReadOnly().GetOther()["version_max"].(string)
         if apiVersion == versioning.NotFound {
-            errType = "version-empty"
+            errTag = "version-empty"
             errMsg = "API版本必须填写"
         } else if versioning.Match(ctx, "< "+minVersion) {
-            errType = "version-abandoned"
+            errTag = "version-abandoned"
             errMsg = "API版本已废弃"
         } else if versioning.Match(ctx, "> "+maxVersion) {
-            errType = "version-unsupported"
+            errTag = "version-unsupported"
             errMsg = "API版本不支持"
         }
         if len(errMsg) > 0 {
             result := mpresponse.NewResultProblem()
-            result.Type = errType
+            result.Tag = errTag
             result.Title = "版本错误"
             result.Code = errorcode.CommonRequestFormat
             result.Msg = errMsg
