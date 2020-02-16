@@ -7,7 +7,7 @@
 package mpmq
 
 import (
-    "github.com/a07061625/gompf/mpf/cache"
+    "github.com/a07061625/gompf/mpf/mpcache"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
 )
 
@@ -22,7 +22,7 @@ func (p *producerRedis) SendTopicData(topic string, data []string) int {
         pushData = append(pushData, v)
     }
     redisKey := p.topicPrefix + topic
-    addNum := cache.NewRedis().GetConn().RPush(redisKey, pushData...).Val()
+    addNum := mpcache.NewRedis().GetConn().RPush(redisKey, pushData...).Val()
     num += int(addNum)
 
     return num

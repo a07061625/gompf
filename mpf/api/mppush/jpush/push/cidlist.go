@@ -12,7 +12,7 @@ import (
 
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/api/mppush"
-    "github.com/a07061625/gompf/mpf/cache"
+    "github.com/a07061625/gompf/mpf/mpcache"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
@@ -65,7 +65,7 @@ func GetAppCid(key, cidType string) string {
         redisKey = project.RedisPrefix(project.RedisPrefixJpushUidSchedule) + key
     }
 
-    cid, err := cache.NewRedis().GetConn().LPop(redisKey).Result()
+    cid, err := mpcache.NewRedis().GetConn().LPop(redisKey).Result()
     if err != nil {
         return cid
     }
@@ -82,7 +82,7 @@ func GetAppCid(key, cidType string) string {
     idList := resData["idlist"].([]string)
     idNum := len(idList)
 
-    p := cache.NewRedis().GetConn().Pipeline()
+    p := mpcache.NewRedis().GetConn().Pipeline()
     defer p.Close()
     for i := 0; i < idNum; i++ {
         if i > 0 {
@@ -92,7 +92,7 @@ func GetAppCid(key, cidType string) string {
         }
     }
     p.Exec()
-    cache.NewRedis().GetConn().Expire(redisKey, 86400*time.Second)
+    mpcache.NewRedis().GetConn().Expire(redisKey, 86400*time.Second)
 
     return cid
 }

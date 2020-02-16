@@ -4,7 +4,7 @@
  * Date: 2019/12/29 0029
  * Time: 11:51
  */
-package cache
+package mpcache
 
 import (
     "math/rand"

@@ -12,7 +12,7 @@ import (
     "time"
 
     "github.com/a07061625/gompf/mpf"
-    "github.com/a07061625/gompf/mpf/cache"
+    "github.com/a07061625/gompf/mpf/mpcache"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
@@ -55,7 +55,7 @@ func (util *utilWx) GetCorpAccessToken(corpId string, agentTag string) string {
     nowTime := time.Now().Unix()
     agentInfo := NewConfig().GetCorp(corpId).GetAgentInfo(agentTag)
     redisKey := project.RedisPrefix(project.RedisPrefixWxCorp) + corpId + "_" + agentInfo["id"]
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     accessTokenKey, ok := redisData["at_key"]
     if ok && (accessTokenKey == redisKey) {
         expireTime, _ := strconv.ParseInt(redisData["at_expire"], 10, 64)
@@ -69,8 +69,8 @@ func (util *utilWx) GetCorpAccessToken(corpId string, agentTag string) string {
     expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     atData := make([]string, 0)
     atData = append(atData, redisKey, "at_key", redisKey, "at_content", accessToken, "at_expire", strconv.FormatInt(expireTime, 10))
-    cache.NewRedis().DoHmSet(atData)
-    cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
+    mpcache.NewRedis().DoHmSet(atData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return accessToken
 }
 
@@ -105,7 +105,7 @@ func (util *utilWx) GetCorpJsTicket(corpId string, agentTag string) string {
     nowTime := time.Now().Unix()
     agentInfo := NewConfig().GetCorp(corpId).GetAgentInfo(agentTag)
     redisKey := project.RedisPrefix(project.RedisPrefixWxCorp) + corpId + "_" + agentInfo["id"]
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     jsTicketKey, ok := redisData["jt_key"]
     if ok && (jsTicketKey == redisKey) {
         expireTime, _ := strconv.ParseInt(redisData["jt_expire"], 10, 64)
@@ -120,7 +120,7 @@ func (util *utilWx) GetCorpJsTicket(corpId string, agentTag string) string {
     expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     jtData := make([]string, 0)
     jtData = append(jtData, redisKey, "jt_key", redisKey, "jt_content", jsTicket, "jt_expire", strconv.FormatInt(expireTime, 10))
-    cache.NewRedis().DoHmSet(jtData)
-    cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
+    mpcache.NewRedis().DoHmSet(jtData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return jsTicket
 }

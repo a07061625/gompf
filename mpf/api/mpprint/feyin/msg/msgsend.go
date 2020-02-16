@@ -13,7 +13,7 @@ import (
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/api"
     "github.com/a07061625/gompf/mpf/api/mpprint"
-    "github.com/a07061625/gompf/mpf/cache"
+    "github.com/a07061625/gompf/mpf/mpcache"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
@@ -130,7 +130,7 @@ func NewMsgSend(appId string) *msgSend {
     ms := &msgSend{mpprint.NewBaseFeYin(), make([]string, 0), "", "", "", make(map[string]string)}
     ms.SetAppId(appId)
     ms.ReqData["appid"] = appId
-    ms.ReqData["msg_no"] = cache.NewUtilCache().CreateUniqueId()
+    ms.ReqData["msg_no"] = mpcache.NewUtilCache().CreateUniqueId()
     ms.ReqMethod = fasthttp.MethodPost
     ms.ReqContentType = project.HttpContentTypeJson
     return ms

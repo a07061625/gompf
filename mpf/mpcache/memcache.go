@@ -4,7 +4,7 @@
  * Date: 2019/12/24 0024
  * Time: 11:53
  */
-package cache
+package mpcache
 
 import (
     "sync"

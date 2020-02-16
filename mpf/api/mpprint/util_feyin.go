@@ -12,7 +12,7 @@ import (
     "time"
 
     "github.com/a07061625/gompf/mpf"
-    "github.com/a07061625/gompf/mpf/cache"
+    "github.com/a07061625/gompf/mpf/mpcache"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
@@ -52,7 +52,7 @@ func (util *utilPrint) refreshFeYinAccessToken(appId string) map[string]interfac
 func (util *utilPrint) GetFeYinAccessToken(appId string) string {
     nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixPrintFeiYinAccount) + appId
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     uniqueKey, ok := redisData["unique_key"]
     if ok && (uniqueKey == redisKey) {
         eTime, _ := strconv.ParseInt(redisData["expire_time"], 10, 64)
@@ -66,8 +66,8 @@ func (util *utilPrint) GetFeYinAccessToken(appId string) string {
     activeTime := refreshRes["expires_in"].(time.Duration) + 100
     atData := make([]string, 0)
     atData = append(atData, redisKey, "access_token", refreshRes["access_token"].(string), "expire_time", strconv.FormatInt(expireTime, 10), "unique_key", redisKey)
-    cache.NewRedis().DoHmSet(atData)
-    cache.NewRedis().GetConn().Expire(redisKey, activeTime*time.Second)
+    mpcache.NewRedis().DoHmSet(atData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, activeTime*time.Second)
 
     return refreshRes["access_token"].(string)
 }

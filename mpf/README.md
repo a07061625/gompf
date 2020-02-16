@@ -1,7 +1,7 @@
 # 代码结构
 ## 目录
 - api: 外部接口
-- cache: 缓存
+- mpcache: 缓存
 - mpconstant: 常量
 - mpdb: 数据库
 - mpdp: 设计模式

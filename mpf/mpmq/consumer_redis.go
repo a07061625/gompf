@@ -8,7 +8,7 @@ package mpmq
 
 import (
     "github.com/a07061625/gompf/mpf"
-    "github.com/a07061625/gompf/mpf/cache"
+    "github.com/a07061625/gompf/mpf/mpcache"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
@@ -30,10 +30,10 @@ func (c *consumerRedis) RefreshConfig(conf *viper.Viper) {
 
 func (c *consumerRedis) PullData(topic string) (interface{}, error) {
     redisKey := c.topicPrefix + topic
-    dataList := cache.NewRedis().GetConn().LRange(redisKey, 0, c.pullNum).Val()
+    dataList := mpcache.NewRedis().GetConn().LRange(redisKey, 0, c.pullNum).Val()
     dataNum := len(dataList)
     if dataNum > 0 {
-        cache.NewRedis().GetConn().LTrim(redisKey, int64(dataNum), -1)
+        mpcache.NewRedis().GetConn().LTrim(redisKey, int64(dataNum), -1)
     }
 
     return dataList, nil

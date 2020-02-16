@@ -12,7 +12,7 @@ import (
     "time"
 
     "github.com/a07061625/gompf/mpf"
-    "github.com/a07061625/gompf/mpf/cache"
+    "github.com/a07061625/gompf/mpf/mpcache"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mpconstant/project"
     "github.com/a07061625/gompf/mpf/mperr"
@@ -23,7 +23,7 @@ import (
 func (util *utilWx) RefreshOpenAuthorizeInfo(appId string, operateType int, data map[string]interface{}) {
     util.outer.RefreshOpenAuthorizeInfo(appId, operateType, data)
     redisKey := project.RedisPrefix(project.RedisPrefixWxOpenAuthorize) + appId
-    cache.NewRedis().GetConn().Del(redisKey).Result()
+    mpcache.NewRedis().GetConn().Del(redisKey).Result()
 }
 
 // 刷新开放平台访问令牌
@@ -61,15 +61,15 @@ func (util *utilWx) RefreshOpenAccessToken(verifyTicket string) {
     expireTime := respData["expires_in"].(int)
     atData := make([]string, 0)
     atData = append(atData, redisKey, "unique_key", redisKey, "access_token", respData["component_access_token"].(string))
-    cache.NewRedis().DoHmSet(atData)
-    cache.NewRedis().GetConn().Expire(redisKey, time.Duration(expireTime)*time.Second)
+    mpcache.NewRedis().DoHmSet(atData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, time.Duration(expireTime)*time.Second)
 }
 
 // 获取开放平台访问令牌
 func (util *utilWx) GetOpenAccessToken() string {
     conf := NewConfig().GetOpen()
     redisKey := project.RedisPrefix(project.RedisPrefixWxOpenAccount) + conf.GetAppId()
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     uniqueKey, ok := redisData["unique_key"]
     if ok && (uniqueKey == redisKey) {
         return redisData["access_token"]
@@ -81,7 +81,7 @@ func (util *utilWx) GetOpenAccessToken() string {
 // 刷新开放平台授权者访问令牌
 func (util *utilWx) refreshOpenAuthorizeAccessToken(appId string) map[string]interface{} {
     redisKey := project.RedisPrefix(project.RedisPrefixWxOpenAuthorize) + appId
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     refreshToken, ok := redisData["refresh_token"]
     authorizeStatus := 0
     if ok {
@@ -92,8 +92,8 @@ func (util *utilWx) refreshOpenAuthorizeAccessToken(appId string) map[string]int
         authorizeStatus = getRes.AuthorizeStatus
         authorizeData := make([]string, 0)
         authorizeData = append(authorizeData, "authorize_status", strconv.Itoa(getRes.AuthorizeStatus), "auth_code", getRes.AuthCode, "refresh_token", getRes.RefreshToken)
-        cache.NewRedis().DoHmSet(authorizeData)
-        cache.NewRedis().GetConn().Expire(redisKey, 86400*time.Second)
+        mpcache.NewRedis().DoHmSet(authorizeData)
+        mpcache.NewRedis().GetConn().Expire(redisKey, 86400*time.Second)
     }
 
     if authorizeStatus == project.WxConfigAuthorizeStatusEmpty {
@@ -138,7 +138,7 @@ func (util *utilWx) refreshOpenAuthorizeAccessToken(appId string) map[string]int
 func (util *utilWx) GetOpenAuthorizeAccessToken(appId string) string {
     nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxOpenAuthorize) + appId
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     accessTokenKey, ok := redisData["at_key"]
     if ok && (accessTokenKey == redisKey) {
         expireTime, _ := strconv.ParseInt(redisData["at_expire"], 10, 64)
@@ -152,8 +152,8 @@ func (util *utilWx) GetOpenAuthorizeAccessToken(appId string) string {
     expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     atData := make([]string, 0)
     atData = append(atData, redisKey, "at_key", redisKey, "at_expire", strconv.FormatInt(expireTime, 10), "at_content", accessToken)
-    cache.NewRedis().DoHmSet(atData)
-    cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
+    mpcache.NewRedis().DoHmSet(atData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return accessToken
 }
 
@@ -161,7 +161,7 @@ func (util *utilWx) GetOpenAuthorizeAccessToken(appId string) string {
 func (util *utilWx) GetOpenAuthorizeJsTicket(appId string) string {
     nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxOpenAuthorize) + appId
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     jsTicketKey, ok := redisData["jt_key"]
     if ok && (jsTicketKey == redisKey) {
         expireTime, _ := strconv.ParseInt(redisData["jt_expire"], 10, 64)
@@ -176,8 +176,8 @@ func (util *utilWx) GetOpenAuthorizeJsTicket(appId string) string {
     expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     jtData := make([]string, 0)
     jtData = append(jtData, redisKey, "jt_key", redisKey, "jt_content", jsTicket, "jt_expire", strconv.FormatInt(expireTime, 10))
-    cache.NewRedis().DoHmSet(jtData)
-    cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
+    mpcache.NewRedis().DoHmSet(jtData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return jsTicket
 }
 
@@ -185,7 +185,7 @@ func (util *utilWx) GetOpenAuthorizeJsTicket(appId string) string {
 func (util *utilWx) GetOpenAuthorizeCardTicket(appId string) string {
     nowTime := time.Now().Unix()
     redisKey := project.RedisPrefix(project.RedisPrefixWxOpenAuthorize) + appId
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     cardTicketKey, ok := redisData["ct_key"]
     if ok && (cardTicketKey == redisKey) {
         expireTime, _ := strconv.ParseInt(redisData["ct_expire"], 10, 64)
@@ -200,8 +200,8 @@ func (util *utilWx) GetOpenAuthorizeCardTicket(appId string) string {
     expireTime := refreshRes["expires_in"].(int64) + nowTime - 10
     ctData := make([]string, 0)
     ctData = append(ctData, redisKey, "ct_key", redisKey, "ct_content", cardTicket, "ct_expire", strconv.FormatInt(expireTime, 10))
-    cache.NewRedis().DoHmSet(ctData)
-    cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
+    mpcache.NewRedis().DoHmSet(ctData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return cardTicket
 }
 
@@ -235,7 +235,7 @@ func (util *utilWx) refreshOpenAuthorizeCodeSecret(appId string) map[string]inte
 // 获取开放平台小程序云开发代码保护密钥
 func (util *utilWx) GetOpenAuthorizeCodeSecret(appId string) string {
     redisKey := project.RedisPrefix(project.RedisPrefixWxOpenAuthorize) + appId
-    redisData := cache.NewRedis().GetConn().HGetAll(redisKey).Val()
+    redisData := mpcache.NewRedis().GetConn().HGetAll(redisKey).Val()
     codeSecretKey, ok := redisData["cs_key"]
     if ok && (codeSecretKey == redisKey) {
         return redisData["cs_content"]
@@ -245,7 +245,7 @@ func (util *utilWx) GetOpenAuthorizeCodeSecret(appId string) string {
     codeSecret := refreshRes["codesecret"].(string)
     ctData := make([]string, 0)
     ctData = append(ctData, redisKey, "cs_key", redisKey, "cs_content", codeSecret)
-    cache.NewRedis().DoHmSet(ctData)
-    cache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
+    mpcache.NewRedis().DoHmSet(ctData)
+    mpcache.NewRedis().GetConn().Expire(redisKey, 8000*time.Second)
     return codeSecret
 }
