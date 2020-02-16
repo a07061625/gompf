@@ -3,6 +3,5 @@ logs/
 pid/
 go.sum
 *.exe
-test
 server
 ws_client
