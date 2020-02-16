@@ -14,7 +14,7 @@ import (
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mperr"
     _ "github.com/go-sql-driver/mysql"
-    "github.com/go-xorm/xorm"
+    "xorm.io/xorm"
 )
 
 type dbMysql struct {
