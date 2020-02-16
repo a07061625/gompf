@@ -2,9 +2,9 @@
 ## 目录
 - api: 外部接口
 - cache: 缓存
-- db: 数据库
-- mpapp: 应用
 - mpconstant: 常量
+- mpdb: 数据库
+- mpdp: 设计模式
 - mpencrypt: 加解密
 - mperr: 自定义错误
 - mpframe: 框架

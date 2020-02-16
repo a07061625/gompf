@@ -45,15 +45,17 @@ const (
 
     // 数据库,取值范围100200-100299
     DbMysqlConnect       uint = 100200 // mysql-连接错误
-    DbMysqlOperateInsert uint = 100201 // mysql-插入操作错误
-    DbMysqlOperateDelete uint = 100202 // mysql-删除操作错误
-    DbMysqlOperateUpdate uint = 100203 // mysql-更新操作错误
-    DbMysqlOperateSelect uint = 100204 // mysql-查询操作错误
+    DbMysqlOperate       uint = 100201 // mysql-操作错误
+    DbMysqlOperateInsert uint = 100202 // mysql-插入操作错误
+    DbMysqlOperateDelete uint = 100203 // mysql-删除操作错误
+    DbMysqlOperateUpdate uint = 100204 // mysql-更新操作错误
+    DbMysqlOperateSelect uint = 100205 // mysql-查询操作错误
     DbMonGoConnect       uint = 100210 // mongo-连接错误
-    DbMonGoOperateInsert uint = 100211 // mongo-插入操作错误
-    DbMonGoOperateDelete uint = 100212 // mongo-删除操作错误
-    DbMonGoOperateUpdate uint = 100213 // mongo-更新操作错误
-    DbMonGoOperateSelect uint = 100214 // mongo-查询操作错误
+    DbMonGoOperate       uint = 100211 // mongo-操作错误
+    DbMonGoOperateInsert uint = 100212 // mongo-插入操作错误
+    DbMonGoOperateDelete uint = 100213 // mongo-删除操作错误
+    DbMonGoOperateUpdate uint = 100214 // mongo-更新操作错误
+    DbMonGoOperateSelect uint = 100215 // mongo-查询操作错误
 
     // 日志,取值范围100300-100399
     LogZapConfig uint = 100300 // zap-配置错误

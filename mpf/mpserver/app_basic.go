@@ -1,4 +1,4 @@
-package mpapp
+package mpserver
 
 import (
     "reflect"
@@ -218,14 +218,14 @@ func (app *appBasic) SetErrorHandler() {
 }
 
 var (
-    ins *appBasic
+    insApp *appBasic
 )
 
 func init() {
-    ins = &appBasic{}
-    ins.instance = iris.New()
+    insApp = &appBasic{}
+    insApp.instance = iris.New()
 }
 
-func New() *appBasic {
-    return ins
+func NewApp() *appBasic {
+    return insApp
 }

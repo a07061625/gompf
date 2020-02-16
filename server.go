@@ -14,7 +14,6 @@ import (
     "time"
 
     "github.com/a07061625/gompf/mpf"
-    "github.com/a07061625/gompf/mpf/mpapp"
     "github.com/a07061625/gompf/mpf/mpframe/controllers"
     "github.com/a07061625/gompf/mpf/mpframe/controllers/backend"
     "github.com/a07061625/gompf/mpf/mpframe/controllers/frontend"
@@ -134,7 +133,7 @@ func main() {
 
     conf := mpf.NewConfig().GetConfig("server")
     confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
-    appBasic := mpapp.New()
+    appBasic := mpserver.NewApp()
     // 全局前置中间件
     appBasic.SetGlobalMiddlewarePrefix(mpreq.NewBasicBegin(), mpreq.NewBasicInit(), mpreq.NewBasicRecover(), mpreq.NewBasicLog(), mpversion.NewBasicError())
     // 全局后置中间件

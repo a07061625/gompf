@@ -4,7 +4,7 @@
  * Date: 2019/12/24 0024
  * Time: 12:17
  */
-package db
+package mpdb
 
 import (
     "context"
@@ -88,7 +88,7 @@ func init() {
     insMonGo = &dbMonGo{nil, 0, 0, 0, "", nil}
 }
 
-func NewMonGo() *dbMonGo {
+func NewDbMonGo() *dbMonGo {
     onceMonGo.Do(func() {
         insMonGo.connect()
     })

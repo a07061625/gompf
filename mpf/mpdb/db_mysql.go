@@ -4,7 +4,7 @@
  * Date: 2019/12/24 0024
  * Time: 12:17
  */
-package db
+package mpdb
 
 import (
     "sync"
@@ -71,7 +71,7 @@ func init() {
     insMysql = &dbMysql{nil, 0, "", 0, 0}
 }
 
-func NewMysql() *dbMysql {
+func NewDbMysql() *dbMysql {
     onceMysql.Do(func() {
         insMysql.connect()
     })
