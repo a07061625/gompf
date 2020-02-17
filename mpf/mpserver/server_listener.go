@@ -26,7 +26,7 @@ func (sl *serverListener) Accept() (conn net.Conn, err error) {
     return tc, nil
 }
 
-//获取sock文件句柄
+// 获取sock文件句柄
 func (sl *serverListener) File() (uintptr, error) {
     f, err := sl.Listener.(*net.TCPListener).File()
     if err != nil {
@@ -40,7 +40,7 @@ func NewListener(addr string) *serverListener {
     if os.Getenv(mpf.GoEnvServerMode) == mpf.EnvServerModeChild { // 子进程
         f := os.NewFile(3, "")
         l, err := net.FileListener(f)
-        syscall.Kill(syscall.Getppid(), syscall.SIGTERM) //发信号给父进程,让父进程停止服务
+        syscall.Kill(syscall.Getppid(), syscall.SIGTERM) // 发信号给父进程,让父进程停止服务
         if err != nil {
             mplog.LogFatal("child server create listener error: " + err.Error())
         }

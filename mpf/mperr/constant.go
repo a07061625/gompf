@@ -106,4 +106,7 @@ const (
     TypeMQ       uint = 12300
     TypeMQRedis  uint = 12301
     TypeMQRabbit uint = 12302
+
+    // 协议
+    TypeProtocol uint = 12400
 )

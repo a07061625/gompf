@@ -249,4 +249,8 @@ const (
     MQRabbitConnect  uint = 103521 // rabbit-连接错误
     MQRabbitProducer uint = 103522 // rabbit-生产者错误
     MQRabbitConsumer uint = 103523 // rabbit-消费者错误
+
+    // 协议,取值范围103700-103899
+    ProtocolPacket   uint = 103700 // 协议解析-打包错误
+    ProtocolUnPacket uint = 103701 // 协议解析-解包错误
 )

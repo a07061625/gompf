@@ -31,7 +31,7 @@ func (l *listenerTcp) Accept() (conn net.Conn, err error) {
     return tl, nil
 }
 
-//获取sock文件句柄
+// 获取sock文件句柄
 func (l *listenerTcp) File() (uintptr, error) {
     f, err := l.Listener.(*net.TCPListener).File()
     if err != nil {

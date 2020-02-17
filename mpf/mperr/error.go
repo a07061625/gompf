@@ -250,3 +250,7 @@ func NewMQRedis(code uint, msg string, err error) *ErrorCommon {
 func NewMQRabbit(code uint, msg string, err error) *ErrorCommon {
     return &ErrorCommon{TypeMQRabbit, "Rabbit消息队列错误", code, msg, err}
 }
+
+func NewProtocol(code uint, msg string, err error) *ErrorCommon {
+    return &ErrorCommon{TypeProtocol, "协议错误", code, msg, err}
+}
