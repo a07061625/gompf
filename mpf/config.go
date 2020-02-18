@@ -1,3 +1,4 @@
+// Package mpf 配置
 /**
  * 配置
  * User: 姜伟
@@ -12,12 +13,14 @@ import (
     "github.com/spf13/viper"
 )
 
-type configViper struct {
+// ConfigViper viper配置
+type ConfigViper struct {
     list       map[string]*viper.Viper
     dirConfigs string
 }
 
-func (config *configViper) GetConfig(fileName string) *viper.Viper {
+// GetConfig 获取配置
+func (config *ConfigViper) GetConfig(fileName string) *viper.Viper {
     conf, ok := config.list[fileName]
     if !ok {
         conf = viper.New()
@@ -35,13 +38,14 @@ func (config *configViper) GetConfig(fileName string) *viper.Viper {
 }
 
 var (
-    insConfig *configViper
+    insConfig *ConfigViper
 )
 
 func init() {
-    insConfig = &configViper{make(map[string]*viper.Viper), ""}
+    insConfig = &ConfigViper{make(map[string]*viper.Viper), ""}
 }
 
-func NewConfig() *configViper {
+// NewConfig 获取配置单例
+func NewConfig() *ConfigViper {
     return insConfig
 }

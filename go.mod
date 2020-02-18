@@ -5,10 +5,11 @@ go 1.13
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1 // indirect
 	github.com/CloudyKit/fastprinter v0.0.0-20170127035650-74b38d55f37a // indirect
-	github.com/aliyun/alibaba-cloud-sdk-go v1.60.348 // indirect
-	github.com/aliyun/aliyun-oss-go-sdk v2.0.5+incompatible // indirect
+	github.com/aliyun/alibaba-cloud-sdk-go v1.60.348
+	github.com/aliyun/aliyun-oss-go-sdk v2.0.5+incompatible
+	github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b
 	github.com/buaazp/fasthttprouter v0.1.1 // indirect
-	github.com/clbanning/mxj v1.8.4 // indirect
+	github.com/clbanning/mxj v1.8.4
 	github.com/creack/pty v1.1.9 // indirect
 	github.com/fasthttp/websocket v1.4.1 // indirect
 	github.com/go-redis/redis v6.15.6+incompatible // indirect
@@ -22,18 +23,18 @@ require (
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
-	github.com/qiniu/api.v7 v7.2.5+incompatible // indirect
+	github.com/qiniu/api.v7 v7.2.5+incompatible
 	github.com/qiniu/x v7.0.8+incompatible // indirect
 	github.com/robfig/cron v1.2.0
-	github.com/rogpeppe/go-internal v1.5.0 // indirect
 	github.com/savsgio/gotils v0.0.0-20190925070755-524bc4f47500 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/spf13/viper v1.6.1
-	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71 // indirect
+	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/valyala/fasthttp v1.9.0
 	github.com/valyala/tcplisten v0.0.0-20161114210144-ceec8f93295a
 	github.com/vmihailenco/msgpack/v4 v4.3.0
+	go.mongodb.org/mongo-driver v1.3.0
 	go.uber.org/atomic v1.5.1 // indirect
 	go.uber.org/multierr v1.4.0 // indirect
 	go.uber.org/zap v1.13.0
@@ -49,5 +50,5 @@ require (
 	gopkg.in/yaml.v2 v2.2.7 // indirect
 	qiniupkg.com/x v7.0.8+incompatible // indirect
 	xorm.io/cmd/xorm v0.0.0-20191108140657-006dbf24bb9b // indirect
-	xorm.io/xorm v0.8.1 // indirect
+	xorm.io/xorm v0.8.1
 )

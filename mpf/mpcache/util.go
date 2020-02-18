@@ -32,7 +32,7 @@ var (
 )
 
 func init() {
-    keyUniqueId = project.RedisPrefix(project.RedisPrefixCommonUniqueId)
+    keyUniqueId = project.RedisPrefix(project.RedisPrefixCommonUniqueID)
     keyUniqueId += "unique"
     insUtil = &utilCache{}
 

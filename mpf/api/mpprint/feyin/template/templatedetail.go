@@ -67,5 +67,5 @@ func NewTemplateDetail(appId string) *templateDetail {
     td.SetAppId(appId)
     td.ReqMethod = fasthttp.MethodGet
     td.ReqContentType = project.HttpContentTypeForm
-    return mc
+    return td
 }
