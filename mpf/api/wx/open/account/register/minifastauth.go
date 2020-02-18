@@ -20,7 +20,7 @@ func (mfa *miniFastAuth) GetResult() map[string]string {
     mfa.ReqData["appid"] = mfa.appId
 
     result := make(map[string]string)
-    result["url"] = "https://mp.weixin.qq.com/cgi-bin/fastregisterauth?" + mpf.HttpCreateParams(mfa.ReqData, "none", 1)
+    result["url"] = "https://mp.weixin.qq.com/cgi-bin/fastregisterauth?" + mpf.HTTPCreateParams(mfa.ReqData, "none", 1)
     return result
 }
 

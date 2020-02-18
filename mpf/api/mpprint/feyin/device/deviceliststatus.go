@@ -31,7 +31,7 @@ func (dls *deviceListStatus) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok {
         result.Code = errorcode.PrintFeYinRequestGet

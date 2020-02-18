@@ -62,7 +62,7 @@ func (ojq *onJobQuery) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ojq.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/queryonjob?access_token=" + dingtalk.NewUtil().GetAccessToken(ojq.corpId, ojq.agentTag, ojq.atType)
 
-    reqBody := mpf.JsonMarshal(ojq.ExtendData)
+    reqBody := mpf.JSONMarshal(ojq.ExtendData)
     client, req := ojq.GetRequest()
     req.SetBody([]byte(reqBody))
 

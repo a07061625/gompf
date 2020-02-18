@@ -81,7 +81,7 @@ func (uc *userCreate) SetUserId(userId string) {
 
 func (uc *userCreate) SetDepartmentOrder(departmentOrder map[int]int) {
     if len(departmentOrder) > 0 {
-        uc.ExtendData["orderInDepts"] = mpf.JsonMarshal(departmentOrder)
+        uc.ExtendData["orderInDepts"] = mpf.JSONMarshal(departmentOrder)
     } else {
         panic(mperr.NewDingTalkCorp(errorcode.DingTalkCorpParam, "部门排序不合法", nil))
     }
@@ -174,7 +174,7 @@ func (uc *userCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     uc.ReqUrl = dingtalk.UrlService + "/user/create?access_token=" + dingtalk.NewUtil().GetAccessToken(uc.corpId, uc.agentTag, uc.atType)
 
-    reqBody := mpf.JsonMarshal(uc.ExtendData)
+    reqBody := mpf.JSONMarshal(uc.ExtendData)
     client, req := uc.GetRequest()
     req.SetBody([]byte(reqBody))
 

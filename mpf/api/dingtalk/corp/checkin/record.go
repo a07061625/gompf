@@ -77,7 +77,7 @@ func (r *record) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     r.ReqData["end_time"] = strconv.Itoa(r.endTime)
     r.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(r.corpId, r.agentTag, r.atType)
 
-    r.ReqUrl = dingtalk.UrlService + "/checkin/record?" + mpf.HttpCreateParams(r.ReqData, "none", 1)
+    r.ReqUrl = dingtalk.UrlService + "/checkin/record?" + mpf.HTTPCreateParams(r.ReqData, "none", 1)
 
     return r.GetRequest()
 }

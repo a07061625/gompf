@@ -65,7 +65,7 @@ func (fl *functionList) SendRequest() api.ApiResult {
     reqData["env"] = fl.env
     reqData["offset"] = fl.offset
     reqData["limit"] = fl.limit
-    reqBody := mpf.JsonMarshal(fl.ReqData)
+    reqBody := mpf.JSONMarshal(fl.ReqData)
     fl.ReqUrl = "https://api.weixin.qq.com/tcb/listfunctions?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fl.appId)
     client, req := fl.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -75,7 +75,7 @@ func (fl *functionList) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

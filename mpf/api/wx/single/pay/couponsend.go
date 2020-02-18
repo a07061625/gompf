@@ -97,7 +97,7 @@ func (cs *couponSend) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(cs.ReqData, cs.appId, "md5")
     cs.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(cs.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(cs.ReqData))
     cs.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon"
     client, req := cs.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -127,7 +127,7 @@ func (cs *couponSend) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

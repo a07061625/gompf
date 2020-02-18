@@ -17,7 +17,7 @@ func (util *utilCurrency) SendAMYiYuanRequest(service api.IApiOuter, errorCode u
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     resCode, ok := respData["showapi_res_code"]
     if ok && (resCode.(int) == 0) {
         resBody := respData["showapi_res_body"].(map[string]interface{})

@@ -43,7 +43,7 @@ func (tc *tagCreate) SendRequest() api.ApiResult {
     tagInfo["name"] = tc.tagName
     reqData := make(map[string]interface{})
     reqData["tag"] = tagInfo
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     tc.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tc.appId)
     client, req := tc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (tc *tagCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["tag"]
     if ok {
         result.Data = respData

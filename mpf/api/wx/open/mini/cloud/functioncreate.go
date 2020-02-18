@@ -58,7 +58,7 @@ func (fc *functionCreate) checkData() {
 func (fc *functionCreate) SendRequest() api.ApiResult {
     fc.checkData()
 
-    reqBody := mpf.JsonMarshal(fc.ReqData)
+    reqBody := mpf.JSONMarshal(fc.ReqData)
     fc.ReqUrl = "https://api.weixin.qq.com/tcb/createfunction?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fc.appId)
     client, req := fc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -68,7 +68,7 @@ func (fc *functionCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

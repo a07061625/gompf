@@ -42,10 +42,10 @@ func NewBasicInit() context.Handler {
         ctx.Record()
 
         reqId := ""
-        if mpf.EnvServerTypeRpc == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
+        if mpf.EnvServerTypeRPC == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
             reqId = ctx.PostValueDefault(project.DataParamKeyReqID, "")
         }
-        mpf.ToolCreateReqId(reqId)
+        mpf.ToolCreateReqID(reqId)
 
         reqUrl := ctx.FullRequestURI()
         if len(ctx.Request().URL.RawQuery) > 0 {

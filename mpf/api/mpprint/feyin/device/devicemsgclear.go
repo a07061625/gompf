@@ -52,7 +52,7 @@ func (dmc *deviceMsgClear) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["clear_cnt"]
     if ok {
         result.Data = respData

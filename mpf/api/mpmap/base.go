@@ -92,7 +92,7 @@ func (m *BaseBaiDu) verifyData() {
         if len(m.sk) == 0 {
             panic(mperr.NewMapBaiDu(errorcode.MapBaiDuParam, "签名校验码不能为空", nil))
         }
-        snStr := m.serviceUri + "?" + mpf.HttpCreateParams(m.ReqData, "key", 1) + m.sk
+        snStr := m.serviceUri + "?" + mpf.HTTPCreateParams(m.ReqData, "key", 1) + m.sk
         m.ReqData["sn"] = mpf.HashMd5(url.QueryEscape(snStr), "")
     default:
         if len(m.reqRefer) == 0 {
@@ -101,7 +101,7 @@ func (m *BaseBaiDu) verifyData() {
         m.ReqHeader["Referer"] = m.reqRefer
         m.ReqHeader["User-Agent"] = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11"
     }
-    m.ReqUrl += "?" + mpf.HttpCreateParams(m.ReqData, "key", 1)
+    m.ReqUrl += "?" + mpf.HTTPCreateParams(m.ReqData, "key", 1)
 }
 
 func (m *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -125,7 +125,7 @@ func (m *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
         req.Header.SetUserAgent(userAgent)
         delete(m.ReqHeader, "User-Agent")
     }
-    mpf.HttpAddReqHeader(req, m.ReqHeader)
+    mpf.HTTPAddReqHeader(req, m.ReqHeader)
 
     return client, req
 }
@@ -160,9 +160,9 @@ func (m *BaseGaoDe) createSign() {
     m.ReqData["output"] = "JSON"
 
     delete(m.ReqData, "sig")
-    signStr := mpf.HttpCreateParams(m.ReqData, "key", 4)
+    signStr := mpf.HTTPCreateParams(m.ReqData, "key", 4)
     m.ReqData["sig"] = mpf.HashMd5(signStr+m.secret, "")
-    m.ReqUrl += "?" + mpf.HttpCreateParams(m.ReqData, "key", 1)
+    m.ReqUrl += "?" + mpf.HTTPCreateParams(m.ReqData, "key", 1)
 }
 
 func (m *BaseGaoDe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -175,7 +175,7 @@ func (m *BaseGaoDe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(m.ReqUrl)
     req.Header.SetContentType(m.ReqContentType)
     req.Header.SetMethod(m.ReqMethod)
-    mpf.HttpAddReqHeader(req, m.ReqHeader)
+    mpf.HTTPAddReqHeader(req, m.ReqHeader)
 
     return client, req
 }
@@ -239,7 +239,7 @@ func (t *BaseTencent) verifyData() {
         t.ReqHeader["Client-Ip"] = t.serverIp
     }
 
-    t.ReqUrl = t.serviceUrl + "?" + mpf.HttpCreateParams(t.ReqData, "key", 1)
+    t.ReqUrl = t.serviceUrl + "?" + mpf.HTTPCreateParams(t.ReqData, "key", 1)
 }
 
 func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -263,7 +263,7 @@ func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
         req.Header.SetUserAgent(userAgent)
         delete(t.ReqHeader, "User-Agent")
     }
-    mpf.HttpAddReqHeader(req, t.ReqHeader)
+    mpf.HTTPAddReqHeader(req, t.ReqHeader)
 
     return client, req
 }

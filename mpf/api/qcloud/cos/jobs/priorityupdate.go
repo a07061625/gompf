@@ -48,7 +48,7 @@ func (pu *priorityUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if pu.priority < 0 {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "任务优先级不能为空", nil))
     }
-    pu.ReqUrl = "http://" + pu.ReqHeader["Host"] + pu.ReqUri + "?" + mpf.HttpCreateParams(pu.ReqData, "none", 1)
+    pu.ReqUrl = "http://" + pu.ReqHeader["Host"] + pu.ReqUri + "?" + mpf.HTTPCreateParams(pu.ReqData, "none", 1)
     return pu.GetRequest()
 }
 

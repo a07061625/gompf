@@ -43,7 +43,7 @@ func (og *orderGet) checkData() {
 func (og *orderGet) SendRequest() api.ApiResult {
     og.checkData()
 
-    reqBody := mpf.JsonMarshal(og.ReqData)
+    reqBody := mpf.JSONMarshal(og.ReqData)
     og.ReqUrl = "https://api.weixin.qq.com/merchant/order/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(og.appId)
     client, req := og.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (og *orderGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

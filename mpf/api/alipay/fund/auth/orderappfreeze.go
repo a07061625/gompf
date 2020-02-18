@@ -92,7 +92,7 @@ func (oaf *orderAppFreeze) SetPayTimeout(payTimeout string) {
 
 func (oaf *orderAppFreeze) SetExtraParam(extraParam map[string]interface{}) {
     if len(extraParam) > 0 {
-        oaf.BizContent["extra_param"] = mpf.JsonMarshal(extraParam)
+        oaf.BizContent["extra_param"] = mpf.JSONMarshal(extraParam)
     } else {
         panic(mperr.NewAliPayFund(errorcode.AliPayFundParam, "扩展信息不合法", nil))
     }
@@ -161,7 +161,7 @@ func (oaf *orderAppFreeze) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     oaf.BizContent["out_request_no"] = oaf.outRequestNo
     oaf.BizContent["order_title"] = oaf.orderTitle
     oaf.BizContent["amount"] = oaf.amount
-    oaf.BizContent["enable_pay_channels"] = mpf.JsonMarshal(oaf.payChannels)
+    oaf.BizContent["enable_pay_channels"] = mpf.JSONMarshal(oaf.payChannels)
 
     return oaf.GetRequest()
 }

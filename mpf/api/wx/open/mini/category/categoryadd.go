@@ -38,7 +38,7 @@ func (ca *categoryAdd) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["categories"] = ca.categories
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     ca.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/addcategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ca.appId)
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -48,7 +48,7 @@ func (ca *categoryAdd) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

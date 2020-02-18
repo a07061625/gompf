@@ -47,7 +47,7 @@ func (ra *roleAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ra.ReqUrl = dingtalk.UrlService + "/role/add_role?access_token=" + dingtalk.NewUtil().GetAccessToken(ra.corpId, ra.agentTag, ra.atType)
 
-    reqBody := mpf.JsonMarshal(ra.ExtendData)
+    reqBody := mpf.JSONMarshal(ra.ExtendData)
     client, req := ra.GetRequest()
     req.SetBody([]byte(reqBody))
 

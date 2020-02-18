@@ -186,7 +186,7 @@ func (ns *normalSend) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(ns.ReqData, ns.appId, "md5")
     ns.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(ns.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(ns.ReqData))
     ns.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack"
     client, req := ns.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -216,7 +216,7 @@ func (ns *normalSend) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

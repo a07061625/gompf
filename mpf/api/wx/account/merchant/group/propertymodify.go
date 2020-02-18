@@ -54,7 +54,7 @@ func (pm *propertyModify) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["group_id"] = pm.groupId
     reqData["group_name"] = pm.groupName
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     pm.ReqUrl = "https://api.weixin.qq.com/merchant/group/propertymod?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pm.appId)
     client, req := pm.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -64,7 +64,7 @@ func (pm *propertyModify) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

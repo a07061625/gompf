@@ -166,7 +166,7 @@ func (rps *redPackSend) SendRequest() api.ApiResult {
     rps.ReqData["workwx_sign"] = workSign
     sign := wx.NewUtilWx().CreateCropPaySign(rps.ReqData, conf.GetPayKey())
     rps.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(rps.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(rps.ReqData))
 
     rps.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendworkwxredpack"
     client, req := rps.GetRequest()
@@ -196,7 +196,7 @@ func (rps *redPackSend) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         mplog.LogError(respData["return_msg"])
         result.Code = errorcode.WxCorpRequestPost

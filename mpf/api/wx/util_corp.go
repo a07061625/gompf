@@ -26,7 +26,7 @@ func (util *utilWx) refreshCorpAccessToken(corpId string, agentTag string) map[s
     atMap := make(map[string]string)
     atMap["corpid"] = conf.GetCorpId()
     atMap["corpsecret"] = agentInfo["secret"]
-    atUrl := "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + mpf.HttpCreateParams(atMap, "none", 1)
+    atUrl := "https://qyapi.weixin.qq.com/cgi-bin/gettoken?" + mpf.HTTPCreateParams(atMap, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -36,12 +36,12 @@ func (util *utilWx) refreshCorpAccessToken(corpId string, agentTag string) map[s
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxCorp(errorcode.WxCorpParam, "获取企业号access token失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewWxCorp(errorcode.WxCorpParam, respData["errmsg"].(string), nil))
@@ -86,12 +86,12 @@ func (util *utilWx) refreshCorpJsTicket(accessToken string) map[string]interface
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxCorp(errorcode.WxCorpParam, "获取企业号js ticket失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok && (respData["errcode"].(int) != 0) {
         panic(mperr.NewWxCorp(errorcode.WxCorpParam, respData["errmsg"].(string), nil))

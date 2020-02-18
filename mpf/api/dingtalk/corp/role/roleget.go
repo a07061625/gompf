@@ -40,7 +40,7 @@ func (rg *roleGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     rg.ReqUrl = dingtalk.UrlService + "/topapi/role/getrole?access_token=" + dingtalk.NewUtil().GetAccessToken(rg.corpId, rg.agentTag, rg.atType)
 
-    reqBody := mpf.JsonMarshal(rg.ExtendData)
+    reqBody := mpf.JSONMarshal(rg.ExtendData)
     client, req := rg.GetRequest()
     req.SetBody([]byte(reqBody))
 

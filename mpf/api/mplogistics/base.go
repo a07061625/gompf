@@ -42,7 +42,7 @@ func (l *BaseAMAli) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(l.ReqUrl)
     req.Header.SetContentType(l.ReqContentType)
     req.Header.SetMethod(l.ReqMethod)
-    mpf.HttpAddReqHeader(req, l.ReqHeader)
+    mpf.HTTPAddReqHeader(req, l.ReqHeader)
 
     return client, req
 }
@@ -63,7 +63,7 @@ func (l *BaseKd100) createSign() {
     conf := NewConfigKd100()
     l.ReqData = make(map[string]string)
     l.ReqData["customer"] = conf.GetAppId()
-    l.ReqData["param"] = mpf.JsonMarshal(l.ExtendData)
+    l.ReqData["param"] = mpf.JSONMarshal(l.ExtendData)
     signStr := l.ReqData["param"] + conf.GetAppKey() + conf.GetAppId()
     l.ReqData["sign"] = strings.ToUpper(mpf.HashMd5(signStr, ""))
     l.ReqUrl = "https://poll.kuaidi100.com/poll/query.do"
@@ -79,7 +79,7 @@ func (l *BaseKd100) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(l.ReqUrl)
     req.Header.SetContentType(l.ReqContentType)
     req.Header.SetMethod(l.ReqMethod)
-    mpf.HttpAddReqHeader(req, l.ReqHeader)
+    mpf.HTTPAddReqHeader(req, l.ReqHeader)
 
     return client, req
 }
@@ -98,7 +98,7 @@ type BaseKdBird struct {
 
 func (l *BaseKdBird) createSign() {
     conf := NewConfigKdBird()
-    l.ReqData["RequestData"] = mpf.JsonMarshal(l.ExtendData)
+    l.ReqData["RequestData"] = mpf.JSONMarshal(l.ExtendData)
     signStr := mpf.HashMd5(l.ReqData["RequestData"]+conf.GetAppKey(), "")
     l.ReqData["DataSign"] = base64.StdEncoding.EncodeToString([]byte(signStr))
     l.ReqData["EBusinessID"] = conf.GetBusinessId()
@@ -117,7 +117,7 @@ func (l *BaseKdBird) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(l.ReqUrl)
     req.Header.SetContentType(l.ReqContentType)
     req.Header.SetMethod(l.ReqMethod)
-    mpf.HttpAddReqHeader(req, l.ReqHeader)
+    mpf.HTTPAddReqHeader(req, l.ReqHeader)
 
     return client, req
 }

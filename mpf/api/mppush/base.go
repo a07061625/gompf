@@ -59,13 +59,13 @@ func (xg *BaseXinGe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
-    reqBody := mpf.JsonMarshal(xg.ExtendData)
+    reqBody := mpf.JSONMarshal(xg.ExtendData)
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(xg.ReqUrl)
     req.Header.SetContentType(xg.ReqContentType)
     req.Header.SetMethod(xg.ReqMethod)
     req.SetBody([]byte(reqBody))
-    mpf.HttpAddReqHeader(req, xg.ReqHeader)
+    mpf.HTTPAddReqHeader(req, xg.ReqHeader)
 
     return client, req
 }
@@ -84,7 +84,7 @@ type BaseBaiDu struct {
 func (bd *BaseBaiDu) createSign(secret string) {
     signStr := bd.ReqMethod + bd.ReqUrl
     delete(bd.ReqData, "sign")
-    pkParams := mpf.NewHttpParamKey(bd.ReqData)
+    pkParams := mpf.NewHTTPParamKey(bd.ReqData)
     sort.Sort(pkParams)
     paramNum := len(pkParams.Params)
     for i := 0; i < paramNum; i++ {
@@ -115,13 +115,13 @@ func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
-    reqBody := mpf.HttpCreateParams(bd.ReqData, "none", 1)
+    reqBody := mpf.HTTPCreateParams(bd.ReqData, "none", 1)
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(bd.ReqUrl)
     req.Header.SetContentType(bd.ReqContentType)
     req.Header.SetMethod(bd.ReqMethod)
     req.SetBody([]byte(reqBody))
-    mpf.HttpAddReqHeader(req, bd.ReqHeader)
+    mpf.HTTPAddReqHeader(req, bd.ReqHeader)
 
     return client, req
 }
@@ -165,7 +165,7 @@ func (jp *BaseJPush) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(jp.ReqUrl)
     req.Header.SetContentType(jp.ReqContentType)
     req.Header.SetMethod(jp.ReqMethod)
-    mpf.HttpAddReqHeader(req, jp.ReqHeader)
+    mpf.HTTPAddReqHeader(req, jp.ReqHeader)
 
     return client, req
 }

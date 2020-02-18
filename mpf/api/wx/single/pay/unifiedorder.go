@@ -169,7 +169,7 @@ func (uo *unifiedOrder) checkData() {
             panic(mperr.NewWxAccount(errorcode.WxAccountParam, "场景信息不能为空", nil))
         }
         uo.ReqData["spbill_create_ip"] = uo.clientIp
-        uo.ReqData["scene_info"] = mpf.JsonMarshal(uo.sceneInfo)
+        uo.ReqData["scene_info"] = mpf.JSONMarshal(uo.sceneInfo)
     } else if uo.tradeType == single.TradeTypeJsApi {
         if len(uo.openid) == 0 {
             panic(mperr.NewWxAccount(errorcode.WxAccountParam, "用户openid不能为空", nil))
@@ -191,7 +191,7 @@ func (uo *unifiedOrder) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(uo.ReqData, uo.appId, "md5")
     uo.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(uo.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(uo.ReqData))
     uo.ReqUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder"
     client, req := uo.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -202,7 +202,7 @@ func (uo *unifiedOrder) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

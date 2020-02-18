@@ -56,7 +56,7 @@ func (aig *authInfoGet) checkData() {
 func (aig *authInfoGet) SendRequest() api.ApiResult {
     aig.checkData()
 
-    reqBody := mpf.JsonMarshal(aig.ReqData)
+    reqBody := mpf.JSONMarshal(aig.ReqData)
     aig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := aig.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -66,7 +66,7 @@ func (aig *authInfoGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

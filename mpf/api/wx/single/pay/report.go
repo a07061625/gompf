@@ -58,7 +58,7 @@ func (r *report) checkData() {
         panic(mperr.NewWxAccount(errorcode.WxAccountParam, "上报数据包不能为空", nil))
     }
     r.ReqData["interface_url"] = r.interfaceUrl
-    r.ReqData["trades"] = mpf.JsonMarshal(r.trades)
+    r.ReqData["trades"] = mpf.JSONMarshal(r.trades)
 }
 
 func (r *report) SendRequest() api.ApiResult {
@@ -66,7 +66,7 @@ func (r *report) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(r.ReqData, r.appId, "md5")
     r.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(r.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(r.ReqData))
     r.ReqUrl = "https://api.mch.weixin.qq.com/payitil/report"
     client, req := r.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -77,7 +77,7 @@ func (r *report) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

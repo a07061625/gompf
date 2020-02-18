@@ -87,7 +87,7 @@ func (ls *leaveStatus) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ls.ReqUrl = dingtalk.UrlService + "/topapi/attendance/getleavestatus?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ls.corpId, ls.agentTag)
 
-    reqBody := mpf.JsonMarshal(ls.ExtendData)
+    reqBody := mpf.JSONMarshal(ls.ExtendData)
     client, req := ls.GetRequest()
     req.SetBody([]byte(reqBody))
 

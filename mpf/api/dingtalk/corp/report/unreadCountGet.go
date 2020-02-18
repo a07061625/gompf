@@ -37,7 +37,7 @@ func (ucg *unreadCountGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ucg.ReqUrl = dingtalk.UrlService + "/topapi/report/getunreadcount?access_token=" + dingtalk.NewUtil().GetAccessToken(ucg.corpId, ucg.agentTag, ucg.atType)
 
-    reqBody := mpf.JsonMarshal(ucg.ExtendData)
+    reqBody := mpf.JSONMarshal(ucg.ExtendData)
     client, req := ucg.GetRequest()
     req.SetBody([]byte(reqBody))
 

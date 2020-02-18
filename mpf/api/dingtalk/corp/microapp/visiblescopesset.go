@@ -61,7 +61,7 @@ func (vss *visibleScopesSet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     vss.ReqUrl = dingtalk.UrlService + "/microapp/set_visible_scopes?access_token=" + dingtalk.NewUtil().GetAccessToken(vss.corpId, vss.agentTag, vss.atType)
 
-    reqBody := mpf.JsonMarshal(vss.ExtendData)
+    reqBody := mpf.JSONMarshal(vss.ExtendData)
     client, req := vss.GetRequest()
     req.SetBody([]byte(reqBody))
 

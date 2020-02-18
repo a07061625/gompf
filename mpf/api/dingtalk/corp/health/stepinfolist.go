@@ -87,7 +87,7 @@ func (sil *stepInfoList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     sil.ReqUrl = dingtalk.UrlService + "/topapi/health/stepinfo/list?access_token=" + dingtalk.NewUtil().GetAccessToken(sil.corpId, sil.agentTag, sil.atType)
 
-    reqBody := mpf.JsonMarshal(sil.ExtendData)
+    reqBody := mpf.JSONMarshal(sil.ExtendData)
     client, req := sil.GetRequest()
     req.SetBody([]byte(reqBody))
 

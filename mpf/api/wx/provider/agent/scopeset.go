@@ -95,7 +95,7 @@ func (ss *scopeSet) SendRequest() api.ApiResult {
     if len(ss.allowTagList) > 0 {
         reqData["allow_tag"] = ss.allowTagList
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     ss.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/agent/set_scope?access_token=" + ss.accessToken
     client, req := ss.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -105,7 +105,7 @@ func (ss *scopeSet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

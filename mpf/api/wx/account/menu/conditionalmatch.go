@@ -41,7 +41,7 @@ func (cm *conditionalMatch) checkData() {
 func (cm *conditionalMatch) SendRequest() api.ApiResult {
     cm.checkData()
 
-    reqBody := mpf.JsonMarshal(cm.ReqData)
+    reqBody := mpf.JSONMarshal(cm.ReqData)
     cm.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=" + wx.NewUtilWx().GetSingleAccessToken(cm.appId)
     client, req := cm.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (cm *conditionalMatch) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["button"]
     if ok {
         result.Data = respData

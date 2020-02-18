@@ -43,7 +43,7 @@ func (al *authorizeList) SendRequest() api.ApiResult {
     reqData["component_appid"] = al.componentAppId
     reqData["offset"] = al.offset
     reqData["count"] = al.count
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     al.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_list?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := al.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (al *authorizeList) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok {
         result.Code = errorcode.WxOpenRequestPost

@@ -78,8 +78,8 @@ func (db *deviceBatch) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(db.channelList) == 0 {
         panic(mperr.NewPushBaiDu(errorcode.PushBaiDuParam, "设备列表不能为空", nil))
     }
-    db.ReqData["msg"] = mpf.JsonMarshal(db.msgContent)
-    db.ReqData["channel_ids"] = mpf.JsonMarshal(db.channelList)
+    db.ReqData["msg"] = mpf.JSONMarshal(db.msgContent)
+    db.ReqData["channel_ids"] = mpf.JSONMarshal(db.channelList)
 
     return db.GetRequest()
 }

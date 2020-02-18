@@ -43,7 +43,7 @@ func (dd *departmentDelete) SendRequest(getType string) api.ApiResult {
     dd.checkData()
 
     dd.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(dd.corpId, dd.agentTag, getType)
-    dd.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/delete?" + mpf.HttpCreateParams(dd.ReqData, "none", 1)
+    dd.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/delete?" + mpf.HTTPCreateParams(dd.ReqData, "none", 1)
     client, req := dd.GetRequest()
 
     resp, result := dd.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -51,7 +51,7 @@ func (dd *departmentDelete) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

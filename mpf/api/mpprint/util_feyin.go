@@ -25,7 +25,7 @@ func (util *utilPrint) refreshFeYinAccessToken(appId string) map[string]interfac
     atMap["appid"] = conf.GetAppId()
     atMap["secret"] = conf.GetAppKey()
     atMap["code"] = conf.GetMemberCode()
-    atUrl := FeYinServiceDomain + "/token?" + mpf.HttpCreateParams(atMap, "key", 1)
+    atUrl := FeYinServiceDomain + "/token?" + mpf.HTTPCreateParams(atMap, "key", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -35,12 +35,12 @@ func (util *utilPrint) refreshFeYinAccessToken(appId string) map[string]interfac
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinRequest, "获取access token失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinRequest, respData["errmsg"].(string), nil))

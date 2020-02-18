@@ -46,7 +46,7 @@ func (su *shortUrl) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(su.ReqData, su.appId, "md5")
     su.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(su.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(su.ReqData))
     su.ReqUrl = "https://api.mch.weixin.qq.com/tools/shorturl"
     client, req := su.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -57,7 +57,7 @@ func (su *shortUrl) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

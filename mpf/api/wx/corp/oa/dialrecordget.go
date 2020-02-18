@@ -65,7 +65,7 @@ func (drg *dialRecordGet) SendRequest() api.ApiResult {
         reqData["start_time"] = drg.startTime
         reqData["end_time"] = drg.endTime
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     drg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/dial/get_dial_record?access_token=" + wx.NewUtilWx().GetCorpAccessToken(drg.corpId, drg.agentTag)
     client, req := drg.GetRequest()
@@ -76,7 +76,7 @@ func (drg *dialRecordGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

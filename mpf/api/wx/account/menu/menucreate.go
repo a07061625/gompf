@@ -41,7 +41,7 @@ func (mc *menuCreate) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["button"] = mc.menuList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     mc.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mc.appId)
     client, req := mc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (mc *menuCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

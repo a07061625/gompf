@@ -41,7 +41,7 @@ func (ac *nicknameCheck) checkData() {
 func (ac *nicknameCheck) SendRequest() api.ApiResult {
     ac.checkData()
 
-    reqBody := mpf.JsonMarshal(ac.ReqData)
+    reqBody := mpf.JSONMarshal(ac.ReqData)
     ac.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxverify/checkwxverifynickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ac.appId)
     client, req := ac.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (ac *nicknameCheck) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

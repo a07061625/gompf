@@ -72,7 +72,7 @@ func (ms *messageStatus) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ms.ReqUrl = ms.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(ms.ExtendData)
+    reqBody := mpf.JSONMarshal(ms.ExtendData)
     client, req := ms.GetRequest()
     req.SetBody([]byte(reqBody))
 

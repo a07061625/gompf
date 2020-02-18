@@ -58,7 +58,7 @@ func (vg *voiceGet) SendRequest(getType string) api.ApiResult {
     vg.checkData()
 
     vg.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(vg.corpId, vg.agentTag, getType)
-    vg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/media/get/jssdkt?" + mpf.HttpCreateParams(vg.ReqData, "none", 1)
+    vg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/media/get/jssdkt?" + mpf.HTTPCreateParams(vg.ReqData, "none", 1)
     client, req := vg.GetRequest()
 
     resp, result := vg.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -66,7 +66,7 @@ func (vg *voiceGet) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, err := mpf.JsonUnmarshalMap(resp.Content)
+    respData, err := mpf.JSONUnmarshalMap(resp.Content)
     if err != nil {
         fileName := vg.outputDir + vg.mediaId
         f, err := os.Create(fileName)

@@ -48,7 +48,7 @@ func (bb *blackBatch) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["openid_list"] = bb.openidList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     bb.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(bb.appId)
     client, req := bb.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -58,7 +58,7 @@ func (bb *blackBatch) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

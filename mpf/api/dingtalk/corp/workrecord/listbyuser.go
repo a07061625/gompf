@@ -72,7 +72,7 @@ func (lu *listByUser) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     lu.ReqUrl = dingtalk.UrlService + "/topapi/workrecord/getbyuserid?access_token=" + dingtalk.NewUtil().GetAccessToken(lu.corpId, lu.agentTag, lu.atType)
 
-    reqBody := mpf.JsonMarshal(lu.ExtendData)
+    reqBody := mpf.JSONMarshal(lu.ExtendData)
     client, req := lu.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -52,7 +52,7 @@ func (os *optionSet) checkData() {
 func (os *optionSet) SendRequest() api.ApiResult {
     os.checkData()
 
-    reqBody := mpf.JsonMarshal(os.ReqData)
+    reqBody := mpf.JSONMarshal(os.ReqData)
     os.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := os.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -62,7 +62,7 @@ func (os *optionSet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

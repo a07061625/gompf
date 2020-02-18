@@ -100,7 +100,7 @@ func (vp *validatePush) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     vp.ReqUrl = vp.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(vp.ExtendData)
+    reqBody := mpf.JSONMarshal(vp.ExtendData)
     client, req := vp.GetRequest()
     req.SetBody([]byte(reqBody))
 

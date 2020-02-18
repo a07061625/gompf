@@ -22,7 +22,7 @@ type tagList struct {
 
 func (tl *tagList) SendRequest(getType string) api.ApiResult {
     tl.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(tl.corpId, tl.agentTag, getType)
-    tl.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/list?" + mpf.HttpCreateParams(tl.ReqData, "none", 1)
+    tl.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/list?" + mpf.HTTPCreateParams(tl.ReqData, "none", 1)
     client, req := tl.GetRequest()
 
     resp, result := tl.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -30,7 +30,7 @@ func (tl *tagList) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

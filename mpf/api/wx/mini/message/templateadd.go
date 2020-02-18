@@ -50,7 +50,7 @@ func (ta *templateAdd) SendRequest(getType string) api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["id"] = ta.titleId
     reqData["keyword_id_list"] = ta.keywordIds
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     ta.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/add?access_token=" + wx.NewUtilWx().GetSingleCache(ta.appId, getType)
     client, req := ta.GetRequest()
@@ -61,7 +61,7 @@ func (ta *templateAdd) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["template_id"]
     if ok {
         result.Data = respData

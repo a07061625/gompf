@@ -36,7 +36,7 @@ func (boc *rateListBOC) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     boc.ServiceUri = "/waihui-list"
     if len(boc.currencyCode) > 0 {
         boc.ReqData["code"] = boc.currencyCode
-        boc.ServiceUri += "?" + mpf.HttpCreateParams(boc.ReqData, "none", 1)
+        boc.ServiceUri += "?" + mpf.HTTPCreateParams(boc.ReqData, "none", 1)
     }
 
     return boc.GetRequest()

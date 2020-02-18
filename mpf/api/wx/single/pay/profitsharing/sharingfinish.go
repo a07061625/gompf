@@ -78,7 +78,7 @@ func (sf *sharingFinish) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(sf.ReqData, sf.appId, "sha256")
     sf.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(sf.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(sf.ReqData))
     sf.ReqUrl = "https://api.mch.weixin.qq.com/secapi/pay/profitsharingfinish"
     client, req := sf.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -108,7 +108,7 @@ func (sf *sharingFinish) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

@@ -29,7 +29,7 @@ type bankPublicKey struct {
 func (bpk *bankPublicKey) SendRequest() api.ApiResult {
     sign := wx.NewUtilWx().CreateSinglePaySign(bpk.ReqData, bpk.appId, "md5")
     bpk.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(bpk.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(bpk.ReqData))
     bpk.ReqUrl = "https://fraud.mch.weixin.qq.com/risk/getpublickey"
     client, req := bpk.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -59,7 +59,7 @@ func (bpk *bankPublicKey) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

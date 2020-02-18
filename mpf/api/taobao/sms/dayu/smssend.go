@@ -68,7 +68,7 @@ func (s *smsSend) SetTemplateCode(templateCode string) {
 
 func (s *smsSend) SetTemplateParams(templateParams map[string]string) {
     if len(templateParams) > 0 {
-        s.ReqData["sms_param"] = mpf.JsonMarshal(templateParams)
+        s.ReqData["sms_param"] = mpf.JSONMarshal(templateParams)
     }
 }
 

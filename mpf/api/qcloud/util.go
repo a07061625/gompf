@@ -35,7 +35,7 @@ func (util *utilQCloud) CreatePolicySign(policyConfig map[string]interface{}) ma
     et := time.Unix(int64(endTime), 0)
     policyInfo["expiration"] = et.Format("2006-01-02T03:04:05.000Z")
     policyInfo["conditions"] = policyConfig
-    policy := mpf.JsonMarshal(policyInfo)
+    policy := mpf.JSONMarshal(policyInfo)
     result["policy"] = base64.StdEncoding.EncodeToString([]byte(policy))
 
     policySign := mpf.HashSha1(policy, "")

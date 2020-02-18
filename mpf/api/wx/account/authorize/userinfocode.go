@@ -48,7 +48,7 @@ func (uic *userInfoCode) SendRequest() api.ApiResult {
     baseData := baseRes.Data.(map[string]interface{})
     uic.ReqData["access_token"] = baseData["access_token"].(string)
     uic.ReqData["openid"] = baseData["openid"].(string)
-    uic.ReqUrl = "https://api.weixin.qq.com/sns/userinfo?" + mpf.HttpCreateParams(uic.ReqData, "none", 1)
+    uic.ReqUrl = "https://api.weixin.qq.com/sns/userinfo?" + mpf.HTTPCreateParams(uic.ReqData, "none", 1)
     client, req := uic.GetRequest()
 
     resp, result := uic.SendInner(client, req, errorcode.WxAccountRequestGet)
@@ -56,7 +56,7 @@ func (uic *userInfoCode) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["openid"]
     if ok {
         result.Data = respData

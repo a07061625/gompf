@@ -94,7 +94,7 @@ func (ds *deliverySet) SendRequest() api.ApiResult {
         reqData["delivery_company"] = ds.deliveryCompany
         reqData["delivery_track_no"] = ds.deliveryTrackNo
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     ds.ReqUrl = "https://api.weixin.qq.com/merchant/order/setdelivery?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ds.appId)
     client, req := ds.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -104,7 +104,7 @@ func (ds *deliverySet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

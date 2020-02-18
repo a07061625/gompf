@@ -168,7 +168,7 @@ func (pm *payMicro) checkData() {
         pm.ReqData["receipt"] = pm.receipt
     }
     if len(pm.sceneInfo) > 0 {
-        pm.ReqData["scene_info"] = mpf.JsonMarshal(pm.sceneInfo)
+        pm.ReqData["scene_info"] = mpf.JSONMarshal(pm.sceneInfo)
     }
 }
 
@@ -177,7 +177,7 @@ func (pm *payMicro) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(pm.ReqData, pm.appId, "md5")
     pm.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(pm.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(pm.ReqData))
     pm.ReqUrl = "https://api.mch.weixin.qq.com/pay/micropay"
     client, req := pm.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -188,7 +188,7 @@ func (pm *payMicro) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

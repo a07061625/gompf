@@ -34,7 +34,7 @@ func (cg *chatGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     cg.ReqData["chatid"] = cg.chatId
     cg.ReqData["access_token"] = dingtalk.NewUtil().GetCorpAccessToken(cg.corpId, cg.agentTag)
 
-    cg.ReqUrl = dingtalk.UrlService + "/chat/get?" + mpf.HttpCreateParams(cg.ReqData, "none", 1)
+    cg.ReqUrl = dingtalk.UrlService + "/chat/get?" + mpf.HTTPCreateParams(cg.ReqData, "none", 1)
 
     return cg.GetRequest()
 }

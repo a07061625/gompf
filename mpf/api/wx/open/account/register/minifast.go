@@ -41,7 +41,7 @@ func (mf *miniFast) checkData() {
 func (mf *miniFast) SendRequest() api.ApiResult {
     mf.checkData()
 
-    reqBody := mpf.JsonMarshal(mf.ReqData)
+    reqBody := mpf.JSONMarshal(mf.ReqData)
     mf.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/fastregister?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(mf.appId)
     client, req := mf.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (mf *miniFast) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         wx.NewUtilWx().RefreshOpenAuthorizeInfo(mf.appId, project.WxOpenAuthorizeOperateAuthorized, respData)

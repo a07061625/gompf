@@ -84,7 +84,7 @@ func (ss *singleSend) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(ss.offlinePush) > 0 {
         ss.ExtendData["OfflinePushInfo"] = ss.offlinePush
     }
-    reqBody := mpf.JsonMarshal(ss.ExtendData)
+    reqBody := mpf.JSONMarshal(ss.ExtendData)
 
     client, req := ss.GetRequest()
     req.SetBody([]byte(reqBody))

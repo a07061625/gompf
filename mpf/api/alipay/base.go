@@ -56,11 +56,11 @@ func (ap *BaseAliPay) SetUrlReturn(urlReturn string) {
 }
 
 func (ap *BaseAliPay) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
-    ap.ReqData["biz_content"] = mpf.JsonMarshal(ap.BizContent)
+    ap.ReqData["biz_content"] = mpf.JSONMarshal(ap.BizContent)
     delete(ap.ReqData, "sign")
     sign := NewUtil().CreateSign(ap.ReqData, ap.ReqData["sign_type"])
     ap.ReqData["sign"] = sign
-    reqBody := mpf.HttpCreateParams(ap.ReqData, "none", 1)
+    reqBody := mpf.HTTPCreateParams(ap.ReqData, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -70,7 +70,7 @@ func (ap *BaseAliPay) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(UrlGateWay)
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodPost)
-    mpf.HttpAddReqHeader(req, ap.ReqHeader)
+    mpf.HTTPAddReqHeader(req, ap.ReqHeader)
 
     return client, req
 }

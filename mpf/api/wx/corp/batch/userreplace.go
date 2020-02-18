@@ -60,7 +60,7 @@ func (ur *userReplace) SendRequest() api.ApiResult {
     if len(ur.callback) > 0 {
         reqData["callback"] = ur.callback
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     ur.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser?access_token=" + wx.NewUtilWx().GetCorpAccessToken(ur.corpId, ur.agentTag)
     client, req := ur.GetRequest()
@@ -71,7 +71,7 @@ func (ur *userReplace) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

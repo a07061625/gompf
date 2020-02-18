@@ -64,7 +64,7 @@ func (ueq *usageEndpointQuery) CheckData() (*fasthttp.Client, *fasthttp.Request)
     ueq.ServiceUri = "/v1/endpoint/" + ueq.endpointName + "/usage-query"
     ueq.ReqData["start"] = ueq.startDay
     ueq.ReqData["end"] = ueq.endDay
-    ueq.ReqUrl = ueq.GetServiceUrl() + "?" + mpf.HttpCreateParams(ueq.ReqData, "none", 1)
+    ueq.ReqUrl = ueq.GetServiceUrl() + "?" + mpf.HTTPCreateParams(ueq.ReqData, "none", 1)
 
     return ueq.GetRequest()
 }

@@ -43,7 +43,7 @@ func (tlg *tagListGet) checkData() {
 func (tlg *tagListGet) SendRequest() api.ApiResult {
     tlg.checkData()
 
-    reqBody := mpf.JsonMarshal(tlg.ReqData)
+    reqBody := mpf.JSONMarshal(tlg.ReqData)
     tlg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tlg.appId)
     client, req := tlg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (tlg *tagListGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok {
         result.Code = errorcode.WxAccountRequestPost

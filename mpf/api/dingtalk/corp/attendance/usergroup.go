@@ -36,7 +36,7 @@ func (ug *userGroup) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ug.ReqUrl = dingtalk.UrlService + "/topapi/attendance/getusergroup?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ug.corpId, ug.agentTag)
 
-    reqBody := mpf.JsonMarshal(ug.ExtendData)
+    reqBody := mpf.JSONMarshal(ug.ExtendData)
     client, req := ug.GetRequest()
     req.SetBody([]byte(reqBody))
 

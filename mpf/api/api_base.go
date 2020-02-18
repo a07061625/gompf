@@ -81,8 +81,8 @@ type ApiInner struct {
     apiCommon
 }
 
-func (api *ApiInner) SendInner(client *fasthttp.Client, req *fasthttp.Request, errorCode uint) (mpf.HttpResp, ApiResult) {
-    resp := mpf.HttpSendReq(client, req, api.ReqTimeout)
+func (api *ApiInner) SendInner(client *fasthttp.Client, req *fasthttp.Request, errorCode uint) (mpf.HTTPResp, ApiResult) {
+    resp := mpf.HTTPSendReq(client, req, api.ReqTimeout)
     result := NewApiResult()
     if resp.RespCode > 0 {
         result.Code = errorCode

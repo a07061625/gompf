@@ -100,7 +100,7 @@ func (acu *appChatUpdate) SendRequest() api.ApiResult {
     if len(acu.delUserList) > 0 {
         reqData["del_user_list"] = acu.delUserList
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     acu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/appchat/update?access_token=" + wx.NewUtilWx().GetCorpAccessToken(acu.corpId, acu.agentTag)
     client, req := acu.GetRequest()
@@ -111,7 +111,7 @@ func (acu *appChatUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

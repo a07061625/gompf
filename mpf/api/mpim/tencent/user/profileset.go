@@ -49,7 +49,7 @@ func (ps *profileSet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ps.ExtendData["From_Account"] = ps.userId
     ps.ExtendData["ProfileItem"] = ps.userItems
-    reqBody := mpf.JsonMarshal(ps.ExtendData)
+    reqBody := mpf.JSONMarshal(ps.ExtendData)
 
     client, req := ps.GetRequest()
     req.SetBody([]byte(reqBody))

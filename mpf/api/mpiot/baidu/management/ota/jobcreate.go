@@ -87,7 +87,7 @@ func (jc *jobCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     jc.ReqUrl = jc.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(jc.ExtendData)
+    reqBody := mpf.JSONMarshal(jc.ExtendData)
     client, req := jc.GetRequest()
     req.SetBody([]byte(reqBody))
 

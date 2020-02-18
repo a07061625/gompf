@@ -66,7 +66,7 @@ func (au *accountUrl) GetResult() map[string]string {
     au.checkData()
 
     result := make(map[string]string)
-    result["url"] = "https://open.weixin.qq.com/connect/oauth2/authorize?" + mpf.HttpCreateParams(au.ReqData, "key", 1) + "#wechat_redirect"
+    result["url"] = "https://open.weixin.qq.com/connect/oauth2/authorize?" + mpf.HTTPCreateParams(au.ReqData, "key", 1) + "#wechat_redirect"
     return result
 }
 

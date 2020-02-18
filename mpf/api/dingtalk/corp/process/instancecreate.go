@@ -129,7 +129,7 @@ func (ic *instanceCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ic.ReqUrl = dingtalk.UrlService + "/topapi/processinstance/create?access_token=" + dingtalk.NewUtil().GetAccessToken(ic.corpId, ic.agentTag, ic.atType)
 
-    reqBody := mpf.JsonMarshal(ic.ExtendData)
+    reqBody := mpf.JSONMarshal(ic.ExtendData)
     client, req := ic.GetRequest()
     req.SetBody([]byte(reqBody))
 

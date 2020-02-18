@@ -80,7 +80,7 @@ func (acs *appChatSend) SendRequest() api.ApiResult {
     reqData["safe"] = strconv.Itoa(acs.safeFlag)
     reqData["msgtype"] = acs.msgType
     reqData[acs.msgType] = acs.msgData
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     acs.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/appchat/send?access_token=" + wx.NewUtilWx().GetCorpAccessToken(acs.corpId, acs.agentTag)
     client, req := acs.GetRequest()
@@ -91,7 +91,7 @@ func (acs *appChatSend) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

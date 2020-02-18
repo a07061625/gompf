@@ -64,7 +64,7 @@ func (dls *deviceLogoSet) checkData() (*fasthttp.Client, *fasthttp.Request) {
 
     dls.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(dls.GetAppId())
     client, req := dls.GetRequest()
-    reqBody := mpf.JsonMarshal(dls.ReqData)
+    reqBody := mpf.JSONMarshal(dls.ReqData)
     req.SetBody([]byte(reqBody))
 
     return client, req
@@ -77,7 +77,7 @@ func (dls *deviceLogoSet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

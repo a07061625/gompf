@@ -1,9 +1,6 @@
-/**
- * json处理
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 9:59
- */
+// Package mpf json
+// User: 姜伟
+// Time: 2020-02-19 05:38:11
 package mpf
 
 import (
@@ -18,30 +15,32 @@ type jsonTransform struct {
 }
 
 var (
-    insJson *jsonTransform
+    insJSON *jsonTransform
 )
 
 func init() {
-    insJson = &jsonTransform{}
-    insJson.Config = jsoniter.ConfigCompatibleWithStandardLibrary
+    insJSON = &jsonTransform{}
+    insJSON.Config = jsoniter.ConfigCompatibleWithStandardLibrary
 }
 
-func JsonMarshal(data interface{}) string {
-    res, err := insJson.Config.Marshal(data)
+// JSONMarshal 序列化
+func JSONMarshal(data interface{}) string {
+    res, err := insJSON.Config.Marshal(data)
     if err != nil {
         mplog.LogError(err.Error())
     }
     return string(res)
 }
 
-func JsonUnmarshal(data []byte, obj interface{}) error {
-    return insJson.Config.Unmarshal(data, obj)
+// JSONUnmarshal 反序列化
+func JSONUnmarshal(data []byte, obj interface{}) error {
+    return insJSON.Config.Unmarshal(data, obj)
 }
 
-// 解析未知结构json字符串为map
-func JsonUnmarshalMap(data string) (map[string]interface{}, error) {
+// JSONUnmarshalMap 解析未知结构json字符串为map
+func JSONUnmarshalMap(data string) (map[string]interface{}, error) {
     reader := strings.NewReader(data)
-    decoder := insJson.Config.NewDecoder(reader)
+    decoder := insJSON.Config.NewDecoder(reader)
     result := make(map[string]interface{})
     err := decoder.Decode(&result)
     if err != nil {

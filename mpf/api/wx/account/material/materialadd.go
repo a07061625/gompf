@@ -69,7 +69,7 @@ func (ma *materialAdd) checkData() (string, []byte, error) {
     if len(ma.filePath) == 0 {
         panic(mperr.NewWxAccount(errorcode.WxAccountParam, "文件不能为空", nil))
     }
-    fileInfoStr := mpf.JsonMarshal(ma.fileInfo)
+    fileInfoStr := mpf.JSONMarshal(ma.fileInfo)
 
     // 新建一个缓冲，用于存放文件内容
     bodyBuffer := &bytes.Buffer{}
@@ -113,7 +113,7 @@ func (ma *materialAdd) SendRequest() api.ApiResult {
 
     ma.ReqData["type"] = ma.materialType
     ma.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(ma.appId)
-    ma.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/add_material?" + mpf.HttpCreateParams(ma.ReqData, "none", 1)
+    ma.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/add_material?" + mpf.HTTPCreateParams(ma.ReqData, "none", 1)
     client, req := ma.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)
@@ -123,7 +123,7 @@ func (ma *materialAdd) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["media_id"]
     if ok {
         result.Data = respData

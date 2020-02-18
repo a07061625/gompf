@@ -82,7 +82,7 @@ func (pt *pushTags) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(pt.tag) == 0 {
         panic(mperr.NewPushBaiDu(errorcode.PushBaiDuParam, "标签名不能为空", nil))
     }
-    pt.ReqData["msg"] = mpf.JsonMarshal(pt.msgContent)
+    pt.ReqData["msg"] = mpf.JSONMarshal(pt.msgContent)
     pt.ReqData["tag"] = pt.tag
 
     return pt.GetRequest()

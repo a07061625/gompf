@@ -35,15 +35,15 @@ func (util *utilWx) refreshProviderToken() map[string]interface{} {
     req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
-    reqBody := mpf.JsonMarshal(ptMap)
+    reqBody := mpf.JSONMarshal(ptMap)
     req.SetBody([]byte(reqBody))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxProvider(errorcode.WxProviderParam, "获取服务商凭证失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["provider_access_token"]
     if !ok {
         panic(mperr.NewWxProvider(errorcode.WxProviderParam, "获取服务商凭证失败", nil))
@@ -115,15 +115,15 @@ func (util *utilWx) refreshProviderSuiteToken() map[string]interface{} {
     req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
-    reqBody := mpf.JsonMarshal(atMap)
+    reqBody := mpf.JSONMarshal(atMap)
     req.SetBody([]byte(reqBody))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxProvider(errorcode.WxProviderParam, "获取第三方应用凭证出错", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["suite_access_token"]
     if !ok {
         panic(mperr.NewWxProvider(errorcode.WxProviderParam, "获取第三方应用凭证出错", nil))
@@ -207,15 +207,15 @@ func (util *utilWx) refreshProviderAuthorizeAccessToken(corpId string) map[strin
     req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
-    reqBody := mpf.JsonMarshal(atMap)
+    reqBody := mpf.JSONMarshal(atMap)
     req.SetBody([]byte(reqBody))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxProvider(errorcode.WxProviderParam, "获取服务商授权者访问令牌出错", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewWxProvider(errorcode.WxProviderParam, "获取服务商授权者访问令牌出错", nil))

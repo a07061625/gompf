@@ -54,7 +54,7 @@ func (ig *infoGet) checkData() {
 
 func (ig *infoGet) SendRequest(getType string) api.ApiResult {
     ig.checkData()
-    reqBody := mpf.JsonMarshal(ig.ReqData)
+    reqBody := mpf.JSONMarshal(ig.ReqData)
 
     ig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/getinvoiceinfo?access_token=" + wx.NewUtilWx().GetCorpCache(ig.corpId, ig.agentTag, getType)
     client, req := ig.GetRequest()
@@ -65,7 +65,7 @@ func (ig *infoGet) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

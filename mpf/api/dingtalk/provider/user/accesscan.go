@@ -46,7 +46,7 @@ func (ac *accessCan) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ac.ReqData["appId"] = ac.appId
     ac.ReqData["userId"] = ac.userId
     ac.ReqData["access_token"] = dingtalk.NewUtil().GetProviderAuthorizeAccessToken(ac.corpId)
-    ac.ReqUrl = dingtalk.UrlService + "/user/can_access_microapp?" + mpf.HttpCreateParams(ac.ReqData, "none", 1)
+    ac.ReqUrl = dingtalk.UrlService + "/user/can_access_microapp?" + mpf.HTTPCreateParams(ac.ReqData, "none", 1)
 
     return ac.GetRequest()
 }

@@ -35,7 +35,7 @@ func (ig *inventoryGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
 
     delete(ig.ReqData, "inventory")
-    ig.ReqUrl = "http://" + ig.ReqHeader["Host"] + ig.ReqUri + "?inventory&" + mpf.HttpCreateParams(ig.ReqData, "none", 1)
+    ig.ReqUrl = "http://" + ig.ReqHeader["Host"] + ig.ReqUri + "?inventory&" + mpf.HTTPCreateParams(ig.ReqData, "none", 1)
     return ig.GetRequest()
 }
 

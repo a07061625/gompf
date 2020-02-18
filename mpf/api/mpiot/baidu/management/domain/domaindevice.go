@@ -77,7 +77,7 @@ func (dd *domainDevice) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     dd.ReqUrl = dd.GetServiceUrl() + "?modify"
 
-    reqBody := mpf.JsonMarshal(dd.ExtendData)
+    reqBody := mpf.JSONMarshal(dd.ExtendData)
     client, req := dd.GetRequest()
     req.SetBody([]byte(reqBody))
 

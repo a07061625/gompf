@@ -42,9 +42,9 @@ func (aig *authInfoGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     aig.ReqData["accessKey"] = providerConf.GetSuiteKey()
     aig.ReqData["suiteTicket"] = suiteTicket
     aig.ReqData["signature"] = dingtalk.NewUtil().CreateApiSign(nowTime+"\n"+suiteTicket, providerConf.GetSuiteSecret())
-    aig.ReqUrl = dingtalk.UrlService + "/service/get_auth_info?" + mpf.HttpCreateParams(aig.ReqData, "none", 1)
+    aig.ReqUrl = dingtalk.UrlService + "/service/get_auth_info?" + mpf.HTTPCreateParams(aig.ReqData, "none", 1)
 
-    reqBody := mpf.JsonMarshal(aig.ReqData)
+    reqBody := mpf.JSONMarshal(aig.ReqData)
     client, req := aig.GetRequest()
     req.SetBody([]byte(reqBody))
 

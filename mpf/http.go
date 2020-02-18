@@ -1,9 +1,6 @@
-/**
- * http操作
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 11:05
- */
+// Package mpf http
+// User: 姜伟
+// Time: 2020-02-19 05:30:24
 package mpf
 
 import (
@@ -19,58 +16,69 @@ import (
     "github.com/valyala/fasthttp"
 )
 
-type HttpParam struct {
+// HTTPParam HTTPParam
+type HTTPParam struct {
     Key string
     Val string
 }
 
-type HttpParamSorter struct {
-    Params []HttpParam
+// HTTPParamSorter HTTPParamSorter
+type HTTPParamSorter struct {
+    Params []HTTPParam
 }
 
-func (ps HttpParamSorter) Len() int {
+// Len Len
+func (ps HTTPParamSorter) Len() int {
     return len(ps.Params)
 }
 
-func (ps HttpParamSorter) Swap(i, j int) {
+// Swap Swap
+func (ps HTTPParamSorter) Swap(i, j int) {
     ps.Params[i], ps.Params[j] = ps.Params[j], ps.Params[i]
 }
 
-type HttpParamKey struct {
-    HttpParamSorter
+// HTTPParamKey HTTPParamKey
+type HTTPParamKey struct {
+    HTTPParamSorter
 }
 
-func (pk HttpParamKey) Less(i, j int) bool {
+// Less Less
+func (pk HTTPParamKey) Less(i, j int) bool {
     return pk.Params[i].Key < pk.Params[j].Key
 }
 
-func NewHttpParamKey(data map[string]string) *HttpParamKey {
-    pk := &HttpParamKey{}
-    pk.Params = make([]HttpParam, 0, len(data))
+// NewHTTPParamKey NewHTTPParamKey
+func NewHTTPParamKey(data map[string]string) *HTTPParamKey {
+    pk := &HTTPParamKey{}
+    pk.Params = make([]HTTPParam, 0, len(data))
     for k, v := range data {
-        pk.Params = append(pk.Params, HttpParam{k, v})
+        pk.Params = append(pk.Params, HTTPParam{k, v})
     }
     return pk
 }
 
-type HttpParamVal struct {
-    HttpParamSorter
+// HTTPParamVal HTTPParamVal
+type HTTPParamVal struct {
+    HTTPParamSorter
 }
 
-func (pv HttpParamVal) Less(i, j int) bool {
+// Less Less
+func (pv HTTPParamVal) Less(i, j int) bool {
     return pv.Params[i].Val < pv.Params[j].Val
 }
 
-func NewHttpParamVal(data map[string]string) *HttpParamVal {
-    pv := &HttpParamVal{}
-    pv.Params = make([]HttpParam, 0, len(data))
+// NewHTTPParamVal NewHTTPParamVal
+func NewHTTPParamVal(data map[string]string) *HTTPParamVal {
+    pv := &HTTPParamVal{}
+    pv.Params = make([]HTTPParam, 0, len(data))
     for k, v := range data {
-        pv.Params = append(pv.Params, HttpParam{k, v})
+        pv.Params = append(pv.Params, HTTPParam{k, v})
     }
     return pv
 }
 
-type HttpResp struct {
+// HTTPResp HTTPResp
+type HTTPResp struct {
     RespCode      uint                `json:"resp_code"` // 响应状态码
     Msg           string              `json:"msg"`       // 错误信息
     Content       string              `json:"content"`   // 响应内容
@@ -81,45 +89,48 @@ type HttpResp struct {
     Cookies       map[string][]string `json:"cookies"`        // cookies
 }
 
-func NewHttpResp() HttpResp {
-    return HttpResp{0, "", "", []byte(""), 0, 0, make(map[string]string), make(map[string][]string)}
+// NewHTTPResp NewHTTPResp
+func NewHTTPResp() HTTPResp {
+    return HTTPResp{0, "", "", []byte(""), 0, 0, make(map[string]string), make(map[string][]string)}
 }
 
-type HttpRespResult struct {
-    ReqId string                 `json:"req_id"` // 请求ID
+// HTTPRespResult HTTPRespResult
+type HTTPRespResult struct {
+    ReqID string                 `json:"req_id"` // 请求ID
     Time  int64                  `json:"time"`   // 请求时间
     Code  uint                   `json:"code"`   // 状态码
     Msg   string                 `json:"msg"`    // 错误信息
     Data  map[string]interface{} `json:"data"`   // 响应数据
 }
 
-func NewHttpRespResult() HttpRespResult {
+// NewHTTPRespResult NewHTTPRespResult
+func NewHTTPRespResult() HTTPRespResult {
     nowTime := time.Now().Unix()
     nonceStr := strconv.FormatInt(nowTime, 10) + ToolCreateNonceStr(8, "numlower")
-    reqId := HashMd5(nonceStr, "")
-    return HttpRespResult{reqId, nowTime, errorcode.CommonBaseSuccess, "", make(map[string]interface{})}
+    reqID := HashMd5(nonceStr, "")
+    return HTTPRespResult{reqID, nowTime, errorcode.CommonBaseSuccess, "", make(map[string]interface{})}
 }
 
 var (
-    httpReqId = ""
+    httpReqID = ""
 )
 
-// 生成请求ID
-func HttpReqId() string {
-    if len(httpReqId) != 32 {
+// HTTPReqID 生成请求ID
+func HTTPReqID() string {
+    if len(httpReqID) != 32 {
         nowTime := time.Now().UnixNano() / 1000
         str := strconv.FormatInt(nowTime, 10) + ToolCreateNonceStr(8, "lower")
-        httpReqId = HashMd5(str, "")
+        httpReqID = HashMd5(str, "")
     }
 
-    return httpReqId
+    return httpReqID
 }
 
-// 发送http请求
-func HttpSendReq(client *fasthttp.Client, req *fasthttp.Request, timeout time.Duration) HttpResp {
+// HTTPSendReq 发送http请求
+func HTTPSendReq(client *fasthttp.Client, req *fasthttp.Request, timeout time.Duration) HTTPResp {
     defer fasthttp.ReleaseRequest(req)
 
-    result := NewHttpResp()
+    result := NewHTTPResp()
     resp := fasthttp.AcquireResponse()
     defer fasthttp.ReleaseResponse(resp)
 
@@ -147,7 +158,7 @@ func HttpSendReq(client *fasthttp.Client, req *fasthttp.Request, timeout time.Du
     return result
 }
 
-// 生成请求参数,生成的结果按照键名的ASCII码排序
+// HTTPCreateParams 生成请求参数,生成的结果按照键名的ASCII码排序
 //   data map[string]string 原数据
 //   sortType string 排序类型 none:不排序 key:键名升序 val:键值升序
 //   encodeType int 编码类型
@@ -156,21 +167,21 @@ func HttpSendReq(client *fasthttp.Client, req *fasthttp.Request, timeout time.Du
 //     3:xml
 //     4:k1=v1&k2=v2&...
 //     5:k1v1k2v2...
-func HttpCreateParams(data map[string]string, sortType string, encodeType int) string {
-    params := make([]HttpParam, 0)
+func HTTPCreateParams(data map[string]string, sortType string, encodeType int) string {
+    params := make([]HTTPParam, 0)
 
     switch sortType {
     case "key":
-        pk := NewHttpParamKey(data)
+        pk := NewHTTPParamKey(data)
         sort.Sort(pk)
         params = pk.Params
     case "val":
-        pv := NewHttpParamVal(data)
+        pv := NewHTTPParamVal(data)
         sort.Sort(pv)
         params = pv.Params
     default:
         for k, v := range data {
-            params = append(params, HttpParam{k, v})
+            params = append(params, HTTPParam{k, v})
         }
     }
     paramNum := len(params)
@@ -187,13 +198,13 @@ func HttpCreateParams(data map[string]string, sortType string, encodeType int) s
         for i := 0; i < paramNum; i++ {
             sortData[params[i].Key] = params[i].Val
         }
-        return JsonMarshal(sortData)
+        return JSONMarshal(sortData)
     case 3:
         sortData := make(map[string]string)
         for i := 0; i < paramNum; i++ {
             sortData[params[i].Key] = params[i].Val
         }
-        xm := XmlMap{}
+        xm := XMLMap{}
         xm = sortData
         res, _ := xml.Marshal(xm)
         return string(res)
@@ -212,8 +223,8 @@ func HttpCreateParams(data map[string]string, sortType string, encodeType int) s
     }
 }
 
-// 添加请求的头信息
-func HttpAddReqHeader(req *fasthttp.Request, headers map[string]string) {
+// HTTPAddReqHeader 添加请求的头信息
+func HTTPAddReqHeader(req *fasthttp.Request, headers map[string]string) {
     for k, v := range headers {
         req.Header.Add(k, v)
     }

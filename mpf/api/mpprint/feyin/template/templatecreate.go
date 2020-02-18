@@ -73,7 +73,7 @@ func (tc *templateCreate) checkData() (*fasthttp.Client, *fasthttp.Request) {
 
     tc.ReqUrl = mpprint.FeYinServiceDomain + "/template?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(tc.GetAppId())
     client, req := tc.GetRequest()
-    reqBody := mpf.JsonMarshal(tc.ReqData)
+    reqBody := mpf.JSONMarshal(tc.ReqData)
     req.SetBody([]byte(reqBody))
 
     return client, req
@@ -86,7 +86,7 @@ func (tc *templateCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["template_id"]
     if ok {
         result.Data = respData

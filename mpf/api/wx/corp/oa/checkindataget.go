@@ -86,7 +86,7 @@ func (cdg *checkInDataGet) SendRequest() api.ApiResult {
     reqData["starttime"] = cdg.startTime
     reqData["endtime"] = cdg.endTime
     reqData["useridlist"] = cdg.userList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     cdg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token=" + wx.NewUtilWx().GetCorpAccessToken(cdg.corpId, cdg.agentTag)
     client, req := cdg.GetRequest()
@@ -97,7 +97,7 @@ func (cdg *checkInDataGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

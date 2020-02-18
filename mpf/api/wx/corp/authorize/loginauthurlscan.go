@@ -35,7 +35,7 @@ func (lus *loginAuthUrlScan) SetState(state string) {
 
 func (lus *loginAuthUrlScan) GetResult() map[string]string {
     result := make(map[string]string)
-    result["url"] = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect?" + mpf.HttpCreateParams(lus.ReqData, "none", 1)
+    result["url"] = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect?" + mpf.HTTPCreateParams(lus.ReqData, "none", 1)
     return result
 }
 

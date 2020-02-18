@@ -58,7 +58,7 @@ func (util *utilWx) CreateCropSign(data map[string]string, acceptKeys []string, 
         acceptData[ak] = eData
     }
 
-    pk := mpf.NewHttpParamKey(acceptData)
+    pk := mpf.NewHTTPParamKey(acceptData)
     sort.Sort(pk)
 
     needStr1 := ""
@@ -73,7 +73,7 @@ func (util *utilWx) CreateCropSign(data map[string]string, acceptKeys []string, 
 
 // 生成企业支付签名
 func (util *utilWx) CreateCropPaySign(data map[string]string, payKey string) string {
-    pk := mpf.NewHttpParamKey(data)
+    pk := mpf.NewHTTPParamKey(data)
     sort.Sort(pk)
     needStr1 := ""
     for _, param := range pk.Params {
@@ -238,7 +238,7 @@ func (util *utilWx) DecryptMiniData(encodeData, encodeKey, encodeIv, appId strin
     blockMode.CryptBlocks(plainData, data)
 
     jsonStr := string(mpencrypt.AesUnPaddingPKCS7(plainData))
-    jsonData, _ := mpf.JsonUnmarshalMap(jsonStr)
+    jsonData, _ := mpf.JSONUnmarshalMap(jsonStr)
     watermark, ok := jsonData["watermark"]
     if !ok {
         panic(mperr.NewWxMini(errorcode.WxMiniParam, "小程序数据格式错误", nil))
@@ -256,7 +256,7 @@ func (util *utilWx) DecryptMiniData(encodeData, encodeKey, encodeIv, appId strin
 
 // 生成公众号或小程序支付签名
 func (util *utilWx) CreateSinglePaySign(data map[string]string, appId string, signType string) string {
-    pk := mpf.NewHttpParamKey(data)
+    pk := mpf.NewHTTPParamKey(data)
     sort.Sort(pk)
     needStr1 := ""
     for _, param := range pk.Params {

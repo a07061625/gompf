@@ -40,7 +40,7 @@ func (ca *codeAdd) checkData() {
 func (ca *codeAdd) SendRequest() api.ApiResult {
     ca.checkData()
 
-    reqBody := mpf.JsonMarshal(ca.ReqData)
+    reqBody := mpf.JSONMarshal(ca.ReqData)
     ca.ReqUrl = "https://api.weixin.qq.com/wxa/addtotemplate?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (ca *codeAdd) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

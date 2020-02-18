@@ -120,7 +120,7 @@ func (cc *chatCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     cc.ReqUrl = dingtalk.UrlService + "/chat/create?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(cc.corpId, cc.agentTag)
 
-    reqBody := mpf.JsonMarshal(cc.ExtendData)
+    reqBody := mpf.JSONMarshal(cc.ExtendData)
     client, req := cc.GetRequest()
     req.SetBody([]byte(reqBody))
 

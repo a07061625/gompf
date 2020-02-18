@@ -43,7 +43,7 @@ func (oc *orderClose) checkData() {
 func (oc *orderClose) SendRequest() api.ApiResult {
     oc.checkData()
 
-    reqBody := mpf.JsonMarshal(oc.ReqData)
+    reqBody := mpf.JSONMarshal(oc.ReqData)
     oc.ReqUrl = "https://api.weixin.qq.com/merchant/order/close?access_token=" + wx.NewUtilWx().GetSingleAccessToken(oc.appId)
     client, req := oc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (oc *orderClose) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

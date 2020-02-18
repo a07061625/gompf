@@ -42,7 +42,7 @@ func (sil *showItemList) SetNum(num int) {
 
 func (sil *showItemList) SendRequest() api.ApiResult {
     sil.ReqData["access_token"] = wx.NewUtilWx().GetOpenAuthorizeAccessToken(sil.appId)
-    sil.ReqUrl = "https://api.weixin.qq.com/wxa/getwxamplinkforshow?" + mpf.HttpCreateParams(sil.ReqData, "none", 1)
+    sil.ReqUrl = "https://api.weixin.qq.com/wxa/getwxamplinkforshow?" + mpf.HTTPCreateParams(sil.ReqData, "none", 1)
     client, req := sil.GetRequest()
 
     resp, result := sil.SendInner(client, req, errorcode.WxOpenRequestGet)
@@ -50,7 +50,7 @@ func (sil *showItemList) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -68,7 +68,7 @@ func (tpa *thingPrincipalAttach) CheckData() (*fasthttp.Client, *fasthttp.Reques
 
     tpa.ReqUrl = tpa.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(tpa.ExtendData)
+    reqBody := mpf.JSONMarshal(tpa.ExtendData)
     client, req := tpa.GetRequest()
     req.SetBody([]byte(reqBody))
 

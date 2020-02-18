@@ -123,7 +123,7 @@ func (lms *linkedMessageSend) SendRequest() api.ApiResult {
     }
     reqData["msgtype"] = lms.msgType
     reqData[lms.msgType] = lms.msgData
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     lms.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/message/send?access_token=" + wx.NewUtilWx().GetCorpAccessToken(lms.corpId, lms.agentTag)
     client, req := lms.GetRequest()
@@ -134,7 +134,7 @@ func (lms *linkedMessageSend) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

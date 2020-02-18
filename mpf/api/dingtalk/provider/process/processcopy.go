@@ -76,7 +76,7 @@ func (pc *processCopy) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     pc.ReqUrl = dingtalk.UrlService + "/topapi/process/copy?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(pc.corpId)
 
-    reqBody := mpf.JsonMarshal(pc.ExtendData)
+    reqBody := mpf.JSONMarshal(pc.ExtendData)
     client, req := pc.GetRequest()
     req.SetBody([]byte(reqBody))
 

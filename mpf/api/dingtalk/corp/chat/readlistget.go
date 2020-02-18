@@ -52,7 +52,7 @@ func (rlg *readListGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     rlg.ReqData["messageId"] = rlg.messageId
     rlg.ReqData["access_token"] = dingtalk.NewUtil().GetCorpAccessToken(rlg.corpId, rlg.agentTag)
 
-    rlg.ReqUrl = dingtalk.UrlService + "/chat/getReadList?" + mpf.HttpCreateParams(rlg.ReqData, "none", 1)
+    rlg.ReqUrl = dingtalk.UrlService + "/chat/getReadList?" + mpf.HTTPCreateParams(rlg.ReqData, "none", 1)
 
     return rlg.GetRequest()
 }

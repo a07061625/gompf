@@ -64,7 +64,7 @@ func (bg *batchGet) SendRequest() api.ApiResult {
     reqData["type"] = bg.materialType
     reqData["offset"] = bg.offset
     reqData["count"] = bg.count
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     bg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=" + wx.NewUtilWx().GetSingleAccessToken(bg.appId)
     client, req := bg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -74,7 +74,7 @@ func (bg *batchGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok {
         result.Code = errorcode.WxAccountRequestPost

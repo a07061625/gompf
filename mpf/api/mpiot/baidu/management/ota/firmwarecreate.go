@@ -76,7 +76,7 @@ func (fc *firmwareCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     fc.ReqUrl = fc.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(fc.ExtendData)
+    reqBody := mpf.JSONMarshal(fc.ExtendData)
     client, req := fc.GetRequest()
     req.SetBody([]byte(reqBody))
 

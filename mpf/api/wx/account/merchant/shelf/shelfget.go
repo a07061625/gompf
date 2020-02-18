@@ -41,7 +41,7 @@ func (sg *shelfGet) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["shelf_id"] = sg.shelfId
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     sg.ReqUrl = "https://api.weixin.qq.com/merchant/shelf/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sg.appId)
     client, req := sg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (sg *shelfGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -34,7 +34,7 @@ func (cs *code2Session) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewWxMini(errorcode.WxMiniParam, "授权码不能为空", nil))
     }
 
-    cs.ReqUrl = "https://api.weixin.qq.com/sns/jscode2session?" + mpf.HttpCreateParams(cs.ReqData, "none", 1)
+    cs.ReqUrl = "https://api.weixin.qq.com/sns/jscode2session?" + mpf.HTTPCreateParams(cs.ReqData, "none", 1)
 
     return cs.GetRequest()
 }
@@ -46,7 +46,7 @@ func (cs *code2Session) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["openid"]
     if ok {
         result.Data = respData

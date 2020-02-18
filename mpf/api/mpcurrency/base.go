@@ -40,7 +40,7 @@ func (c *BaseAMJiSu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(c.ReqUrl)
     req.Header.SetContentType(c.ReqContentType)
     req.Header.SetMethod(c.ReqMethod)
-    mpf.HttpAddReqHeader(req, c.ReqHeader)
+    mpf.HTTPAddReqHeader(req, c.ReqHeader)
 
     return client, req
 }
@@ -69,7 +69,7 @@ func (c *BaseAMYiYuan) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(c.ReqUrl)
     req.Header.SetContentType(c.ReqContentType)
     req.Header.SetMethod(c.ReqMethod)
-    mpf.HttpAddReqHeader(req, c.ReqHeader)
+    mpf.HTTPAddReqHeader(req, c.ReqHeader)
 
     return client, req
 }

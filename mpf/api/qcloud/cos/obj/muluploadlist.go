@@ -19,7 +19,7 @@ type mulUploadList struct {
 
 func (mul *mulUploadList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     delete(mul.ReqData, "uploads")
-    mul.ReqUrl = "http://" + mul.ReqHeader["Host"] + mul.ReqUri + "?uploads&" + mpf.HttpCreateParams(mul.ReqData, "none", 1)
+    mul.ReqUrl = "http://" + mul.ReqHeader["Host"] + mul.ReqUri + "?uploads&" + mpf.HTTPCreateParams(mul.ReqData, "none", 1)
     return mul.GetRequest()
 }
 

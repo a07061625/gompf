@@ -49,7 +49,7 @@ func (ig *infoGet) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(ig.ReqData, ig.appId, "md5")
     ig.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(ig.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(ig.ReqData))
     ig.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo"
     client, req := ig.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -79,7 +79,7 @@ func (ig *infoGet) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

@@ -52,7 +52,7 @@ func (luw *loginAuthUrlWeb) GetResult() map[string]string {
     luw.checkData()
 
     result := make(map[string]string)
-    result["url"] = "https://open.weixin.qq.com/connect/oauth2/authorize?" + mpf.HttpCreateParams(luw.ReqData, "none", 1) + "#wechat_redirect"
+    result["url"] = "https://open.weixin.qq.com/connect/oauth2/authorize?" + mpf.HTTPCreateParams(luw.ReqData, "none", 1) + "#wechat_redirect"
     return result
 }
 

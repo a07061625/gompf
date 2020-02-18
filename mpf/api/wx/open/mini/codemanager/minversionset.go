@@ -41,7 +41,7 @@ func (mvs *minVersionSet) checkData() {
 func (mvs *minVersionSet) SendRequest() api.ApiResult {
     mvs.checkData()
 
-    reqBody := mpf.JsonMarshal(mvs.ReqData)
+    reqBody := mpf.JSONMarshal(mvs.ReqData)
     mvs.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/setweappsupportversion?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(mvs.appId)
     client, req := mvs.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (mvs *minVersionSet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

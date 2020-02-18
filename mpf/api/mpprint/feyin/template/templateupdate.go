@@ -78,7 +78,7 @@ func (tu *templateUpdate) checkData() (*fasthttp.Client, *fasthttp.Request) {
 
     tu.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(tu.GetAppId())
     client, req := tu.GetRequest()
-    reqBody := mpf.JsonMarshal(tu.ReqData)
+    reqBody := mpf.JSONMarshal(tu.ReqData)
     req.SetBody([]byte(reqBody))
 
     return client, req
@@ -91,7 +91,7 @@ func (tu *templateUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -17,7 +17,7 @@ func (util *utilCurrency) SendAMJiSuRequest(service api.IApiOuter, errorCode uin
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     status, ok := respData["status"]
     if ok && (status.(int) == 0) {
         result.Data = respData["result"]

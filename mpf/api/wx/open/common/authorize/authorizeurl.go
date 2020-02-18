@@ -21,7 +21,7 @@ type authorizeUrl struct {
 }
 
 func (au *authorizeUrl) SendRequest() api.ApiResult {
-    reqBody := mpf.JsonMarshal(au.ReqData)
+    reqBody := mpf.JSONMarshal(au.ReqData)
     au.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := au.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -33,14 +33,14 @@ func (au *authorizeUrl) SendRequest() api.ApiResult {
 
     res := make(map[string]string)
     res["url"] = ""
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     authCode, ok := respData["pre_auth_code"]
     if ok {
         urlParams := make(map[string]string)
         urlParams["component_appid"] = au.ReqData["component_appid"]
         urlParams["pre_auth_code"] = authCode.(string)
         urlParams["redirect_uri"] = au.urlAuthCallback
-        res["url"] = "https://mp.weixin.qq.com/cgi-bin/componentloginpage?" + mpf.HttpCreateParams(urlParams, "none", 1)
+        res["url"] = "https://mp.weixin.qq.com/cgi-bin/componentloginpage?" + mpf.HTTPCreateParams(urlParams, "none", 1)
     }
     result.Data = res
 

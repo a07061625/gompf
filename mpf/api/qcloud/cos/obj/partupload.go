@@ -77,7 +77,7 @@ func (pu *partUpload) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     encodeStr := base64.StdEncoding.EncodeToString([]byte(pu.uploadContent))
     pu.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     pu.SetHeaderData("Content-Length", strconv.Itoa(len(pu.uploadContent)))
-    pu.ReqUrl = "http://" + pu.ReqHeader["Host"] + pu.ReqUri + "?" + mpf.HttpCreateParams(pu.ReqData, "none", 1)
+    pu.ReqUrl = "http://" + pu.ReqHeader["Host"] + pu.ReqUri + "?" + mpf.HTTPCreateParams(pu.ReqData, "none", 1)
     client, req := pu.GetRequest()
     req.SetBody([]byte(pu.uploadContent))
 

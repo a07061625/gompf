@@ -67,7 +67,7 @@ func (pa *pushAll) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(pa.msgContent) == 0 {
         panic(mperr.NewPushBaiDu(errorcode.PushBaiDuParam, "消息内容不能为空", nil))
     }
-    pa.ReqData["msg"] = mpf.JsonMarshal(pa.msgContent)
+    pa.ReqData["msg"] = mpf.JSONMarshal(pa.msgContent)
 
     return pa.GetRequest()
 }

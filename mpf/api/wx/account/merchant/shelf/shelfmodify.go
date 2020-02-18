@@ -81,7 +81,7 @@ func (sm *shelfModify) SendRequest() api.ApiResult {
     reqData["shelf_name"] = sm.shelfName
     reqData["shelf_banner"] = sm.shelfBanner
     reqData["shelf_data"] = moduleInfo
-    reqBody := mpf.JsonMarshal(sm.ReqData)
+    reqBody := mpf.JSONMarshal(sm.ReqData)
     sm.ReqUrl = "https://api.weixin.qq.com/merchant/shelf/mod?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sm.appId)
     client, req := sm.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -91,7 +91,7 @@ func (sm *shelfModify) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

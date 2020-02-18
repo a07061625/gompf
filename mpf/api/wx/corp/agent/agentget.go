@@ -26,7 +26,7 @@ func (ag *agentGet) checkData() (*fasthttp.Client, *fasthttp.Request) {
     agentInfo := wx.NewConfig().GetCorp(ag.corpId).GetAgentInfo(ag.agentTag)
     ag.ReqData["agentid"] = agentInfo["id"]
     ag.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(ag.corpId, ag.agentTag)
-    ag.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/agent/get?" + mpf.HttpCreateParams(ag.ReqData, "none", 1)
+    ag.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/agent/get?" + mpf.HTTPCreateParams(ag.ReqData, "none", 1)
     return ag.GetRequest()
 }
 
@@ -37,7 +37,7 @@ func (ag *agentGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

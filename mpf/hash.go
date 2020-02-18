@@ -1,9 +1,6 @@
-/**
- * hash签名
- * User: 姜伟
- * Date: 2019/12/19 0019
- * Time: 17:30
- */
+// Package mpf hash
+// User: 姜伟
+// Time: 2020-02-19 05:30:04
 package mpf
 
 import (
@@ -15,6 +12,7 @@ import (
     "hash/crc32"
 )
 
+// HashCrc32 Crc32
 func HashCrc32(str string, key string) string {
     c := crc32.NewIEEE()
     c.Write([]byte(str))
@@ -25,6 +23,7 @@ func HashCrc32(str string, key string) string {
     return hex.EncodeToString(extend)
 }
 
+// HashMd5 Md5
 func HashMd5(str string, key string) string {
     c := md5.New()
     c.Write([]byte(str))
@@ -35,19 +34,20 @@ func HashMd5(str string, key string) string {
     return hex.EncodeToString(extend)
 }
 
-// md5签名
+// HashMd5Sign md5签名
 func HashMd5Sign(data string, secret string) string {
     h := md5.New()
     h.Write([]byte(data + secret))
     return hex.EncodeToString(h.Sum(nil))
 }
 
-// 验证md5签名
+// HashMd5Verify 验证md5签名
 func HashMd5Verify(data string, secret string, sign string) bool {
     nowSign := HashMd5Sign(data, secret)
     return sign == nowSign
 }
 
+// HashSha1 Sha1
 func HashSha1(str string, key string) string {
     c := sha1.New()
     c.Write([]byte(str))
@@ -58,6 +58,7 @@ func HashSha1(str string, key string) string {
     return hex.EncodeToString(extend)
 }
 
+// HashSha256 Sha256
 func HashSha256(str string, key string) string {
     c := sha256.New()
     c.Write([]byte(str))
@@ -68,6 +69,7 @@ func HashSha256(str string, key string) string {
     return hex.EncodeToString(extend)
 }
 
+// HashSha512 Sha512
 func HashSha512(str string, key string) string {
     c := sha512.New()
     c.Write([]byte(str))

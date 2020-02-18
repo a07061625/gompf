@@ -39,7 +39,7 @@ func (ai *authorizeInfo) checkData() {
 func (ai *authorizeInfo) SendRequest() api.ApiResult {
     ai.checkData()
 
-    reqBody := mpf.JsonMarshal(ai.ReqData)
+    reqBody := mpf.JSONMarshal(ai.ReqData)
     ai.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := ai.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -49,7 +49,7 @@ func (ai *authorizeInfo) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["authorization_info"]
     if ok {
         result.Data = respData

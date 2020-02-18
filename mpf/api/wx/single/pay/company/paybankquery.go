@@ -49,7 +49,7 @@ func (pbq *payBankQuery) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(pbq.ReqData, pbq.appId, "md5")
     pbq.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(pbq.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(pbq.ReqData))
     pbq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaysptrans/query_bank"
     client, req := pbq.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -79,7 +79,7 @@ func (pbq *payBankQuery) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

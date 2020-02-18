@@ -67,7 +67,7 @@ func (bw *baseWx) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(bw.ReqUrl)
     req.Header.SetContentType(bw.ReqContentType)
     req.Header.SetMethod(bw.ReqMethod)
-    mpf.HttpAddReqHeader(req, bw.ReqHeader)
+    mpf.HTTPAddReqHeader(req, bw.ReqHeader)
 
     return client, req
 }

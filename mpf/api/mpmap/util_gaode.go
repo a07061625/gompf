@@ -17,7 +17,7 @@ func (util *utilMap) SendGaoDeRequest(service IMapBase, errorCode uint) api.ApiR
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     nowStatus, ok := respData["status"]
     if ok && (nowStatus.(int) == 1) {
         result.Data = respData

@@ -156,7 +156,7 @@ func (dc *departmentCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     dc.ReqUrl = dingtalk.UrlService + "/department/create?access_token=" + dingtalk.NewUtil().GetAccessToken(dc.corpId, dc.agentTag, dc.atType)
 
-    reqBody := mpf.JsonMarshal(dc.ExtendData)
+    reqBody := mpf.JSONMarshal(dc.ExtendData)
     client, req := dc.GetRequest()
     req.SetBody([]byte(reqBody))
 

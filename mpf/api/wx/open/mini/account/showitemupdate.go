@@ -37,7 +37,7 @@ func (siu *showItemUpdate) SendRequest() api.ApiResult {
     if siu.bizFlag == 1 {
         reqData["appid"] = siu.appId
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     siu.ReqUrl = "https://api.weixin.qq.com/wxa/updateshowwxaitem?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(siu.appId)
     client, req := siu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -47,7 +47,7 @@ func (siu *showItemUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

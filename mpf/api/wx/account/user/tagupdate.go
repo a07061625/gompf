@@ -56,7 +56,7 @@ func (tu *tagUpdate) SendRequest() api.ApiResult {
     tagInfo["name"] = tu.tagName
     reqData := make(map[string]interface{})
     reqData["tag"] = tagInfo
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     tu.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tu.appId)
     client, req := tu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -66,7 +66,7 @@ func (tu *tagUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

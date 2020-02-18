@@ -92,7 +92,7 @@ func (msa *massSendAll) SendRequest() api.ApiResult {
     if msa.msgType == account.MessageTypeMpNews {
         reqData["send_ignore_reprint"] = msa.sendReprint
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     msa.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(msa.appId)
     client, req := msa.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -102,7 +102,7 @@ func (msa *massSendAll) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

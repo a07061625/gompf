@@ -43,15 +43,15 @@ func (util *utilWx) RefreshOpenAccessToken(verifyTicket string) {
     req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
-    reqBody := mpf.JsonMarshal(atMap)
+    reqBody := mpf.JSONMarshal(atMap)
     req.SetBody([]byte(reqBody))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxOpen(errorcode.WxOpenParam, "获取第三方开放平台access token失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["component_access_token"]
     if !ok {
         panic(mperr.NewWxOpen(errorcode.WxOpenParam, "获取第三方开放平台access token失败", nil))
@@ -117,15 +117,15 @@ func (util *utilWx) refreshOpenAuthorizeAccessToken(appId string) map[string]int
     req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
-    reqBody := mpf.JsonMarshal(atMap)
+    reqBody := mpf.JSONMarshal(atMap)
     req.SetBody([]byte(reqBody))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxOpen(errorcode.WxOpenParam, "获取授权者access token失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok = respData["authorizer_access_token"]
     if !ok {
         panic(mperr.NewWxOpen(errorcode.WxOpenParam, "获取授权者access token失败", nil))
@@ -218,12 +218,12 @@ func (util *utilWx) refreshOpenAuthorizeCodeSecret(appId string) map[string]inte
     req.Header.SetMethod(fasthttp.MethodPost)
     req.SetBody([]byte("{}"))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWxOpen(errorcode.WxOpenParam, "获取小程序代码保护密钥失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok && (respData["errcode"].(int) != 0) {
         panic(mperr.NewWxOpen(errorcode.WxOpenParam, "获取小程序代码保护密钥失败", nil))

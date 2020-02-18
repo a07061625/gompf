@@ -81,7 +81,7 @@ func (su *subscribeUrl) GetResult() map[string]string {
     su.checkData()
 
     result := make(map[string]string)
-    result["url"] = "https://mp.weixin.qq.com/mp/subscribemsg?" + mpf.HttpCreateParams(su.ReqData, "none", 1) + "#wechat_redirect"
+    result["url"] = "https://mp.weixin.qq.com/mp/subscribemsg?" + mpf.HTTPCreateParams(su.ReqData, "none", 1) + "#wechat_redirect"
     return result
 }
 

@@ -69,7 +69,7 @@ func (el *employeeList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     el.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/list?access_token=" + dingtalk.NewUtil().GetAccessToken(el.corpId, el.agentTag, el.atType)
 
-    reqBody := mpf.JsonMarshal(el.ExtendData)
+    reqBody := mpf.JSONMarshal(el.ExtendData)
     client, req := el.GetRequest()
     req.SetBody([]byte(reqBody))
 

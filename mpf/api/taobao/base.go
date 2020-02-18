@@ -36,7 +36,7 @@ func (b *BaseTaoBao) GetRespTag() string {
 // 生成签名
 func (b *BaseTaoBao) createSign() {
     delete(b.ReqData, "sign")
-    signStr := mpf.HttpCreateParams(b.ReqData, "key", 5)
+    signStr := mpf.HTTPCreateParams(b.ReqData, "key", 5)
     sign := ""
     if b.ReqData["sign_method"] == "md5" {
         sign = mpf.HashMd5(b.AppSecret+signStr+b.AppSecret, "")
@@ -49,7 +49,7 @@ func (b *BaseTaoBao) createSign() {
 func (b *BaseTaoBao) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     b.ReqData["app_key"] = b.AppKey
     b.createSign()
-    reqBody := mpf.HttpCreateParams(b.ReqData, "key", 1)
+    reqBody := mpf.HTTPCreateParams(b.ReqData, "key", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -58,7 +58,7 @@ func (b *BaseTaoBao) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.SetBody([]byte(reqBody))
     req.Header.SetRequestURI(b.ReqUrl)
     req.Header.SetMethod(b.ReqMethod)
-    mpf.HttpAddReqHeader(req, b.ReqHeader)
+    mpf.HTTPAddReqHeader(req, b.ReqHeader)
 
     return client, req
 }

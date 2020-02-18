@@ -89,7 +89,7 @@ func (iu *imageUpload) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["url"]
     if ok {
         result.Data = respData

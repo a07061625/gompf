@@ -64,7 +64,7 @@ func (adg *approvalDataGet) SendRequest() api.ApiResult {
     if len(adg.nextSpNum) > 0 {
         reqData["next_spnum"] = adg.nextSpNum
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     adg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token=" + wx.NewUtilWx().GetCorpAccessToken(adg.corpId, adg.agentTag)
     client, req := adg.GetRequest()
@@ -75,7 +75,7 @@ func (adg *approvalDataGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -1,9 +1,6 @@
-/**
- * 工具方法
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 9:20
- */
+// Package mpf tool
+// User: 姜伟
+// Time: 2020-02-19 05:41:08
 package mpf
 
 import (
@@ -30,7 +27,7 @@ func init() {
     toolSeededRand = rand.New(rand.NewSource(time.Now().UnixNano()))
 }
 
-// 生成随机字符串
+// ToolCreateNonceStr 生成随机字符串
 //   length int 生成字符串的长度
 //   dataType string 数据类型
 //     lower: 小写字母
@@ -57,7 +54,7 @@ func ToolCreateNonceStr(length int, dataType string) string {
     return string(b)
 }
 
-// 压缩数据
+// ToolPack 压缩数据
 func ToolPack(data interface{}) ([]byte, error) {
     res, err := msgpack.Marshal(data)
     if err != nil {
@@ -67,7 +64,7 @@ func ToolPack(data interface{}) ([]byte, error) {
     return res, nil
 }
 
-// 解压数据
+// ToolUnpack 解压数据
 func ToolUnpack(data []byte, item *interface{}) error {
     err := msgpack.Unmarshal(data, item)
     if err != nil {
@@ -77,7 +74,7 @@ func ToolUnpack(data []byte, item *interface{}) error {
     return nil
 }
 
-// 生成随机整数
+// ToolCreateRandNum 生成随机整数
 //   startNum int 起始值
 //   maxNum int 最大值
 func ToolCreateRandNum(startNum, maxNum int) int {
@@ -85,25 +82,24 @@ func ToolCreateRandNum(startNum, maxNum int) int {
     return rand.Intn(maxNum) + startNum
 }
 
-// 生成请求ID
-func ToolCreateReqId(reqId string) string {
-    trueId := reqId
-    if len(trueId) != 32 {
+// ToolCreateReqID 生成请求ID
+func ToolCreateReqID(reqID string) string {
+    trueID := reqID
+    if len(trueID) != 32 {
         nowTime := time.Now().Unix()
         needStr := ToolCreateNonceStr(8, "total") + strconv.FormatInt(nowTime, 10)
-        trueId = HashMd5(needStr, "")
+        trueID = HashMd5(needStr, "")
     }
-    os.Setenv(GoEnvReqId, trueId)
+    os.Setenv(GoEnvReqID, trueID)
 
-    return trueId
+    return trueID
 }
 
-// 获取请求ID
-func ToolGetReqId() string {
-    reqId := os.Getenv(GoEnvReqId)
-    if len(reqId) == 32 {
-        return reqId
-    } else {
-        return ToolCreateReqId("")
+// ToolGetReqID 获取请求ID
+func ToolGetReqID() string {
+    reqID := os.Getenv(GoEnvReqID)
+    if len(reqID) == 32 {
+        return reqID
     }
+    return ToolCreateReqID("")
 }

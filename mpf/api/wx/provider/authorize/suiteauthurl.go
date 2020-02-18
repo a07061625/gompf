@@ -51,7 +51,7 @@ func (sau *suiteAuthUrl) GetResult() map[string]string {
     sau.checkData()
 
     result := make(map[string]string)
-    result["url"] = "https://open.work.weixin.qq.com/3rdapp/install?" + mpf.HttpCreateParams(sau.ReqData, "none", 1)
+    result["url"] = "https://open.work.weixin.qq.com/3rdapp/install?" + mpf.HTTPCreateParams(sau.ReqData, "none", 1)
     return result
 }
 

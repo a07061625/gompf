@@ -54,7 +54,7 @@ func (au *accountUpdate) checkData() {
 func (au *accountUpdate) SendRequest() api.ApiResult {
     au.checkData()
 
-    reqBody := mpf.JsonMarshal(au.ReqData)
+    reqBody := mpf.JSONMarshal(au.ReqData)
     au.ReqUrl = "https://api.weixin.qq.com/customservice/kfaccount/update?access_token=" + wx.NewUtilWx().GetSingleAccessToken(au.appId)
     client, req := au.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -64,7 +64,7 @@ func (au *accountUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

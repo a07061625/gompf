@@ -25,13 +25,13 @@ func (b *BaseYun253) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
-    reqBody := mpf.HttpCreateParams(b.ReqData, "key", 2)
+    reqBody := mpf.HTTPCreateParams(b.ReqData, "key", 2)
     req := fasthttp.AcquireRequest()
     req.SetBody([]byte(reqBody))
     req.Header.SetRequestURI(b.ReqUrl)
     req.Header.SetContentType(b.ReqContentType)
     req.Header.SetMethod(b.ReqMethod)
-    mpf.HttpAddReqHeader(req, b.ReqHeader)
+    mpf.HTTPAddReqHeader(req, b.ReqHeader)
 
     return client, req
 }

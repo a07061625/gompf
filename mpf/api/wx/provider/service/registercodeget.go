@@ -90,7 +90,7 @@ func (rcg *registerCodeGet) SendRequest() api.ApiResult {
     if len(rcg.followUser) > 0 {
         rcg.ReqData["follow_user"] = rcg.followUser
     }
-    reqBody := mpf.JsonMarshal(rcg.ReqData)
+    reqBody := mpf.JSONMarshal(rcg.ReqData)
     rcg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_register_code?provider_access_token=" + wx.NewUtilWx().GetProviderToken()
     client, req := rcg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -100,7 +100,7 @@ func (rcg *registerCodeGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

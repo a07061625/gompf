@@ -46,7 +46,7 @@ func (co *code2Openid) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(co.ReqData, co.appId, "md5")
     co.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(co.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(co.ReqData))
     co.ReqUrl = "https://api.mch.weixin.qq.com/tools/authcodetoopenid"
     client, req := co.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -57,7 +57,7 @@ func (co *code2Openid) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

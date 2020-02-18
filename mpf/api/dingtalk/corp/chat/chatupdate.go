@@ -144,7 +144,7 @@ func (cu *chatUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     cu.ReqUrl = dingtalk.UrlService + "/chat/update?acuess_token=" + dingtalk.NewUtil().GetCorpAccessToken(cu.corpId, cu.agentTag)
 
-    reqBody := mpf.JsonMarshal(cu.ExtendData)
+    reqBody := mpf.JSONMarshal(cu.ExtendData)
     client, req := cu.GetRequest()
     req.SetBody([]byte(reqBody))
 

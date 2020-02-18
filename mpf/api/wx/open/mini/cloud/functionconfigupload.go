@@ -74,10 +74,10 @@ func (fcu *functionConfigUpload) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["type"] = fcu.configType
-    reqData["config"] = mpf.JsonMarshal(fcu.configValue)
+    reqData["config"] = mpf.JSONMarshal(fcu.configValue)
     reqData["env"] = fcu.env
     reqData["function_name"] = fcu.functionName
-    reqBody := mpf.JsonMarshal(fcu.ReqData)
+    reqBody := mpf.JSONMarshal(fcu.ReqData)
     fcu.ReqUrl = "https://api.weixin.qq.com/tcb/uploadfuncconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fcu.appId)
     client, req := fcu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -87,7 +87,7 @@ func (fcu *functionConfigUpload) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

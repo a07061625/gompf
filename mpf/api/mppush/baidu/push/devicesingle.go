@@ -70,7 +70,7 @@ func (ds *deviceSingle) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(ds.channelId) == 0 {
         panic(mperr.NewPushBaiDu(errorcode.PushBaiDuParam, "设备ID不能为空", nil))
     }
-    ds.ReqData["msg"] = mpf.JsonMarshal(ds.msgContent)
+    ds.ReqData["msg"] = mpf.JSONMarshal(ds.msgContent)
     ds.ReqData["channel_id"] = ds.channelId
 
     return ds.GetRequest()

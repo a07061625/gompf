@@ -46,7 +46,7 @@ func (cl *companyList) SetMaxSize(maxSize int) {
 }
 
 func (cl *companyList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    cl.ServiceUri = "/showapi_expressList?" + mpf.HttpCreateParams(cl.ReqData, "none", 1)
+    cl.ServiceUri = "/showapi_expressList?" + mpf.HTTPCreateParams(cl.ReqData, "none", 1)
 
     return cl.GetRequest()
 }

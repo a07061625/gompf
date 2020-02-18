@@ -46,7 +46,7 @@ func (oc *orderClose) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(oc.ReqData, oc.appId, "md5")
     oc.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(oc.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(oc.ReqData))
     oc.ReqUrl = "https://api.mch.weixin.qq.com/pay/closeorder"
     client, req := oc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -57,7 +57,7 @@ func (oc *orderClose) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

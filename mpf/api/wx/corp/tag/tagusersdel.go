@@ -79,7 +79,7 @@ func (tud *tagUsersDel) SendRequest(getType string) api.ApiResult {
     reqData["tagid"] = tud.tagId
     reqData["userlist"] = tud.userList
     reqData["partylist"] = tud.partyList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     tud.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token=" + wx.NewUtilWx().GetCorpCache(tud.corpId, tud.agentTag, getType)
     client, req := tud.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -89,7 +89,7 @@ func (tud *tagUsersDel) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

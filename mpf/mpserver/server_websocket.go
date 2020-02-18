@@ -104,7 +104,7 @@ func (s *serverWebSocket) handleUpGrader(ctx context.Context) (string, *websocke
 func (s *serverWebSocket) handleMessage(messageType int, messageData []byte, connKey string) (bool, *mpresponse.ResultAPI) {
     result := mpresponse.NewResultAPI()
 
-    handlerData, err := mpf.JsonUnmarshalMap(string(messageData))
+    handlerData, err := mpf.JSONUnmarshalMap(string(messageData))
     if err != nil {
         result.Code = errorcode.CommonBaseWebSocket
         result.Msg = "解析数据出错"
@@ -154,7 +154,7 @@ func (s *serverWebSocket) Handler() context.Handler {
                 } else {
                     closeFlag, result = s.handleMessage(messageType, messageData, key)
                 }
-                conn.WriteMessage(messageType, []byte(mpf.JsonMarshal(result)))
+                conn.WriteMessage(messageType, []byte(mpf.JSONMarshal(result)))
                 if closeFlag {
                     s.RemoveConnection(key)
                     break
@@ -180,7 +180,7 @@ func NewServerWebSocket() *serverWebSocket {
             result := mpresponse.NewResultAPI()
             result.Code = errorcode.CommonBaseWebSocket
             result.Msg = reason.Error()
-            w.Write([]byte(mpf.JsonMarshal(result)))
+            w.Write([]byte(mpf.JSONMarshal(result)))
         },
     }
     s.connections = make(map[string]*connWebSocket)

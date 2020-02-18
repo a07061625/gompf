@@ -63,7 +63,7 @@ func (bd *BaseBaiDu) createSign() string {
     needStr := bd.ReqMethod + "\n" + url.QueryEscape(bd.ServiceUri)
 
     delete(bd.ReqData, "authorization")
-    needStr += "\n" + mpf.HttpCreateParams(bd.ReqData, "key", 1)
+    needStr += "\n" + mpf.HTTPCreateParams(bd.ReqData, "key", 1)
 
     reqHeader := "host"
     needStr += "\n" + reqHeader
@@ -85,7 +85,7 @@ func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(bd.ReqUrl)
     req.Header.SetContentType(bd.ReqContentType)
     req.Header.SetMethod(bd.ReqMethod)
-    mpf.HttpAddReqHeader(req, bd.ReqHeader)
+    mpf.HTTPAddReqHeader(req, bd.ReqHeader)
 
     return client, req
 }
@@ -143,7 +143,7 @@ func (t *BaseTencent) createTC3Sign(reqBody string) {
 }
 
 func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
-    reqBody := mpf.HttpCreateParams(t.ReqData, "none", 1)
+    reqBody := mpf.HTTPCreateParams(t.ReqData, "none", 1)
     t.createTC3Sign(reqBody)
 
     t.ReqUrl = "https://" + t.serviceDomain
@@ -158,7 +158,7 @@ func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetContentType(t.ReqContentType)
     req.Header.SetMethod(t.ReqMethod)
     req.SetBody([]byte(reqBody))
-    mpf.HttpAddReqHeader(req, t.ReqHeader)
+    mpf.HTTPAddReqHeader(req, t.ReqHeader)
 
     return client, req
 }

@@ -34,7 +34,7 @@ func (rb *reachableBatch) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(rb.addressList) == 0 {
         panic(mperr.NewLogisticsTaoBao(errorcode.LogisticsTaoBaoParam, "地址列表不能为空", nil))
     }
-    rb.ReqData["address_list"] = mpf.JsonMarshal(rb.addressList)
+    rb.ReqData["address_list"] = mpf.JSONMarshal(rb.addressList)
 
     return rb.GetRequest()
 }

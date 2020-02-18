@@ -79,7 +79,7 @@ func (iu *inviteUser) SendRequest() api.ApiResult {
     reqData["user"] = iu.users
     reqData["party"] = iu.partyList
     reqData["tag"] = iu.tags
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     iu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/invite?access_token=" + wx.NewUtilWx().GetCorpAccessToken(iu.corpId, iu.agentTag)
     client, req := iu.GetRequest()
@@ -90,7 +90,7 @@ func (iu *inviteUser) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -67,7 +67,7 @@ func (rm *ruleModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     rm.ReqUrl = rm.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(rm.ExtendData)
+    reqBody := mpf.JSONMarshal(rm.ExtendData)
     client, req := rm.GetRequest()
     req.SetBody([]byte(reqBody))
 

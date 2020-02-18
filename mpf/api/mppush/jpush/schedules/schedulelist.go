@@ -30,7 +30,7 @@ func (sl *scheduleList) SetPage(page int) {
 }
 
 func (sl *scheduleList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    sl.ReqUrl = sl.GetServiceUrl() + "?" + mpf.HttpCreateParams(sl.ReqData, "none", 1)
+    sl.ReqUrl = sl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(sl.ReqData, "none", 1)
 
     return sl.GetRequest()
 }

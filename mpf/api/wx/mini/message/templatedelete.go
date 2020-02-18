@@ -39,7 +39,7 @@ func (td *templateDelete) checkData() {
 
 func (td *templateDelete) SendRequest(getType string) api.ApiResult {
     td.checkData()
-    reqBody := mpf.JsonMarshal(td.ReqData)
+    reqBody := mpf.JSONMarshal(td.ReqData)
 
     td.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/del?access_token=" + wx.NewUtilWx().GetSingleCache(td.appId, getType)
     client, req := td.GetRequest()
@@ -50,7 +50,7 @@ func (td *templateDelete) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

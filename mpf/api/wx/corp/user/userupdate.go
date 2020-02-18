@@ -226,7 +226,7 @@ func (uu *userUpdate) SendRequest(getType string) api.ApiResult {
     if len(uu.externalPosition) > 0 {
         reqData["external_position"] = uu.externalPosition
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     uu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token=" + wx.NewUtilWx().GetCorpCache(uu.corpId, uu.agentTag, getType)
     client, req := uu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -236,7 +236,7 @@ func (uu *userUpdate) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -54,7 +54,7 @@ func (pq *pocketQuery) SendRequest() api.ApiResult {
     conf := wx.NewConfig().GetCorp(pq.corpId)
     sign := wx.NewUtilWx().CreateCropPaySign(pq.ReqData, conf.GetPayKey())
     pq.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(pq.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(pq.ReqData))
 
     pq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/querywwsptrans2pocket"
     client, req := pq.GetRequest()
@@ -84,7 +84,7 @@ func (pq *pocketQuery) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxCorpRequestPost
         result.Msg = respData["return_msg"]

@@ -39,7 +39,7 @@ func (sg *simpleGroups) SetSize(size int) {
 func (sg *simpleGroups) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     sg.ReqUrl = dingtalk.UrlService + "/topapi/attendance/getsimplegroups?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(sg.corpId, sg.agentTag)
 
-    reqBody := mpf.JsonMarshal(sg.ExtendData)
+    reqBody := mpf.JSONMarshal(sg.ExtendData)
     client, req := sg.GetRequest()
     req.SetBody([]byte(reqBody))
 

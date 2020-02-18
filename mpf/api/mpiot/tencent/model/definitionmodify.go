@@ -49,7 +49,7 @@ func (dm *definitionModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewIotTencent(errorcode.IotTencentParam, "数据模板定义不能为空", nil))
     }
     dm.ReqData["ProductId"] = dm.productId
-    dm.ReqData["ModelSchema"] = mpf.JsonMarshal(dm.modelSchema)
+    dm.ReqData["ModelSchema"] = mpf.JSONMarshal(dm.modelSchema)
 
     return dm.GetRequest()
 }

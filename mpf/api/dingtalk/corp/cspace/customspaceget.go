@@ -36,7 +36,7 @@ func (csg *customSpaceGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         csg.ReqData["agent_id"] = agentInfo["id"]
         csg.ReqData["access_token"] = dingtalk.NewUtil().GetProviderAuthorizeAccessToken(csg.corpId)
     }
-    csg.ReqUrl = dingtalk.UrlService + "/cspace/get_custom_space?" + mpf.HttpCreateParams(csg.ReqData, "none", 1)
+    csg.ReqUrl = dingtalk.UrlService + "/cspace/get_custom_space?" + mpf.HTTPCreateParams(csg.ReqData, "none", 1)
 
     return csg.GetRequest()
 }

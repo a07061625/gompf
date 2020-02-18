@@ -65,7 +65,7 @@ func (pea *preEntryAdd) SetOpUserId(opUserId string) {
 
 func (pea *preEntryAdd) SetExtendInfo(extendInfo map[string]interface{}) {
     if len(extendInfo) > 0 {
-        pea.ExtendData["extend_info"] = mpf.JsonMarshal(extendInfo)
+        pea.ExtendData["extend_info"] = mpf.JSONMarshal(extendInfo)
     } else {
         panic(mperr.NewDingTalkCorp(errorcode.DingTalkCorpParam, "扩展信息不合法", nil))
     }
@@ -85,7 +85,7 @@ func (pea *preEntryAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     reqData := make(map[string]interface{})
     reqData["param"] = pea.ExtendData
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     client, req := pea.GetRequest()
     req.SetBody([]byte(reqBody))
 

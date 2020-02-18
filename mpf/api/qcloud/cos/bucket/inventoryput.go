@@ -56,7 +56,7 @@ func (ip *inventoryPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     ip.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     delete(ip.ReqData, "inventory")
-    ip.ReqUrl = "http://" + ip.ReqHeader["Host"] + ip.ReqUri + "?inventory&" + mpf.HttpCreateParams(ip.ReqData, "none", 1)
+    ip.ReqUrl = "http://" + ip.ReqHeader["Host"] + ip.ReqUri + "?inventory&" + mpf.HTTPCreateParams(ip.ReqData, "none", 1)
     client, req := ip.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

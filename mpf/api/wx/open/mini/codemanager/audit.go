@@ -43,7 +43,7 @@ func (ca *audit) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["item_list"] = ca.auditList
-    reqBody := mpf.JsonMarshal(ca.ReqData)
+    reqBody := mpf.JSONMarshal(ca.ReqData)
     ca.ReqUrl = "https://api.weixin.qq.com/wxa/submit_audit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ca.appId)
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (ca *audit) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

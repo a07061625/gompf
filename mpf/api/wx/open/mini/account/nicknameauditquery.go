@@ -44,7 +44,7 @@ func (naq *nicknameAuditQuery) checkData() {
 func (naq *nicknameAuditQuery) SendRequest() api.ApiResult {
     naq.checkData()
 
-    reqBody := mpf.JsonMarshal(naq.ReqData)
+    reqBody := mpf.JSONMarshal(naq.ReqData)
     naq.ReqUrl = "https://api.weixin.qq.com/wxa/api_wxa_querynickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(naq.appId)
     client, req := naq.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -54,7 +54,7 @@ func (naq *nicknameAuditQuery) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

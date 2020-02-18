@@ -54,7 +54,7 @@ func (pr *partyReplace) SendRequest() api.ApiResult {
     if len(pr.callback) > 0 {
         reqData["callback"] = pr.callback
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     pr.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty?access_token=" + wx.NewUtilWx().GetCorpAccessToken(pr.corpId, pr.agentTag)
     client, req := pr.GetRequest()
@@ -65,7 +65,7 @@ func (pr *partyReplace) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

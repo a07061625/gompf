@@ -21,7 +21,7 @@ func (util *utilIot) SendBaiDuRequest(service api.IApiOuter, errorCode uint) api
         return result
     }
 
-    respData, err := mpf.JsonUnmarshalMap(resp.Content)
+    respData, err := mpf.JSONUnmarshalMap(resp.Content)
     if err != nil {
         info := make(map[string]string)
         if len(resp.Content) > 0 {
@@ -49,7 +49,7 @@ func (util *utilIot) SendTencentRequest(service api.IApiOuter, errorCode uint) a
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["Response"]
     if ok {
         respInfo := respData["Response"].(map[string]interface{})

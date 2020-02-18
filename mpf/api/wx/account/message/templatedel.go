@@ -41,7 +41,7 @@ func (ta *templateDel) checkData() {
 func (ta *templateDel) SendRequest() api.ApiResult {
     ta.checkData()
 
-    reqBody := mpf.JsonMarshal(ta.ReqData)
+    reqBody := mpf.JSONMarshal(ta.ReqData)
     ta.ReqUrl = "https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ta.appId)
     client, req := ta.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (ta *templateDel) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

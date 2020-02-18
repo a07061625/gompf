@@ -93,7 +93,7 @@ func (acc *appChatCreate) SendRequest() api.ApiResult {
     }
     reqData["chatid"] = acc.chatId
     reqData["userlist"] = acc.userList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     acc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/appchat/create?access_token=" + wx.NewUtilWx().GetCorpAccessToken(acc.corpId, acc.agentTag)
     client, req := acc.GetRequest()
@@ -104,7 +104,7 @@ func (acc *appChatCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

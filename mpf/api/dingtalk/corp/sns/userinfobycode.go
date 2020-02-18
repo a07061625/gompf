@@ -53,9 +53,9 @@ func (uic *userInfoByCode) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         uic.ReqData["signature"] = dingtalk.NewUtil().CreateApiSign(timestamp, conf.GetLoginAppSecret())
     }
     uic.ReqData["timestamp"] = timestamp
-    uic.ReqUrl = dingtalk.UrlService + "/sns/getuserinfo_bycode?" + mpf.HttpCreateParams(uic.ReqData, "none", 1)
+    uic.ReqUrl = dingtalk.UrlService + "/sns/getuserinfo_bycode?" + mpf.HTTPCreateParams(uic.ReqData, "none", 1)
 
-    reqBody := mpf.JsonMarshal(uic.ExtendData)
+    reqBody := mpf.JSONMarshal(uic.ExtendData)
     client, req := uic.GetRequest()
     req.SetBody([]byte(reqBody))
 

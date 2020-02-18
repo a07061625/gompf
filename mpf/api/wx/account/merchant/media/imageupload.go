@@ -53,7 +53,7 @@ func (iu *imageUpload) SendRequest() api.ApiResult {
 
     iu.ReqData["filename"] = iu.imageName
     iu.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(iu.appId)
-    iu.ReqUrl = "https://api.weixin.qq.com/merchant/common/upload_img?" + mpf.HttpCreateParams(iu.ReqData, "none", 1)
+    iu.ReqUrl = "https://api.weixin.qq.com/merchant/common/upload_img?" + mpf.HTTPCreateParams(iu.ReqData, "none", 1)
     client, req := iu.GetRequest()
     req.SetBody([]byte(iu.imageContent))
 
@@ -62,7 +62,7 @@ func (iu *imageUpload) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

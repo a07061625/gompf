@@ -41,7 +41,7 @@ func (sm *signatureModify) checkData() {
 func (sm *signatureModify) SendRequest() api.ApiResult {
     sm.checkData()
 
-    reqBody := mpf.JsonMarshal(sm.ReqData)
+    reqBody := mpf.JSONMarshal(sm.ReqData)
     sm.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/modifysignature?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(sm.appId)
     client, req := sm.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (sm *signatureModify) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

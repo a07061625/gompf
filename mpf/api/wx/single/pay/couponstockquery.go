@@ -63,7 +63,7 @@ func (csq *couponStockQuery) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(csq.ReqData, csq.appId, "md5")
     csq.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(csq.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(csq.ReqData))
     csq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/query_coupon_stock"
     client, req := csq.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -74,7 +74,7 @@ func (csq *couponStockQuery) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

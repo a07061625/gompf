@@ -52,7 +52,7 @@ func (jdr *jobDeviceResult) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     jdr.ServiceUri = "/v3/iot/management/ota/job/" + jdr.jobId + "/device-result"
 
-    jdr.ReqUrl = jdr.GetServiceUrl() + "?" + mpf.HttpCreateParams(jdr.ReqData, "none", 1)
+    jdr.ReqUrl = jdr.GetServiceUrl() + "?" + mpf.HTTPCreateParams(jdr.ReqData, "none", 1)
 
     return jdr.GetRequest()
 }

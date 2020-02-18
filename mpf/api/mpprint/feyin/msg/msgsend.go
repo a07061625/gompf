@@ -97,7 +97,7 @@ func (ms *msgSend) checkData() (*fasthttp.Client, *fasthttp.Request) {
             panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "消息内容不能为空", nil))
         }
     }
-    reqBody := mpf.JsonMarshal(newData)
+    reqBody := mpf.JSONMarshal(newData)
 
     ms.ReqUrl = mpprint.FeYinServiceDomain + "/msg?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(ms.GetAppId())
 
@@ -114,7 +114,7 @@ func (ms *msgSend) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["msg_no"]
     if ok {
         result.Data = respData

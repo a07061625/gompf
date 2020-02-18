@@ -54,7 +54,7 @@ func (ca *conditionalAdd) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["button"] = ca.buttonList
     reqData["matchrule"] = ca.matchRule
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     ca.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ca.appId)
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -64,7 +64,7 @@ func (ca *conditionalAdd) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["menuid"]
     if ok {
         result.Data = respData

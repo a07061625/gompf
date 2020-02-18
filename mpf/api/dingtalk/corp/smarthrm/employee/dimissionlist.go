@@ -51,7 +51,7 @@ func (dl *dimissionList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     dl.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/listdimission?access_token=" + dingtalk.NewUtil().GetAccessToken(dl.corpId, dl.agentTag, dl.atType)
 
-    reqBody := mpf.JsonMarshal(dl.ExtendData)
+    reqBody := mpf.JSONMarshal(dl.ExtendData)
     dlient, req := dl.GetRequest()
     req.SetBody([]byte(reqBody))
 

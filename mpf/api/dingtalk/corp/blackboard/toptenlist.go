@@ -37,7 +37,7 @@ func (ttl *topTenList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ttl.ReqUrl = dingtalk.UrlService + "/topapi/blackboard/listtopten?access_token=" + dingtalk.NewUtil().GetAccessToken(ttl.corpId, ttl.agentTag, ttl.atType)
 
-    reqBody := mpf.JsonMarshal(ttl.ExtendData)
+    reqBody := mpf.JSONMarshal(ttl.ExtendData)
     client, req := ttl.GetRequest()
     req.SetBody([]byte(reqBody))
 

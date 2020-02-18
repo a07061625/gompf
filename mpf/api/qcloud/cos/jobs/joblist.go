@@ -46,7 +46,7 @@ func (jl *jobList) SetNextToken(nextToken string) {
 }
 
 func (jl *jobList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    jl.ReqUrl = "http://" + jl.ReqHeader["Host"] + jl.ReqUri + "?" + mpf.HttpCreateParams(jl.ReqData, "none", 1)
+    jl.ReqUrl = "http://" + jl.ReqHeader["Host"] + jl.ReqUri + "?" + mpf.HTTPCreateParams(jl.ReqData, "none", 1)
     return jl.GetRequest()
 }
 

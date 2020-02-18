@@ -84,7 +84,7 @@ func (ns *nicknameSet) checkData() {
 func (ns *nicknameSet) SendRequest() api.ApiResult {
     ns.checkData()
 
-    reqBody := mpf.JsonMarshal(ns.ReqData)
+    reqBody := mpf.JSONMarshal(ns.ReqData)
     ns.ReqUrl = "https://api.weixin.qq.com/wxa/setnickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ns.appId)
     client, req := ns.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -94,7 +94,7 @@ func (ns *nicknameSet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

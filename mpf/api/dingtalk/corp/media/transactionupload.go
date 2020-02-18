@@ -55,7 +55,7 @@ func (tu *transactionUpload) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     tu.ReqData["file_size"] = strconv.FormatInt(tu.fileSize, 10)
     tu.ReqData["chunk_numbers"] = strconv.Itoa(tu.chunkNumbers)
     tu.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(tu.corpId, tu.agentTag, tu.atType)
-    tu.ReqUrl = dingtalk.UrlService + "/file/upload/transaction?" + mpf.HttpCreateParams(tu.ReqData, "none", 1)
+    tu.ReqUrl = dingtalk.UrlService + "/file/upload/transaction?" + mpf.HTTPCreateParams(tu.ReqData, "none", 1)
 
     return tu.GetRequest()
 }

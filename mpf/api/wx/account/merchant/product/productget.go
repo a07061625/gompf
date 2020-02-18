@@ -40,7 +40,7 @@ func (pg *productGet) checkData() {
 func (pg *productGet) SendRequest() api.ApiResult {
     pg.checkData()
 
-    reqBody := mpf.JsonMarshal(pg.ReqData)
+    reqBody := mpf.JSONMarshal(pg.ReqData)
     pg.ReqUrl = "https://api.weixin.qq.com/merchant/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pg.appId)
     client, req := pg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (pg *productGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

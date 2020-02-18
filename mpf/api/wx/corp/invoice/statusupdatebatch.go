@@ -73,7 +73,7 @@ func (sub *statusUpdateBatch) SendRequest(getType string) api.ApiResult {
     reqData["openid"] = sub.openid
     reqData["reimburse_status"] = sub.reimburseStatus
     reqData["invoice_list"] = sub.invoiceList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     sub.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/updatestatusbatch?access_token=" + wx.NewUtilWx().GetCorpCache(sub.corpId, sub.agentTag, getType)
     client, req := sub.GetRequest()
@@ -84,7 +84,7 @@ func (sub *statusUpdateBatch) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

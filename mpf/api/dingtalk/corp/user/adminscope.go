@@ -43,7 +43,7 @@ func (as *adminScope) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     as.ReqUrl = dingtalk.UrlService + "/topapi/user/get_admin_scope?access_token=" + dingtalk.NewUtil().GetAccessToken(as.corpId, as.agentTag, as.atType)
 
-    reqBody := mpf.JsonMarshal(as.ExtendData)
+    reqBody := mpf.JSONMarshal(as.ExtendData)
     client, req := as.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -68,7 +68,7 @@ func (ppa *principalPolicyAttach) CheckData() (*fasthttp.Client, *fasthttp.Reque
 
     ppa.ReqUrl = ppa.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(ppa.ExtendData)
+    reqBody := mpf.JSONMarshal(ppa.ExtendData)
     client, req := ppa.GetRequest()
     req.SetBody([]byte(reqBody))
 

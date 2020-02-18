@@ -78,7 +78,7 @@ func (mp *massPreview) SendRequest() api.ApiResult {
     if len(mp.wxName) > 0 {
         reqData["towxname"] = mp.wxName
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     mp.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mp.appId)
     client, req := mp.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -88,7 +88,7 @@ func (mp *massPreview) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

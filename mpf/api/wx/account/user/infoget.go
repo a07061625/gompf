@@ -43,7 +43,7 @@ func (ig *infoGet) SendRequest() api.ApiResult {
     ig.checkData()
 
     ig.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(ig.appId)
-    ig.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/info?" + mpf.HttpCreateParams(ig.ReqData, "none", 1)
+    ig.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/info?" + mpf.HTTPCreateParams(ig.ReqData, "none", 1)
     client, req := ig.GetRequest()
 
     resp, result := ig.SendInner(client, req, errorcode.WxAccountRequestGet)
@@ -51,7 +51,7 @@ func (ig *infoGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["openid"]
     if ok {
         result.Data = respData

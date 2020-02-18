@@ -35,7 +35,7 @@ func (plu *parentListByUser) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     plu.ReqData["userId"] = plu.userId
     plu.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(plu.corpId, plu.agentTag, plu.atType)
-    plu.ReqUrl = dingtalk.UrlService + "/department/list_parent_depts?" + mpf.HttpCreateParams(plu.ReqData, "none", 1)
+    plu.ReqUrl = dingtalk.UrlService + "/department/list_parent_depts?" + mpf.HTTPCreateParams(plu.ReqData, "none", 1)
 
     return plu.GetRequest()
 }

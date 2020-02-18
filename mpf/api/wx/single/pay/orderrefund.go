@@ -112,7 +112,7 @@ func (or *orderRefund) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(or.ReqData, or.appId, "md5")
     or.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(or.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(or.ReqData))
     or.ReqUrl = "https://api.mch.weixin.qq.com/secapi/pay/refund"
     client, req := or.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -142,7 +142,7 @@ func (or *orderRefund) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

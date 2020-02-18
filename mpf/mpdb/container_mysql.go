@@ -30,7 +30,7 @@ func (container *containerMysql) NotifyObservers(data interface{}) error {
     defer func() {
         if r := recover(); r != nil {
             if err1, ok := r.(*mperr.ErrorCommon); ok {
-                mplog.LogError("mysql observer error: " + mpf.JsonMarshal(err1))
+                mplog.LogError("mysql observer error: " + mpf.JSONMarshal(err1))
                 errObj.Code = err1.Code
                 errObj.Msg = err1.Msg
             } else if err2, ok := r.(error); ok {

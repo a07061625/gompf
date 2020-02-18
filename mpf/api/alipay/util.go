@@ -44,7 +44,7 @@ type utilAliPay struct {
 
 // 获取待签名字符串
 func (util *utilAliPay) sortData(data map[string]string) string {
-    pk := mpf.NewHttpParamKey(data)
+    pk := mpf.NewHTTPParamKey(data)
     sort.Sort(pk)
     str := ""
     for _, param := range pk.Params {
@@ -154,7 +154,7 @@ func (util *utilAliPay) SendRequest(service IAliPayBase, errorCode uint) api.Api
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     respTag := service.GetRespTag()
     _, ok := respData[respTag]
     if ok {

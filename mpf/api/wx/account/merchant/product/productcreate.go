@@ -157,7 +157,7 @@ func (pc *productCreate) SendRequest() api.ApiResult {
     if len(pc.extAttr) > 0 {
         reqData["attrext"] = pc.extAttr
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     pc.ReqUrl = "https://api.weixin.qq.com/merchant/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pc.appId)
     client, req := pc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -167,7 +167,7 @@ func (pc *productCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -71,7 +71,7 @@ func (os *orderSync) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     os.BizContent["out_request_no"] = os.outRequestNo
     os.BizContent["biz_type"] = os.bizType
-    os.BizContent["order_biz_info"] = mpf.JsonMarshal(os.bizInfo)
+    os.BizContent["order_biz_info"] = mpf.JSONMarshal(os.bizInfo)
 
     return os.GetRequest()
 }

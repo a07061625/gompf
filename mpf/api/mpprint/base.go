@@ -52,7 +52,7 @@ func (p *BaseFeYin) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(p.ReqUrl)
     req.Header.SetContentType(p.ReqContentType)
     req.Header.SetMethod(p.ReqMethod)
-    mpf.HttpAddReqHeader(req, p.ReqHeader)
+    mpf.HTTPAddReqHeader(req, p.ReqHeader)
 
     return client, req
 }

@@ -50,7 +50,7 @@ func (ap *authenticatePassword) CheckData() (*fasthttp.Client, *fasthttp.Request
 
     ap.ReqUrl = ap.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(ap.ExtendData)
+    reqBody := mpf.JSONMarshal(ap.ExtendData)
     client, req := ap.GetRequest()
     req.SetBody([]byte(reqBody))
 

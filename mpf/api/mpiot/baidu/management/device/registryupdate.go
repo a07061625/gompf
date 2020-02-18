@@ -63,7 +63,7 @@ func (ru *registryUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ru.ReqUrl = ru.GetServiceUrl() + "?updateRegistry"
 
-    reqBody := mpf.JsonMarshal(ru.ExtendData)
+    reqBody := mpf.JSONMarshal(ru.ExtendData)
     client, req := ru.GetRequest()
     req.SetBody([]byte(reqBody))
 

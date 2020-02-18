@@ -22,14 +22,14 @@ type menuDelete struct {
 
 func (md *menuDelete) SendRequest() api.ApiResult {
     md.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(md.corpId, md.agentTag)
-    md.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/delete?" + mpf.HttpCreateParams(md.ReqData, "none", 1)
+    md.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/delete?" + mpf.HTTPCreateParams(md.ReqData, "none", 1)
     client, req := md.GetRequest()
     resp, result := md.SendInner(client, req, errorcode.WxCorpRequestGet)
     if resp.RespCode > 0 {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

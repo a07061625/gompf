@@ -42,10 +42,10 @@ func (mc *menuCreate) SendRequest() api.ApiResult {
     mc.checkData()
     reqData := make(map[string]interface{})
     reqData["button"] = mc.buttons
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     mc.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(mc.corpId, mc.agentTag)
-    mc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/create?" + mpf.HttpCreateParams(mc.ReqData, "none", 1)
+    mc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/create?" + mpf.HTTPCreateParams(mc.ReqData, "none", 1)
     client, req := mc.GetRequest()
     req.SetBody([]byte(reqBody))
 
@@ -54,7 +54,7 @@ func (mc *menuCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

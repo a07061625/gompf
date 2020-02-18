@@ -42,7 +42,7 @@ func (acg *appConfigGet) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["type"] = acg.configType
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     acg.ReqUrl = "https://api.weixin.qq.com/tcb/getappconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(acg.appId)
     client, req := acg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -52,7 +52,7 @@ func (acg *appConfigGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

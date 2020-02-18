@@ -79,7 +79,7 @@ func (tua *tagUsersAdd) SendRequest(getType string) api.ApiResult {
     reqData["tagid"] = tua.tagId
     reqData["userlist"] = tua.userList
     reqData["partylist"] = tua.partyList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     tua.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token=" + wx.NewUtilWx().GetCorpCache(tua.corpId, tua.agentTag, getType)
     client, req := tua.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -89,7 +89,7 @@ func (tua *tagUsersAdd) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

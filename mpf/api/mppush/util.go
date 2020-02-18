@@ -21,7 +21,7 @@ func (util *utilPush) SendXinGeRequest(service api.IApiOuter, errorCode uint) ap
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["ret_code"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData
@@ -38,7 +38,7 @@ func (util *utilPush) SendBaiDuRequest(service api.IApiOuter, errorCode uint) ap
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["error_code"]
     if ok {
         result.Code = errorCode
@@ -60,7 +60,7 @@ func (util *utilPush) SendJPushRequest(service api.IApiOuter, errorCode uint) ap
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["error"]
     if ok {
         errorInfo := respData["error"].(map[string]interface{})

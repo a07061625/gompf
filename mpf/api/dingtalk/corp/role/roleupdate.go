@@ -53,7 +53,7 @@ func (ru *roleUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ru.ReqUrl = dingtalk.UrlService + "/role/update_role?access_token=" + dingtalk.NewUtil().GetAccessToken(ru.corpId, ru.agentTag, ru.atType)
 
-    reqBody := mpf.JsonMarshal(ru.ExtendData)
+    reqBody := mpf.JSONMarshal(ru.ExtendData)
     client, req := ru.GetRequest()
     req.SetBody([]byte(reqBody))
 

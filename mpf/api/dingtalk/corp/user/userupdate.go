@@ -87,7 +87,7 @@ func (uu *userUpdate) SetJobNumber(jobNumber string) {
 
 func (uu *userUpdate) SetDepartmentOrder(departmentOrder map[int]int) {
     if len(departmentOrder) > 0 {
-        uu.ExtendData["orderInDepts"] = mpf.JsonMarshal(departmentOrder)
+        uu.ExtendData["orderInDepts"] = mpf.JSONMarshal(departmentOrder)
     } else {
         panic(mperr.NewDingTalkCorp(errorcode.DingTalkCorpParam, "部门排序不合法", nil))
     }
@@ -168,7 +168,7 @@ func (uu *userUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     uu.ReqUrl = dingtalk.UrlService + "/user/update?access_token=" + dingtalk.NewUtil().GetAccessToken(uu.corpId, uu.agentTag, uu.atType)
 
-    reqBody := mpf.JsonMarshal(uu.ExtendData)
+    reqBody := mpf.JSONMarshal(uu.ExtendData)
     client, req := uu.GetRequest()
     req.SetBody([]byte(reqBody))
 

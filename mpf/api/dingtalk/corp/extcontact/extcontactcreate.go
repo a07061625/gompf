@@ -125,7 +125,7 @@ func (ecc *extContactCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     reqData := make(map[string]interface{})
     reqData["contact"] = ecc.ExtendData
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     client, req := ecc.GetRequest()
     req.SetBody([]byte(reqBody))
 

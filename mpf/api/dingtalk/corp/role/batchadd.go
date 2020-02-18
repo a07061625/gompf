@@ -72,7 +72,7 @@ func (ba *batchAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ba.ReqUrl = dingtalk.UrlService + "/topapi/role/addrolesforemps?access_token=" + dingtalk.NewUtil().GetAccessToken(ba.corpId, ba.agentTag, ba.atType)
 
-    reqBody := mpf.JsonMarshal(ba.ExtendData)
+    reqBody := mpf.JSONMarshal(ba.ExtendData)
     client, req := ba.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -93,7 +93,7 @@ func (cqb *commentQueryBatch) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(cqb.ReqData, cqb.appId, "md5")
     cqb.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(cqb.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(cqb.ReqData))
     cqb.ReqUrl = "https://api.mch.weixin.qq.com/billcommentsp/batchquerycomment"
     client, req := cqb.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -123,7 +123,7 @@ func (cqb *commentQueryBatch) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    err = xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    err = xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if err != nil {
         f, err := os.Create(cqb.outputFile)
         defer f.Close()

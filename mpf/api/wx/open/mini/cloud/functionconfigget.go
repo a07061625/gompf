@@ -72,7 +72,7 @@ func (fcg *functionConfigGet) SendRequest() api.ApiResult {
     reqData["type"] = fcg.configType
     reqData["env"] = fcg.env
     reqData["function_name"] = fcg.functionName
-    reqBody := mpf.JsonMarshal(fcg.ReqData)
+    reqBody := mpf.JSONMarshal(fcg.ReqData)
     fcg.ReqUrl = "https://api.weixin.qq.com/tcb/getfuncconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fcg.appId)
     client, req := fcg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -82,7 +82,7 @@ func (fcg *functionConfigGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

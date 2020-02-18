@@ -87,7 +87,7 @@ func (ts *templateSend) SendRequest() api.ApiResult {
     if len(ts.miniProgram) > 0 {
         reqData["miniprogram"] = ts.miniProgram
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     ts.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ts.appId)
     client, req := ts.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -97,7 +97,7 @@ func (ts *templateSend) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

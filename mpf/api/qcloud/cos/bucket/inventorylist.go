@@ -31,7 +31,7 @@ func (il *inventoryList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     delete(il.ReqData, "inventory")
     il.ReqUrl = "http://" + il.ReqHeader["Host"] + il.ReqUri + "?inventory"
     if len(il.ReqData) > 0 {
-        il.ReqUrl += "&" + mpf.HttpCreateParams(il.ReqData, "none", 1)
+        il.ReqUrl += "&" + mpf.HTTPCreateParams(il.ReqData, "none", 1)
     }
     return il.GetRequest()
 }

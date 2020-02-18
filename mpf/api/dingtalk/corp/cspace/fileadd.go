@@ -97,7 +97,7 @@ func (fa *fileAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     fa.ReqData["folder_id"] = fa.folderId
     fa.ReqData["name"] = fa.fileName
     fa.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(fa.corpId, fa.agentTag, fa.atType)
-    fa.ReqUrl = dingtalk.UrlService + "/cspace/add?" + mpf.HttpCreateParams(fa.ReqData, "none", 1)
+    fa.ReqUrl = dingtalk.UrlService + "/cspace/add?" + mpf.HTTPCreateParams(fa.ReqData, "none", 1)
 
     return fa.GetRequest()
 }

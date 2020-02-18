@@ -40,7 +40,7 @@ func (ar *adminRebind) checkData() {
 func (ar *adminRebind) SendRequest() api.ApiResult {
     ar.checkData()
 
-    reqBody := mpf.JsonMarshal(ar.ReqData)
+    reqBody := mpf.JSONMarshal(ar.ReqData)
     ar.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/componentrebindadmin?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := ar.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (ar *adminRebind) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

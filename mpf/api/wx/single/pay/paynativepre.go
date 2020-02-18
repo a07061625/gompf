@@ -46,7 +46,7 @@ func (pnp *payNativePre) GetResult() map[string]string {
     pnp.ReqData["sign"] = sign
 
     result := make(map[string]string)
-    result["url"] = "weixin://wxpay/bizpayurl?" + mpf.HttpCreateParams(pnp.ReqData, "none", 4)
+    result["url"] = "weixin://wxpay/bizpayurl?" + mpf.HTTPCreateParams(pnp.ReqData, "none", 4)
     return result
 }
 

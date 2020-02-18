@@ -55,7 +55,7 @@ func (dd *devicesDel) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPushBaiDu(errorcode.PushBaiDuParam, "设备列表不能为空", nil))
     }
     dd.ReqData["tag"] = dd.tag
-    dd.ReqData["channel_ids"] = mpf.JsonMarshal(dd.channelList)
+    dd.ReqData["channel_ids"] = mpf.JSONMarshal(dd.channelList)
 
     return dd.GetRequest()
 }

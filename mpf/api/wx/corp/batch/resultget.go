@@ -43,7 +43,7 @@ func (rg *resultGet) SendRequest() api.ApiResult {
     rg.checkData()
 
     rg.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(rg.corpId, rg.agentTag)
-    rg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?" + mpf.HttpCreateParams(rg.ReqData, "none", 1)
+    rg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?" + mpf.HTTPCreateParams(rg.ReqData, "none", 1)
     client, req := rg.GetRequest()
 
     resp, result := rg.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -51,7 +51,7 @@ func (rg *resultGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

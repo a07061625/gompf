@@ -91,7 +91,7 @@ func (fu *functionUpdate) SendRequest() api.ApiResult {
     fu.checkData()
 
     fu.ReqData["CodeSecret"] = wx.NewUtilWx().GetOpenAuthorizeCodeSecret(fu.appId)
-    reqBody := mpf.JsonMarshal(fu.ReqData)
+    reqBody := mpf.JSONMarshal(fu.ReqData)
     hashedPayload := mpf.HashSha256(reqBody, "")
     signatureGet := NewUploadSignatureGet(fu.appId)
     signatureGet.SetHashedPayload(hashedPayload)
@@ -115,7 +115,7 @@ func (fu *functionUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

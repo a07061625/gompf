@@ -43,7 +43,7 @@ func (sg *sessionGet) SendRequest() api.ApiResult {
     sg.checkData()
 
     sg.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(sg.appId)
-    sg.ReqUrl = "https://api.weixin.qq.com/customservice/kfsession/getsession?" + mpf.HttpCreateParams(sg.ReqData, "none", 1)
+    sg.ReqUrl = "https://api.weixin.qq.com/customservice/kfsession/getsession?" + mpf.HTTPCreateParams(sg.ReqData, "none", 1)
     client, req := sg.GetRequest()
 
     resp, result := sg.SendInner(client, req, errorcode.WxAccountRequestGet)
@@ -51,7 +51,7 @@ func (sg *sessionGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok {
         result.Code = errorcode.WxAccountRequestGet

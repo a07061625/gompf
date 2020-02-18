@@ -29,7 +29,7 @@ func (tg *tagGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["tags"]
     if ok {
         result.Data = respData

@@ -68,7 +68,7 @@ func (nu *newsUpdate) SendRequest() api.ApiResult {
     reqData["media_id"] = nu.mediaId
     reqData["index"] = nu.index
     reqData["articles"] = nu.articles
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     nu.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token=" + wx.NewUtilWx().GetSingleAccessToken(nu.appId)
     client, req := nu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -78,7 +78,7 @@ func (nu *newsUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

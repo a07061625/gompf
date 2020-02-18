@@ -60,7 +60,7 @@ func (utb *unTaggingBatch) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["tagid"] = utb.tagId
     reqData["openid_list"] = utb.openidList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     utb.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token=" + wx.NewUtilWx().GetSingleAccessToken(utb.appId)
     client, req := utb.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -70,7 +70,7 @@ func (utb *unTaggingBatch) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

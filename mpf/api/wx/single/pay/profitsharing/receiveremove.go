@@ -37,7 +37,7 @@ func (rr *receiverRemove) checkData() {
     if len(rr.receiver) == 0 {
         panic(mperr.NewWxAccount(errorcode.WxAccountParam, "分账接收方不能为空", nil))
     }
-    rr.ReqData["receiver"] = mpf.JsonMarshal(rr.receiver)
+    rr.ReqData["receiver"] = mpf.JSONMarshal(rr.receiver)
 }
 
 func (rr *receiverRemove) SendRequest() api.ApiResult {
@@ -45,7 +45,7 @@ func (rr *receiverRemove) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(rr.ReqData, rr.appId, "sha256")
     rr.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(rr.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(rr.ReqData))
     rr.ReqUrl = "https://api.mch.weixin.qq.com/pay/profitsharingremovereceiver"
     client, req := rr.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -56,7 +56,7 @@ func (rr *receiverRemove) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

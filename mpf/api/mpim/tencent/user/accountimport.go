@@ -67,7 +67,7 @@ func (ai *accountImport) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ai.ExtendData["Nick"] = ai.nickname
     ai.ExtendData["FaceUrl"] = ai.faceUrl
     ai.ExtendData["Type"] = ai.userType
-    reqBody := mpf.JsonMarshal(ai.ExtendData)
+    reqBody := mpf.JSONMarshal(ai.ExtendData)
 
     client, req := ai.GetRequest()
     req.SetBody([]byte(reqBody))

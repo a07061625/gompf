@@ -45,7 +45,7 @@ func (adg *openApprovalDataGet) checkData() {
 func (adg *openApprovalDataGet) SendRequest(getType string) api.ApiResult {
     adg.checkData()
 
-    reqBody := mpf.JsonMarshal(adg.ReqData)
+    reqBody := mpf.JSONMarshal(adg.ReqData)
     adg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/corp/getopenapprovaldata?access_token=" + wx.NewUtilWx().GetCorpCache(adg.corpId, adg.agentTag, getType)
     client, req := adg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -55,7 +55,7 @@ func (adg *openApprovalDataGet) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

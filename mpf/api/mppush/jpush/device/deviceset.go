@@ -66,7 +66,7 @@ func (ds *deviceSet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ds.ReqUrl = ds.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(ds.ExtendData)
+    reqBody := mpf.JSONMarshal(ds.ExtendData)
     client, req := ds.GetRequest()
     req.SetBody([]byte(reqBody))
 

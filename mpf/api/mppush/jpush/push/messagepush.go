@@ -100,7 +100,7 @@ func (mp *messagePush) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     mp.ReqUrl = mp.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(mp.ExtendData)
+    reqBody := mpf.JSONMarshal(mp.ExtendData)
     client, req := mp.GetRequest()
     req.SetBody([]byte(reqBody))
 

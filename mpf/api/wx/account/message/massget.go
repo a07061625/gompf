@@ -44,7 +44,7 @@ func (mg *massGet) checkData() {
 func (mg *massGet) SendRequest() api.ApiResult {
     mg.checkData()
 
-    reqBody := mpf.JsonMarshal(mg.ReqData)
+    reqBody := mpf.JSONMarshal(mg.ReqData)
     mg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mg.appId)
     client, req := mg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -54,7 +54,7 @@ func (mg *massGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["msg_id"]
     if ok {
         result.Data = respData

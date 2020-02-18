@@ -55,7 +55,7 @@ func (tis *templateIndustrySet) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["industry_id1"] = tis.industryId1
     reqData["industry_id2"] = tis.industryId2
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     tis.ReqUrl = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tis.appId)
     client, req := tis.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -65,7 +65,7 @@ func (tis *templateIndustrySet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

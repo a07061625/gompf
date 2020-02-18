@@ -40,7 +40,7 @@ func (cd *codeDelete) checkData() {
 func (cd *codeDelete) SendRequest() api.ApiResult {
     cd.checkData()
 
-    reqBody := mpf.JsonMarshal(cd.ReqData)
+    reqBody := mpf.JSONMarshal(cd.ReqData)
     cd.ReqUrl = "https://api.weixin.qq.com/wxa/deletetemplate?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := cd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (cd *codeDelete) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

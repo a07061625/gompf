@@ -56,7 +56,7 @@ func (mg *mediaGet) SendRequest() api.ApiResult {
     mg.checkData()
 
     mg.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(mg.appId)
-    mg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/media/get?" + mpf.HttpCreateParams(mg.ReqData, "none", 1)
+    mg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/media/get?" + mpf.HTTPCreateParams(mg.ReqData, "none", 1)
     client, req := mg.GetRequest()
 
     resp, result := mg.SendInner(client, req, errorcode.WxAccountRequestGet)
@@ -64,7 +64,7 @@ func (mg *mediaGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, err := mpf.JsonUnmarshalMap(resp.Content)
+    respData, err := mpf.JSONUnmarshalMap(resp.Content)
     if err != nil {
         fileName := mg.outputDir + mg.mediaId
         f, err := os.Create(fileName)

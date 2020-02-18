@@ -56,7 +56,7 @@ func (sl *scheduleList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     sl.ReqUrl = dingtalk.UrlService + "/topapi/attendance/listschedule?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(sl.corpId, sl.agentTag)
 
-    reqBody := mpf.JsonMarshal(sl.ExtendData)
+    reqBody := mpf.JSONMarshal(sl.ExtendData)
     client, req := sl.GetRequest()
     req.SetBody([]byte(reqBody))
 

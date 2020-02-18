@@ -84,7 +84,7 @@ func (iil *instanceIdList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     iil.ReqUrl = dingtalk.UrlService + "/topapi/processinstance/listids?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(iil.corpId, iil.agentTag)
 
-    reqBody := mpf.JsonMarshal(iil.ExtendData)
+    reqBody := mpf.JSONMarshal(iil.ExtendData)
     client, req := iil.GetRequest()
     req.SetBody([]byte(reqBody))
 

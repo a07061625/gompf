@@ -43,7 +43,7 @@ func (eg *expressGet) checkData() {
 func (eg *expressGet) SendRequest() api.ApiResult {
     eg.checkData()
 
-    reqBody := mpf.JsonMarshal(eg.ReqData)
+    reqBody := mpf.JSONMarshal(eg.ReqData)
     eg.ReqUrl = "https://api.weixin.qq.com/merchant/express/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(eg.appId)
     client, req := eg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (eg *expressGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

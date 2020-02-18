@@ -33,7 +33,7 @@ func (ig *instanceGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ig.ReqUrl = dingtalk.UrlService + "/topapi/processinstance/get?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ig.corpId, ig.agentTag)
 
-    reqBody := mpf.JsonMarshal(ig.ExtendData)
+    reqBody := mpf.JSONMarshal(ig.ExtendData)
     client, req := ig.GetRequest()
     req.SetBody([]byte(reqBody))
 

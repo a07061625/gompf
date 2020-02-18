@@ -62,7 +62,7 @@ func (ovl *objectVersionList) SetVersionIdMarker(versionIdMarker string) {
 }
 
 func (ovl *objectVersionList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    ovl.ReqUrl = "http://" + ovl.ReqHeader["Host"] + ovl.ReqUri + "?" + mpf.HttpCreateParams(ovl.ReqData, "none", 1)
+    ovl.ReqUrl = "http://" + ovl.ReqHeader["Host"] + ovl.ReqUri + "?" + mpf.HTTPCreateParams(ovl.ReqData, "none", 1)
     return ovl.GetRequest()
 }
 

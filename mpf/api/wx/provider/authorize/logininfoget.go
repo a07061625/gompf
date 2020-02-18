@@ -40,7 +40,7 @@ func (lig *loginInfoGet) checkData() {
 func (lig *loginInfoGet) SendRequest() api.ApiResult {
     lig.checkData()
 
-    reqBody := mpf.JsonMarshal(lig.ReqData)
+    reqBody := mpf.JSONMarshal(lig.ReqData)
     lig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?access_token=" + wx.NewUtilWx().GetProviderToken()
     client, req := lig.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (lig *loginInfoGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

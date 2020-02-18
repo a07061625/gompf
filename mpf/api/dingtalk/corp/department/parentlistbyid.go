@@ -33,7 +33,7 @@ func (pli *parentListById) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pli.ReqData["id"] = strconv.Itoa(pli.id)
     pli.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(pli.corpId, pli.agentTag, pli.atType)
-    pli.ReqUrl = dingtalk.UrlService + "/department/list_parent_depts_by_dept?" + mpf.HttpCreateParams(pli.ReqData, "none", 1)
+    pli.ReqUrl = dingtalk.UrlService + "/department/list_parent_depts_by_dept?" + mpf.HTTPCreateParams(pli.ReqData, "none", 1)
 
     return pli.GetRequest()
 }

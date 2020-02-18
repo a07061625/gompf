@@ -69,7 +69,7 @@ func (su *statusUpdate) checkData() {
 
 func (su *statusUpdate) SendRequest(getType string) api.ApiResult {
     su.checkData()
-    reqBody := mpf.JsonMarshal(su.ReqData)
+    reqBody := mpf.JSONMarshal(su.ReqData)
 
     su.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/updateinvoicestatus?access_token=" + wx.NewUtilWx().GetCorpCache(su.corpId, su.agentTag, getType)
     client, req := su.GetRequest()
@@ -80,7 +80,7 @@ func (su *statusUpdate) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

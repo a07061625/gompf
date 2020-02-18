@@ -37,7 +37,7 @@ func (ius *stepInfoUserStatus) CheckData() (*fasthttp.Client, *fasthttp.Request)
 
     ius.ReqUrl = dingtalk.UrlService + "/topapi/health/stepinfo/getuserstatus?access_token=" + dingtalk.NewUtil().GetAccessToken(ius.corpId, ius.agentTag, ius.atType)
 
-    reqBody := mpf.JsonMarshal(ius.ExtendData)
+    reqBody := mpf.JSONMarshal(ius.ExtendData)
     client, req := ius.GetRequest()
     req.SetBody([]byte(reqBody))
 

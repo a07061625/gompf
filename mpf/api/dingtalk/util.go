@@ -36,7 +36,7 @@ func (util *utilDingTalk) refreshSsoToken(corpId string) map[string]interface{} 
         atMap["corpid"] = conf.GetCorpId()
         atMap["corpsecret"] = conf.GetSsoSecret()
     }
-    atUrl := UrlService + "/sso/gettoken?" + mpf.HttpCreateParams(atMap, "none", 1)
+    atUrl := UrlService + "/sso/gettoken?" + mpf.HTTPCreateParams(atMap, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -46,12 +46,12 @@ func (util *utilDingTalk) refreshSsoToken(corpId string) map[string]interface{} 
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewDingTalk(errorcode.DingTalkParam, "获取sso token出错", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewDingTalk(errorcode.DingTalkParam, "获取sso token出错", nil))
@@ -71,7 +71,7 @@ func (util *utilDingTalk) refreshSnsToken(corpId string) map[string]interface{} 
         stMap["appid"] = conf.GetLoginAppId()
         stMap["appsecret"] = conf.GetLoginAppSecret()
     }
-    stUrl := UrlService + "/sns/gettoken?" + mpf.HttpCreateParams(stMap, "none", 1)
+    stUrl := UrlService + "/sns/gettoken?" + mpf.HTTPCreateParams(stMap, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -81,12 +81,12 @@ func (util *utilDingTalk) refreshSnsToken(corpId string) map[string]interface{} 
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewDingTalk(errorcode.DingTalkParam, "获取开放应用令牌出错", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewDingTalk(errorcode.DingTalkParam, "获取开放应用令牌出错", nil))
@@ -115,15 +115,15 @@ func (util *utilDingTalk) refreshUserSnsToken(corpId, openid, persistentCode str
     stData := make(map[string]string)
     stData["openid"] = openid
     stData["persistent_code"] = persistentCode
-    reqBody := mpf.JsonMarshal(stData)
+    reqBody := mpf.JSONMarshal(stData)
     req.SetBody([]byte(reqBody))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewDingTalk(errorcode.DingTalkParam, "获取用户授权令牌出错", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["sns_token"]
     if !ok {
         panic(mperr.NewDingTalk(errorcode.DingTalkParam, "获取用户授权令牌出错", nil))
@@ -147,7 +147,7 @@ func (util *utilDingTalk) CreateCallbackSign(token, encryptData, nonceStr string
     signMap["encrypt"] = encryptData
     signMap["nonce"] = nonceStr
     signMap["timestamp"] = strconv.Itoa(timestamp)
-    signData := mpf.NewHttpParamVal(signMap)
+    signData := mpf.NewHTTPParamVal(signMap)
     sort.Sort(signData)
 
     signStr := ""
@@ -179,7 +179,7 @@ func (util *utilDingTalk) SendRequest(service api.IApiOuter, errorCode uint) api
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

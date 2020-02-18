@@ -26,7 +26,7 @@ func (util *utilWx) refreshSingleAccessToken(appId string) map[string]interface{
     atMap["appid"] = conf.GetAppId()
     atMap["secret"] = conf.GetSecret()
     atMap["grant_type"] = "client_credential"
-    atUrl := "https://api.weixin.qq.com/cgi-bin/token?" + mpf.HttpCreateParams(atMap, "none", 1)
+    atUrl := "https://api.weixin.qq.com/cgi-bin/token?" + mpf.HTTPCreateParams(atMap, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -36,12 +36,12 @@ func (util *utilWx) refreshSingleAccessToken(appId string) map[string]interface{
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWx(errorcode.WxParam, "获取公众号access token失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewWx(errorcode.WxParam, respData["errmsg"].(string), nil))
@@ -78,7 +78,7 @@ func (util *utilWx) refreshSingleTicket(appId string, accessToken string, refres
     ticketMap := make(map[string]string)
     ticketMap["access_token"] = accessToken
     ticketMap["type"] = refreshType
-    ticketUrl := "https://api.weixin.qq.com/cgi-bin/ticket/getticket?" + mpf.HttpCreateParams(ticketMap, "none", 1)
+    ticketUrl := "https://api.weixin.qq.com/cgi-bin/ticket/getticket?" + mpf.HTTPCreateParams(ticketMap, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -88,12 +88,12 @@ func (util *utilWx) refreshSingleTicket(appId string, accessToken string, refres
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewWx(errorcode.WxParam, "获取公众号ticket失败", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok && (respData["errcode"].(int) != 0) {
         panic(mperr.NewWx(errorcode.WxParam, respData["errmsg"].(string), nil))

@@ -41,7 +41,7 @@ func (td *tagDelete) SendRequest(getType string) api.ApiResult {
     td.checkData()
 
     td.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(td.corpId, td.agentTag, getType)
-    td.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/delete?" + mpf.HttpCreateParams(td.ReqData, "none", 1)
+    td.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/delete?" + mpf.HTTPCreateParams(td.ReqData, "none", 1)
     client, req := td.GetRequest()
 
     resp, result := td.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -49,7 +49,7 @@ func (td *tagDelete) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

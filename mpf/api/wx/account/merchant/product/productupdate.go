@@ -170,7 +170,7 @@ func (pu *productUpdate) SendRequest() api.ApiResult {
     if len(pu.extAttr) > 0 {
         reqData["attrext"] = pu.extAttr
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     pu.ReqUrl = "https://api.weixin.qq.com/merchant/update?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pu.appId)
     client, req := pu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -180,7 +180,7 @@ func (pu *productUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

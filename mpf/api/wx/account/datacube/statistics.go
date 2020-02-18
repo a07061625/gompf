@@ -124,7 +124,7 @@ func (s *statistics) checkData() {
 func (s *statistics) SendRequest() api.ApiResult {
     s.checkData()
 
-    reqBody := mpf.JsonMarshal(s.ReqData)
+    reqBody := mpf.JSONMarshal(s.ReqData)
     s.ReqUrl += wx.NewUtilWx().GetSingleAccessToken(s.appId)
     client, req := s.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -134,7 +134,7 @@ func (s *statistics) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok {
         result.Code = errorcode.WxAccountRequestPost

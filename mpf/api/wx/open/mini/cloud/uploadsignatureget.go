@@ -44,7 +44,7 @@ func (usg *uploadSignatureGet) checkData() {
 func (usg *uploadSignatureGet) SendRequest() api.ApiResult {
     usg.checkData()
 
-    reqBody := mpf.JsonMarshal(usg.ReqData)
+    reqBody := mpf.JSONMarshal(usg.ReqData)
     usg.ReqUrl = "https://api.weixin.qq.com/tcb/getuploadsignature?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(usg.appId)
     client, req := usg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -54,7 +54,7 @@ func (usg *uploadSignatureGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

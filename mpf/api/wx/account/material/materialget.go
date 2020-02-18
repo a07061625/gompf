@@ -58,7 +58,7 @@ func (mg *materialGet) checkData() {
 func (mg *materialGet) SendRequest() api.ApiResult {
     mg.checkData()
 
-    reqBody := mpf.JsonMarshal(mg.ReqData)
+    reqBody := mpf.JSONMarshal(mg.ReqData)
     mg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mg.appId)
     client, req := mg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -68,7 +68,7 @@ func (mg *materialGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, err := mpf.JsonUnmarshalMap(resp.Content)
+    respData, err := mpf.JSONUnmarshalMap(resp.Content)
     if err != nil {
         fileName := mg.outputDir + mg.mediaId
         f, err := os.Create(fileName)

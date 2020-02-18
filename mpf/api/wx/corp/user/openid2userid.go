@@ -45,7 +45,7 @@ func (ou *openid2UserId) checkData() {
 func (ou *openid2UserId) SendRequest(getType string) api.ApiResult {
     ou.checkData()
 
-    reqBody := mpf.JsonMarshal(ou.ReqData)
+    reqBody := mpf.JSONMarshal(ou.ReqData)
     ou.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid?access_token=" + wx.NewUtilWx().GetCorpCache(ou.corpId, ou.agentTag, getType)
     client, req := ou.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -55,7 +55,7 @@ func (ou *openid2UserId) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

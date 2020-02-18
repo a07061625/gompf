@@ -139,7 +139,7 @@ func (tc *tradeCreate) SetSettleInfo(settleInfo map[string]interface{}) {
 
 func (tc *tradeCreate) SetBusinessParams(businessParams map[string]interface{}) {
     if len(businessParams) > 0 {
-        tc.BizContent["business_params"] = mpf.JsonMarshal(businessParams)
+        tc.BizContent["business_params"] = mpf.JSONMarshal(businessParams)
     } else {
         delete(tc.BizContent, "business_params")
     }

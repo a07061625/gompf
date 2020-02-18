@@ -43,7 +43,7 @@ func (ed *expressDel) checkData() {
 func (ed *expressDel) SendRequest() api.ApiResult {
     ed.checkData()
 
-    reqBody := mpf.JsonMarshal(ed.ReqData)
+    reqBody := mpf.JSONMarshal(ed.ReqData)
     ed.ReqUrl = "https://api.weixin.qq.com/merchant/express/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ed.appId)
     client, req := ed.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -53,7 +53,7 @@ func (ed *expressDel) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

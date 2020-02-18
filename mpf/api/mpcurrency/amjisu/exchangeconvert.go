@@ -65,7 +65,7 @@ func (ec *exchangeConvert) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ec.ReqData["from"] = ec.from
     ec.ReqData["to"] = ec.to
     ec.ReqData["amount"] = fmt.Sprintf("%.2f", ec.amount)
-    ec.ServiceUri = "/exchange/convert?" + mpf.HttpCreateParams(ec.ReqData, "none", 1)
+    ec.ServiceUri = "/exchange/convert?" + mpf.HTTPCreateParams(ec.ReqData, "none", 1)
 
     return ec.GetRequest()
 }

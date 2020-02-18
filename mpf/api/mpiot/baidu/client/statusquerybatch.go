@@ -58,7 +58,7 @@ func (sqb *statusQueryBatch) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     sqb.ReqUrl = sqb.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(sqb.ExtendData)
+    reqBody := mpf.JSONMarshal(sqb.ExtendData)
     client, req := sqb.GetRequest()
     req.SetBody([]byte(reqBody))
 

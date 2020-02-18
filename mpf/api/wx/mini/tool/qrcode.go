@@ -97,7 +97,7 @@ func (qc *qrCode) checkData() (*fasthttp.Client, *fasthttp.Request) {
     reqData["auto_color"] = qc.autoColor
     reqData["line_color"] = qc.lineColor
     reqData["is_hyaline"] = qc.isHyaLine
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     qc.ReqUrl = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + wx.NewUtilWx().GetSingleCache(qc.appId, wx.SingleCacheTypeAccessToken)
     client, req := qc.GetRequest()
@@ -113,7 +113,7 @@ func (qc *qrCode) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, err := mpf.JsonUnmarshalMap(resp.Content)
+    respData, err := mpf.JSONUnmarshalMap(resp.Content)
     if err != nil {
         imageData := make(map[string]string)
         imageData["image"] = base64.StdEncoding.EncodeToString(resp.Body)

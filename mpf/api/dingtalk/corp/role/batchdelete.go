@@ -72,7 +72,7 @@ func (bd *batchDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     bd.ReqUrl = dingtalk.UrlService + "/topapi/role/removerolesforemps?access_token=" + dingtalk.NewUtil().GetAccessToken(bd.corpId, bd.agentTag, bd.atType)
 
-    reqBody := mpf.JsonMarshal(bd.ExtendData)
+    reqBody := mpf.JSONMarshal(bd.ExtendData)
     client, req := bd.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -40,7 +40,7 @@ func (udg *userDetailGet) checkData() {
 func (udg *userDetailGet) SendRequest() api.ApiResult {
     udg.checkData()
 
-    reqBody := mpf.JsonMarshal(udg.ReqData)
+    reqBody := mpf.JSONMarshal(udg.ReqData)
     udg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/getuserdetail3rd?access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := udg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (udg *userDetailGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

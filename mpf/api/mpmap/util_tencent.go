@@ -17,7 +17,7 @@ func (util *utilMap) SendTencentRequest(service IMapBase, errorCode uint) api.Ap
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     nowStatus, ok := respData["status"]
     if ok && (nowStatus.(int) == 0) {
         respTag := service.GetRespTag()

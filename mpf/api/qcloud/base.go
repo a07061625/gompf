@@ -59,7 +59,7 @@ func (cos *BaseCos) SetSignExpireTime(signExpireTime int64) {
 }
 
 func (cos *BaseCos) createSign() {
-    pkParams := mpf.NewHttpParamKey(cos.signParams)
+    pkParams := mpf.NewHTTPParamKey(cos.signParams)
     sort.Sort(pkParams)
     sortParams := pkParams.Params
     paramLength := len(sortParams)
@@ -70,7 +70,7 @@ func (cos *BaseCos) createSign() {
         paramValues.Add(sortParams[i].Key, sortParams[i].Val)
     }
 
-    pkHeaders := mpf.NewHttpParamKey(cos.signHeaders)
+    pkHeaders := mpf.NewHTTPParamKey(cos.signHeaders)
     sort.Sort(pkHeaders)
     sortHeaders := pkHeaders.Params
     headerLength := len(sortHeaders)
@@ -107,7 +107,7 @@ func (cos *BaseCos) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(cos.ReqUrl)
     req.Header.SetContentType(cos.ReqContentType)
     req.Header.SetMethod(cos.ReqMethod)
-    mpf.HttpAddReqHeader(req, cos.ReqHeader)
+    mpf.HTTPAddReqHeader(req, cos.ReqHeader)
 
     return client, req
 }

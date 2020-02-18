@@ -37,7 +37,7 @@ func (es *exchangeSingle) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewCurrencyAMJiSu(errorcode.CurrencyAMJiSuParam, "货币类型不能为空", nil))
     }
     es.ReqData["currency"] = es.currency
-    es.ServiceUri = "/exchange/single?" + mpf.HttpCreateParams(es.ReqData, "none", 1)
+    es.ServiceUri = "/exchange/single?" + mpf.HTTPCreateParams(es.ReqData, "none", 1)
 
     return es.GetRequest()
 }

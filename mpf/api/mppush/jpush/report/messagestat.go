@@ -43,7 +43,7 @@ func (ms *messageStat) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ms.ReqData["msg_ids"] = strings.Join(ms.msgIdList, ",")
 
-    ms.ReqUrl = ms.GetServiceUrl() + "?" + mpf.HttpCreateParams(ms.ReqData, "none", 1)
+    ms.ReqUrl = ms.GetServiceUrl() + "?" + mpf.HTTPCreateParams(ms.ReqData, "none", 1)
 
     return ms.GetRequest()
 }

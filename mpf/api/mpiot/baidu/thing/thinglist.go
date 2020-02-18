@@ -79,7 +79,7 @@ func (tl *thingList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     tl.ServiceUri = "/v1/endpoint/" + tl.endpointName + "/thing"
 
-    tl.ReqUrl = tl.GetServiceUrl() + "?" + mpf.HttpCreateParams(tl.ReqData, "none", 1)
+    tl.ReqUrl = tl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(tl.ReqData, "none", 1)
 
     return tl.GetRequest()
 }

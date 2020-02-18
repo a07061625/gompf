@@ -18,7 +18,7 @@ type utilAliOss struct {
 // 生成前端配置签名
 func (util *utilAliOss) CreatePolicySign(config map[string]interface{}) map[string]string {
     conf := NewConfig()
-    jsonStr := mpf.JsonMarshal(config)
+    jsonStr := mpf.JSONMarshal(config)
     signStr := base64.StdEncoding.EncodeToString([]byte(jsonStr))
     sha1Str := mpf.HashSha1(signStr, conf.GetAccessKeySecret())
     sign := base64.StdEncoding.EncodeToString([]byte(sha1Str))

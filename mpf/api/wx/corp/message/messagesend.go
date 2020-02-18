@@ -129,7 +129,7 @@ func (ms *messageSend) SendRequest(getType string) api.ApiResult {
     }
     reqData["msgtype"] = ms.msgType
     reqData[ms.msgType] = ms.msgData
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     ms.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + wx.NewUtilWx().GetCorpCache(ms.corpId, ms.agentTag, getType)
     client, req := ms.GetRequest()
@@ -140,7 +140,7 @@ func (ms *messageSend) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -18,7 +18,7 @@ func (util *utilDingTalk) refreshCorpAccessToken(corpId, agentTag string) map[st
     atMap := make(map[string]string)
     atMap["appkey"] = agentInfo["key"]
     atMap["appsecret"] = agentInfo["secret"]
-    atUrl := UrlService + "/gettoken?" + mpf.HttpCreateParams(atMap, "none", 1)
+    atUrl := UrlService + "/gettoken?" + mpf.HTTPCreateParams(atMap, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -28,12 +28,12 @@ func (util *utilDingTalk) refreshCorpAccessToken(corpId, agentTag string) map[st
     req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewDingTalkCorp(errorcode.DingTalkCorpParam, "获取企业号访问令牌出错", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewDingTalkCorp(errorcode.DingTalkCorpParam, "获取企业号访问令牌出错", nil))

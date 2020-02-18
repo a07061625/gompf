@@ -56,7 +56,7 @@ func (ac *appCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ac.ReqUrl = ac.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(ac.ExtendData)
+    reqBody := mpf.JSONMarshal(ac.ExtendData)
     client, req := ac.GetRequest()
     req.SetBody([]byte(reqBody))
 

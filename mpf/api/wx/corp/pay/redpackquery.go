@@ -54,7 +54,7 @@ func (rpq *redPackQuery) SendRequest() api.ApiResult {
     conf := wx.NewConfig().GetCorp(rpq.corpId)
     sign := wx.NewUtilWx().CreateCropPaySign(rpq.ReqData, conf.GetPayKey())
     rpq.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(rpq.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(rpq.ReqData))
 
     rpq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/queryworkwxredpack"
     client, req := rpq.GetRequest()
@@ -84,7 +84,7 @@ func (rpq *redPackQuery) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxCorpRequestPost
         result.Msg = respData["return_msg"]

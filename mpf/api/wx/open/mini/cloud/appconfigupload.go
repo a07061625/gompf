@@ -46,8 +46,8 @@ func (acu *appConfigUpload) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["type"] = acu.configType
-    reqData["config"] = mpf.JsonMarshal(acu.configValue)
-    reqBody := mpf.JsonMarshal(reqData)
+    reqData["config"] = mpf.JSONMarshal(acu.configValue)
+    reqBody := mpf.JSONMarshal(reqData)
     acu.ReqUrl = "https://api.weixin.qq.com/tcb/uploadappconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(acu.appId)
     client, req := acu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -57,7 +57,7 @@ func (acu *appConfigUpload) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -41,7 +41,7 @@ func (md *materialDel) checkData() {
 func (md *materialDel) SendRequest() api.ApiResult {
     md.checkData()
 
-    reqBody := mpf.JsonMarshal(md.ReqData)
+    reqBody := mpf.JSONMarshal(md.ReqData)
     md.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=" + wx.NewUtilWx().GetSingleAccessToken(md.appId)
     client, req := md.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (md *materialDel) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

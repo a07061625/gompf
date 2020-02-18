@@ -54,7 +54,7 @@ func (pc *principalCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     pc.ReqUrl = pc.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(pc.ExtendData)
+    reqBody := mpf.JSONMarshal(pc.ExtendData)
     client, req := pc.GetRequest()
     req.SetBody([]byte(reqBody))
 

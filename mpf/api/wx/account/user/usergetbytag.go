@@ -54,7 +54,7 @@ func (ugt *userGetByTag) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["tagid"] = ugt.tagId
     reqData["next_openid"] = ugt.openid
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     ugt.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ugt.appId)
     client, req := ugt.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -64,7 +64,7 @@ func (ugt *userGetByTag) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["errcode"]
     if ok {
         result.Code = errorcode.WxAccountRequestPost

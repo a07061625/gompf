@@ -39,7 +39,7 @@ func (ouc *orgUserCount) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ouc.ReqData["onlyActive"] = strconv.Itoa(ouc.onlyActive)
     ouc.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(ouc.corpId, ouc.agentTag, ouc.atType)
-    ouc.ReqUrl = dingtalk.UrlService + "/user/get_org_user_count?" + mpf.HttpCreateParams(ouc.ReqData, "none", 1)
+    ouc.ReqUrl = dingtalk.UrlService + "/user/get_org_user_count?" + mpf.HTTPCreateParams(ouc.ReqData, "none", 1)
 
     return ouc.GetRequest()
 }

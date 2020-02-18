@@ -58,7 +58,7 @@ func (ag *aliasGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ag.ReqUrl = ag.GetServiceUrl()
     if len(ag.ReqData) > 0 {
-        ag.ReqUrl += "?" + mpf.HttpCreateParams(ag.ReqData, "none", 1)
+        ag.ReqUrl += "?" + mpf.HTTPCreateParams(ag.ReqData, "none", 1)
     }
 
     return ag.GetRequest()

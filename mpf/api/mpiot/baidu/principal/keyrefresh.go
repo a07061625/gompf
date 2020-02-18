@@ -66,7 +66,7 @@ func (kr *keyRefresh) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     kr.ReqUrl = kr.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(kr.ExtendData)
+    reqBody := mpf.JSONMarshal(kr.ExtendData)
     client, req := kr.GetRequest()
     req.SetBody([]byte(reqBody))
 

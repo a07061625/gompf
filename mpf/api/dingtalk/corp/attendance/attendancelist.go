@@ -90,7 +90,7 @@ func (al *attendanceList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     al.ReqUrl = dingtalk.UrlService + "/attendance/list?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(al.corpId, al.agentTag)
 
-    reqBody := mpf.JsonMarshal(al.ExtendData)
+    reqBody := mpf.JSONMarshal(al.ExtendData)
     client, req := al.GetRequest()
     req.SetBody([]byte(reqBody))
 

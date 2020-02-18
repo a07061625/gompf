@@ -97,7 +97,7 @@ func (ts *templateSend) SendRequest(getType string) api.ApiResult {
     if len(ts.emphasisKeyword) > 0 {
         reqData["emphasis_keyword"] = ts.emphasisKeyword
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     ts.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + wx.NewUtilWx().GetSingleCache(ts.appId, getType)
     client, req := ts.GetRequest()
@@ -108,7 +108,7 @@ func (ts *templateSend) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

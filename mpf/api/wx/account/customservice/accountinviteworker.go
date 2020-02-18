@@ -53,7 +53,7 @@ func (aiw *accountInviteWorker) checkData() {
 func (aiw *accountInviteWorker) SendRequest() api.ApiResult {
     aiw.checkData()
 
-    reqBody := mpf.JsonMarshal(aiw.ReqData)
+    reqBody := mpf.JSONMarshal(aiw.ReqData)
     aiw.ReqUrl = "https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token=" + wx.NewUtilWx().GetSingleAccessToken(aiw.appId)
     client, req := aiw.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -63,7 +63,7 @@ func (aiw *accountInviteWorker) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

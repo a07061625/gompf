@@ -70,7 +70,7 @@ func (sm *scheduleModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     sm.ReqUrl = sm.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(sm.ExtendData)
+    reqBody := mpf.JSONMarshal(sm.ExtendData)
     client, req := sm.GetRequest()
     req.SetBody([]byte(reqBody))
 

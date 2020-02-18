@@ -44,7 +44,7 @@ func (util *utilDingTalk) refreshProviderAuthorizeAccessToken(corpId string) map
     atMap["accessKey"] = conf.GetSuiteKey()
     atMap["suiteTicket"] = suiteTicket
     atMap["signature"] = util.CreateApiSign(signData, conf.GetSuiteSecret())
-    atUrl := UrlService + "/service/get_corp_token?" + mpf.HttpCreateParams(atMap, "none", 1)
+    atUrl := UrlService + "/service/get_corp_token?" + mpf.HTTPCreateParams(atMap, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -56,15 +56,15 @@ func (util *utilDingTalk) refreshProviderAuthorizeAccessToken(corpId string) map
 
     atData := make(map[string]string)
     atData["auth_corpid"] = corpId
-    reqBody := mpf.JsonMarshal(atData)
+    reqBody := mpf.JSONMarshal(atData)
     req.SetBody([]byte(reqBody))
 
-    resp := mpf.HttpSendReq(client, req, 3*time.Second)
+    resp := mpf.HTTPSendReq(client, req, 3*time.Second)
     if resp.RespCode > 0 {
         panic(mperr.NewDingTalkProvider(errorcode.DingTalkProviderParam, "获取服务商授权者访问令牌出错", nil))
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if !ok {
         panic(mperr.NewDingTalkProvider(errorcode.DingTalkProviderParam, "获取服务商授权者访问令牌出错", nil))

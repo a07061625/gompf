@@ -41,7 +41,7 @@ func (gd *groupDel) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["group_id"] = gd.groupId
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     gd.ReqUrl = "https://api.weixin.qq.com/merchant/group/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(gd.appId)
     client, req := gd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (gd *groupDel) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -40,7 +40,7 @@ func (pd *productDel) checkData() {
 func (pd *productDel) SendRequest() api.ApiResult {
     pd.checkData()
 
-    reqBody := mpf.JsonMarshal(pd.ReqData)
+    reqBody := mpf.JSONMarshal(pd.ReqData)
     pd.ReqUrl = "https://api.weixin.qq.com/merchant/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pd.appId)
     client, req := pd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (pd *productDel) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -27,7 +27,7 @@ func (pac *preAuthCode) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["pre_auth_code"]
     if ok {
         result.Data = respData

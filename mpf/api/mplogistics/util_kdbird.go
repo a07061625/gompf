@@ -17,7 +17,7 @@ func (util *utilLogistics) SendKdBirdRequest(service api.IApiOuter, errorCode ui
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     resTag, ok := respData["Success"]
     if ok && resTag.(bool) {
         result.Data = respData

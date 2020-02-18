@@ -37,7 +37,7 @@ func (dfv *deviceFirmwareVersion) CheckData() (*fasthttp.Client, *fasthttp.Reque
 
     dfv.ReqUrl = dfv.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(dfv.ExtendData)
+    reqBody := mpf.JSONMarshal(dfv.ExtendData)
     client, req := dfv.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -46,7 +46,7 @@ func (pcg *persistentCodeGet) CheckData() (*fasthttp.Client, *fasthttp.Request) 
         pcg.ReqUrl += dingtalk.NewUtil().GetProviderSnsToken()
     }
 
-    reqBody := mpf.JsonMarshal(pcg.ExtendData)
+    reqBody := mpf.JSONMarshal(pcg.ExtendData)
     client, req := pcg.GetRequest()
     req.SetBody([]byte(reqBody))
 

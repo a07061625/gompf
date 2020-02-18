@@ -41,7 +41,7 @@ func (sd *shelfDel) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["shelf_id"] = sd.shelfId
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     sd.ReqUrl = "https://api.weixin.qq.com/merchant/shelf/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sd.appId)
     client, req := sd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (sd *shelfDel) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

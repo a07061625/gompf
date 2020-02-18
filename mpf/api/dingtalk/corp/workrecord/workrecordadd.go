@@ -97,7 +97,7 @@ func (wra *workRecordAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     wra.ReqUrl = dingtalk.UrlService + "/topapi/workrecord/add?access_token=" + dingtalk.NewUtil().GetAccessToken(wra.corpId, wra.agentTag, wra.atType)
 
-    reqBody := mpf.JsonMarshal(wra.ExtendData)
+    reqBody := mpf.JSONMarshal(wra.ExtendData)
     client, req := wra.GetRequest()
     req.SetBody([]byte(reqBody))
 

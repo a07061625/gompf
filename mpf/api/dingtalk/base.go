@@ -22,7 +22,7 @@ func (dt *baseDingTalk) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(dt.ReqUrl)
     req.Header.SetContentType(dt.ReqContentType)
     req.Header.SetMethod(dt.ReqMethod)
-    mpf.HttpAddReqHeader(req, dt.ReqHeader)
+    mpf.HTTPAddReqHeader(req, dt.ReqHeader)
 
     return client, req
 }

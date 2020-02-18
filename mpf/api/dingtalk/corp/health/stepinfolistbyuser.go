@@ -59,7 +59,7 @@ func (ilu *stepInfoListByUser) CheckData() (*fasthttp.Client, *fasthttp.Request)
 
     ilu.ReqUrl = dingtalk.UrlService + "/topapi/health/stepinfo/listbyuserid?access_token=" + dingtalk.NewUtil().GetAccessToken(ilu.corpId, ilu.agentTag, ilu.atType)
 
-    reqBody := mpf.JsonMarshal(ilu.ExtendData)
+    reqBody := mpf.JSONMarshal(ilu.ExtendData)
     client, req := ilu.GetRequest()
     req.SetBody([]byte(reqBody))
 

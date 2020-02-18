@@ -44,7 +44,7 @@ func (dr *deviceReset) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     dr.ReqUrl = dr.GetServiceUrl() + "?reset"
 
-    reqBody := mpf.JsonMarshal(dr.ExtendData)
+    reqBody := mpf.JSONMarshal(dr.ExtendData)
     client, req := dr.GetRequest()
     req.SetBody([]byte(reqBody))
 

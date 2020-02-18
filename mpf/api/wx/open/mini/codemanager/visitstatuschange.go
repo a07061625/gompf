@@ -41,7 +41,7 @@ func (vsc *visitStatusChange) checkData() {
 func (vsc *visitStatusChange) SendRequest() api.ApiResult {
     vsc.checkData()
 
-    reqBody := mpf.JsonMarshal(vsc.ReqData)
+    reqBody := mpf.JSONMarshal(vsc.ReqData)
     vsc.ReqUrl = "https://api.weixin.qq.com/wxa/change_visitstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(vsc.appId)
     client, req := vsc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -51,7 +51,7 @@ func (vsc *visitStatusChange) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

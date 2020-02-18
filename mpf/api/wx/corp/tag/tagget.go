@@ -41,7 +41,7 @@ func (tg *tagGet) SendRequest(getType string) api.ApiResult {
     tg.checkData()
 
     tg.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(tg.corpId, tg.agentTag, getType)
-    tg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/get?" + mpf.HttpCreateParams(tg.ReqData, "none", 1)
+    tg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/get?" + mpf.HTTPCreateParams(tg.ReqData, "none", 1)
     client, req := tg.GetRequest()
 
     resp, result := tg.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -49,7 +49,7 @@ func (tg *tagGet) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

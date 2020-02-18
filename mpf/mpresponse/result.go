@@ -25,7 +25,7 @@ func newResultBasic() resultBasic {
 }
 
 func (r *resultBasic) refreshBasic() {
-    r.ReqID = mpf.ToolGetReqId()
+    r.ReqID = mpf.ToolGetReqID()
     r.Code = errorcode.CommonBaseSuccess
     r.Time = time.Now().Unix()
     r.Msg = ""

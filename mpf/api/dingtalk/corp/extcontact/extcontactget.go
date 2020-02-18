@@ -37,7 +37,7 @@ func (ecg *extContactGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ecg.ReqUrl = dingtalk.UrlService + "/topapi/extcontact/get?access_token=" + dingtalk.NewUtil().GetAccessToken(ecg.corpId, ecg.agentTag, ecg.atType)
 
-    reqBody := mpf.JsonMarshal(ecg.ExtendData)
+    reqBody := mpf.JSONMarshal(ecg.ExtendData)
     client, req := ecg.GetRequest()
     req.SetBody([]byte(reqBody))
 

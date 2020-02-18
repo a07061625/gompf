@@ -33,7 +33,7 @@ func (dd *departmentDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dd.ReqData["id"] = strconv.Itoa(dd.id)
     dd.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(dd.corpId, dd.agentTag, dd.atType)
-    dd.ReqUrl = dingtalk.UrlService + "/department/delete?" + mpf.HttpCreateParams(dd.ReqData, "none", 1)
+    dd.ReqUrl = dingtalk.UrlService + "/department/delete?" + mpf.HTTPCreateParams(dd.ReqData, "none", 1)
 
     return dd.GetRequest()
 }

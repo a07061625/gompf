@@ -36,7 +36,7 @@ func (pp *policyPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "权限策略配置不能为空", nil))
     }
 
-    reqBody := mpf.JsonMarshal(pp.policyConfig)
+    reqBody := mpf.JSONMarshal(pp.policyConfig)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     pp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     pp.ReqUrl = "http://" + pp.ReqHeader["Host"] + pp.ReqUri + "?policy"

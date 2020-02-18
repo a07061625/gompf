@@ -41,7 +41,7 @@ func (util *utilIM) SendTencentRequest(service api.IApiOuter, errorCode uint) ap
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     actionStatus, ok := respData["ActionStatus"]
     if ok && (actionStatus.(string) == "OK") {
         result.Data = respData

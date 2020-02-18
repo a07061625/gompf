@@ -96,7 +96,7 @@ func (mu *mediaUpload) SendRequest(getType string) api.ApiResult {
     }
 
     mu.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(mu.corpId, mu.agentTag, getType)
-    mu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?" + mpf.HttpCreateParams(mu.ReqData, "none", 1)
+    mu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?" + mpf.HTTPCreateParams(mu.ReqData, "none", 1)
     client, req := mu.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)
@@ -106,7 +106,7 @@ func (mu *mediaUpload) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["media_id"]
     if ok {
         result.Data = respData

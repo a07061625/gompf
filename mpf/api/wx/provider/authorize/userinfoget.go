@@ -38,7 +38,7 @@ func (uig *userInfoGet) checkData() {
 func (uig *userInfoGet) SendRequest() api.ApiResult {
     uig.checkData()
     uig.ReqData["access_token"] = wx.NewUtilWx().GetProviderSuiteToken()
-    uig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/getuserinfo3rd?" + mpf.HttpCreateParams(uig.ReqData, "none", 1)
+    uig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/getuserinfo3rd?" + mpf.HTTPCreateParams(uig.ReqData, "none", 1)
 
     client, req := uig.GetRequest()
     resp, result := uig.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -46,7 +46,7 @@ func (uig *userInfoGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

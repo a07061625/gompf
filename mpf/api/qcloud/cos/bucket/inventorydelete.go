@@ -35,7 +35,7 @@ func (id *inventoryDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
 
     delete(id.ReqData, "inventory")
-    id.ReqUrl = "http://" + id.ReqHeader["Host"] + id.ReqUri + "?inventory&" + mpf.HttpCreateParams(id.ReqData, "none", 1)
+    id.ReqUrl = "http://" + id.ReqHeader["Host"] + id.ReqUri + "?inventory&" + mpf.HTTPCreateParams(id.ReqData, "none", 1)
     return id.GetRequest()
 }
 

@@ -75,7 +75,7 @@ func (dc *departmentCreate) SendRequest(getType string) api.ApiResult {
     if dc.id > 0 {
         reqData["id"] = dc.id
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     dc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=" + wx.NewUtilWx().GetCorpCache(dc.corpId, dc.agentTag, getType)
     client, req := dc.GetRequest()
@@ -86,7 +86,7 @@ func (dc *departmentCreate) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

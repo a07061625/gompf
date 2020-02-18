@@ -40,7 +40,7 @@ func (rig *registerInfoGet) SendRequest() api.ApiResult {
     rig.checkData()
 
     rig.ReqData["register_code"] = rig.registerCode
-    reqBody := mpf.JsonMarshal(rig.ReqData)
+    reqBody := mpf.JSONMarshal(rig.ReqData)
     rig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_register_info?provider_access_token=" + wx.NewUtilWx().GetProviderToken()
     client, req := rig.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -50,7 +50,7 @@ func (rig *registerInfoGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

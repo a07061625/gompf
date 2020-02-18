@@ -27,7 +27,7 @@ func (ilo *infoListOnline) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["kf_online_list"]
     if ok {
         result.Data = respData

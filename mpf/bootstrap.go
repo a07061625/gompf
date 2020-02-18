@@ -145,7 +145,7 @@ func LoadBoot(bs *bootstrap) {
         if (serverPort <= 1024) || (serverPort > 65535) {
             log.Fatalln("服务端口不合法")
         }
-        if (serverType != EnvServerTypeApi) && (serverType != EnvServerTypeRpc) {
+        if (serverType != EnvServerTypeAPI) && (serverType != EnvServerTypeRPC) {
             log.Fatalln("服务类型不支持")
         }
         insEnv.serverHost = serverHost

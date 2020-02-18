@@ -42,7 +42,7 @@ func (ssc *searchStatusChange) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["status"] = ssc.searchStatus
-    reqBody := mpf.JsonMarshal(ssc.ReqData)
+    reqBody := mpf.JSONMarshal(ssc.ReqData)
     ssc.ReqUrl = "https://api.weixin.qq.com/wxa/changewxasearchstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ssc.appId)
     client, req := ssc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -52,7 +52,7 @@ func (ssc *searchStatusChange) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

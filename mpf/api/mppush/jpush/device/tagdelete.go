@@ -58,7 +58,7 @@ func (td *tagDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     td.ReqUrl = td.GetServiceUrl()
     if len(td.ReqData) > 0 {
-        td.ReqUrl += "?" + mpf.HttpCreateParams(td.ReqData, "none", 1)
+        td.ReqUrl += "?" + mpf.HTTPCreateParams(td.ReqData, "none", 1)
     }
 
     return td.GetRequest()

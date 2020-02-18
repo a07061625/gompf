@@ -80,7 +80,7 @@ func (bd *billDownload) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(bd.ReqData, bd.appId, "md5")
     bd.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(bd.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(bd.ReqData))
     bd.ReqUrl = "https://api.mch.weixin.qq.com/pay/downloadbill"
     client, req := bd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -110,7 +110,7 @@ func (bd *billDownload) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    err = xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    err = xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if err != nil {
         f, err := os.Create(bd.outputFile)
         defer f.Close()

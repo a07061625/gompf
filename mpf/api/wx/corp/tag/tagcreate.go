@@ -52,7 +52,7 @@ func (tc *tagCreate) checkData() {
 func (tc *tagCreate) SendRequest(getType string) api.ApiResult {
     tc.checkData()
 
-    reqBody := mpf.JsonMarshal(tc.ReqData)
+    reqBody := mpf.JSONMarshal(tc.ReqData)
     tc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token=" + wx.NewUtilWx().GetCorpCache(tc.corpId, tc.agentTag, getType)
     client, req := tc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -62,7 +62,7 @@ func (tc *tagCreate) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

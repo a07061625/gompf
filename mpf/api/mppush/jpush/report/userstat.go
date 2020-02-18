@@ -62,7 +62,7 @@ func (us *userStat) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     us.ReqData["duration"] = strconv.Itoa(us.duration)
 
-    us.ReqUrl = us.GetServiceUrl() + "?" + mpf.HttpCreateParams(us.ReqData, "none", 1)
+    us.ReqUrl = us.GetServiceUrl() + "?" + mpf.HTTPCreateParams(us.ReqData, "none", 1)
 
     return us.GetRequest()
 }

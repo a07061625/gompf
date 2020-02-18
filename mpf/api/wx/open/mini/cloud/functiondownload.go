@@ -58,7 +58,7 @@ func (fd *functionDownload) checkData() {
 func (fd *functionDownload) SendRequest() api.ApiResult {
     fd.checkData()
 
-    reqBody := mpf.JsonMarshal(fd.ReqData)
+    reqBody := mpf.JSONMarshal(fd.ReqData)
     fd.ReqUrl = "https://api.weixin.qq.com/tcb/downloadfunction?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fd.appId)
     client, req := fd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -68,7 +68,7 @@ func (fd *functionDownload) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -63,7 +63,7 @@ func (cec *singleCardAddConfig) GetResult(getType string) map[string]interface{}
         cardInfo["nonce_str"] = cec.nonceStr
         eCard := make(map[string]string)
         eCard["cardId"] = k
-        eCard["cardExt"] = mpf.JsonMarshal(cardInfo)
+        eCard["cardExt"] = mpf.JSONMarshal(cardInfo)
         cards = append(cards, eCard)
     }
     result["card_list"] = cards

@@ -53,7 +53,7 @@ func (dm *domainModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     dm.ReqUrl = dm.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(dm.ExtendData)
+    reqBody := mpf.JSONMarshal(dm.ExtendData)
     client, req := dm.GetRequest()
     req.SetBody([]byte(reqBody))
 

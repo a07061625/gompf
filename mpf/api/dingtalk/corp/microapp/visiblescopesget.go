@@ -34,7 +34,7 @@ func (vsg *visibleScopesGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     vsg.ReqUrl = dingtalk.UrlService + "/microapp/visible_scopes?access_token=" + dingtalk.NewUtil().GetAccessToken(vsg.corpId, vsg.agentTag, vsg.atType)
 
-    reqBody := mpf.JsonMarshal(vsg.ExtendData)
+    reqBody := mpf.JSONMarshal(vsg.ExtendData)
     client, req := vsg.GetRequest()
     req.SetBody([]byte(reqBody))
 

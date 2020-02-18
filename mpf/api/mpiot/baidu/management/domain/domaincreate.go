@@ -66,7 +66,7 @@ func (dc *domainCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     dc.ReqUrl = dc.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(dc.ExtendData)
+    reqBody := mpf.JSONMarshal(dc.ExtendData)
     client, req := dc.GetRequest()
     req.SetBody([]byte(reqBody))
 

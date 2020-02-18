@@ -52,7 +52,7 @@ func (ul *userList) SendRequest(getType string) api.ApiResult {
     ul.checkData()
 
     ul.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(ul.corpId, ul.agentTag, getType)
-    ul.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/list?" + mpf.HttpCreateParams(ul.ReqData, "none", 1)
+    ul.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/list?" + mpf.HTTPCreateParams(ul.ReqData, "none", 1)
     client, req := ul.GetRequest()
 
     resp, result := ul.SendInner(client, req, errorcode.WxCorpRequestPost)
@@ -60,7 +60,7 @@ func (ul *userList) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

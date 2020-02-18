@@ -17,7 +17,7 @@ func (util *utilLogistics) SendKd100Request(service api.IApiOuter, errorCode uin
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     resStatus, ok := respData["status"]
     if ok && (resStatus.(int) == 0) {
         result.Data = respData

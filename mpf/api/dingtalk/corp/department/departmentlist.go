@@ -41,7 +41,7 @@ func (dl *departmentList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dl.ReqData["id"] = strconv.Itoa(dl.id)
     dl.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(dl.corpId, dl.agentTag, dl.atType)
-    dl.ReqUrl = dingtalk.UrlService + "/department/list?" + mpf.HttpCreateParams(dl.ReqData, "none", 1)
+    dl.ReqUrl = dingtalk.UrlService + "/department/list?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
 
     return dl.GetRequest()
 }

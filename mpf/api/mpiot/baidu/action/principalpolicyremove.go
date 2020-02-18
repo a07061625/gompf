@@ -68,7 +68,7 @@ func (ppr *principalPolicyRemove) CheckData() (*fasthttp.Client, *fasthttp.Reque
 
     ppr.ReqUrl = ppr.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(ppr.ExtendData)
+    reqBody := mpf.JSONMarshal(ppr.ExtendData)
     client, req := ppr.GetRequest()
     req.SetBody([]byte(reqBody))
 

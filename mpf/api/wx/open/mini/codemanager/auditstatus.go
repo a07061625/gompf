@@ -44,7 +44,7 @@ func (cas *auditStatus) checkData() {
 func (cas *auditStatus) SendRequest() api.ApiResult {
     cas.checkData()
 
-    reqBody := mpf.JsonMarshal(cas.ReqData)
+    reqBody := mpf.JSONMarshal(cas.ReqData)
     cas.ReqUrl = "https://api.weixin.qq.com/wxa/get_auditstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cas.appId)
     client, req := cas.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -54,7 +54,7 @@ func (cas *auditStatus) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -21,7 +21,7 @@ type authorizeInfoGet struct {
 }
 
 func (aig *authorizeInfoGet) SendRequest() api.ApiResult {
-    reqBody := mpf.JsonMarshal(aig.ReqData)
+    reqBody := mpf.JSONMarshal(aig.ReqData)
     aig.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := aig.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -31,7 +31,7 @@ func (aig *authorizeInfoGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["authorizer_info"]
     if ok {
         result.Data = respData

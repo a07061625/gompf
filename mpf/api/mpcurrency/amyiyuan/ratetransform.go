@@ -65,7 +65,7 @@ func (rt *rateTransform) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     rt.ReqData["fromCode"] = rt.fromCode
     rt.ReqData["toCode"] = rt.toCode
     rt.ReqData["money"] = fmt.Sprintf("%.2f", rt.money)
-    rt.ServiceUri = "/waihui-transform?" + mpf.HttpCreateParams(rt.ReqData, "none", 1)
+    rt.ServiceUri = "/waihui-transform?" + mpf.HTTPCreateParams(rt.ReqData, "none", 1)
 
     return rt.GetRequest()
 }

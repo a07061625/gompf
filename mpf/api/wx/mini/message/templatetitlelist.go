@@ -42,7 +42,7 @@ func (ttl *templateTitleList) SetRange(page int, limit int) {
 }
 
 func (ttl *templateTitleList) SendRequest(getType string) api.ApiResult {
-    reqBody := mpf.JsonMarshal(ttl.ReqData)
+    reqBody := mpf.JSONMarshal(ttl.ReqData)
 
     ttl.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/list?access_token=" + wx.NewUtilWx().GetSingleCache(ttl.appId, getType)
     client, req := ttl.GetRequest()
@@ -53,7 +53,7 @@ func (ttl *templateTitleList) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["list"]
     if ok {
         result.Data = respData

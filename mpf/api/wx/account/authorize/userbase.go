@@ -39,7 +39,7 @@ func (ub *userBase) checkData() {
 func (ub *userBase) SendRequest() api.ApiResult {
     ub.checkData()
 
-    ub.ReqUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?" + mpf.HttpCreateParams(ub.ReqData, "none", 1)
+    ub.ReqUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?" + mpf.HTTPCreateParams(ub.ReqData, "none", 1)
     client, req := ub.GetRequest()
 
     resp, result := ub.SendInner(client, req, errorcode.WxAccountRequestGet)
@@ -47,7 +47,7 @@ func (ub *userBase) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["access_token"]
     if ok {
         result.Data = respData

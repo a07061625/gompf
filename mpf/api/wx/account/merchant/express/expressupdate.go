@@ -83,7 +83,7 @@ func (eu *expressUpdate) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["template_id"] = eu.templateId
     reqData["delivery_template"] = templateInfo
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     eu.ReqUrl = "https://api.weixin.qq.com/merchant/express/update?access_token=" + wx.NewUtilWx().GetSingleAccessToken(eu.appId)
     client, req := eu.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -93,7 +93,7 @@ func (eu *expressUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

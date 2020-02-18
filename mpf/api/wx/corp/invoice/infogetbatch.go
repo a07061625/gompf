@@ -42,7 +42,7 @@ func (igb *infoGetBatch) SendRequest(getType string) api.ApiResult {
     igb.checkData()
     reqData := make(map[string]interface{})
     reqData["item_list"] = igb.itemList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     igb.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/getinvoiceinfobatch?access_token=" + wx.NewUtilWx().GetCorpCache(igb.corpId, igb.agentTag, getType)
     client, req := igb.GetRequest()
@@ -53,7 +53,7 @@ func (igb *infoGetBatch) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

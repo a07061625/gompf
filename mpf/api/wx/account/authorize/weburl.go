@@ -53,7 +53,7 @@ func (wu *webUrl) GetResult() map[string]string {
     wu.checkData()
 
     result := make(map[string]string)
-    result["url"] = "https://open.weixin.qq.com/connect/qrconnect?" + mpf.HttpCreateParams(wu.ReqData, "key", 1) + "#wechat_redirect"
+    result["url"] = "https://open.weixin.qq.com/connect/qrconnect?" + mpf.HTTPCreateParams(wu.ReqData, "key", 1) + "#wechat_redirect"
     return result
 }
 

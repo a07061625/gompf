@@ -44,7 +44,7 @@ func (alg *adminListGet) checkData() {
 func (alg *adminListGet) SendRequest() api.ApiResult {
     alg.checkData()
 
-    reqBody := mpf.JsonMarshal(alg.ReqData)
+    reqBody := mpf.JSONMarshal(alg.ReqData)
     alg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_admin_list?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := alg.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -54,7 +54,7 @@ func (alg *adminListGet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

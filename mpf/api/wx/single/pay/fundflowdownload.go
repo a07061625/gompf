@@ -77,7 +77,7 @@ func (ffd *fundFlowDownload) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(ffd.ReqData, ffd.appId, "sha256")
     ffd.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(ffd.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(ffd.ReqData))
     ffd.ReqUrl = "https://api.mch.weixin.qq.com/pay/downloadfundflow"
     client, req := ffd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -107,7 +107,7 @@ func (ffd *fundFlowDownload) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    err = xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    err = xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if err != nil {
         f, err := os.Create(ffd.outputFile)
         defer f.Close()

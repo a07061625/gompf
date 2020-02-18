@@ -64,7 +64,7 @@ func (bds *businessDomainSet) SendRequest() api.ApiResult {
         }
     }
     reqData["action"] = bds.action
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     bds.ReqUrl = "https://api.weixin.qq.com/wxa/setwebviewdomain?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(bds.appId)
     client, req := bds.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -74,7 +74,7 @@ func (bds *businessDomainSet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

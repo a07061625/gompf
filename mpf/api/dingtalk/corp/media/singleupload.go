@@ -43,7 +43,7 @@ func (su *singleUpload) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     su.ReqData["file_size"] = strconv.FormatInt(su.fileSize, 10)
     su.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(su.corpId, su.agentTag, su.atType)
-    su.ReqUrl = dingtalk.UrlService + "/file/upload/single?" + mpf.HttpCreateParams(su.ReqData, "none", 1)
+    su.ReqUrl = dingtalk.UrlService + "/file/upload/single?" + mpf.HTTPCreateParams(su.ReqData, "none", 1)
 
     // 新建一个缓冲，用于存放文件内容
     bodyBuffer := &bytes.Buffer{}

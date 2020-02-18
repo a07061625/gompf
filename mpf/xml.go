@@ -7,18 +7,21 @@ import (
 )
 
 const (
-    XmlKeyName  = "_name"
-    XmlKeyCData = "_cdata"
+    // XMLKeyName KeyName
+    XMLKeyName = "_name"
+    // XMLKeyCData KeyCData
+    XMLKeyCData = "_cdata"
 )
 
-type XmlMap map[string]string
+// XMLMap XMLMap
+type XMLMap map[string]string
 
 type xmlEntry struct {
     XMLName xml.Name
     Value   string `xml:",innerxml"`
 }
 
-// 重写xml编码方法
+// MarshalXML 重写xml编码方法
 // 用法:
 // <pre>
 // xmlMap := map[string]string{
@@ -27,12 +30,12 @@ type xmlEntry struct {
 // }
 // mapStr, _ := xml.Marshal(tool.XmlMap(xmlMap))
 // </pre>
-func (m XmlMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+func (m XMLMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
     if len(m) == 0 {
         return nil
     }
 
-    startName, ok := m[XmlKeyName]
+    startName, ok := m[XMLKeyName]
     if ok {
         start.Name.Local = startName
     } else {
@@ -43,9 +46,9 @@ func (m XmlMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
         return err
     }
 
-    xmlCData, ok := m[XmlKeyCData]
-    delete(m, XmlKeyName)
-    delete(m, XmlKeyCData)
+    xmlCData, ok := m[XMLKeyCData]
+    delete(m, XMLKeyName)
+    delete(m, XMLKeyCData)
 
     if ok && (xmlCData == "N") {
         for k, v := range m {
@@ -60,14 +63,14 @@ func (m XmlMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
     return e.EncodeToken(start.End())
 }
 
-// 重写xml解码方法
+// UnmarshalXML 重写xml解码方法
 // 用法:
 // <pre>
 // newMap := make(map[string]string)
 // xml.Unmarshal(mapStr, (*tool.XmlMap)(&newMap))
 // </pre>
-func (m *XmlMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-    *m = XmlMap{}
+func (m *XMLMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+    *m = XMLMap{}
     for {
         var e xmlEntry
 

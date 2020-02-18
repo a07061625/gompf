@@ -56,7 +56,7 @@ func (sl *simpleList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     sl.ReqUrl = dingtalk.UrlService + "/topapi/role/simplelist?access_token=" + dingtalk.NewUtil().GetAccessToken(sl.corpId, sl.agentTag, sl.atType)
 
-    reqBody := mpf.JsonMarshal(sl.ExtendData)
+    reqBody := mpf.JSONMarshal(sl.ExtendData)
     client, req := sl.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -62,7 +62,7 @@ func (dc *dataControl) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dc.ReqData["ProductId"] = dc.productId
     dc.ReqData["DeviceName"] = dc.deviceName
-    dc.ReqData["Data"] = mpf.JsonMarshal(dc.data)
+    dc.ReqData["Data"] = mpf.JSONMarshal(dc.data)
 
     return dc.GetRequest()
 }

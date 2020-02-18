@@ -65,7 +65,7 @@ func (am *applyMulti) checkData() {
     }
     am.ReqData["transaction_id"] = am.transactionId
     am.ReqData["out_order_no"] = am.outOrderNo
-    am.ReqData["receivers"] = mpf.JsonMarshal(am.receivers)
+    am.ReqData["receivers"] = mpf.JSONMarshal(am.receivers)
 }
 
 func (am *applyMulti) SendRequest() api.ApiResult {
@@ -73,7 +73,7 @@ func (am *applyMulti) SendRequest() api.ApiResult {
 
     sign := wx.NewUtilWx().CreateSinglePaySign(am.ReqData, am.appId, "sha256")
     am.ReqData["sign"] = sign
-    reqBody, _ := xml.Marshal(mpf.XmlMap(am.ReqData))
+    reqBody, _ := xml.Marshal(mpf.XMLMap(am.ReqData))
     am.ReqUrl = "https://api.mch.weixin.qq.com/secapi/pay/multiprofitsharing"
     client, req := am.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -103,7 +103,7 @@ func (am *applyMulti) SendRequest() api.ApiResult {
     }
 
     respData := make(map[string]string)
-    xml.Unmarshal(resp.Body, (*mpf.XmlMap)(&respData))
+    xml.Unmarshal(resp.Body, (*mpf.XMLMap)(&respData))
     if respData["return_code"] == "FAIL" {
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = respData["return_msg"]

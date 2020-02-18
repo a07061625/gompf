@@ -160,7 +160,7 @@ func (tp *tradePay) SetTerminalId(terminalId string) {
 
 func (tp *tradePay) SetTerminalParams(terminalParams map[string]interface{}) {
     if len(terminalParams) > 0 {
-        tp.BizContent["terminal_params"] = mpf.JsonMarshal(terminalParams)
+        tp.BizContent["terminal_params"] = mpf.JSONMarshal(terminalParams)
     } else {
         delete(tp.BizContent, "terminal_params")
     }

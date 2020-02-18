@@ -36,7 +36,7 @@ func (ig *todoNumGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     ig.ReqUrl = dingtalk.UrlService + "/topapi/process/gettodonum?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ig.corpId, ig.agentTag)
 
-    reqBody := mpf.JsonMarshal(ig.ExtendData)
+    reqBody := mpf.JSONMarshal(ig.ExtendData)
     client, req := ig.GetRequest()
     req.SetBody([]byte(reqBody))
 

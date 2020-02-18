@@ -38,7 +38,7 @@ func (im *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     im.ReqData["sdkappid"] = conf.GetAppId()
     im.ReqData["identifier"] = conf.GetAccountAdmin()
     im.ReqData["usersig"] = NewUtilIM().GetTencentAccountSign(conf.GetAccountAdmin())
-    im.ReqUrl = "https://console.tim.qq.com/v4" + im.ServiceUri + "?" + mpf.HttpCreateParams(im.ReqData, "none", 1)
+    im.ReqUrl = "https://console.tim.qq.com/v4" + im.ServiceUri + "?" + mpf.HTTPCreateParams(im.ReqData, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -47,7 +47,7 @@ func (im *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req.Header.SetRequestURI(im.ReqUrl)
     req.Header.SetContentType(im.ReqContentType)
     req.Header.SetMethod(im.ReqMethod)
-    mpf.HttpAddReqHeader(req, im.ReqHeader)
+    mpf.HTTPAddReqHeader(req, im.ReqHeader)
 
     return client, req
 }

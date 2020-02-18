@@ -52,7 +52,7 @@ func (udb *userDeleteBatch) SendRequest(getType string) api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["useridlist"] = udb.userList
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     udb.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token=" + wx.NewUtilWx().GetCorpCache(udb.corpId, udb.agentTag, getType)
     client, req := udb.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -62,7 +62,7 @@ func (udb *userDeleteBatch) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

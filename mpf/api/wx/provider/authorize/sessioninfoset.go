@@ -53,7 +53,7 @@ func (sis *sessionInfoSet) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["pre_auth_code"] = sis.preAuthCode
     reqData["session_info"] = sessionInfo
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     sis.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := sis.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -63,7 +63,7 @@ func (sis *sessionInfoSet) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

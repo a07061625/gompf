@@ -123,7 +123,7 @@ func (ss *subscribeSend) SendRequest() api.ApiResult {
     if len(ss.redirectUrl) > 0 {
         reqData["url"] = ss.redirectUrl
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     ss.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ss.appId)
     client, req := ss.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -133,7 +133,7 @@ func (ss *subscribeSend) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

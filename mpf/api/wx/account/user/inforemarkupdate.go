@@ -56,7 +56,7 @@ func (iru *infoRemarkUpdate) checkData() {
 func (iru *infoRemarkUpdate) SendRequest() api.ApiResult {
     iru.checkData()
 
-    reqBody := mpf.JsonMarshal(iru.ReqData)
+    reqBody := mpf.JSONMarshal(iru.ReqData)
     iru.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=" + wx.NewUtilWx().GetSingleAccessToken(iru.appId)
     client, req := iru.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -66,7 +66,7 @@ func (iru *infoRemarkUpdate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

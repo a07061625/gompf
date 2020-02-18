@@ -39,7 +39,7 @@ func (jcs *jsCode2Session) SendRequest() api.ApiResult {
     jcs.checkData()
 
     jcs.ReqData["component_access_token"] = wx.NewUtilWx().GetOpenAccessToken()
-    jcs.ReqUrl = "https://api.weixin.qq.com/sns/component/jscode2session?" + mpf.HttpCreateParams(jcs.ReqData, "none", 1)
+    jcs.ReqUrl = "https://api.weixin.qq.com/sns/component/jscode2session?" + mpf.HTTPCreateParams(jcs.ReqData, "none", 1)
     client, req := jcs.GetRequest()
 
     resp, result := jcs.SendInner(client, req, errorcode.WxOpenRequestGet)
@@ -47,7 +47,7 @@ func (jcs *jsCode2Session) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["openid"]
     if ok {
         result.Data = respData

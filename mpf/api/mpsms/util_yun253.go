@@ -17,7 +17,7 @@ func (util *utilSms) SendYun253Request(service api.IApiOuter, errorCode uint) ap
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["code"]
     if ok {
         result.Data = respData

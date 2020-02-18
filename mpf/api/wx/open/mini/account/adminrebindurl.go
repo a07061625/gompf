@@ -24,7 +24,7 @@ func (aru *adminRebindUrl) GetResult() map[string]string {
     aru.ReqData["redirect_uri"] = conf.GetUrlMiniRebindAdmin()
 
     result := make(map[string]string)
-    result["url"] = "https://mp.weixin.qq.com/wxopen/componentrebindadmin?" + mpf.HttpCreateParams(aru.ReqData, "none", 1)
+    result["url"] = "https://mp.weixin.qq.com/wxopen/componentrebindadmin?" + mpf.HTTPCreateParams(aru.ReqData, "none", 1)
     return result
 }
 

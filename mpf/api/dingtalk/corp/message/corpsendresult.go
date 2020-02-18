@@ -34,7 +34,7 @@ func (csr *corpSendResult) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     csr.ReqUrl = dingtalk.UrlService + "/topapi/message/corpconversation/getsendresult?access_token=" + dingtalk.NewUtil().GetAccessToken(csr.corpId, csr.agentTag, csr.atType)
 
-    reqBody := mpf.JsonMarshal(csr.ExtendData)
+    reqBody := mpf.JSONMarshal(csr.ExtendData)
     client, req := csr.GetRequest()
     req.SetBody([]byte(reqBody))
 

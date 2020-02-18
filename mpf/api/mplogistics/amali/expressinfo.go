@@ -70,7 +70,7 @@ func (ei *expressInfo) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ei.ReqData["com"] = ei.com
     ei.ReqData["nu"] = ei.nu
-    ei.ServiceUri = "/showapi_expInfo?" + mpf.HttpCreateParams(ei.ReqData, "none", 1)
+    ei.ServiceUri = "/showapi_expInfo?" + mpf.HTTPCreateParams(ei.ReqData, "none", 1)
 
     return ei.GetRequest()
 }

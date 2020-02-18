@@ -72,14 +72,14 @@ func (u *upload) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["template_id"] = u.templateId
-    reqData["ext_json"] = mpf.JsonMarshal(u.extData)
+    reqData["ext_json"] = mpf.JSONMarshal(u.extData)
     if len(u.userVersion) > 0 {
         reqData["user_version"] = u.userVersion
     }
     if len(u.userDesc) > 0 {
         reqData["user_desc"] = u.userDesc
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     u.ReqUrl = "https://api.weixin.qq.com/wxa/commit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(u.appId)
     client, req := u.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -89,7 +89,7 @@ func (u *upload) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

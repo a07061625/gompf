@@ -101,7 +101,7 @@ func (of *orderFreeze) SetPayTimeout(payTimeout string) {
 
 func (of *orderFreeze) SetExtraParam(extraParam map[string]interface{}) {
     if len(extraParam) > 0 {
-        of.BizContent["extra_param"] = mpf.JsonMarshal(extraParam)
+        of.BizContent["extra_param"] = mpf.JSONMarshal(extraParam)
     } else {
         panic(mperr.NewAliPayFund(errorcode.AliPayFundParam, "扩展信息不合法", nil))
     }

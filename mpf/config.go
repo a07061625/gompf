@@ -1,10 +1,6 @@
-// Package mpf 配置
-/**
- * 配置
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 9:22
- */
+// Package mpf config
+// User: 姜伟
+// Time: 2020-02-19 05:14:34
 package mpf
 
 import (

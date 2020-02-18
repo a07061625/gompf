@@ -56,7 +56,7 @@ func (sc *sessionCreate) checkData() {
 func (sc *sessionCreate) SendRequest() api.ApiResult {
     sc.checkData()
 
-    reqBody := mpf.JsonMarshal(sc.ReqData)
+    reqBody := mpf.JSONMarshal(sc.ReqData)
     sc.ReqUrl = "https://api.weixin.qq.com/customservice/kfsession/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sc.appId)
     client, req := sc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -66,7 +66,7 @@ func (sc *sessionCreate) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

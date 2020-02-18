@@ -55,7 +55,7 @@ func (cd *categoryDelete) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["first"] = cd.first
     reqData["second"] = cd.second
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     cd.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/deletecategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cd.appId)
     client, req := cd.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -65,7 +65,7 @@ func (cd *categoryDelete) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

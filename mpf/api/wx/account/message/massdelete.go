@@ -55,7 +55,7 @@ func (md *massDelete) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["msg_id"] = md.msgId
     reqData["article_idx"] = md.articleIndex
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     md.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token=" + wx.NewUtilWx().GetSingleAccessToken(md.appId)
     client, req := md.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -65,7 +65,7 @@ func (md *massDelete) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

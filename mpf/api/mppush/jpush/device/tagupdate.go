@@ -53,7 +53,7 @@ func (tu *tagUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     tu.ReqUrl = tu.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(tu.ExtendData)
+    reqBody := mpf.JSONMarshal(tu.ExtendData)
     client, req := tu.GetRequest()
     req.SetBody([]byte(reqBody))
 

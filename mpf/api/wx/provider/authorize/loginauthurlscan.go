@@ -42,7 +42,7 @@ func (lus *loginAuthUrlScan) SetUserType(userType string) {
 
 func (lus *loginAuthUrlScan) GetResult() map[string]string {
     result := make(map[string]string)
-    result["url"] = "https://open.work.weixin.qq.com/wwopen/sso/3rd_qrConnect?" + mpf.HttpCreateParams(lus.ReqData, "none", 1)
+    result["url"] = "https://open.work.weixin.qq.com/wwopen/sso/3rd_qrConnect?" + mpf.HTTPCreateParams(lus.ReqData, "none", 1)
     return result
 }
 

@@ -22,14 +22,14 @@ type menuGet struct {
 
 func (mg *menuGet) SendRequest() api.ApiResult {
     mg.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(mg.corpId, mg.agentTag)
-    mg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/get?" + mpf.HttpCreateParams(mg.ReqData, "none", 1)
+    mg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/get?" + mpf.HTTPCreateParams(mg.ReqData, "none", 1)
     client, req := mg.GetRequest()
     resp, result := mg.SendInner(client, req, errorcode.WxCorpRequestGet)
     if resp.RespCode > 0 {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

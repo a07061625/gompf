@@ -53,7 +53,7 @@ func (du *deviceUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     du.ReqUrl = du.GetServiceUrl() + "?updateProfile"
 
-    reqBody := mpf.JsonMarshal(du.ExtendData)
+    reqBody := mpf.JSONMarshal(du.ExtendData)
     client, req := du.GetRequest()
     req.SetBody([]byte(reqBody))
 

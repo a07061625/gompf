@@ -73,7 +73,7 @@ func (cs *customSend) SendRequest(getType string) api.ApiResult {
     reqData["touser"] = cs.openid
     reqData["msgtype"] = cs.msgType
     reqData[cs.msgType] = cs.msgData
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     if len(cs.accessToken) > 0 {
         cs.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + cs.accessToken
     } else {
@@ -88,7 +88,7 @@ func (cs *customSend) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

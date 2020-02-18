@@ -45,7 +45,7 @@ func (ecg *externalContactGet) SendRequest(getType string) api.ApiResult {
     ecg.checkData()
 
     ecg.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(ecg.corpId, ecg.agentTag, getType)
-    ecg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/crm/get_external_contact?" + mpf.HttpCreateParams(ecg.ReqData, "none", 1)
+    ecg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/crm/get_external_contact?" + mpf.HTTPCreateParams(ecg.ReqData, "none", 1)
     client, req := ecg.GetRequest()
 
     resp, result := ecg.SendInner(client, req, errorcode.WxCorpRequestGet)
@@ -53,7 +53,7 @@ func (ecg *externalContactGet) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

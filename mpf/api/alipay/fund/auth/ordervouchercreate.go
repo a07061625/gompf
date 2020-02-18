@@ -92,7 +92,7 @@ func (ovc *orderVoucherCreate) SetPayTimeout(payTimeout string) {
 
 func (ovc *orderVoucherCreate) SetExtraParam(extraParam map[string]interface{}) {
     if len(extraParam) > 0 {
-        ovc.BizContent["extra_param"] = mpf.JsonMarshal(extraParam)
+        ovc.BizContent["extra_param"] = mpf.JSONMarshal(extraParam)
     } else {
         panic(mperr.NewAliPayFund(errorcode.AliPayFundParam, "扩展信息不合法", nil))
     }
@@ -144,7 +144,7 @@ func (ovc *orderVoucherCreate) CheckData() (*fasthttp.Client, *fasthttp.Request)
     ovc.BizContent["out_request_no"] = ovc.outRequestNo
     ovc.BizContent["order_title"] = ovc.orderTitle
     ovc.BizContent["amount"] = ovc.amount
-    ovc.BizContent["enable_pay_channels"] = mpf.JsonMarshal(ovc.payChannels)
+    ovc.BizContent["enable_pay_channels"] = mpf.JSONMarshal(ovc.payChannels)
 
     return ovc.GetRequest()
 }

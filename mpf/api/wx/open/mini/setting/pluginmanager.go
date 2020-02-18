@@ -70,7 +70,7 @@ func (pm *pluginManager) checkData() {
 func (pm *pluginManager) SendRequest() api.ApiResult {
     pm.checkData()
 
-    reqBody := mpf.JsonMarshal(pm.data)
+    reqBody := mpf.JSONMarshal(pm.data)
     pm.ReqUrl = "https://api.weixin.qq.com/wxa/plugin?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(pm.appId)
     client, req := pm.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -80,7 +80,7 @@ func (pm *pluginManager) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

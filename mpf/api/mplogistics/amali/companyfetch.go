@@ -33,7 +33,7 @@ func (cf *companyFetch) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewLogisticsAMAli(errorcode.LogisticsAMAliParam, "快递单号不能为空", nil))
     }
     cf.ReqData["nu"] = cf.nu
-    cf.ServiceUri = "/fetchCom?" + mpf.HttpCreateParams(cf.ReqData, "none", 1)
+    cf.ServiceUri = "/fetchCom?" + mpf.HTTPCreateParams(cf.ReqData, "none", 1)
 
     return cf.GetRequest()
 }

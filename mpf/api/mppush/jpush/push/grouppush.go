@@ -100,7 +100,7 @@ func (gp *groupPush) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     gp.ReqUrl = gp.GetServiceUrl()
 
-    reqBody := mpf.JsonMarshal(gp.ExtendData)
+    reqBody := mpf.JSONMarshal(gp.ExtendData)
     client, req := gp.GetRequest()
     req.SetBody([]byte(reqBody))
 

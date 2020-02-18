@@ -39,7 +39,7 @@ func (ttk *templateTitleKeywords) checkData() {
 
 func (ttk *templateTitleKeywords) SendRequest(getType string) api.ApiResult {
     ttk.checkData()
-    reqBody := mpf.JsonMarshal(ttk.ReqData)
+    reqBody := mpf.JSONMarshal(ttk.ReqData)
 
     ttk.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/get?access_token=" + wx.NewUtilWx().GetSingleCache(ttk.appId, getType)
     client, req := ttk.GetRequest()
@@ -50,7 +50,7 @@ func (ttk *templateTitleKeywords) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["id"]
     if ok {
         result.Data = respData

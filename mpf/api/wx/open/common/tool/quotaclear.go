@@ -21,7 +21,7 @@ type quotaClear struct {
 }
 
 func (qc *quotaClear) SendRequest() api.ApiResult {
-    reqBody := mpf.JsonMarshal(qc.ReqData)
+    reqBody := mpf.JSONMarshal(qc.ReqData)
     qc.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/clear_quota?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := qc.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -31,7 +31,7 @@ func (qc *quotaClear) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

@@ -75,7 +75,7 @@ func (pp *payPage) SetGoodsDetail(goodsDetail map[string]interface{}) {
 
 func (pp *payPage) SetPassBackParams(passBackParams map[string]string) {
     if len(passBackParams) > 0 {
-        pp.BizContent["passback_params"] = mpf.HttpCreateParams(passBackParams, "none", 1)
+        pp.BizContent["passback_params"] = mpf.HTTPCreateParams(passBackParams, "none", 1)
     } else {
         delete(pp.BizContent, "passback_params")
     }
@@ -107,7 +107,7 @@ func (pp *payPage) SetTimeoutExpress(timeoutExpress string) {
 
 func (pp *payPage) SetPromoParams(promoParams map[string]interface{}) {
     if len(promoParams) > 0 {
-        pp.BizContent["promo_params"] = mpf.JsonMarshal(promoParams)
+        pp.BizContent["promo_params"] = mpf.JSONMarshal(promoParams)
     } else {
         delete(pp.BizContent, "promo_params")
     }
@@ -211,7 +211,7 @@ func (pp *payPage) SetRequestFromUrl(requestFromUrl string) {
 
 func (pp *payPage) SetBusinessParams(businessParams map[string]interface{}) {
     if len(businessParams) > 0 {
-        pp.BizContent["business_params"] = mpf.JsonMarshal(businessParams)
+        pp.BizContent["business_params"] = mpf.JSONMarshal(businessParams)
     } else {
         delete(pp.BizContent, "business_params")
     }

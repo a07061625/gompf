@@ -34,7 +34,7 @@ func (rlb *rateListBank) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewCurrencyAMYiYuan(errorcode.CurrencyAMYiYuanParam, "银行编码不能为空", nil))
     }
     rlb.ReqData["bankCode"] = rlb.bankCode
-    rlb.ServiceUri = "/bank10?" + mpf.HttpCreateParams(rlb.ReqData, "none", 1)
+    rlb.ServiceUri = "/bank10?" + mpf.HTTPCreateParams(rlb.ReqData, "none", 1)
 
     return rlb.GetRequest()
 }

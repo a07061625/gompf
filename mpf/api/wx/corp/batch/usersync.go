@@ -60,7 +60,7 @@ func (us *userSync) SendRequest(getType string) api.ApiResult {
     if len(us.callback) > 0 {
         reqData["callback"] = us.callback
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     us.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token=" + wx.NewUtilWx().GetCorpCache(us.corpId, us.agentTag, getType)
     client, req := us.GetRequest()
@@ -71,7 +71,7 @@ func (us *userSync) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

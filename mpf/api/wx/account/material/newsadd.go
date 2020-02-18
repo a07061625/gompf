@@ -42,7 +42,7 @@ func (na *newsAdd) SendRequest() api.ApiResult {
 
     reqData := make(map[string]interface{})
     reqData["articles"] = na.articles
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
     na.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=" + wx.NewUtilWx().GetSingleAccessToken(na.appId)
     client, req := na.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -52,7 +52,7 @@ func (na *newsAdd) SendRequest() api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     _, ok := respData["media_id"]
     if ok {
         result.Data = respData

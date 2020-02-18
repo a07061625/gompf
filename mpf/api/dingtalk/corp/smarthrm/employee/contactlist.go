@@ -50,7 +50,7 @@ func (cl *contactList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     cl.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/listcontact?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(cl.corpId)
 
-    reqBody := mpf.JsonMarshal(cl.ExtendData)
+    reqBody := mpf.JSONMarshal(cl.ExtendData)
     client, req := cl.GetRequest()
     req.SetBody([]byte(reqBody))
 

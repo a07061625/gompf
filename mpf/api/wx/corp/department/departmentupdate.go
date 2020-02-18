@@ -75,7 +75,7 @@ func (du *departmentUpdate) SendRequest(getType string) api.ApiResult {
     if len(du.name) > 0 {
         reqData["name"] = du.name
     }
-    reqBody := mpf.JsonMarshal(reqData)
+    reqBody := mpf.JSONMarshal(reqData)
 
     du.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token=" + wx.NewUtilWx().GetCorpCache(du.corpId, du.agentTag, getType)
     client, req := du.GetRequest()
@@ -86,7 +86,7 @@ func (du *departmentUpdate) SendRequest(getType string) api.ApiResult {
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     errCode, ok := respData["errcode"]
     if ok && (errCode.(int) == 0) {
         result.Data = respData

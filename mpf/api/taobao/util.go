@@ -28,7 +28,7 @@ func (util *utilTaoBao) SendRequest(service IBaseTaoBao, errorCode uint) api.Api
         return result
     }
 
-    respData, _ := mpf.JsonUnmarshalMap(resp.Content)
+    respData, _ := mpf.JSONUnmarshalMap(resp.Content)
     data, ok := respData[service.GetRespTag()]
     if ok {
         result.Data = data
