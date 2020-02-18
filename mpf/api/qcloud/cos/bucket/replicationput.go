@@ -42,7 +42,7 @@ func (rp *replicationPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := project.DataPrefixXML + string(xmlStr)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     rp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
-    rp.ReqUrl = "http://" + rp.ReqHeader["Host"] + rp.ReqUri + "?replication"
+    rp.ReqURI = "http://" + rp.ReqHeader["Host"] + rp.ReqUri + "?replication"
     client, req := rp.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

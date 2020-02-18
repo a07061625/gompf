@@ -65,6 +65,6 @@ func (ei *expressInfo) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewExpressInfo() *expressInfo {
     ei := &expressInfo{mplogistics.NewBaseKdBird(), "", "", ""}
     ei.ReqData["RequestType"] = "1002"
-    ei.ReqUrl = "http://api.kdniao.com/Ebusiness/EbusinessOrderHandle.aspx"
+    ei.ReqURI = "http://api.kdniao.com/Ebusiness/EbusinessOrderHandle.aspx"
     return ei
 }

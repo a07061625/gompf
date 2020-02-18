@@ -10,17 +10,17 @@ import (
     "github.com/valyala/tcplisten"
 )
 
-type listenerTcp struct {
+type listenerTCP struct {
     net.Listener
 }
 
-func (l *listenerTcp) Accept() (conn net.Conn, err error) {
+func (l *listenerTCP) Accept() (conn net.Conn, err error) {
     tl, err := l.Listener.(*net.TCPListener).AcceptTCP()
     if err != nil {
         return nil, err
     }
 
-    conf := newTcpConf()
+    conf := newTCPConf()
     tl.SetKeepAlive(conf.keepAlive)
     tl.SetKeepAlivePeriod(conf.keepAlivePeriod)
     tl.SetNoDelay(conf.noDelay)
@@ -32,7 +32,7 @@ func (l *listenerTcp) Accept() (conn net.Conn, err error) {
 }
 
 // 获取sock文件句柄
-func (l *listenerTcp) File() (uintptr, error) {
+func (l *listenerTCP) File() (uintptr, error) {
     f, err := l.Listener.(*net.TCPListener).File()
     if err != nil {
         return 0, err
@@ -40,8 +40,9 @@ func (l *listenerTcp) File() (uintptr, error) {
     return f.Fd(), nil
 }
 
-func NewListenerTcp(addr string) *listenerTcp {
-    listener := &listenerTcp{}
+// NewListenerTCP NewListenerTCP
+func NewListenerTCP(addr string) *listenerTCP {
+    listener := &listenerTCP{}
     if os.Getenv(mpf.GoEnvServerMode) == mpf.EnvServerModeChild { // 子进程
         f := os.NewFile(3, "")
         l, err := net.FileListener(f)
@@ -51,7 +52,7 @@ func NewListenerTcp(addr string) *listenerTcp {
         }
         listener.Listener = l
     } else { // 守护进程
-        conf := newTcpConf()
+        conf := newTCPConf()
         cfg := tcplisten.Config{
             ReusePort:   conf.reusePort,
             DeferAccept: conf.deferAccept,

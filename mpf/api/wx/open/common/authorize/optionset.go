@@ -49,11 +49,11 @@ func (os *optionSet) checkData() {
     os.ReqData["option_value"] = os.optionValue
 }
 
-func (os *optionSet) SendRequest() api.ApiResult {
+func (os *optionSet) SendRequest() api.APIResult {
     os.checkData()
 
     reqBody := mpf.JSONMarshal(os.ReqData)
-    os.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    os.ReqURI = "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := os.GetRequest()
     req.SetBody([]byte(reqBody))
 

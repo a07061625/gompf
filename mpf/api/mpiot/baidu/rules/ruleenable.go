@@ -37,7 +37,7 @@ func (re *ruleEnable) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     re.ServiceUri = "/v3/iot/rules/device/" + re.deviceName
 
-    re.ReqUrl = re.GetServiceUrl() + "?enable"
+    re.ReqURI = re.GetServiceUrl() + "?enable"
 
     return re.GetRequest()
 }

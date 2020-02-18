@@ -54,7 +54,7 @@ func (sl *simpleList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     sl.ExtendData["role_id"] = sl.roleId
 
-    sl.ReqUrl = dingtalk.UrlService + "/topapi/role/simplelist?access_token=" + dingtalk.NewUtil().GetAccessToken(sl.corpId, sl.agentTag, sl.atType)
+    sl.ReqURI = dingtalk.UrlService + "/topapi/role/simplelist?access_token=" + dingtalk.NewUtil().GetAccessToken(sl.corpId, sl.agentTag, sl.atType)
 
     reqBody := mpf.JSONMarshal(sl.ExtendData)
     client, req := sl.GetRequest()

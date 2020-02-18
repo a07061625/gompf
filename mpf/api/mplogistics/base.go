@@ -18,11 +18,11 @@ import (
 )
 
 type baseLogistics struct {
-    api.ApiOuter
+    api.APIOuter
 }
 
 func newBaseLogistics() baseLogistics {
-    return baseLogistics{api.NewApiOuter()}
+    return baseLogistics{api.NewAPIOuter()}
 }
 
 type BaseAMAli struct {
@@ -32,14 +32,14 @@ type BaseAMAli struct {
 
 func (l *BaseAMAli) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     conf := NewConfigAMAli()
-    l.ReqUrl = conf.serviceAddress + l.ServiceUri
+    l.ReqURI = conf.serviceAddress + l.ServiceUri
     l.ReqHeader["Authorization"] = "APPCODE " + conf.GetAppCode()
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(l.ReqUrl)
+    req.Header.SetRequestURI(l.ReqURI)
     req.Header.SetContentType(l.ReqContentType)
     req.Header.SetMethod(l.ReqMethod)
     mpf.HTTPAddReqHeader(req, l.ReqHeader)
@@ -66,7 +66,7 @@ func (l *BaseKd100) createSign() {
     l.ReqData["param"] = mpf.JSONMarshal(l.ExtendData)
     signStr := l.ReqData["param"] + conf.GetAppKey() + conf.GetAppId()
     l.ReqData["sign"] = strings.ToUpper(mpf.HashMd5(signStr, ""))
-    l.ReqUrl = "https://poll.kuaidi100.com/poll/query.do"
+    l.ReqURI = "https://poll.kuaidi100.com/poll/query.do"
 }
 
 func (l *BaseKd100) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -76,7 +76,7 @@ func (l *BaseKd100) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(l.ReqUrl)
+    req.Header.SetRequestURI(l.ReqURI)
     req.Header.SetContentType(l.ReqContentType)
     req.Header.SetMethod(l.ReqMethod)
     mpf.HTTPAddReqHeader(req, l.ReqHeader)
@@ -114,7 +114,7 @@ func (l *BaseKdBird) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(l.ReqUrl)
+    req.Header.SetRequestURI(l.ReqURI)
     req.Header.SetContentType(l.ReqContentType)
     req.Header.SetMethod(l.ReqMethod)
     mpf.HTTPAddReqHeader(req, l.ReqHeader)

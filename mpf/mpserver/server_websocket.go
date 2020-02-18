@@ -15,13 +15,15 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
+// HandlerFunc HandlerFunc
 type HandlerFunc func(messageType int, messageData map[string]interface{}) (bool, *mpresponse.ResultAPI)
 
 type connWebSocket struct {
-    Id   string
+    ID   string
     Conn *websocket.Conn
 }
 
+// IServerWebSocket IServerWebSocket
 type IServerWebSocket interface {
     Handler() context.Handler
 }
@@ -73,7 +75,7 @@ func (s *serverWebSocket) AddConnection(key string, conn *websocket.Conn, expire
 
     nowTime := time.Now().Unix()
     connection := &connWebSocket{}
-    connection.Id = mpf.ToolCreateNonceStr(8, "numlower") + strconv.FormatInt(nowTime, 10)
+    connection.ID = mpf.ToolCreateNonceStr(8, "numlower") + strconv.FormatInt(nowTime, 10)
     connection.Conn = conn
     s.connections[key] = connection
 }
@@ -122,10 +124,9 @@ func (s *serverWebSocket) handleMessage(messageType int, messageData []byte, con
         handlerFunc, ok := s.handlers[msgEvent.(string)]
         if ok {
             return handlerFunc(messageType, handlerData)
-        } else {
-            result.Code = errorcode.CommonBaseWebSocket
-            result.Msg = "事件类型不支持"
         }
+        result.Code = errorcode.CommonBaseWebSocket
+        result.Msg = "事件类型不支持"
     default:
         result.Code = errorcode.CommonBaseWebSocket
         result.Msg = "事件类型数据格式错误"
@@ -164,6 +165,7 @@ func (s *serverWebSocket) Handler() context.Handler {
     }
 }
 
+// NewServerWebSocket NewServerWebSocket
 func NewServerWebSocket() *serverWebSocket {
     s := &serverWebSocket{}
     s.upGrader = websocket.Upgrader{

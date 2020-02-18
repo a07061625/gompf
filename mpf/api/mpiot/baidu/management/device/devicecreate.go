@@ -64,7 +64,7 @@ func (dc *deviceCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     dc.ExtendData["description"] = dc.deviceDesc
     dc.ExtendData["schemaId"] = dc.schemaId
 
-    dc.ReqUrl = dc.GetServiceUrl()
+    dc.ReqURI = dc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(dc.ExtendData)
     client, req := dc.GetRequest()

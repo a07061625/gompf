@@ -37,11 +37,11 @@ func (lig *loginInfoGet) checkData() {
     lig.ReqData["auth_code"] = lig.authCode
 }
 
-func (lig *loginInfoGet) SendRequest() api.ApiResult {
+func (lig *loginInfoGet) SendRequest() api.APIResult {
     lig.checkData()
 
     reqBody := mpf.JSONMarshal(lig.ReqData)
-    lig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?access_token=" + wx.NewUtilWx().GetProviderToken()
+    lig.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?access_token=" + wx.NewUtilWx().GetProviderToken()
     client, req := lig.GetRequest()
     req.SetBody([]byte(reqBody))
 

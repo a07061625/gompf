@@ -22,7 +22,7 @@ import (
 )
 
 type BaseAliPay struct {
-    api.ApiOuter
+    api.APIOuter
     respTag       string                 // 响应标识
     BizContent    map[string]interface{} // 业务请求参数集合
     urlNotify     string                 // 主动通知地址
@@ -78,7 +78,7 @@ func (ap *BaseAliPay) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 func NewBase(appId string) BaseAliPay {
     now := time.Now()
     conf := NewConfig().GetAccount(appId)
-    ap := BaseAliPay{api.NewApiOuter(), "", make(map[string]interface{}), "", ""}
+    ap := BaseAliPay{api.NewAPIOuter(), "", make(map[string]interface{}), "", ""}
     ap.urlNotify = conf.GetUrlNotify()
     ap.urlReturnBase = conf.GetUrlReturn()
     ap.ReqData["app_id"] = appId

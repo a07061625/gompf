@@ -37,11 +37,11 @@ func (ar *adminRebind) checkData() {
     ar.ReqData["taskid"] = ar.taskId
 }
 
-func (ar *adminRebind) SendRequest() api.ApiResult {
+func (ar *adminRebind) SendRequest() api.APIResult {
     ar.checkData()
 
     reqBody := mpf.JSONMarshal(ar.ReqData)
-    ar.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/componentrebindadmin?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    ar.ReqURI = "https://api.weixin.qq.com/cgi-bin/account/componentrebindadmin?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := ar.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -57,7 +57,7 @@ func (drg *dialRecordGet) SetLimit(limit int) {
     }
 }
 
-func (drg *dialRecordGet) SendRequest() api.ApiResult {
+func (drg *dialRecordGet) SendRequest() api.APIResult {
     reqData := make(map[string]interface{})
     reqData["offset"] = drg.offset
     reqData["limit"] = drg.limit
@@ -67,7 +67,7 @@ func (drg *dialRecordGet) SendRequest() api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    drg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/dial/get_dial_record?access_token=" + wx.NewUtilWx().GetCorpAccessToken(drg.corpId, drg.agentTag)
+    drg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/dial/get_dial_record?access_token=" + wx.NewUtilWx().GetCorpAccessToken(drg.corpId, drg.agentTag)
     client, req := drg.GetRequest()
     req.SetBody([]byte(reqBody))
 

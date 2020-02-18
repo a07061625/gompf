@@ -37,11 +37,11 @@ func (ttk *templateTitleKeywords) checkData() {
     ttk.ReqData["id"] = ttk.titleId
 }
 
-func (ttk *templateTitleKeywords) SendRequest(getType string) api.ApiResult {
+func (ttk *templateTitleKeywords) SendRequest(getType string) api.APIResult {
     ttk.checkData()
     reqBody := mpf.JSONMarshal(ttk.ReqData)
 
-    ttk.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/get?access_token=" + wx.NewUtilWx().GetSingleCache(ttk.appId, getType)
+    ttk.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/get?access_token=" + wx.NewUtilWx().GetSingleCache(ttk.appId, getType)
     client, req := ttk.GetRequest()
     req.SetBody([]byte(reqBody))
 

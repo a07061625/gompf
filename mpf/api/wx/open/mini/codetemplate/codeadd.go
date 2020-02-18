@@ -37,11 +37,11 @@ func (ca *codeAdd) checkData() {
     ca.ReqData["draft_id"] = ca.draftId
 }
 
-func (ca *codeAdd) SendRequest() api.ApiResult {
+func (ca *codeAdd) SendRequest() api.APIResult {
     ca.checkData()
 
     reqBody := mpf.JSONMarshal(ca.ReqData)
-    ca.ReqUrl = "https://api.weixin.qq.com/wxa/addtotemplate?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    ca.ReqURI = "https://api.weixin.qq.com/wxa/addtotemplate?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
 

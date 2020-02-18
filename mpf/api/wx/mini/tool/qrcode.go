@@ -99,14 +99,14 @@ func (qc *qrCode) checkData() (*fasthttp.Client, *fasthttp.Request) {
     reqData["is_hyaline"] = qc.isHyaLine
     reqBody := mpf.JSONMarshal(reqData)
 
-    qc.ReqUrl = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + wx.NewUtilWx().GetSingleCache(qc.appId, wx.SingleCacheTypeAccessToken)
+    qc.ReqURI = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + wx.NewUtilWx().GetSingleCache(qc.appId, wx.SingleCacheTypeAccessToken)
     client, req := qc.GetRequest()
     req.SetBody([]byte(reqBody))
 
     return client, req
 }
 
-func (qc *qrCode) SendRequest() api.ApiResult {
+func (qc *qrCode) SendRequest() api.APIResult {
     client, req := qc.checkData()
     resp, result := qc.SendInner(client, req, errorcode.WxMiniRequestPost)
     if resp.RespCode > 0 {

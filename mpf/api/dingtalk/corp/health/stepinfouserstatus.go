@@ -35,7 +35,7 @@ func (ius *stepInfoUserStatus) CheckData() (*fasthttp.Client, *fasthttp.Request)
     }
     ius.ExtendData["userid"] = ius.userId
 
-    ius.ReqUrl = dingtalk.UrlService + "/topapi/health/stepinfo/getuserstatus?access_token=" + dingtalk.NewUtil().GetAccessToken(ius.corpId, ius.agentTag, ius.atType)
+    ius.ReqURI = dingtalk.UrlService + "/topapi/health/stepinfo/getuserstatus?access_token=" + dingtalk.NewUtil().GetAccessToken(ius.corpId, ius.agentTag, ius.atType)
 
     reqBody := mpf.JSONMarshal(ius.ExtendData)
     client, req := ius.GetRequest()

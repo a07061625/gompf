@@ -123,7 +123,7 @@ func (acu *appCertUpload) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         proPwdWriter.Write([]byte(acu.proCertPassword))
     }
 
-    acu.ReqUrl = acu.GetServiceUrl()
+    acu.ReqURI = acu.GetServiceUrl()
     acu.ReqContentType = bodyWriter.FormDataContentType()
     client, req := acu.GetRequest()
     req.SetBody(bodyBuffer.Bytes())

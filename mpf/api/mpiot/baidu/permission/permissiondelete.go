@@ -49,7 +49,7 @@ func (pd *permissionDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pd.ServiceUri = "/v1/endpoint/" + pd.endpointName + "/permission/" + pd.permissionUuid
 
-    pd.ReqUrl = pd.GetServiceUrl()
+    pd.ReqURI = pd.GetServiceUrl()
 
     return pd.GetRequest()
 }

@@ -33,7 +33,7 @@ func (il *idList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     il.ReqData["id"] = strconv.Itoa(il.id)
     il.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(il.corpId, il.agentTag, il.atType)
-    il.ReqUrl = dingtalk.UrlService + "/department/list_ids?" + mpf.HTTPCreateParams(il.ReqData, "none", 1)
+    il.ReqURI = dingtalk.UrlService + "/department/list_ids?" + mpf.HTTPCreateParams(il.ReqData, "none", 1)
 
     return il.GetRequest()
 }

@@ -38,11 +38,11 @@ func (sm *signatureModify) checkData() {
     sm.ReqData["signature"] = sm.signature
 }
 
-func (sm *signatureModify) SendRequest() api.ApiResult {
+func (sm *signatureModify) SendRequest() api.APIResult {
     sm.checkData()
 
     reqBody := mpf.JSONMarshal(sm.ReqData)
-    sm.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/modifysignature?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(sm.appId)
+    sm.ReqURI = "https://api.weixin.qq.com/cgi-bin/account/modifysignature?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(sm.appId)
     client, req := sm.GetRequest()
     req.SetBody([]byte(reqBody))
 

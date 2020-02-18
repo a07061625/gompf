@@ -41,13 +41,13 @@ func (co *code2Openid) checkData() {
     co.ReqData["auth_code"] = co.authCode
 }
 
-func (co *code2Openid) SendRequest() api.ApiResult {
+func (co *code2Openid) SendRequest() api.APIResult {
     co.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(co.ReqData, co.appId, "md5")
     co.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(co.ReqData))
-    co.ReqUrl = "https://api.mch.weixin.qq.com/tools/authcodetoopenid"
+    co.ReqURI = "https://api.mch.weixin.qq.com/tools/authcodetoopenid"
     client, req := co.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -18,8 +18,8 @@ type infoListOnline struct {
     appId string
 }
 
-func (ilo *infoListOnline) SendRequest() api.ApiResult {
-    ilo.ReqUrl = "https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ilo.appId)
+func (ilo *infoListOnline) SendRequest() api.APIResult {
+    ilo.ReqURI = "https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ilo.appId)
     client, req := ilo.GetRequest()
 
     resp, result := ilo.SendInner(client, req, errorcode.WxAccountRequestGet)

@@ -22,12 +22,12 @@ import (
 )
 
 type baseIot struct {
-    api.ApiOuter
+    api.APIOuter
     ExtendData map[string]interface{}
 }
 
 func newBaseIot() baseIot {
-    return baseIot{api.NewApiOuter(), make(map[string]interface{})}
+    return baseIot{api.NewAPIOuter(), make(map[string]interface{})}
 }
 
 type BaseBaiDu struct {
@@ -82,7 +82,7 @@ func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(bd.ReqUrl)
+    req.Header.SetRequestURI(bd.ReqURI)
     req.Header.SetContentType(bd.ReqContentType)
     req.Header.SetMethod(bd.ReqMethod)
     mpf.HTTPAddReqHeader(req, bd.ReqHeader)
@@ -146,7 +146,7 @@ func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := mpf.HTTPCreateParams(t.ReqData, "none", 1)
     t.createTC3Sign(reqBody)
 
-    t.ReqUrl = "https://" + t.serviceDomain
+    t.ReqURI = "https://" + t.serviceDomain
     t.ReqContentType = project.HTTPContentTypeJSON
     t.ReqMethod = fasthttp.MethodPost
 
@@ -154,7 +154,7 @@ func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(t.ReqUrl)
+    req.Header.SetRequestURI(t.ReqURI)
     req.Header.SetContentType(t.ReqContentType)
     req.Header.SetMethod(t.ReqMethod)
     req.SetBody([]byte(reqBody))

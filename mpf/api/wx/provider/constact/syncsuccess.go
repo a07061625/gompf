@@ -34,10 +34,10 @@ func (ss *syncSuccess) checkData() {
     }
 }
 
-func (ss *syncSuccess) SendRequest() api.ApiResult {
+func (ss *syncSuccess) SendRequest() api.APIResult {
     ss.checkData()
 
-    ss.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/sync/contact_sync_success?access_token=" + ss.accessToken
+    ss.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/sync/contact_sync_success?access_token=" + ss.accessToken
     client, req := ss.GetRequest()
 
     resp, result := ss.SendInner(client, req, errorcode.WxProviderRequestGet)

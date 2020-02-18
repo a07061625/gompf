@@ -65,7 +65,7 @@ func (pcu *partCopyUpload) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if !ok {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "源对象URL不能为空", nil))
     }
-    pcu.ReqUrl = "http://" + pcu.ReqHeader["Host"] + pcu.ReqUri + "?" + mpf.HTTPCreateParams(pcu.ReqData, "none", 1)
+    pcu.ReqURI = "http://" + pcu.ReqHeader["Host"] + pcu.ReqUri + "?" + mpf.HTTPCreateParams(pcu.ReqData, "none", 1)
     return pcu.GetRequest()
 }
 

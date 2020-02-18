@@ -46,7 +46,7 @@ func (jl *jobList) SetPageSize(pageSize int) {
 }
 
 func (jl *jobList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    jl.ReqUrl = jl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(jl.ReqData, "none", 1)
+    jl.ReqURI = jl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(jl.ReqData, "none", 1)
 
     return jl.GetRequest()
 }

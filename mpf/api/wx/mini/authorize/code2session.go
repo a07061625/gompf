@@ -34,12 +34,12 @@ func (cs *code2Session) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewWxMini(errorcode.WxMiniParam, "授权码不能为空", nil))
     }
 
-    cs.ReqUrl = "https://api.weixin.qq.com/sns/jscode2session?" + mpf.HTTPCreateParams(cs.ReqData, "none", 1)
+    cs.ReqURI = "https://api.weixin.qq.com/sns/jscode2session?" + mpf.HTTPCreateParams(cs.ReqData, "none", 1)
 
     return cs.GetRequest()
 }
 
-func (cs *code2Session) SendRequest() api.ApiResult {
+func (cs *code2Session) SendRequest() api.APIResult {
     client, req := cs.checkData()
     resp, result := cs.SendInner(client, req, errorcode.WxMiniRequestGet)
     if resp.RespCode > 0 {

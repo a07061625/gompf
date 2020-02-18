@@ -50,7 +50,7 @@ func (pd *principalDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pd.ServiceUri = "/v1/endpoint/" + pd.endpointName + "/principal/" + pd.principalName
 
-    pd.ReqUrl = pd.GetServiceUrl()
+    pd.ReqURI = pd.GetServiceUrl()
 
     return pd.GetRequest()
 }

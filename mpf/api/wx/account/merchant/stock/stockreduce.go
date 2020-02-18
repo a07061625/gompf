@@ -60,7 +60,7 @@ func (sr *stockReduce) checkData() {
     }
 }
 
-func (sr *stockReduce) SendRequest() api.ApiResult {
+func (sr *stockReduce) SendRequest() api.APIResult {
     sr.checkData()
 
     reqData := make(map[string]interface{})
@@ -68,7 +68,7 @@ func (sr *stockReduce) SendRequest() api.ApiResult {
     reqData["sku_info"] = sr.skuInfo
     reqData["quantity"] = sr.quantity
     reqBody := mpf.JSONMarshal(reqData)
-    sr.ReqUrl = "https://api.weixin.qq.com/merchant/stock/reduce?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sr.appId)
+    sr.ReqURI = "https://api.weixin.qq.com/merchant/stock/reduce?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sr.appId)
     client, req := sr.GetRequest()
     req.SetBody([]byte(reqBody))
 

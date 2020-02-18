@@ -38,11 +38,11 @@ func (ta *templateAdd) checkData() {
     ta.ReqData["template_id_short"] = ta.templateShortId
 }
 
-func (ta *templateAdd) SendRequest() api.ApiResult {
+func (ta *templateAdd) SendRequest() api.APIResult {
     ta.checkData()
 
     reqBody := mpf.JSONMarshal(ta.ReqData)
-    ta.ReqUrl = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ta.appId)
+    ta.ReqURI = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ta.appId)
     client, req := ta.GetRequest()
     req.SetBody([]byte(reqBody))
 

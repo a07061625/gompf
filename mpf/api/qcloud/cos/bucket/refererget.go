@@ -17,7 +17,7 @@ type refererGet struct {
 }
 
 func (rg *refererGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    rg.ReqUrl = "http://" + rg.ReqHeader["Host"] + rg.ReqUri + "?referer"
+    rg.ReqURI = "http://" + rg.ReqHeader["Host"] + rg.ReqUri + "?referer"
     return rg.GetRequest()
 }
 

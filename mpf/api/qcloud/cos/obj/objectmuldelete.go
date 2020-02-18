@@ -59,7 +59,7 @@ func (omd *objectMulDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     omd.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
-    omd.ReqUrl = "http://" + omd.ReqHeader["Host"] + omd.ReqUri + "?delete"
+    omd.ReqURI = "http://" + omd.ReqHeader["Host"] + omd.ReqUri + "?delete"
     client, req := omd.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

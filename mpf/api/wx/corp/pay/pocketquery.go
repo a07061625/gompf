@@ -48,7 +48,7 @@ func (pq *pocketQuery) checkData() {
     pq.ReqData["partner_trade_no"] = pq.partnerTradeNo
 }
 
-func (pq *pocketQuery) SendRequest() api.ApiResult {
+func (pq *pocketQuery) SendRequest() api.APIResult {
     pq.checkData()
 
     conf := wx.NewConfig().GetCorp(pq.corpId)
@@ -56,7 +56,7 @@ func (pq *pocketQuery) SendRequest() api.ApiResult {
     pq.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(pq.ReqData))
 
-    pq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/querywwsptrans2pocket"
+    pq.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/querywwsptrans2pocket"
     client, req := pq.GetRequest()
     req.SetBody(reqBody)
 

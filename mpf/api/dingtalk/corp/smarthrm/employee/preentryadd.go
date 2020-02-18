@@ -81,7 +81,7 @@ func (pea *preEntryAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     pea.ExtendData["name"] = pea.name
     pea.ExtendData["mobile"] = pea.mobile
 
-    pea.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/addpreentry?access_token=" + dingtalk.NewUtil().GetAccessToken(pea.corpId, pea.agentTag, pea.atType)
+    pea.ReqURI = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/addpreentry?access_token=" + dingtalk.NewUtil().GetAccessToken(pea.corpId, pea.agentTag, pea.atType)
 
     reqData := make(map[string]interface{})
     reqData["param"] = pea.ExtendData

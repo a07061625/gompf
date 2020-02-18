@@ -27,7 +27,7 @@ func (ds *deviceStatus) SetDeviceNo(deviceNo string) {
     match, _ := regexp.MatchString(project.RegexDigit, deviceNo)
     if match {
         ds.deviceNo = deviceNo
-        ds.ReqUrl = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/status?access_token="
+        ds.ReqURI = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/status?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "机器编号不合法", nil))
     }
@@ -38,12 +38,12 @@ func (ds *deviceStatus) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "机器编号不能为空", nil))
     }
 
-    ds.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(ds.GetAppId())
+    ds.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(ds.GetAppId())
 
     return ds.GetRequest()
 }
 
-func (ds *deviceStatus) SendRequest() api.ApiResult {
+func (ds *deviceStatus) SendRequest() api.APIResult {
     client, req := ds.checkData()
     resp, result := ds.SendInner(client, req, errorcode.PrintFeYinRequestGet)
     if resp.RespCode > 0 {

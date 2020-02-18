@@ -55,11 +55,11 @@ func (fd *functionDownload) checkData() {
     fd.ReqData["function_name"] = fd.functionName
 }
 
-func (fd *functionDownload) SendRequest() api.ApiResult {
+func (fd *functionDownload) SendRequest() api.APIResult {
     fd.checkData()
 
     reqBody := mpf.JSONMarshal(fd.ReqData)
-    fd.ReqUrl = "https://api.weixin.qq.com/tcb/downloadfunction?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fd.appId)
+    fd.ReqURI = "https://api.weixin.qq.com/tcb/downloadfunction?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fd.appId)
     client, req := fd.GetRequest()
     req.SetBody([]byte(reqBody))
 

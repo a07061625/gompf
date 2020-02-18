@@ -1,9 +1,6 @@
-/**
- * redis缓存
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 11:52
- */
+// Package mpcache redis
+// User: 姜伟
+// Time: 2020-02-19 06:16:30
 package mpcache
 
 import (
@@ -84,9 +81,8 @@ func (c *cacheRedis) DoHmSet(data []string) (interface{}, error) {
             dataList = append(dataList, v)
         }
         return c.conn.Do(dataList...).Result()
-    } else {
-        return nil, errors.New("数据不能为空")
     }
+    return nil, errors.New("数据不能为空")
 }
 
 var (
@@ -98,6 +94,7 @@ func init() {
     insRedis = &cacheRedis{nil, -1, 0, "", 0, 0}
 }
 
+// NewRedis NewRedis
 func NewRedis() *cacheRedis {
     onceRedis.Do(func() {
         insRedis.connect()

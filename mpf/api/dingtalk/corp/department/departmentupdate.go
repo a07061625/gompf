@@ -202,7 +202,7 @@ func (du *departmentUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     du.ExtendData["id"] = du.id
 
-    du.ReqUrl = dingtalk.UrlService + "/department/update?access_token=" + dingtalk.NewUtil().GetAccessToken(du.corpId, du.agentTag, du.atType)
+    du.ReqURI = dingtalk.UrlService + "/department/update?access_token=" + dingtalk.NewUtil().GetAccessToken(du.corpId, du.agentTag, du.atType)
 
     reqBody := mpf.JSONMarshal(du.ExtendData)
     client, req := du.GetRequest()

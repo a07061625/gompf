@@ -37,11 +37,11 @@ func (td *templateDelete) checkData() {
     td.ReqData["template_id"] = td.templateId
 }
 
-func (td *templateDelete) SendRequest(getType string) api.ApiResult {
+func (td *templateDelete) SendRequest(getType string) api.APIResult {
     td.checkData()
     reqBody := mpf.JSONMarshal(td.ReqData)
 
-    td.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/del?access_token=" + wx.NewUtilWx().GetSingleCache(td.appId, getType)
+    td.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/template/del?access_token=" + wx.NewUtilWx().GetSingleCache(td.appId, getType)
     client, req := td.GetRequest()
     req.SetBody([]byte(reqBody))
 

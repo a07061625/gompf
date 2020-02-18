@@ -21,8 +21,8 @@ type release struct {
     appId string // 应用ID
 }
 
-func (r *release) SendRequest() api.ApiResult {
-    r.ReqUrl = "https://api.weixin.qq.com/wxa/release?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(r.appId)
+func (r *release) SendRequest() api.APIResult {
+    r.ReqURI = "https://api.weixin.qq.com/wxa/release?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(r.appId)
     client, req := r.GetRequest()
     req.SetBody([]byte("{}"))
 

@@ -71,7 +71,7 @@ func (tc *templateCreate) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "模板归类不能为空", nil))
     }
 
-    tc.ReqUrl = mpprint.FeYinServiceDomain + "/template?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(tc.GetAppId())
+    tc.ReqURI = mpprint.FeYinServiceDomain + "/template?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(tc.GetAppId())
     client, req := tc.GetRequest()
     reqBody := mpf.JSONMarshal(tc.ReqData)
     req.SetBody([]byte(reqBody))
@@ -79,7 +79,7 @@ func (tc *templateCreate) checkData() (*fasthttp.Client, *fasthttp.Request) {
     return client, req
 }
 
-func (tc *templateCreate) SendRequest() api.ApiResult {
+func (tc *templateCreate) SendRequest() api.APIResult {
     client, req := tc.checkData()
     resp, result := tc.SendInner(client, req, errorcode.PrintFeYinRequestPost)
     if resp.RespCode > 0 {

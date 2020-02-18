@@ -73,13 +73,13 @@ func (sf *sharingFinish) checkData() {
     sf.ReqData["description"] = sf.description
 }
 
-func (sf *sharingFinish) SendRequest() api.ApiResult {
+func (sf *sharingFinish) SendRequest() api.APIResult {
     sf.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(sf.ReqData, sf.appId, "sha256")
     sf.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(sf.ReqData))
-    sf.ReqUrl = "https://api.mch.weixin.qq.com/secapi/pay/profitsharingfinish"
+    sf.ReqURI = "https://api.mch.weixin.qq.com/secapi/pay/profitsharingfinish"
     client, req := sf.GetRequest()
     req.SetBody([]byte(reqBody))
 

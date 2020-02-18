@@ -73,7 +73,7 @@ func (iu *inviteUser) checkData() {
     }
 }
 
-func (iu *inviteUser) SendRequest() api.ApiResult {
+func (iu *inviteUser) SendRequest() api.APIResult {
     iu.checkData()
     reqData := make(map[string]interface{})
     reqData["user"] = iu.users
@@ -81,7 +81,7 @@ func (iu *inviteUser) SendRequest() api.ApiResult {
     reqData["tag"] = iu.tags
     reqBody := mpf.JSONMarshal(reqData)
 
-    iu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/invite?access_token=" + wx.NewUtilWx().GetCorpAccessToken(iu.corpId, iu.agentTag)
+    iu.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/batch/invite?access_token=" + wx.NewUtilWx().GetCorpAccessToken(iu.corpId, iu.agentTag)
     client, req := iu.GetRequest()
     req.SetBody([]byte(reqBody))
 

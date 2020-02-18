@@ -20,12 +20,12 @@ type memberList struct {
 }
 
 func (ml *memberList) checkData() (*fasthttp.Client, *fasthttp.Request) {
-    ml.ReqUrl = mpprint.FeYinServiceDomain + "/app/" + ml.GetAppId() + "/members?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(ml.GetAppId())
+    ml.ReqURI = mpprint.FeYinServiceDomain + "/app/" + ml.GetAppId() + "/members?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(ml.GetAppId())
 
     return ml.GetRequest()
 }
 
-func (ml *memberList) SendRequest() api.ApiResult {
+func (ml *memberList) SendRequest() api.APIResult {
     client, req := ml.checkData()
     resp, result := ml.SendInner(client, req, errorcode.PrintFeYinRequestGet)
     if resp.RespCode > 0 {

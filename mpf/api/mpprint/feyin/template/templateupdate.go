@@ -31,7 +31,7 @@ func (tu *templateUpdate) SetTemplateId(templateId string) {
     match, _ := regexp.MatchString(project.RegexDigitAlpha, templateId)
     if match {
         tu.templateId = templateId
-        tu.ReqUrl = mpprint.FeYinServiceDomain + "/template/" + templateId + "?access_token="
+        tu.ReqURI = mpprint.FeYinServiceDomain + "/template/" + templateId + "?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "模板id不合法", nil))
     }
@@ -76,7 +76,7 @@ func (tu *templateUpdate) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "模板数据不能为空", nil))
     }
 
-    tu.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(tu.GetAppId())
+    tu.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(tu.GetAppId())
     client, req := tu.GetRequest()
     reqBody := mpf.JSONMarshal(tu.ReqData)
     req.SetBody([]byte(reqBody))
@@ -84,7 +84,7 @@ func (tu *templateUpdate) checkData() (*fasthttp.Client, *fasthttp.Request) {
     return client, req
 }
 
-func (tu *templateUpdate) SendRequest() api.ApiResult {
+func (tu *templateUpdate) SendRequest() api.APIResult {
     client, req := tu.checkData()
     resp, result := tu.SendInner(client, req, errorcode.PrintFeYinRequestPost)
     if resp.RespCode > 0 {

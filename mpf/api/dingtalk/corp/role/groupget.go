@@ -38,7 +38,7 @@ func (gg *groupGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     gg.ExtendData["group_id"] = gg.groupId
 
-    gg.ReqUrl = dingtalk.UrlService + "/topapi/role/getrolegroup?access_token=" + dingtalk.NewUtil().GetAccessToken(gg.corpId, gg.agentTag, gg.atType)
+    gg.ReqURI = dingtalk.UrlService + "/topapi/role/getrolegroup?access_token=" + dingtalk.NewUtil().GetAccessToken(gg.corpId, gg.agentTag, gg.atType)
 
     reqBody := mpf.JSONMarshal(gg.ExtendData)
     client, req := gg.GetRequest()

@@ -37,7 +37,7 @@ func (ue *usageEndpoint) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ue.ServiceUri = "/v1/endpoint/" + ue.endpointName + "/usage"
 
-    ue.ReqUrl = ue.GetServiceUrl()
+    ue.ReqURI = ue.GetServiceUrl()
 
     return ue.GetRequest()
 }

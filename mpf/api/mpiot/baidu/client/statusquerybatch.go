@@ -56,7 +56,7 @@ func (sqb *statusQueryBatch) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     sqb.ServiceUri = "/v2/endpoint/" + sqb.endpointName + "/batch-client-query/status"
     sqb.ExtendData["mqttID"] = sqb.clientList
 
-    sqb.ReqUrl = sqb.GetServiceUrl()
+    sqb.ReqURI = sqb.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(sqb.ExtendData)
     client, req := sqb.GetRequest()

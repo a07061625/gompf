@@ -81,7 +81,7 @@ func (lp *listByPage) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     lp.ReqData["department_id"] = strconv.Itoa(lp.departId)
     lp.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(lp.corpId, lp.agentTag, lp.atType)
-    lp.ReqUrl = dingtalk.UrlService + "/user/listbypage?" + mpf.HTTPCreateParams(lp.ReqData, "none", 1)
+    lp.ReqURI = dingtalk.UrlService + "/user/listbypage?" + mpf.HTTPCreateParams(lp.ReqData, "none", 1)
 
     return lp.GetRequest()
 }

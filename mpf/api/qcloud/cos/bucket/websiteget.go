@@ -17,7 +17,7 @@ type websiteGet struct {
 }
 
 func (wg *websiteGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    wg.ReqUrl = "http://" + wg.ReqHeader["Host"] + wg.ReqUri + "?website"
+    wg.ReqURI = "http://" + wg.ReqHeader["Host"] + wg.ReqUri + "?website"
     return wg.GetRequest()
 }
 

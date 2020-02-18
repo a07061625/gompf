@@ -1,9 +1,6 @@
-/**
- * mysql数据库
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 12:17
- */
+// Package mpdb db_mysql
+// User: 姜伟
+// Time: 2020-02-19 06:22:40
 package mpdb
 
 import (
@@ -13,6 +10,8 @@ import (
     "github.com/a07061625/gompf/mpf"
     "github.com/a07061625/gompf/mpf/mpconstant/errorcode"
     "github.com/a07061625/gompf/mpf/mperr"
+
+    // 只初始化
     _ "github.com/go-sql-driver/mysql"
     "xorm.io/xorm"
 )
@@ -71,6 +70,7 @@ func init() {
     insMysql = &dbMysql{nil, 0, "", 0, 0}
 }
 
+// NewDbMysql NewDbMysql
 func NewDbMysql() *dbMysql {
     onceMysql.Do(func() {
         insMysql.connect()

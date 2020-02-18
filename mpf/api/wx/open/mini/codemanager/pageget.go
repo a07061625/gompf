@@ -19,8 +19,8 @@ type pageGet struct {
     appId string // 应用ID
 }
 
-func (pg *pageGet) SendRequest() api.ApiResult {
-    pg.ReqUrl = "https://api.weixin.qq.com/wxa/get_page?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(pg.appId)
+func (pg *pageGet) SendRequest() api.APIResult {
+    pg.ReqURI = "https://api.weixin.qq.com/wxa/get_page?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(pg.appId)
     client, req := pg.GetRequest()
 
     resp, result := pg.SendInner(client, req, errorcode.WxOpenRequestGet)

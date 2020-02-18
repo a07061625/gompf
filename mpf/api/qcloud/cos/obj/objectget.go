@@ -33,7 +33,7 @@ func (og *objectGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "对象名称不能为空", nil))
     }
 
-    og.ReqUrl = "http://" + og.ReqHeader["Host"] + og.ReqUri
+    og.ReqURI = "http://" + og.ReqHeader["Host"] + og.ReqUri
     return og.GetRequest()
 }
 

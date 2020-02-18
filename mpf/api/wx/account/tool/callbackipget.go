@@ -18,8 +18,8 @@ type callbackIpGet struct {
     appId string
 }
 
-func (cig *callbackIpGet) SendRequest() api.ApiResult {
-    cig.ReqUrl = "https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=" + wx.NewUtilWx().GetSingleAccessToken(cig.appId)
+func (cig *callbackIpGet) SendRequest() api.APIResult {
+    cig.ReqURI = "https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=" + wx.NewUtilWx().GetSingleAccessToken(cig.appId)
     client, req := cig.GetRequest()
 
     resp, result := cig.SendInner(client, req, errorcode.WxAccountRequestGet)

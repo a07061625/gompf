@@ -166,7 +166,7 @@ func (uu *userUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     uu.ExtendData["userid"] = uu.userId
 
-    uu.ReqUrl = dingtalk.UrlService + "/user/update?access_token=" + dingtalk.NewUtil().GetAccessToken(uu.corpId, uu.agentTag, uu.atType)
+    uu.ReqURI = dingtalk.UrlService + "/user/update?access_token=" + dingtalk.NewUtil().GetAccessToken(uu.corpId, uu.agentTag, uu.atType)
 
     reqBody := mpf.JSONMarshal(uu.ExtendData)
     client, req := uu.GetRequest()

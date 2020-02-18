@@ -37,7 +37,7 @@ func (ocp *objectCopyPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "源对象URL不能为空", nil))
     }
 
-    ocp.ReqUrl = "http://" + ocp.ReqHeader["Host"] + ocp.ReqUri
+    ocp.ReqURI = "http://" + ocp.ReqHeader["Host"] + ocp.ReqUri
     return ocp.GetRequest()
 }
 

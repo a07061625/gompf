@@ -76,6 +76,7 @@ var (
     insDemo  *serverDemo
 )
 
+// NewDemo NewDemo
 func NewDemo(addr string, app http.Handler) *serverDemo {
     onceDemo.Do(func() {
         insDemo = &serverDemo{

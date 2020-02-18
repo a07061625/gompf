@@ -86,13 +86,13 @@ func (ciq *couponInfoQuery) checkData() {
     ciq.ReqData["stock_id"] = ciq.stockId
 }
 
-func (ciq *couponInfoQuery) SendRequest() api.ApiResult {
+func (ciq *couponInfoQuery) SendRequest() api.APIResult {
     ciq.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(ciq.ReqData, ciq.appId, "md5")
     ciq.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(ciq.ReqData))
-    ciq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/querycouponsinfo"
+    ciq.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/querycouponsinfo"
     client, req := ciq.GetRequest()
     req.SetBody([]byte(reqBody))
 

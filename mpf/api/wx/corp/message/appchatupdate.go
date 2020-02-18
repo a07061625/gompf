@@ -83,7 +83,7 @@ func (acu *appChatUpdate) checkData() {
     }
 }
 
-func (acu *appChatUpdate) SendRequest() api.ApiResult {
+func (acu *appChatUpdate) SendRequest() api.APIResult {
     acu.checkData()
 
     reqData := make(map[string]interface{})
@@ -102,7 +102,7 @@ func (acu *appChatUpdate) SendRequest() api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    acu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/appchat/update?access_token=" + wx.NewUtilWx().GetCorpAccessToken(acu.corpId, acu.agentTag)
+    acu.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/appchat/update?access_token=" + wx.NewUtilWx().GetCorpAccessToken(acu.corpId, acu.agentTag)
     client, req := acu.GetRequest()
     req.SetBody([]byte(reqBody))
 

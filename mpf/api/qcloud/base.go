@@ -23,11 +23,11 @@ import (
 )
 
 type baseQCloud struct {
-    api.ApiOuter
+    api.APIOuter
 }
 
 func newBase() baseQCloud {
-    return baseQCloud{api.NewApiOuter()}
+    return baseQCloud{api.NewAPIOuter()}
 }
 
 type BaseCos struct {
@@ -104,7 +104,7 @@ func (cos *BaseCos) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(cos.ReqUrl)
+    req.Header.SetRequestURI(cos.ReqURI)
     req.Header.SetContentType(cos.ReqContentType)
     req.Header.SetMethod(cos.ReqMethod)
     mpf.HTTPAddReqHeader(req, cos.ReqHeader)

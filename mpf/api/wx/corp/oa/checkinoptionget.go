@@ -59,7 +59,7 @@ func (cog *checkInOptionGet) checkData() {
     }
 }
 
-func (cog *checkInOptionGet) SendRequest() api.ApiResult {
+func (cog *checkInOptionGet) SendRequest() api.APIResult {
     cog.checkData()
 
     reqData := make(map[string]interface{})
@@ -67,7 +67,7 @@ func (cog *checkInOptionGet) SendRequest() api.ApiResult {
     reqData["useridlist"] = cog.userList
     reqBody := mpf.JSONMarshal(reqData)
 
-    cog.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckinoption?access_token=" + wx.NewUtilWx().GetCorpAccessToken(cog.corpId, cog.agentTag)
+    cog.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckinoption?access_token=" + wx.NewUtilWx().GetCorpAccessToken(cog.corpId, cog.agentTag)
     client, req := cog.GetRequest()
     req.SetBody([]byte(reqBody))
 

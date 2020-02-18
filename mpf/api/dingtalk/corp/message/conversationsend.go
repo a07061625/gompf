@@ -66,7 +66,7 @@ func (cs *conversationSend) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     cs.ExtendData["cid"] = cs.chatId
     cs.ExtendData["msg"] = cs.msgContent
 
-    cs.ReqUrl = dingtalk.UrlService + "/message/send_to_conversation?access_token=" + dingtalk.NewUtil().GetAccessToken(cs.corpId, cs.agentTag, cs.atType)
+    cs.ReqURI = dingtalk.UrlService + "/message/send_to_conversation?access_token=" + dingtalk.NewUtil().GetAccessToken(cs.corpId, cs.agentTag, cs.atType)
 
     reqBody := mpf.JSONMarshal(cs.ExtendData)
     client, req := cs.GetRequest()

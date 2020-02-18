@@ -55,7 +55,7 @@ func (adg *approvalDataGet) checkData() {
     }
 }
 
-func (adg *approvalDataGet) SendRequest() api.ApiResult {
+func (adg *approvalDataGet) SendRequest() api.APIResult {
     adg.checkData()
 
     reqData := make(map[string]interface{})
@@ -66,7 +66,7 @@ func (adg *approvalDataGet) SendRequest() api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    adg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token=" + wx.NewUtilWx().GetCorpAccessToken(adg.corpId, adg.agentTag)
+    adg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token=" + wx.NewUtilWx().GetCorpAccessToken(adg.corpId, adg.agentTag)
     client, req := adg.GetRequest()
     req.SetBody([]byte(reqBody))
 

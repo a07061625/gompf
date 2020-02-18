@@ -85,13 +85,13 @@ func (rq *refundQuery) checkData() {
     }
 }
 
-func (rq *refundQuery) SendRequest() api.ApiResult {
+func (rq *refundQuery) SendRequest() api.APIResult {
     rq.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(rq.ReqData, rq.appId, "md5")
     rq.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(rq.ReqData))
-    rq.ReqUrl = "https://api.mch.weixin.qq.com/pay/refundquery"
+    rq.ReqURI = "https://api.mch.weixin.qq.com/pay/refundquery"
     client, req := rq.GetRequest()
     req.SetBody([]byte(reqBody))
 

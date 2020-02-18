@@ -19,8 +19,8 @@ type showItemGet struct {
     appId string // 应用ID
 }
 
-func (sig *showItemGet) SendRequest() api.ApiResult {
-    sig.ReqUrl = "https://api.weixin.qq.com/wxa/getshowwxaitem?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(sig.appId)
+func (sig *showItemGet) SendRequest() api.APIResult {
+    sig.ReqURI = "https://api.weixin.qq.com/wxa/getshowwxaitem?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(sig.appId)
     client, req := sig.GetRequest()
 
     resp, result := sig.SendInner(client, req, errorcode.WxOpenRequestGet)

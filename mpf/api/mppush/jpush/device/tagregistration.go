@@ -50,7 +50,7 @@ func (tr *tagRegistration) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     tr.ServiceUri = "/v3/tags/" + tr.tag + "/registration_ids/" + tr.registrationId
 
-    tr.ReqUrl = tr.GetServiceUrl()
+    tr.ReqURI = tr.GetServiceUrl()
 
     return tr.GetRequest()
 }

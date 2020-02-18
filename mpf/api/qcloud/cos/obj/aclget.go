@@ -33,7 +33,7 @@ func (ag *aclGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "对象名称不能为空", nil))
     }
 
-    ag.ReqUrl = "http://" + ag.ReqHeader["Host"] + ag.ReqUri + "?acl"
+    ag.ReqURI = "http://" + ag.ReqHeader["Host"] + ag.ReqUri + "?acl"
     return ag.GetRequest()
 }
 

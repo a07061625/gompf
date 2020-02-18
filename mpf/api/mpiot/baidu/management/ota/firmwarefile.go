@@ -63,7 +63,7 @@ func (ff *firmwareFile) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewIotBaiDu(errorcode.IotBaiDuParam, "文件不合法", nil))
     }
 
-    ff.ReqUrl = ff.GetServiceUrl()
+    ff.ReqURI = ff.GetServiceUrl()
     ff.ReqContentType = bodyWriter.FormDataContentType()
 
     client, req := ff.GetRequest()

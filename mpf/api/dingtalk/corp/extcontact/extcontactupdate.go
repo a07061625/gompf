@@ -122,7 +122,7 @@ func (ecu *extContactUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ecu.ExtendData["follower_user_id"] = ecu.followerUserId
     ecu.ExtendData["name"] = ecu.name
 
-    ecu.ReqUrl = dingtalk.UrlService + "/topapi/extcontact/update?access_token=" + dingtalk.NewUtil().GetAccessToken(ecu.corpId, ecu.agentTag, ecu.atType)
+    ecu.ReqURI = dingtalk.UrlService + "/topapi/extcontact/update?access_token=" + dingtalk.NewUtil().GetAccessToken(ecu.corpId, ecu.agentTag, ecu.atType)
 
     reqData := make(map[string]interface{})
     reqData["contact"] = ecu.ExtendData

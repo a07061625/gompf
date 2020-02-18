@@ -107,13 +107,13 @@ func (or *orderRefund) checkData() {
     or.ReqData["refund_fee"] = strconv.Itoa(or.refundFee)
 }
 
-func (or *orderRefund) SendRequest() api.ApiResult {
+func (or *orderRefund) SendRequest() api.APIResult {
     or.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(or.ReqData, or.appId, "md5")
     or.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(or.ReqData))
-    or.ReqUrl = "https://api.mch.weixin.qq.com/secapi/pay/refund"
+    or.ReqURI = "https://api.mch.weixin.qq.com/secapi/pay/refund"
     client, req := or.GetRequest()
     req.SetBody([]byte(reqBody))
 

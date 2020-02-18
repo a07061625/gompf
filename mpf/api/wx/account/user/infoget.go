@@ -39,11 +39,11 @@ func (ig *infoGet) checkData() {
     ig.ReqData["openid"] = ig.openid
 }
 
-func (ig *infoGet) SendRequest() api.ApiResult {
+func (ig *infoGet) SendRequest() api.APIResult {
     ig.checkData()
 
     ig.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(ig.appId)
-    ig.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/info?" + mpf.HTTPCreateParams(ig.ReqData, "none", 1)
+    ig.ReqURI = "https://api.weixin.qq.com/cgi-bin/user/info?" + mpf.HTTPCreateParams(ig.ReqData, "none", 1)
     client, req := ig.GetRequest()
 
     resp, result := ig.SendInner(client, req, errorcode.WxAccountRequestGet)

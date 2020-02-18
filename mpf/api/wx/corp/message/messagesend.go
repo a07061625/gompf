@@ -97,7 +97,7 @@ func (ms *messageSend) checkData() {
     }
 }
 
-func (ms *messageSend) SendRequest(getType string) api.ApiResult {
+func (ms *messageSend) SendRequest(getType string) api.APIResult {
     ms.checkData()
 
     agentInfo := wx.NewConfig().GetCorp(ms.corpId).GetAgentInfo(ms.agentTag)
@@ -131,7 +131,7 @@ func (ms *messageSend) SendRequest(getType string) api.ApiResult {
     reqData[ms.msgType] = ms.msgData
     reqBody := mpf.JSONMarshal(reqData)
 
-    ms.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + wx.NewUtilWx().GetCorpCache(ms.corpId, ms.agentTag, getType)
+    ms.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + wx.NewUtilWx().GetCorpCache(ms.corpId, ms.agentTag, getType)
     client, req := ms.GetRequest()
     req.SetBody([]byte(reqBody))
 

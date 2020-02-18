@@ -66,7 +66,7 @@ func (dc *departmentCreate) checkData() {
     }
 }
 
-func (dc *departmentCreate) SendRequest(getType string) api.ApiResult {
+func (dc *departmentCreate) SendRequest(getType string) api.APIResult {
     dc.checkData()
     reqData := make(map[string]interface{})
     reqData["name"] = dc.name
@@ -77,7 +77,7 @@ func (dc *departmentCreate) SendRequest(getType string) api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    dc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=" + wx.NewUtilWx().GetCorpCache(dc.corpId, dc.agentTag, getType)
+    dc.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=" + wx.NewUtilWx().GetCorpCache(dc.corpId, dc.agentTag, getType)
     client, req := dc.GetRequest()
     req.SetBody([]byte(reqBody))
 

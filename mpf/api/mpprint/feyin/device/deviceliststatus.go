@@ -20,11 +20,11 @@ type deviceListStatus struct {
 }
 
 func (dls *deviceListStatus) checkData() (*fasthttp.Client, *fasthttp.Request) {
-    dls.ReqUrl = mpprint.FeYinServiceDomain + "/devices?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(dls.GetAppId())
+    dls.ReqURI = mpprint.FeYinServiceDomain + "/devices?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(dls.GetAppId())
     return dls.GetRequest()
 }
 
-func (dls *deviceListStatus) SendRequest() api.ApiResult {
+func (dls *deviceListStatus) SendRequest() api.APIResult {
     client, req := dls.checkData()
     resp, result := dls.SendInner(client, req, errorcode.PrintFeYinRequestGet)
     if resp.RespCode > 0 {

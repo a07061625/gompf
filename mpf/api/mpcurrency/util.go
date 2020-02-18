@@ -11,7 +11,7 @@ import (
 )
 
 type utilCurrency struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
 var (
@@ -19,7 +19,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilCurrency{api.NewUtilApi()}
+    insUtil = &utilCurrency{api.NewUtilAPI()}
 }
 
 func NewUtilCurrency() *utilCurrency {

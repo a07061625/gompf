@@ -20,9 +20,9 @@ type quotaClear struct {
     wx.BaseWxOpen
 }
 
-func (qc *quotaClear) SendRequest() api.ApiResult {
+func (qc *quotaClear) SendRequest() api.APIResult {
     reqBody := mpf.JSONMarshal(qc.ReqData)
-    qc.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/clear_quota?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    qc.ReqURI = "https://api.weixin.qq.com/cgi-bin/component/clear_quota?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := qc.GetRequest()
     req.SetBody([]byte(reqBody))
 

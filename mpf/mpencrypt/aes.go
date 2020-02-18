@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2019/12/26 0026
- * Time: 9:09
- */
+// Package mpencrypt aes
+// User: 姜伟
+// Time: 2020-02-19 06:27:35
 package mpencrypt
 
 import (
@@ -15,18 +12,21 @@ import (
     "io"
 )
 
+// AesPaddingPKCS7 AesPaddingPKCS7
 func AesPaddingPKCS7(cipherText []byte, blockSize int) []byte {
     padding := blockSize - len(cipherText)%blockSize
     padText := bytes.Repeat([]byte{byte(padding)}, padding)
     return append(cipherText, padText...)
 }
 
+// AesUnPaddingPKCS7 AesUnPaddingPKCS7
 func AesUnPaddingPKCS7(origData []byte) []byte {
     length := len(origData)
     unPadding := int(origData[length-1])
     return origData[:(length - unPadding)]
 }
 
+// AesEncryptCBC AesEncryptCBC
 func AesEncryptCBC(origData, key []byte) []byte {
     // 分组秘钥
     // NewCipher该函数限制了输入k的长度必须为16, 24或者32
@@ -44,6 +44,7 @@ func AesEncryptCBC(origData, key []byte) []byte {
     return encrypted
 }
 
+// AesDecryptCBC AesDecryptCBC
 func AesDecryptCBC(encrypted, key []byte) []byte {
     // 分组秘钥
     block, _ := aes.NewCipher(key)
@@ -60,6 +61,7 @@ func AesDecryptCBC(encrypted, key []byte) []byte {
     return decrypted
 }
 
+// AesEncryptCBCPKCS7 AesEncryptCBCPKCS7
 func AesEncryptCBCPKCS7(plainData, aesKey []byte) ([]byte, error) {
     k := len(aesKey)
     if len(plainData)%k != 0 {
@@ -82,6 +84,7 @@ func AesEncryptCBCPKCS7(plainData, aesKey []byte) ([]byte, error) {
     return cipherData, nil
 }
 
+// AesDecryptCBCPKCS7 AesDecryptCBCPKCS7
 func AesDecryptCBCPKCS7(cipherData, aesKey []byte) ([]byte, error) {
     k := len(aesKey)
     if len(cipherData)%k != 0 {
@@ -115,6 +118,7 @@ func ecbGenerateKey(key []byte) []byte {
     return genKey
 }
 
+// AesEncryptECB AesEncryptECB
 func AesEncryptECB(origData []byte, key []byte) []byte {
     cipherText, _ := aes.NewCipher(ecbGenerateKey(key))
     length := (len(origData) + aes.BlockSize) / aes.BlockSize
@@ -133,6 +137,7 @@ func AesEncryptECB(origData []byte, key []byte) []byte {
     return encrypted
 }
 
+// AesDecryptECB AesDecryptECB
 func AesDecryptECB(encrypted []byte, key []byte) []byte {
     decrypted := make([]byte, len(encrypted))
     cipherText, _ := aes.NewCipher(ecbGenerateKey(key))
@@ -148,6 +153,7 @@ func AesDecryptECB(encrypted []byte, key []byte) []byte {
     return decrypted[:trim]
 }
 
+// AesEncryptCFB AesEncryptCFB
 func AesEncryptCFB(origData []byte, key []byte) []byte {
     block, err := aes.NewCipher(key)
     if err != nil {
@@ -163,6 +169,7 @@ func AesEncryptCFB(origData []byte, key []byte) []byte {
     return encrypted
 }
 
+// AesDecryptCFB AesDecryptCFB
 func AesDecryptCFB(encrypted []byte, key []byte) []byte {
     block, _ := aes.NewCipher(key)
     if len(encrypted) < aes.BlockSize {

@@ -40,7 +40,7 @@ func (dq *dimissionQuery) SetSize(size int) {
 }
 
 func (dq *dimissionQuery) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    dq.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/querydimission?access_token=" + dingtalk.NewUtil().GetAccessToken(dq.corpId, dq.agentTag, dq.atType)
+    dq.ReqURI = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/querydimission?access_token=" + dingtalk.NewUtil().GetAccessToken(dq.corpId, dq.agentTag, dq.atType)
 
     reqBody := mpf.JSONMarshal(dq.ExtendData)
     client, req := dq.GetRequest()

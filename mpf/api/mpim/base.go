@@ -16,11 +16,11 @@ import (
 )
 
 type baseIM struct {
-    api.ApiOuter
+    api.APIOuter
 }
 
 func newBaseIM() baseIM {
-    return baseIM{api.NewApiOuter()}
+    return baseIM{api.NewAPIOuter()}
 }
 
 type BaseTencent struct {
@@ -38,13 +38,13 @@ func (im *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     im.ReqData["sdkappid"] = conf.GetAppId()
     im.ReqData["identifier"] = conf.GetAccountAdmin()
     im.ReqData["usersig"] = NewUtilIM().GetTencentAccountSign(conf.GetAccountAdmin())
-    im.ReqUrl = "https://console.tim.qq.com/v4" + im.ServiceUri + "?" + mpf.HTTPCreateParams(im.ReqData, "none", 1)
+    im.ReqURI = "https://console.tim.qq.com/v4" + im.ServiceUri + "?" + mpf.HTTPCreateParams(im.ReqData, "none", 1)
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(im.ReqUrl)
+    req.Header.SetRequestURI(im.ReqURI)
     req.Header.SetContentType(im.ReqContentType)
     req.Header.SetMethod(im.ReqMethod)
     mpf.HTTPAddReqHeader(req, im.ReqHeader)

@@ -42,11 +42,11 @@ func (adg *openApprovalDataGet) checkData() {
     adg.ReqData["thirdNo"] = adg.thirdNo
 }
 
-func (adg *openApprovalDataGet) SendRequest(getType string) api.ApiResult {
+func (adg *openApprovalDataGet) SendRequest(getType string) api.APIResult {
     adg.checkData()
 
     reqBody := mpf.JSONMarshal(adg.ReqData)
-    adg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/corp/getopenapprovaldata?access_token=" + wx.NewUtilWx().GetCorpCache(adg.corpId, adg.agentTag, getType)
+    adg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/corp/getopenapprovaldata?access_token=" + wx.NewUtilWx().GetCorpCache(adg.corpId, adg.agentTag, getType)
     client, req := adg.GetRequest()
     req.SetBody([]byte(reqBody))
 

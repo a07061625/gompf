@@ -36,7 +36,7 @@ func (td *tagDelete) checkData() {
     }
 }
 
-func (td *tagDelete) SendRequest() api.ApiResult {
+func (td *tagDelete) SendRequest() api.APIResult {
     td.checkData()
 
     tagInfo := make(map[string]interface{})
@@ -44,7 +44,7 @@ func (td *tagDelete) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["tag"] = tagInfo
     reqBody := mpf.JSONMarshal(reqData)
-    td.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/delete?access_token=" + wx.NewUtilWx().GetSingleAccessToken(td.appId)
+    td.ReqURI = "https://api.weixin.qq.com/cgi-bin/tags/delete?access_token=" + wx.NewUtilWx().GetSingleAccessToken(td.appId)
     client, req := td.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -37,11 +37,11 @@ func (tg *tagGet) checkData() {
     tg.ReqData["tagid"] = tg.tagId
 }
 
-func (tg *tagGet) SendRequest(getType string) api.ApiResult {
+func (tg *tagGet) SendRequest(getType string) api.APIResult {
     tg.checkData()
 
     tg.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(tg.corpId, tg.agentTag, getType)
-    tg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/get?" + mpf.HTTPCreateParams(tg.ReqData, "none", 1)
+    tg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/tag/get?" + mpf.HTTPCreateParams(tg.ReqData, "none", 1)
     client, req := tg.GetRequest()
 
     resp, result := tg.SendInner(client, req, errorcode.WxCorpRequestGet)

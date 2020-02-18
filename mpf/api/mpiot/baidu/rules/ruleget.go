@@ -37,7 +37,7 @@ func (rg *ruleGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     rg.ServiceUri = "/v3/iot/rules/device/" + rg.deviceName
 
-    rg.ReqUrl = rg.GetServiceUrl()
+    rg.ReqURI = rg.GetServiceUrl()
 
     return rg.GetRequest()
 }

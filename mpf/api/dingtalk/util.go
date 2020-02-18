@@ -17,7 +17,7 @@ import (
 )
 
 type utilDingTalk struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
 func (util *utilDingTalk) CreateApiSign(data, secret string) string {
@@ -173,7 +173,7 @@ func (util *utilDingTalk) GetAccessToken(corpId, agentTag, atType string) string
     }
 }
 
-func (util *utilDingTalk) SendRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilDingTalk) SendRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -195,7 +195,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilDingTalk{api.NewUtilApi()}
+    insUtil = &utilDingTalk{api.NewUtilAPI()}
 }
 
 func NewUtil() *utilDingTalk {

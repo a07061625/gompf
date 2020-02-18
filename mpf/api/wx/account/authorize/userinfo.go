@@ -40,11 +40,11 @@ func (ui *userInfo) checkData() {
     ui.ReqData["openid"] = ui.openid
 }
 
-func (ui *userInfo) SendRequest() api.ApiResult {
+func (ui *userInfo) SendRequest() api.APIResult {
     ui.checkData()
 
     ui.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(ui.appId)
-    ui.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/info?" + mpf.HTTPCreateParams(ui.ReqData, "none", 1)
+    ui.ReqURI = "https://api.weixin.qq.com/cgi-bin/user/info?" + mpf.HTTPCreateParams(ui.ReqData, "none", 1)
     client, req := ui.GetRequest()
 
     resp, result := ui.SendInner(client, req, errorcode.WxAccountRequestGet)

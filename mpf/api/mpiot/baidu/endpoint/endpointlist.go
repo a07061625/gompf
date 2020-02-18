@@ -62,7 +62,7 @@ func (el *endpointList) SetQuery(query string) {
 }
 
 func (el *endpointList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    el.ReqUrl = el.GetServiceUrl() + "?" + mpf.HTTPCreateParams(el.ReqData, "none", 1)
+    el.ReqURI = el.GetServiceUrl() + "?" + mpf.HTTPCreateParams(el.ReqData, "none", 1)
 
     return el.GetRequest()
 }

@@ -22,12 +22,12 @@ import (
 )
 
 type basePush struct {
-    api.ApiOuter
+    api.APIOuter
     ExtendData map[string]interface{}
 }
 
 func newBasePush() basePush {
-    return basePush{api.NewApiOuter(), make(map[string]interface{})}
+    return basePush{api.NewAPIOuter(), make(map[string]interface{})}
 }
 
 type BaseXinGe struct {
@@ -52,7 +52,7 @@ func (xg *BaseXinGe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
         conf := NewConfig().GetXinGeIos()
         xg.ReqHeader["Authorization"] = conf.GetAppAuth()
     }
-    xg.ReqUrl = XinGeServiceDomain + xg.ServiceUri
+    xg.ReqURI = XinGeServiceDomain + xg.ServiceUri
     xg.ReqContentType = project.HTTPContentTypeJSON
     xg.ReqMethod = fasthttp.MethodPost
 
@@ -61,7 +61,7 @@ func (xg *BaseXinGe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
     reqBody := mpf.JSONMarshal(xg.ExtendData)
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(xg.ReqUrl)
+    req.Header.SetRequestURI(xg.ReqURI)
     req.Header.SetContentType(xg.ReqContentType)
     req.Header.SetMethod(xg.ReqMethod)
     req.SetBody([]byte(reqBody))
@@ -82,7 +82,7 @@ type BaseBaiDu struct {
 }
 
 func (bd *BaseBaiDu) createSign(secret string) {
-    signStr := bd.ReqMethod + bd.ReqUrl
+    signStr := bd.ReqMethod + bd.ReqURI
     delete(bd.ReqData, "sign")
     pkParams := mpf.NewHTTPParamKey(bd.ReqData)
     sort.Sort(pkParams)
@@ -105,7 +105,7 @@ func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     } else {
         bd.ReqData["device_type"] = conf.GetDeviceType()
     }
-    bd.ReqUrl = BaiDuServiceDomain + BaiDuServiceUriPrefix + bd.ServiceUri
+    bd.ReqURI = BaiDuServiceDomain + BaiDuServiceUriPrefix + bd.ServiceUri
     bd.ReqContentType = project.HTTPContentTypeForm
     bd.ReqMethod = fasthttp.MethodPost
     bd.ReqHeader["Content-Type"] = project.HTTPContentTypeForm
@@ -117,7 +117,7 @@ func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
     reqBody := mpf.HTTPCreateParams(bd.ReqData, "none", 1)
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(bd.ReqUrl)
+    req.Header.SetRequestURI(bd.ReqURI)
     req.Header.SetContentType(bd.ReqContentType)
     req.Header.SetMethod(bd.ReqMethod)
     req.SetBody([]byte(reqBody))
@@ -162,7 +162,7 @@ func (jp *BaseJPush) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(jp.ReqUrl)
+    req.Header.SetRequestURI(jp.ReqURI)
     req.Header.SetContentType(jp.ReqContentType)
     req.Header.SetMethod(jp.ReqMethod)
     mpf.HTTPAddReqHeader(req, jp.ReqHeader)

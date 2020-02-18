@@ -41,7 +41,7 @@ func (ud *userDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ud.ReqData["userid"] = ud.userId
     ud.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(ud.corpId, ud.agentTag, ud.atType)
-    ud.ReqUrl = dingtalk.UrlService + "/user/delete?" + mpf.HTTPCreateParams(ud.ReqData, "none", 1)
+    ud.ReqURI = dingtalk.UrlService + "/user/delete?" + mpf.HTTPCreateParams(ud.ReqData, "none", 1)
 
     return ud.GetRequest()
 }

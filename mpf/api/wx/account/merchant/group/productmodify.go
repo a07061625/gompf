@@ -44,14 +44,14 @@ func (pm *productModify) checkData() {
     }
 }
 
-func (pm *productModify) SendRequest() api.ApiResult {
+func (pm *productModify) SendRequest() api.APIResult {
     pm.checkData()
 
     reqData := make(map[string]interface{})
     reqData["group_id"] = pm.groupId
     reqData["product"] = pm.productList
     reqBody := mpf.JSONMarshal(reqData)
-    pm.ReqUrl = "https://api.weixin.qq.com/merchant/group/productmod?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pm.appId)
+    pm.ReqURI = "https://api.weixin.qq.com/merchant/group/productmod?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pm.appId)
     client, req := pm.GetRequest()
     req.SetBody([]byte(reqBody))
 

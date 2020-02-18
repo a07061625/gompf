@@ -52,7 +52,7 @@ func (ur *userReplace) checkData() {
     }
 }
 
-func (ur *userReplace) SendRequest() api.ApiResult {
+func (ur *userReplace) SendRequest() api.APIResult {
     ur.checkData()
     reqData := make(map[string]interface{})
     reqData["media_id"] = ur.mediaId
@@ -62,7 +62,7 @@ func (ur *userReplace) SendRequest() api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    ur.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser?access_token=" + wx.NewUtilWx().GetCorpAccessToken(ur.corpId, ur.agentTag)
+    ur.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser?access_token=" + wx.NewUtilWx().GetCorpAccessToken(ur.corpId, ur.agentTag)
     client, req := ur.GetRequest()
     req.SetBody([]byte(reqBody))
 

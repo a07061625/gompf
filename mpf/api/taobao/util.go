@@ -12,17 +12,17 @@ import (
 )
 
 type IBaseTaoBao interface {
-    api.IApiOuter
+    api.IAPIOuter
     SetMethod(method string)
     GetRespTag() string
 }
 
 type utilTaoBao struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
 // 发送请求
-func (util *utilTaoBao) SendRequest(service IBaseTaoBao, errorCode uint) api.ApiResult {
+func (util *utilTaoBao) SendRequest(service IBaseTaoBao, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -58,7 +58,7 @@ var (
 )
 
 func init() {
-    insUtilTaoBao = &utilTaoBao{api.NewUtilApi()}
+    insUtilTaoBao = &utilTaoBao{api.NewUtilAPI()}
 }
 
 func NewUtilTaoBao() *utilTaoBao {

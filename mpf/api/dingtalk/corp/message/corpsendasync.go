@@ -84,7 +84,7 @@ func (csa *corpSendAsync) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     csa.ExtendData["msg"] = csa.msgContent
 
-    csa.ReqUrl = dingtalk.UrlService + "/topapi/message/corpconversation/asyncsend_v2?access_token=" + dingtalk.NewUtil().GetAccessToken(csa.corpId, csa.agentTag, csa.atType)
+    csa.ReqURI = dingtalk.UrlService + "/topapi/message/corpconversation/asyncsend_v2?access_token=" + dingtalk.NewUtil().GetAccessToken(csa.corpId, csa.agentTag, csa.atType)
 
     reqBody := mpf.JSONMarshal(csa.ExtendData)
     client, req := csa.GetRequest()

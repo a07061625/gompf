@@ -27,7 +27,7 @@ func (td *templateDetail) SetTemplateId(templateId string) {
     match, _ := regexp.MatchString(project.RegexDigitAlpha, templateId)
     if match {
         td.templateId = templateId
-        td.ReqUrl = mpprint.FeYinServiceDomain + "/template/detail/" + templateId + "?access_token="
+        td.ReqURI = mpprint.FeYinServiceDomain + "/template/detail/" + templateId + "?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "模板id不合法", nil))
     }
@@ -38,12 +38,12 @@ func (td *templateDetail) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "模板id不能为空", nil))
     }
 
-    td.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(td.GetAppId())
+    td.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(td.GetAppId())
 
     return td.GetRequest()
 }
 
-func (td *templateDetail) SendRequest() api.ApiResult {
+func (td *templateDetail) SendRequest() api.APIResult {
     client, req := td.checkData()
     resp, result := td.SendInner(client, req, errorcode.PrintFeYinRequestGet)
     if resp.RespCode > 0 {

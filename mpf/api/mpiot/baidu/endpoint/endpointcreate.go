@@ -38,7 +38,7 @@ func (ec *endpointCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ec.ExtendData["endpointName"] = ec.endpointName
 
-    ec.ReqUrl = ec.GetServiceUrl()
+    ec.ReqURI = ec.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(ec.ExtendData)
     client, req := ec.GetRequest()

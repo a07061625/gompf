@@ -32,7 +32,7 @@ func (ga *groupAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ga.ExtendData["name"] = ga.groupName
 
-    ga.ReqUrl = dingtalk.UrlService + "/role/add_role_group?access_token=" + dingtalk.NewUtil().GetAccessToken(ga.corpId, ga.agentTag, ga.atType)
+    ga.ReqURI = dingtalk.UrlService + "/role/add_role_group?access_token=" + dingtalk.NewUtil().GetAccessToken(ga.corpId, ga.agentTag, ga.atType)
 
     reqBody := mpf.JSONMarshal(ga.ExtendData)
     client, req := ga.GetRequest()

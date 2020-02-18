@@ -19,11 +19,11 @@ import (
 )
 
 type basePrint struct {
-    api.ApiInner
+    api.APIInner
 }
 
 func newBase() basePrint {
-    return basePrint{api.NewApiInner()}
+    return basePrint{api.NewAPIInner()}
 }
 
 type BaseFeYin struct {
@@ -49,7 +49,7 @@ func (p *BaseFeYin) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(p.ReqUrl)
+    req.Header.SetRequestURI(p.ReqURI)
     req.Header.SetContentType(p.ReqContentType)
     req.Header.SetMethod(p.ReqMethod)
     mpf.HTTPAddReqHeader(req, p.ReqHeader)

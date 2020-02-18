@@ -38,11 +38,11 @@ func (mvs *minVersionSet) checkData() {
     mvs.ReqData["version"] = mvs.version
 }
 
-func (mvs *minVersionSet) SendRequest() api.ApiResult {
+func (mvs *minVersionSet) SendRequest() api.APIResult {
     mvs.checkData()
 
     reqBody := mpf.JSONMarshal(mvs.ReqData)
-    mvs.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/setweappsupportversion?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(mvs.appId)
+    mvs.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/setweappsupportversion?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(mvs.appId)
     client, req := mvs.GetRequest()
     req.SetBody([]byte(reqBody))
 

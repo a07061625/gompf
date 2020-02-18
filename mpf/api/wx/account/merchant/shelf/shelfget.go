@@ -36,13 +36,13 @@ func (sg *shelfGet) checkData() {
     }
 }
 
-func (sg *shelfGet) SendRequest() api.ApiResult {
+func (sg *shelfGet) SendRequest() api.APIResult {
     sg.checkData()
 
     reqData := make(map[string]interface{})
     reqData["shelf_id"] = sg.shelfId
     reqBody := mpf.JSONMarshal(reqData)
-    sg.ReqUrl = "https://api.weixin.qq.com/merchant/shelf/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sg.appId)
+    sg.ReqURI = "https://api.weixin.qq.com/merchant/shelf/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sg.appId)
     client, req := sg.GetRequest()
     req.SetBody([]byte(reqBody))
 

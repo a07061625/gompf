@@ -98,7 +98,7 @@ func (gp *groupPush) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         gp.ExtendData["message"] = gp.messageContent
     }
 
-    gp.ReqUrl = gp.GetServiceUrl()
+    gp.ReqURI = gp.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(gp.ExtendData)
     client, req := gp.GetRequest()

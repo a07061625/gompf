@@ -33,7 +33,7 @@ func (jd *jobDescribe) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "任务ID不能为空", nil))
     }
 
-    jd.ReqUrl = "http://" + jd.ReqHeader["Host"] + jd.ReqUri
+    jd.ReqURI = "http://" + jd.ReqHeader["Host"] + jd.ReqUri
     return jd.GetRequest()
 }
 

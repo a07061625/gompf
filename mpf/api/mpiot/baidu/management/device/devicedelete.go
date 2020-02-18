@@ -42,7 +42,7 @@ func (dd *deviceDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dd.ExtendData["devices"] = dd.deviceList
 
-    dd.ReqUrl = dd.GetServiceUrl() + "?remove"
+    dd.ReqURI = dd.GetServiceUrl() + "?remove"
 
     reqBody := mpf.JSONMarshal(dd.ExtendData)
     client, req := dd.GetRequest()

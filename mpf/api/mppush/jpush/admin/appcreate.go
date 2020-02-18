@@ -54,7 +54,7 @@ func (ac *appCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ac.ExtendData["app_name"] = ac.appName
     ac.ExtendData["android_package"] = ac.androidPackage
 
-    ac.ReqUrl = ac.GetServiceUrl()
+    ac.ReqURI = ac.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(ac.ExtendData)
     client, req := ac.GetRequest()

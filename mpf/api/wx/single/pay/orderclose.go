@@ -41,13 +41,13 @@ func (oc *orderClose) checkData() {
     oc.ReqData["out_trade_no"] = oc.outTradeNo
 }
 
-func (oc *orderClose) SendRequest() api.ApiResult {
+func (oc *orderClose) SendRequest() api.APIResult {
     oc.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(oc.ReqData, oc.appId, "md5")
     oc.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(oc.ReqData))
-    oc.ReqUrl = "https://api.mch.weixin.qq.com/pay/closeorder"
+    oc.ReqURI = "https://api.mch.weixin.qq.com/pay/closeorder"
     client, req := oc.GetRequest()
     req.SetBody([]byte(reqBody))
 

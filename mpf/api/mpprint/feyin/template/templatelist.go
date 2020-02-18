@@ -20,12 +20,12 @@ type templateList struct {
 }
 
 func (tl *templateList) checkData() (*fasthttp.Client, *fasthttp.Request) {
-    tl.ReqUrl = mpprint.FeYinServiceDomain + "/templates?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(tl.GetAppId())
+    tl.ReqURI = mpprint.FeYinServiceDomain + "/templates?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(tl.GetAppId())
 
     return tl.GetRequest()
 }
 
-func (tl *templateList) SendRequest() api.ApiResult {
+func (tl *templateList) SendRequest() api.APIResult {
     client, req := tl.checkData()
     resp, result := tl.SendInner(client, req, errorcode.PrintFeYinRequestGet)
     if resp.RespCode > 0 {

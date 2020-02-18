@@ -35,7 +35,7 @@ func (ecd *extContactDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ecd.ExtendData["user_id"] = ecd.userId
 
-    ecd.ReqUrl = dingtalk.UrlService + "/topapi/extcontact/delete?access_token=" + dingtalk.NewUtil().GetAccessToken(ecd.corpId, ecd.agentTag, ecd.atType)
+    ecd.ReqURI = dingtalk.UrlService + "/topapi/extcontact/delete?access_token=" + dingtalk.NewUtil().GetAccessToken(ecd.corpId, ecd.agentTag, ecd.atType)
 
     reqBody := mpf.JSONMarshal(ecd.ExtendData)
     client, req := ecd.GetRequest()

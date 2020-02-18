@@ -92,13 +92,13 @@ func (cs *couponSend) checkData() {
     cs.ReqData["openid"] = cs.openid
 }
 
-func (cs *couponSend) SendRequest() api.ApiResult {
+func (cs *couponSend) SendRequest() api.APIResult {
     cs.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(cs.ReqData, cs.appId, "md5")
     cs.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(cs.ReqData))
-    cs.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon"
+    cs.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon"
     client, req := cs.GetRequest()
     req.SetBody([]byte(reqBody))
 

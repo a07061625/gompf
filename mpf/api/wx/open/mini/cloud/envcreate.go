@@ -54,11 +54,11 @@ func (ec *envCreate) checkData() {
     ec.ReqData["alias"] = ec.alias
 }
 
-func (ec *envCreate) SendRequest() api.ApiResult {
+func (ec *envCreate) SendRequest() api.APIResult {
     ec.checkData()
 
     reqBody := mpf.JSONMarshal(ec.ReqData)
-    ec.ReqUrl = "https://api.weixin.qq.com/tcb/createenvandresource?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ec.appId)
+    ec.ReqURI = "https://api.weixin.qq.com/tcb/createenvandresource?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ec.appId)
     client, req := ec.GetRequest()
     req.SetBody([]byte(reqBody))
 

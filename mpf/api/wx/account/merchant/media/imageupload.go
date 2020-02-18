@@ -48,12 +48,12 @@ func (iu *imageUpload) checkData() {
     }
 }
 
-func (iu *imageUpload) SendRequest() api.ApiResult {
+func (iu *imageUpload) SendRequest() api.APIResult {
     iu.checkData()
 
     iu.ReqData["filename"] = iu.imageName
     iu.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(iu.appId)
-    iu.ReqUrl = "https://api.weixin.qq.com/merchant/common/upload_img?" + mpf.HTTPCreateParams(iu.ReqData, "none", 1)
+    iu.ReqURI = "https://api.weixin.qq.com/merchant/common/upload_img?" + mpf.HTTPCreateParams(iu.ReqData, "none", 1)
     client, req := iu.GetRequest()
     req.SetBody([]byte(iu.imageContent))
 

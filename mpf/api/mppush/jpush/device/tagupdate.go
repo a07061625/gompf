@@ -51,7 +51,7 @@ func (tu *tagUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     tu.ServiceUri = "/v3/tags/" + tu.tag
     tu.ExtendData["registration_ids"] = tu.registrationList
 
-    tu.ReqUrl = tu.GetServiceUrl()
+    tu.ReqURI = tu.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(tu.ExtendData)
     client, req := tu.GetRequest()

@@ -50,11 +50,11 @@ func (aiw *accountInviteWorker) checkData() {
     aiw.ReqData["invite_wx"] = aiw.inviteWx
 }
 
-func (aiw *accountInviteWorker) SendRequest() api.ApiResult {
+func (aiw *accountInviteWorker) SendRequest() api.APIResult {
     aiw.checkData()
 
     reqBody := mpf.JSONMarshal(aiw.ReqData)
-    aiw.ReqUrl = "https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token=" + wx.NewUtilWx().GetSingleAccessToken(aiw.appId)
+    aiw.ReqURI = "https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token=" + wx.NewUtilWx().GetSingleAccessToken(aiw.appId)
     client, req := aiw.GetRequest()
     req.SetBody([]byte(reqBody))
 

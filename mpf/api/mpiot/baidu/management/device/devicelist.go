@@ -88,7 +88,7 @@ func (dl *deviceList) SetFavourite(favourite string) {
 }
 
 func (dl *deviceList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    dl.ReqUrl = dl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
+    dl.ReqURI = dl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
 
     return dl.GetRequest()
 }

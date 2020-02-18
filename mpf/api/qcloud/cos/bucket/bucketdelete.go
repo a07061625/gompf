@@ -17,7 +17,7 @@ type bucketDelete struct {
 }
 
 func (bd *bucketDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    bd.ReqUrl = "http://" + bd.ReqHeader["Host"] + bd.ReqUri
+    bd.ReqURI = "http://" + bd.ReqHeader["Host"] + bd.ReqUri
     return bd.GetRequest()
 }
 

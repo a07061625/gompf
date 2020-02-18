@@ -52,7 +52,7 @@ func (us *userSync) checkData() {
     }
 }
 
-func (us *userSync) SendRequest(getType string) api.ApiResult {
+func (us *userSync) SendRequest(getType string) api.APIResult {
     us.checkData()
     reqData := make(map[string]interface{})
     reqData["media_id"] = us.mediaId
@@ -62,7 +62,7 @@ func (us *userSync) SendRequest(getType string) api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    us.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token=" + wx.NewUtilWx().GetCorpCache(us.corpId, us.agentTag, getType)
+    us.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token=" + wx.NewUtilWx().GetCorpCache(us.corpId, us.agentTag, getType)
     client, req := us.GetRequest()
     req.SetBody([]byte(reqBody))
 

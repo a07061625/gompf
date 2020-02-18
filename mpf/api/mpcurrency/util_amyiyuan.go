@@ -11,7 +11,7 @@ import (
     "github.com/a07061625/gompf/mpf/api"
 )
 
-func (util *utilCurrency) SendAMYiYuanRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilCurrency) SendAMYiYuanRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result

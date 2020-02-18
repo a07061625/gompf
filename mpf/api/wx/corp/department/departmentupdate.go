@@ -66,7 +66,7 @@ func (du *departmentUpdate) checkData() {
     }
 }
 
-func (du *departmentUpdate) SendRequest(getType string) api.ApiResult {
+func (du *departmentUpdate) SendRequest(getType string) api.APIResult {
     du.checkData()
     reqData := make(map[string]interface{})
     reqData["id"] = du.id
@@ -77,7 +77,7 @@ func (du *departmentUpdate) SendRequest(getType string) api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    du.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token=" + wx.NewUtilWx().GetCorpCache(du.corpId, du.agentTag, getType)
+    du.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token=" + wx.NewUtilWx().GetCorpCache(du.corpId, du.agentTag, getType)
     client, req := du.GetRequest()
     req.SetBody([]byte(reqBody))
 

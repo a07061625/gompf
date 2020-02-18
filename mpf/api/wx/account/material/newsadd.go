@@ -37,13 +37,13 @@ func (na *newsAdd) checkData() {
     }
 }
 
-func (na *newsAdd) SendRequest() api.ApiResult {
+func (na *newsAdd) SendRequest() api.APIResult {
     na.checkData()
 
     reqData := make(map[string]interface{})
     reqData["articles"] = na.articles
     reqBody := mpf.JSONMarshal(reqData)
-    na.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=" + wx.NewUtilWx().GetSingleAccessToken(na.appId)
+    na.ReqURI = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=" + wx.NewUtilWx().GetSingleAccessToken(na.appId)
     client, req := na.GetRequest()
     req.SetBody([]byte(reqBody))
 

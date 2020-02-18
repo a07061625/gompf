@@ -181,13 +181,13 @@ func (gs *groupSend) checkData() {
     }
 }
 
-func (gs *groupSend) SendRequest() api.ApiResult {
+func (gs *groupSend) SendRequest() api.APIResult {
     gs.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(gs.ReqData, gs.appId, "md5")
     gs.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(gs.ReqData))
-    gs.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack"
+    gs.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack"
     client, req := gs.GetRequest()
     req.SetBody([]byte(reqBody))
 

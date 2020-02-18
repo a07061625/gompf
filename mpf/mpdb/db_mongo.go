@@ -1,9 +1,6 @@
-/**
- * mongo数据库
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 12:17
- */
+// Package mpdb db_mongo
+// User: 姜伟
+// Time: 2020-02-19 06:20:26
 package mpdb
 
 import (
@@ -32,13 +29,15 @@ func (database *dbMonGo) connect() {
     conf := mpf.NewConfig().GetConfig("db")
     database.dbName = conf.GetString("mongo." + mpf.EnvProjectKey() + ".dbname")
     uri := conf.GetString("mongo."+mpf.EnvProjectKey()+".uris") + database.dbName + conf.GetString("mongo."+mpf.EnvProjectKey()+".params")
-    ctx, _ := context.WithTimeout(context.Background(), 31536000*time.Second)
+    ctx, cancel := context.WithTimeout(context.Background(), 31536000*time.Second)
+    defer cancel()
     conn, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
     if err != nil {
         panic(mperr.NewDbMonGo(errorcode.DbMonGoConnect, "mongo连接失败", err))
     }
 
-    newCtx, _ := context.WithTimeout(context.Background(), 2*time.Second)
+    newCtx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+    defer cancel()
     pingErr := conn.Ping(newCtx, readpref.Primary())
     if pingErr != nil {
         conn.Disconnect(newCtx)
@@ -57,7 +56,8 @@ func (database *dbMonGo) Reconnect() {
     if database.conn == nil {
         database.connect()
     } else if database.refreshTime < nowTime {
-        newCtx, _ := context.WithTimeout(context.Background(), 2*time.Second)
+        newCtx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+        defer cancel()
         pingErr := database.conn.Ping(newCtx, readpref.Primary())
         if pingErr != nil {
             database.conn.Disconnect(newCtx)
@@ -88,6 +88,7 @@ func init() {
     insMonGo = &dbMonGo{nil, 0, 0, 0, "", nil}
 }
 
+// NewDbMonGo NewDbMonGo
 func NewDbMonGo() *dbMonGo {
     onceMonGo.Do(func() {
         insMonGo.connect()

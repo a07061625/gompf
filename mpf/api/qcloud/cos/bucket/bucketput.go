@@ -17,7 +17,7 @@ type bucketPut struct {
 }
 
 func (bp *bucketPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    bp.ReqUrl = "http://" + bp.ReqHeader["Host"] + bp.ReqUri
+    bp.ReqURI = "http://" + bp.ReqHeader["Host"] + bp.ReqUri
     return bp.GetRequest()
 }
 

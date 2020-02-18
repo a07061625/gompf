@@ -48,11 +48,11 @@ func (usl *userSimpleList) checkData() {
     usl.ReqData["department_id"] = strconv.Itoa(usl.departmentId)
 }
 
-func (usl *userSimpleList) SendRequest(getType string) api.ApiResult {
+func (usl *userSimpleList) SendRequest(getType string) api.APIResult {
     usl.checkData()
 
     usl.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(usl.corpId, usl.agentTag, getType)
-    usl.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?" + mpf.HTTPCreateParams(usl.ReqData, "none", 1)
+    usl.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?" + mpf.HTTPCreateParams(usl.ReqData, "none", 1)
     client, req := usl.GetRequest()
 
     resp, resuslt := usl.SendInner(client, req, errorcode.WxCorpRequestPost)

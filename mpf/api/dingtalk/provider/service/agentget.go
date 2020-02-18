@@ -30,7 +30,7 @@ func (ag *agentGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ag.ReqData["accessKey"] = providerConf.GetSuiteKey()
     ag.ReqData["suiteTicket"] = suiteTicket
     ag.ReqData["signature"] = dingtalk.NewUtil().CreateApiSign(nowTime+"\n"+suiteTicket, providerConf.GetSuiteSecret())
-    ag.ReqUrl = dingtalk.UrlService + "/service/get_agent?" + mpf.HTTPCreateParams(ag.ReqData, "none", 1)
+    ag.ReqURI = dingtalk.UrlService + "/service/get_agent?" + mpf.HTTPCreateParams(ag.ReqData, "none", 1)
 
     reqBody := mpf.JSONMarshal(ag.ExtendData)
     client, req := ag.GetRequest()

@@ -53,11 +53,11 @@ func (sc *sessionCreate) checkData() {
     sc.ReqData["openid"] = sc.openid
 }
 
-func (sc *sessionCreate) SendRequest() api.ApiResult {
+func (sc *sessionCreate) SendRequest() api.APIResult {
     sc.checkData()
 
     reqBody := mpf.JSONMarshal(sc.ReqData)
-    sc.ReqUrl = "https://api.weixin.qq.com/customservice/kfsession/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sc.appId)
+    sc.ReqURI = "https://api.weixin.qq.com/customservice/kfsession/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sc.appId)
     client, req := sc.GetRequest()
     req.SetBody([]byte(reqBody))
 

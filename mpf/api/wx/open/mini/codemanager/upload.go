@@ -67,7 +67,7 @@ func (u *upload) checkData() {
     }
 }
 
-func (u *upload) SendRequest() api.ApiResult {
+func (u *upload) SendRequest() api.APIResult {
     u.checkData()
 
     reqData := make(map[string]interface{})
@@ -80,7 +80,7 @@ func (u *upload) SendRequest() api.ApiResult {
         reqData["user_desc"] = u.userDesc
     }
     reqBody := mpf.JSONMarshal(reqData)
-    u.ReqUrl = "https://api.weixin.qq.com/wxa/commit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(u.appId)
+    u.ReqURI = "https://api.weixin.qq.com/wxa/commit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(u.appId)
     client, req := u.GetRequest()
     req.SetBody([]byte(reqBody))
 

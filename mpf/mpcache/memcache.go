@@ -1,9 +1,6 @@
-/**
- * memcache缓存
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 11:53
- */
+// Package mpcache memcache
+// User: 姜伟
+// Time: 2020-02-19 06:15:40
 package mpcache
 
 import (
@@ -64,6 +61,7 @@ func init() {
     insMem = &cacheMem{nil, 0, 0, 0}
 }
 
+// NewMem NewMem
 func NewMem() *cacheMem {
     onceMem.Do(func() {
         insMem.connect()

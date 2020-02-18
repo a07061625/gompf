@@ -36,11 +36,11 @@ func (ai *authorizeInfo) checkData() {
     ai.ReqData["authorization_code"] = ai.authCode
 }
 
-func (ai *authorizeInfo) SendRequest() api.ApiResult {
+func (ai *authorizeInfo) SendRequest() api.APIResult {
     ai.checkData()
 
     reqBody := mpf.JSONMarshal(ai.ReqData)
-    ai.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    ai.ReqURI = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := ai.GetRequest()
     req.SetBody([]byte(reqBody))
 

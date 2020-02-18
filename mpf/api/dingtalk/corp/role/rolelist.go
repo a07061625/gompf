@@ -40,7 +40,7 @@ func (rl *roleList) SetSize(size int) {
 }
 
 func (rl *roleList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    rl.ReqUrl = dingtalk.UrlService + "/topapi/role/list?access_token=" + dingtalk.NewUtil().GetAccessToken(rl.corpId, rl.agentTag, rl.atType)
+    rl.ReqURI = dingtalk.UrlService + "/topapi/role/list?access_token=" + dingtalk.NewUtil().GetAccessToken(rl.corpId, rl.agentTag, rl.atType)
 
     reqBody := mpf.JSONMarshal(rl.ExtendData)
     client, req := rl.GetRequest()

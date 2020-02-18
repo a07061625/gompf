@@ -47,7 +47,7 @@ func (pr *partyReplace) checkData() {
     }
 }
 
-func (pr *partyReplace) SendRequest() api.ApiResult {
+func (pr *partyReplace) SendRequest() api.APIResult {
     pr.checkData()
     reqData := make(map[string]interface{})
     reqData["media_id"] = pr.mediaId
@@ -56,7 +56,7 @@ func (pr *partyReplace) SendRequest() api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    pr.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty?access_token=" + wx.NewUtilWx().GetCorpAccessToken(pr.corpId, pr.agentTag)
+    pr.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty?access_token=" + wx.NewUtilWx().GetCorpAccessToken(pr.corpId, pr.agentTag)
     client, req := pr.GetRequest()
     req.SetBody([]byte(reqBody))
 

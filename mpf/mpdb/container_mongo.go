@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 20-2-16
- * Time: 下午4:30
- */
+// Package mpdb container_mongo
+// User: 姜伟
+// Time: 2020-02-19 06:19:36
 package mpdb
 
 import (
@@ -53,6 +50,7 @@ func (container *containerMonGo) NotifyObservers(data interface{}) error {
     return errObj
 }
 
+// NewContainerMonGo NewContainerMonGo
 func NewContainerMonGo() *containerMonGo {
     return &containerMonGo{mpdp.NewSubject()}
 }

@@ -20,9 +20,9 @@ type authorizeInfoGet struct {
     appId string // 授权公众号或小程序的appid
 }
 
-func (aig *authorizeInfoGet) SendRequest() api.ApiResult {
+func (aig *authorizeInfoGet) SendRequest() api.APIResult {
     reqBody := mpf.JSONMarshal(aig.ReqData)
-    aig.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    aig.ReqURI = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := aig.GetRequest()
     req.SetBody([]byte(reqBody))
 

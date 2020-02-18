@@ -73,7 +73,7 @@ func (a *authorize) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     a.ExtendData["action"] = a.action
     a.ExtendData["topic"] = a.topic
 
-    a.ReqUrl = a.GetServiceUrl()
+    a.ReqURI = a.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(a.ExtendData)
     client, req := a.GetRequest()

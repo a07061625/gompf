@@ -61,7 +61,7 @@ func (mrl *msgRecordList) checkData() {
     }
 }
 
-func (mrl *msgRecordList) SendRequest() api.ApiResult {
+func (mrl *msgRecordList) SendRequest() api.APIResult {
     mrl.checkData()
 
     reqData := make(map[string]interface{})
@@ -70,7 +70,7 @@ func (mrl *msgRecordList) SendRequest() api.ApiResult {
     reqData["msgid"] = mrl.msgId
     reqData["number"] = mrl.number
     reqBody := mpf.JSONMarshal(reqData)
-    mrl.ReqUrl = "https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mrl.appId)
+    mrl.ReqURI = "https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mrl.appId)
     client, req := mrl.GetRequest()
     req.SetBody([]byte(reqBody))
 

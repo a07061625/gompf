@@ -70,11 +70,11 @@ func (ect *externalContactTransfer) checkData() {
     ect.ReqData["takeover_userid"] = ect.takeoverUserId
 }
 
-func (ect *externalContactTransfer) SendRequest(getType string) api.ApiResult {
+func (ect *externalContactTransfer) SendRequest(getType string) api.APIResult {
     ect.checkData()
     reqBody := mpf.JSONMarshal(ect.ReqData)
 
-    ect.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/crm/transfer_external_contact?access_token=" + wx.NewUtilWx().GetCorpCache(ect.corpId, ect.agentTag, getType)
+    ect.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/crm/transfer_external_contact?access_token=" + wx.NewUtilWx().GetCorpCache(ect.corpId, ect.agentTag, getType)
     client, req := ect.GetRequest()
     req.SetBody([]byte(reqBody))
 

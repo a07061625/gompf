@@ -17,7 +17,7 @@ type encryptionDelete struct {
 }
 
 func (ed *encryptionDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    ed.ReqUrl = "http://" + ed.ReqHeader["Host"] + ed.ReqUri + "?encryption"
+    ed.ReqURI = "http://" + ed.ReqHeader["Host"] + ed.ReqUri + "?encryption"
     return ed.GetRequest()
 }
 

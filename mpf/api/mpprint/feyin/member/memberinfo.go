@@ -27,7 +27,7 @@ func (mi *memberInfo) SetUid(uid string) {
     match, _ := regexp.MatchString(project.RegexDigitAlpha, uid)
     if match {
         mi.uid = uid
-        mi.ReqUrl = mpprint.FeYinServiceDomain + "/member/" + uid + "?access_token="
+        mi.ReqURI = mpprint.FeYinServiceDomain + "/member/" + uid + "?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "商户id不合法", nil))
     }
@@ -38,12 +38,12 @@ func (mi *memberInfo) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "商户id不能为空", nil))
     }
 
-    mi.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(mi.GetAppId())
+    mi.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(mi.GetAppId())
 
     return mi.GetRequest()
 }
 
-func (mi *memberInfo) SendRequest() api.ApiResult {
+func (mi *memberInfo) SendRequest() api.APIResult {
     client, req := mi.checkData()
     resp, result := mi.SendInner(client, req, errorcode.PrintFeYinRequestGet)
     if resp.RespCode > 0 {

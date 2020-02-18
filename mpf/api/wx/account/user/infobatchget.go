@@ -42,7 +42,7 @@ func (ibg *infoBatchGet) checkData() {
     }
 }
 
-func (ibg *infoBatchGet) SendRequest() api.ApiResult {
+func (ibg *infoBatchGet) SendRequest() api.APIResult {
     ibg.checkData()
 
     userList := make([]map[string]string, 0)
@@ -55,7 +55,7 @@ func (ibg *infoBatchGet) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["user_list"] = userList
     reqBody := mpf.JSONMarshal(reqData)
-    ibg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ibg.appId)
+    ibg.ReqURI = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ibg.appId)
     client, req := ibg.GetRequest()
     req.SetBody([]byte(reqBody))
 

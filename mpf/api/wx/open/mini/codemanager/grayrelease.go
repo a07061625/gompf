@@ -37,13 +37,13 @@ func (gr *grayRelease) checkData() {
     }
 }
 
-func (gr *grayRelease) SendRequest() api.ApiResult {
+func (gr *grayRelease) SendRequest() api.APIResult {
     gr.checkData()
 
     reqData := make(map[string]interface{})
     reqData["gray_percentage"] = gr.percentage
     reqBody := mpf.JSONMarshal(gr.ReqData)
-    gr.ReqUrl = "https://api.weixin.qq.com/wxa/grayrelease?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(gr.appId)
+    gr.ReqURI = "https://api.weixin.qq.com/wxa/grayrelease?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(gr.appId)
     client, req := gr.GetRequest()
     req.SetBody([]byte(reqBody))
 

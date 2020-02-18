@@ -27,7 +27,7 @@ func (mc *msgCancel) SetMsgNo(msgNo string) {
     match, _ := regexp.MatchString(project.RegexDigitAlpha, msgNo)
     if match {
         mc.msgNo = msgNo
-        mc.ReqUrl = mpprint.FeYinServiceDomain + "/msg/" + msgNo + "/cancel?access_token="
+        mc.ReqURI = mpprint.FeYinServiceDomain + "/msg/" + msgNo + "/cancel?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "消息ID不合法", nil))
     }
@@ -38,14 +38,14 @@ func (mc *msgCancel) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "消息ID不能为空", nil))
     }
 
-    mc.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(mc.GetAppId())
+    mc.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(mc.GetAppId())
     client, req := mc.GetRequest()
     req.SetBody([]byte("[]"))
 
     return client, req
 }
 
-func (mc *msgCancel) SendRequest() api.ApiResult {
+func (mc *msgCancel) SendRequest() api.APIResult {
     client, req := mc.checkData()
     resp, result := mc.SendInner(client, req, errorcode.PrintFeYinRequestPost)
     if resp.RespCode > 0 {

@@ -50,7 +50,7 @@ func (td *thingDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     td.ServiceUri = "/v1/endpoint/" + td.endpointName + "/thing/" + td.thingName
 
-    td.ReqUrl = td.GetServiceUrl()
+    td.ReqURI = td.GetServiceUrl()
 
     return td.GetRequest()
 }

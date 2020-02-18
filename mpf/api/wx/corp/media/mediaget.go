@@ -54,11 +54,11 @@ func (mg *mediaGet) checkData() {
     mg.ReqData["media_id"] = mg.mediaId
 }
 
-func (mg *mediaGet) SendRequest(getType string) api.ApiResult {
+func (mg *mediaGet) SendRequest(getType string) api.APIResult {
     mg.checkData()
 
     mg.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(mg.corpId, mg.agentTag, getType)
-    mg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/media/get?" + mpf.HTTPCreateParams(mg.ReqData, "none", 1)
+    mg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/media/get?" + mpf.HTTPCreateParams(mg.ReqData, "none", 1)
     client, req := mg.GetRequest()
 
     resp, result := mg.SendInner(client, req, errorcode.WxCorpRequestGet)

@@ -37,7 +37,7 @@ func (ad *appDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ad.ServiceUri = "/v1/app/" + ad.appKey + "/delete"
 
-    ad.ReqUrl = ad.GetServiceUrl()
+    ad.ReqURI = ad.GetServiceUrl()
 
     return ad.GetRequest()
 }

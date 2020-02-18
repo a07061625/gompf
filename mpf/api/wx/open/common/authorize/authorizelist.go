@@ -38,13 +38,13 @@ func (al *authorizeList) SetRange(page, limit int) {
     al.offset = (truePage - 1) * al.count
 }
 
-func (al *authorizeList) SendRequest() api.ApiResult {
+func (al *authorizeList) SendRequest() api.APIResult {
     reqData := make(map[string]interface{})
     reqData["component_appid"] = al.componentAppId
     reqData["offset"] = al.offset
     reqData["count"] = al.count
     reqBody := mpf.JSONMarshal(reqData)
-    al.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_list?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    al.ReqURI = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_list?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := al.GetRequest()
     req.SetBody([]byte(reqBody))
 

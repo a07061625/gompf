@@ -181,13 +181,13 @@ func (ns *normalSend) checkData() {
     }
 }
 
-func (ns *normalSend) SendRequest() api.ApiResult {
+func (ns *normalSend) SendRequest() api.APIResult {
     ns.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(ns.ReqData, ns.appId, "md5")
     ns.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(ns.ReqData))
-    ns.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack"
+    ns.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack"
     client, req := ns.GetRequest()
     req.SetBody([]byte(reqBody))
 

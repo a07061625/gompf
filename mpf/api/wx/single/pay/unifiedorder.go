@@ -186,13 +186,13 @@ func (uo *unifiedOrder) checkData() {
     uo.ReqData["total_fee"] = strconv.Itoa(uo.totalFee)
 }
 
-func (uo *unifiedOrder) SendRequest() api.ApiResult {
+func (uo *unifiedOrder) SendRequest() api.APIResult {
     uo.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(uo.ReqData, uo.appId, "md5")
     uo.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(uo.ReqData))
-    uo.ReqUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder"
+    uo.ReqURI = "https://api.mch.weixin.qq.com/pay/unifiedorder"
     client, req := uo.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -33,7 +33,7 @@ func (sd *scheduleDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     sd.ServiceUri = "/v3/schedules/" + sd.scheduleId
 
-    sd.ReqUrl = sd.GetServiceUrl()
+    sd.ReqURI = sd.GetServiceUrl()
 
     return sd.GetRequest()
 }

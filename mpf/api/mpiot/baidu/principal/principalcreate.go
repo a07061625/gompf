@@ -52,7 +52,7 @@ func (pc *principalCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     pc.ServiceUri = "/v1/endpoint/" + pc.endpointName + "/principal"
     pc.ExtendData["principalName"] = pc.principalName
 
-    pc.ReqUrl = pc.GetServiceUrl()
+    pc.ReqURI = pc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(pc.ExtendData)
     client, req := pc.GetRequest()

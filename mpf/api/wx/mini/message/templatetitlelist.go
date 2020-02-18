@@ -41,10 +41,10 @@ func (ttl *templateTitleList) SetRange(page int, limit int) {
     ttl.ReqData["offset"] = strconv.Itoa(ttl.offset)
 }
 
-func (ttl *templateTitleList) SendRequest(getType string) api.ApiResult {
+func (ttl *templateTitleList) SendRequest(getType string) api.APIResult {
     reqBody := mpf.JSONMarshal(ttl.ReqData)
 
-    ttl.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/list?access_token=" + wx.NewUtilWx().GetSingleCache(ttl.appId, getType)
+    ttl.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/list?access_token=" + wx.NewUtilWx().GetSingleCache(ttl.appId, getType)
     client, req := ttl.GetRequest()
     req.SetBody([]byte(reqBody))
 

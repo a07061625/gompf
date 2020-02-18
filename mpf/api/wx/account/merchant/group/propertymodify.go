@@ -48,14 +48,14 @@ func (pm *propertyModify) checkData() {
     }
 }
 
-func (pm *propertyModify) SendRequest() api.ApiResult {
+func (pm *propertyModify) SendRequest() api.APIResult {
     pm.checkData()
 
     reqData := make(map[string]interface{})
     reqData["group_id"] = pm.groupId
     reqData["group_name"] = pm.groupName
     reqBody := mpf.JSONMarshal(reqData)
-    pm.ReqUrl = "https://api.weixin.qq.com/merchant/group/propertymod?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pm.appId)
+    pm.ReqURI = "https://api.weixin.qq.com/merchant/group/propertymod?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pm.appId)
     client, req := pm.GetRequest()
     req.SetBody([]byte(reqBody))
 

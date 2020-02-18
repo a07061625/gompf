@@ -60,7 +60,7 @@ func (sa *stockAdd) checkData() {
     }
 }
 
-func (sa *stockAdd) SendRequest() api.ApiResult {
+func (sa *stockAdd) SendRequest() api.APIResult {
     sa.checkData()
 
     reqData := make(map[string]interface{})
@@ -68,7 +68,7 @@ func (sa *stockAdd) SendRequest() api.ApiResult {
     reqData["sku_info"] = sa.skuInfo
     reqData["quantity"] = sa.quantity
     reqBody := mpf.JSONMarshal(reqData)
-    sa.ReqUrl = "https://api.weixin.qq.com/merchant/stock/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sa.appId)
+    sa.ReqURI = "https://api.weixin.qq.com/merchant/stock/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sa.appId)
     client, req := sa.GetRequest()
     req.SetBody([]byte(reqBody))
 

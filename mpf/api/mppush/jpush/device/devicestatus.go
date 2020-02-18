@@ -44,7 +44,7 @@ func (ds *deviceStatus) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ds.ExtendData["registration_ids"] = ds.registrationList
 
-    ds.ReqUrl = ds.GetServiceUrl()
+    ds.ReqURI = ds.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(ds.ExtendData)
     client, req := ds.GetRequest()

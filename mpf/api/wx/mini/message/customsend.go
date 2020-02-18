@@ -58,7 +58,7 @@ func (cs *customSend) checkData() {
     }
 }
 
-func (cs *customSend) SendRequest(getType string) api.ApiResult {
+func (cs *customSend) SendRequest(getType string) api.APIResult {
     cs.checkData()
     reqData := make(map[string]interface{})
     reqData["touser"] = cs.touser
@@ -66,7 +66,7 @@ func (cs *customSend) SendRequest(getType string) api.ApiResult {
     reqData[cs.msgType] = cs.msgData
     reqBody := mpf.JSONMarshal(reqData)
 
-    cs.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + wx.NewUtilWx().GetSingleCache(cs.appId, getType)
+    cs.ReqURI = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + wx.NewUtilWx().GetSingleCache(cs.appId, getType)
     client, req := cs.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -95,11 +95,11 @@ func (as *agentSet) SetHomeUrl(homeUrl string) {
 
 func (as *agentSet) checkData() (*fasthttp.Client, *fasthttp.Request) {
     as.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(as.corpId, as.agentTag)
-    as.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/agent/set?" + mpf.HTTPCreateParams(as.ReqData, "none", 1)
+    as.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/agent/set?" + mpf.HTTPCreateParams(as.ReqData, "none", 1)
     return as.GetRequest()
 }
 
-func (as *agentSet) SendRequest() api.ApiResult {
+func (as *agentSet) SendRequest() api.APIResult {
     client, req := as.checkData()
     resp, result := as.SendInner(client, req, errorcode.WxCorpRequestGet)
     if resp.RespCode > 0 {

@@ -82,7 +82,7 @@ func (iil *instanceIdList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     iil.ExtendData["start_time"] = iil.startTime
     iil.ExtendData["end_time"] = iil.endTime
 
-    iil.ReqUrl = dingtalk.UrlService + "/topapi/processinstance/listids?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(iil.corpId, iil.agentTag)
+    iil.ReqURI = dingtalk.UrlService + "/topapi/processinstance/listids?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(iil.corpId, iil.agentTag)
 
     reqBody := mpf.JSONMarshal(iil.ExtendData)
     client, req := iil.GetRequest()

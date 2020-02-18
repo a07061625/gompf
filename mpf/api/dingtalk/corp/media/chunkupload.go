@@ -66,7 +66,7 @@ func (cu *chunkUpload) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     cu.ReqData["upload_id"] = cu.uploadId
     cu.ReqData["chunk_sequence"] = strconv.Itoa(cu.chunkSequence)
     cu.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(cu.corpId, cu.agentTag, cu.atType)
-    cu.ReqUrl = dingtalk.UrlService + "/file/upload/chunk?" + mpf.HTTPCreateParams(cu.ReqData, "none", 1)
+    cu.ReqURI = dingtalk.UrlService + "/file/upload/chunk?" + mpf.HTTPCreateParams(cu.ReqData, "none", 1)
 
     // 新建一个缓冲，用于存放文件内容
     bodyBuffer := &bytes.Buffer{}

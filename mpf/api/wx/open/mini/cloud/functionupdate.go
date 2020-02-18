@@ -87,7 +87,7 @@ func (fu *functionUpdate) checkData() {
     fu.ReqData["EnvId"] = fu.envId
 }
 
-func (fu *functionUpdate) SendRequest() api.ApiResult {
+func (fu *functionUpdate) SendRequest() api.APIResult {
     fu.checkData()
 
     fu.ReqData["CodeSecret"] = wx.NewUtilWx().GetOpenAuthorizeCodeSecret(fu.appId)
@@ -106,7 +106,7 @@ func (fu *functionUpdate) SendRequest() api.ApiResult {
         headerInfo := strings.Split(v, ":")
         fu.ReqHeader[strings.TrimSpace(headerInfo[0])] = strings.TrimSpace(headerInfo[1])
     }
-    fu.ReqUrl = "https://scf.tencentcloudapi.com"
+    fu.ReqURI = "https://scf.tencentcloudapi.com"
     client, req := fu.GetRequest()
     req.SetBody([]byte(reqBody))
 

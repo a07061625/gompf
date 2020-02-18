@@ -34,9 +34,9 @@ func (bl *blackList) SetOpenid(openid string) {
     }
 }
 
-func (bl *blackList) SendRequest() api.ApiResult {
+func (bl *blackList) SendRequest() api.APIResult {
     reqBody := mpf.JSONMarshal(bl.ReqData)
-    bl.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(bl.appId)
+    bl.ReqURI = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(bl.appId)
     client, req := bl.GetRequest()
     req.SetBody([]byte(reqBody))
 

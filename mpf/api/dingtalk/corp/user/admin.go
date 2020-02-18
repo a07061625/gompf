@@ -20,7 +20,7 @@ type admin struct {
 }
 
 func (a *admin) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    a.ReqUrl = dingtalk.UrlService + "/user/get_admin?access_token=" + dingtalk.NewUtil().GetAccessToken(a.corpId, a.agentTag, a.atType)
+    a.ReqURI = dingtalk.UrlService + "/user/get_admin?access_token=" + dingtalk.NewUtil().GetAccessToken(a.corpId, a.agentTag, a.atType)
 
     return a.GetRequest()
 }

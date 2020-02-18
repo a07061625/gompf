@@ -41,7 +41,7 @@ func (ui *userInfo) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ui.ReqData["code"] = ui.authCode
     ui.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(ui.corpId, ui.agentTag, ui.atType)
-    ui.ReqUrl = dingtalk.UrlService + "/user/getuserinfo?" + mpf.HTTPCreateParams(ui.ReqData, "none", 1)
+    ui.ReqURI = dingtalk.UrlService + "/user/getuserinfo?" + mpf.HTTPCreateParams(ui.ReqData, "none", 1)
 
     return ui.GetRequest()
 }

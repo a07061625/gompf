@@ -37,7 +37,7 @@ func (ad *accessDetail) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ad.ServiceUri = "/v3/iot/management/domain/" + ad.domainName + "/accessDetail"
 
-    ad.ReqUrl = ad.GetServiceUrl()
+    ad.ReqURI = ad.GetServiceUrl()
 
     return ad.GetRequest()
 }

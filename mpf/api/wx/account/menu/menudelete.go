@@ -19,8 +19,8 @@ type menuDelete struct {
     appId string
 }
 
-func (md *menuDelete) SendRequest() api.ApiResult {
-    md.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" + wx.NewUtilWx().GetSingleAccessToken(md.appId)
+func (md *menuDelete) SendRequest() api.APIResult {
+    md.ReqURI = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" + wx.NewUtilWx().GetSingleAccessToken(md.appId)
     client, req := md.GetRequest()
 
     resp, result := md.SendInner(client, req, errorcode.WxAccountRequestGet)

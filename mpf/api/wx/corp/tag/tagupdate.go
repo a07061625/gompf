@@ -53,11 +53,11 @@ func (tu *tagUpdate) checkData() {
     tu.ReqData["tagname"] = tu.tagName
 }
 
-func (tu *tagUpdate) SendRequest(getType string) api.ApiResult {
+func (tu *tagUpdate) SendRequest(getType string) api.APIResult {
     tu.checkData()
 
     reqBody := mpf.JSONMarshal(tu.ReqData)
-    tu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token=" + wx.NewUtilWx().GetCorpCache(tu.corpId, tu.agentTag, getType)
+    tu.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token=" + wx.NewUtilWx().GetCorpCache(tu.corpId, tu.agentTag, getType)
     client, req := tu.GetRequest()
     req.SetBody([]byte(reqBody))
 

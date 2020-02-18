@@ -83,7 +83,7 @@ func (ds *deliverySet) checkData() {
     }
 }
 
-func (ds *deliverySet) SendRequest() api.ApiResult {
+func (ds *deliverySet) SendRequest() api.APIResult {
     ds.checkData()
 
     reqData := make(map[string]interface{})
@@ -95,7 +95,7 @@ func (ds *deliverySet) SendRequest() api.ApiResult {
         reqData["delivery_track_no"] = ds.deliveryTrackNo
     }
     reqBody := mpf.JSONMarshal(reqData)
-    ds.ReqUrl = "https://api.weixin.qq.com/merchant/order/setdelivery?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ds.appId)
+    ds.ReqURI = "https://api.weixin.qq.com/merchant/order/setdelivery?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ds.appId)
     client, req := ds.GetRequest()
     req.SetBody([]byte(reqBody))
 

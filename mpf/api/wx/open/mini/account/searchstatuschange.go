@@ -37,13 +37,13 @@ func (ssc *searchStatusChange) checkData() {
     }
 }
 
-func (ssc *searchStatusChange) SendRequest() api.ApiResult {
+func (ssc *searchStatusChange) SendRequest() api.APIResult {
     ssc.checkData()
 
     reqData := make(map[string]interface{})
     reqData["status"] = ssc.searchStatus
     reqBody := mpf.JSONMarshal(ssc.ReqData)
-    ssc.ReqUrl = "https://api.weixin.qq.com/wxa/changewxasearchstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ssc.appId)
+    ssc.ReqURI = "https://api.weixin.qq.com/wxa/changewxasearchstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ssc.appId)
     client, req := ssc.GetRequest()
     req.SetBody([]byte(reqBody))
 

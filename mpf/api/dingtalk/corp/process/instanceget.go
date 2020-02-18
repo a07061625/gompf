@@ -31,7 +31,7 @@ func (ig *instanceGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ig.ExtendData["process_instance_id"] = ig.instanceId
 
-    ig.ReqUrl = dingtalk.UrlService + "/topapi/processinstance/get?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ig.corpId, ig.agentTag)
+    ig.ReqURI = dingtalk.UrlService + "/topapi/processinstance/get?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ig.corpId, ig.agentTag)
 
     reqBody := mpf.JSONMarshal(ig.ExtendData)
     client, req := ig.GetRequest()

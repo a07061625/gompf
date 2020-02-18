@@ -1,3 +1,6 @@
+// Package mpserver app_basic
+// User: 姜伟
+// Time: 2020-02-19 06:32:32
 package mpserver
 
 import (
@@ -71,7 +74,7 @@ func (app *appBasic) SetConfI18n(conf *i18n.I18n) {
     app.instance.I18n = conf
 }
 
-func (app *appBasic) formatUri(name string) string {
+func (app *appBasic) formatURI(name string) string {
     match, _ := regexp.MatchString(`^[a-zA-Z]+$`, name)
     if !match {
         return ""
@@ -82,19 +85,19 @@ func (app *appBasic) formatUri(name string) string {
     return strings.ToLower(strings.TrimPrefix(needStr, "-"))
 }
 
-func (app *appBasic) registerRouteAction(groupUri string, controller controllers.IControllerBasic) {
+func (app *appBasic) registerRouteAction(groupURI string, controller controllers.IControllerBasic) {
     refControllerVal := reflect.ValueOf(controller)
     methodNum := refControllerVal.NumMethod()
     if methodNum <= 0 {
         return
     }
 
-    groupRoute := app.instance.Party(groupUri)
+    groupRoute := app.instance.Party(groupURI)
     // 无需显式调用ctx.Next(),自动触发下一个handle
     groupRoute.SetExecutionRules(iris.ExecutionRules{
-        Begin: iris.ExecutionOptions{true},
-        Main:  iris.ExecutionOptions{true},
-        Done:  iris.ExecutionOptions{true},
+        Begin: iris.ExecutionOptions{Force: true},
+        Main:  iris.ExecutionOptions{Force: true},
+        Done:  iris.ExecutionOptions{Force: true},
     })
     groupRoute.Use(controller.GetMwController(true)...)
     groupRoute.Done(controller.GetMwController(false)...)
@@ -117,7 +120,7 @@ func (app *appBasic) registerRouteAction(groupUri string, controller controllers
             continue
         }
 
-        actionTag := app.formatUri(strings.TrimPrefix(methodName, "Action"))
+        actionTag := app.formatURI(strings.TrimPrefix(methodName, "Action"))
         if len(actionTag) == 0 {
             continue
         }
@@ -132,8 +135,8 @@ func (app *appBasic) registerRouteAction(groupUri string, controller controllers
             }
         })
         actionMwList = append(actionMwList, controller.GetMwAction(false, actionTag)...)
-        actionUri := "/" + actionTag + " /" + actionTag + "/{directory:path}"
-        groupRoute.HandleMany(iris.MethodGet+" "+iris.MethodPost, actionUri, actionMwList...)
+        actionURI := "/" + actionTag + " /" + actionTag + "/{directory:path}"
+        groupRoute.HandleMany(iris.MethodGet+" "+iris.MethodPost, actionURI, actionMwList...)
     }
 }
 
@@ -172,11 +175,11 @@ func (app *appBasic) SetRouters(blocks map[string]string, controllers []controll
         if !strings.HasSuffix(typeNameList[1], "Controller") {
             continue
         }
-        controllerUri := app.formatUri(strings.TrimSuffix(typeNameList[1], "Controller"))
-        if len(controllerUri) == 0 {
+        controllerURI := app.formatURI(strings.TrimSuffix(typeNameList[1], "Controller"))
+        if len(controllerURI) == 0 {
             continue
         }
-        uriPrefix += "/" + controllerUri
+        uriPrefix += "/" + controllerURI
         app.registerRouteAction(uriPrefix, controllers[i])
     }
 }
@@ -226,6 +229,7 @@ func init() {
     insApp.instance = iris.New()
 }
 
+// NewApp NewApp
 func NewApp() *appBasic {
     return insApp
 }

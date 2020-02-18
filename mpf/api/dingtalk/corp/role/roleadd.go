@@ -45,7 +45,7 @@ func (ra *roleAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ra.ExtendData["roleName"] = ra.roleName
     ra.ExtendData["groupId"] = ra.groupId
 
-    ra.ReqUrl = dingtalk.UrlService + "/role/add_role?access_token=" + dingtalk.NewUtil().GetAccessToken(ra.corpId, ra.agentTag, ra.atType)
+    ra.ReqURI = dingtalk.UrlService + "/role/add_role?access_token=" + dingtalk.NewUtil().GetAccessToken(ra.corpId, ra.agentTag, ra.atType)
 
     reqBody := mpf.JSONMarshal(ra.ExtendData)
     client, req := ra.GetRequest()

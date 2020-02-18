@@ -58,7 +58,7 @@ func (fl *functionList) checkData() {
     }
 }
 
-func (fl *functionList) SendRequest() api.ApiResult {
+func (fl *functionList) SendRequest() api.APIResult {
     fl.checkData()
 
     reqData := make(map[string]interface{})
@@ -66,7 +66,7 @@ func (fl *functionList) SendRequest() api.ApiResult {
     reqData["offset"] = fl.offset
     reqData["limit"] = fl.limit
     reqBody := mpf.JSONMarshal(fl.ReqData)
-    fl.ReqUrl = "https://api.weixin.qq.com/tcb/listfunctions?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fl.appId)
+    fl.ReqURI = "https://api.weixin.qq.com/tcb/listfunctions?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fl.appId)
     client, req := fl.GetRequest()
     req.SetBody([]byte(reqBody))
 

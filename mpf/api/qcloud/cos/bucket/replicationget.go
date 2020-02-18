@@ -17,7 +17,7 @@ type replicationGet struct {
 }
 
 func (rg *replicationGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    rg.ReqUrl = "http://" + rg.ReqHeader["Host"] + rg.ReqUri + "?replication"
+    rg.ReqURI = "http://" + rg.ReqHeader["Host"] + rg.ReqUri + "?replication"
     return rg.GetRequest()
 }
 

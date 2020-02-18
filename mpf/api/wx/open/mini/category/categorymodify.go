@@ -57,7 +57,7 @@ func (cm *categoryModify) checkData() {
     }
 }
 
-func (cm *categoryModify) SendRequest() api.ApiResult {
+func (cm *categoryModify) SendRequest() api.APIResult {
     cm.checkData()
 
     reqData := make(map[string]interface{})
@@ -65,7 +65,7 @@ func (cm *categoryModify) SendRequest() api.ApiResult {
     reqData["second"] = cm.second
     reqData["categories"] = cm.categories
     reqBody := mpf.JSONMarshal(cm.ReqData)
-    cm.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/modifycategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cm.appId)
+    cm.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/modifycategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cm.appId)
     client, req := cm.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -71,7 +71,7 @@ func (sc *scheduleCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     sc.ExtendData["trigger"] = sc.trigger
     sc.ExtendData["push"] = sc.pushContent
 
-    sc.ReqUrl = sc.GetServiceUrl()
+    sc.ReqURI = sc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(sc.ExtendData)
     client, req := sc.GetRequest()

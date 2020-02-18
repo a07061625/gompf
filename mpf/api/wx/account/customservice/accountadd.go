@@ -51,11 +51,11 @@ func (aa *accountAdd) checkData() {
     aa.ReqData["nickname"] = aa.nickname
 }
 
-func (aa *accountAdd) SendRequest() api.ApiResult {
+func (aa *accountAdd) SendRequest() api.APIResult {
     aa.checkData()
 
     reqBody := mpf.JSONMarshal(aa.ReqData)
-    aa.ReqUrl = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(aa.appId)
+    aa.ReqURI = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(aa.appId)
     client, req := aa.GetRequest()
     req.SetBody([]byte(reqBody))
 

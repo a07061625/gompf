@@ -86,7 +86,7 @@ func (op *objectPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     encodeStr := base64.StdEncoding.EncodeToString(content)
     op.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     op.SetHeaderData("Content-Length", strconv.Itoa(contentLength))
-    op.ReqUrl = "http://" + op.ReqHeader["Host"] + op.ReqUri
+    op.ReqURI = "http://" + op.ReqHeader["Host"] + op.ReqUri
     client, req := op.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)

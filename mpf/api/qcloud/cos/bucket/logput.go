@@ -42,7 +42,7 @@ func (lp *logPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := project.DataPrefixXML + string(xmlStr)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     lp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
-    lp.ReqUrl = "http://" + lp.ReqHeader["Host"] + lp.ReqUri + "?logging"
+    lp.ReqURI = "http://" + lp.ReqHeader["Host"] + lp.ReqUri + "?logging"
     client, req := lp.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

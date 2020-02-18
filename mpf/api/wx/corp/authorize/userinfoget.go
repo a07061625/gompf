@@ -37,10 +37,10 @@ func (uig *userInfoGet) checkData() {
     uig.ReqData["code"] = uig.authCode
 }
 
-func (uig *userInfoGet) SendRequest() api.ApiResult {
+func (uig *userInfoGet) SendRequest() api.APIResult {
     uig.checkData()
     uig.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(uig.corpId, uig.agentTag)
-    uig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?" + mpf.HTTPCreateParams(uig.ReqData, "none", 1)
+    uig.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?" + mpf.HTTPCreateParams(uig.ReqData, "none", 1)
 
     client, req := uig.GetRequest()
     resp, result := uig.SendInner(client, req, errorcode.WxCorpRequestGet)

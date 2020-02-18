@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/4 0004
- * Time: 23:35
- */
+// Package mpmq producer
+// User: 姜伟
+// Time: 2020-02-19 06:42:40
 package mpmq
 
 import (
@@ -12,6 +9,7 @@ import (
     "github.com/a07061625/gompf/mpf/mperr"
 )
 
+// IProducer IProducer
 type IProducer interface {
     SendTopicData(topic string, data []string) int
 }
@@ -46,6 +44,7 @@ func init() {
     }
 }
 
+// NewProducer NewProducer
 func NewProducer() *producerMQ {
     return insProducer
 }

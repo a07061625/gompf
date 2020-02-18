@@ -172,13 +172,13 @@ func (pm *payMicro) checkData() {
     }
 }
 
-func (pm *payMicro) SendRequest() api.ApiResult {
+func (pm *payMicro) SendRequest() api.APIResult {
     pm.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(pm.ReqData, pm.appId, "md5")
     pm.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(pm.ReqData))
-    pm.ReqUrl = "https://api.mch.weixin.qq.com/pay/micropay"
+    pm.ReqURI = "https://api.mch.weixin.qq.com/pay/micropay"
     client, req := pm.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -74,7 +74,7 @@ func (fc *firmwareCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     fc.ExtendData["version"] = fc.version
     fc.ExtendData["fileId"] = fc.fileId
 
-    fc.ReqUrl = fc.GetServiceUrl()
+    fc.ReqURI = fc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(fc.ExtendData)
     client, req := fc.GetRequest()

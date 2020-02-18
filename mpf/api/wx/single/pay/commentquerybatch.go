@@ -88,13 +88,13 @@ func (cqb *commentQueryBatch) checkData() {
     cqb.ReqData["limit"] = strconv.Itoa(cqb.limit)
 }
 
-func (cqb *commentQueryBatch) SendRequest() api.ApiResult {
+func (cqb *commentQueryBatch) SendRequest() api.APIResult {
     cqb.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(cqb.ReqData, cqb.appId, "md5")
     cqb.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(cqb.ReqData))
-    cqb.ReqUrl = "https://api.mch.weixin.qq.com/billcommentsp/batchquerycomment"
+    cqb.ReqURI = "https://api.mch.weixin.qq.com/billcommentsp/batchquerycomment"
     client, req := cqb.GetRequest()
     req.SetBody([]byte(reqBody))
 

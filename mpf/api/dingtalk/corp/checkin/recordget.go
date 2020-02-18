@@ -82,7 +82,7 @@ func (rg *recordGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     rg.ExtendData["start_time"] = rg.startTime
     rg.ExtendData["end_time"] = rg.endTime
 
-    rg.ReqUrl = dingtalk.UrlService + "/topapi/checkin/record/get?access_token=" + dingtalk.NewUtil().GetAccessToken(rg.corpId, rg.agentTag, rg.atType)
+    rg.ReqURI = dingtalk.UrlService + "/topapi/checkin/record/get?access_token=" + dingtalk.NewUtil().GetAccessToken(rg.corpId, rg.agentTag, rg.atType)
 
     reqBody := mpf.JSONMarshal(rg.ExtendData)
     client, req := rg.GetRequest()

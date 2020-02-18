@@ -48,14 +48,14 @@ func (ca *conditionalAdd) checkData() {
     }
 }
 
-func (ca *conditionalAdd) SendRequest() api.ApiResult {
+func (ca *conditionalAdd) SendRequest() api.APIResult {
     ca.checkData()
 
     reqData := make(map[string]interface{})
     reqData["button"] = ca.buttonList
     reqData["matchrule"] = ca.matchRule
     reqBody := mpf.JSONMarshal(reqData)
-    ca.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ca.appId)
+    ca.ReqURI = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ca.appId)
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -40,7 +40,7 @@ func (peq *preEntryQuery) SetSize(size int) {
 }
 
 func (peq *preEntryQuery) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    peq.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/querypreentry?access_token=" + dingtalk.NewUtil().GetAccessToken(peq.corpId, peq.agentTag, peq.atType)
+    peq.ReqURI = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/querypreentry?access_token=" + dingtalk.NewUtil().GetAccessToken(peq.corpId, peq.agentTag, peq.atType)
 
     reqBody := mpf.JSONMarshal(peq.ExtendData)
     client, req := peq.GetRequest()

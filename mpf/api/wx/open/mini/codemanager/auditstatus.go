@@ -41,11 +41,11 @@ func (cas *auditStatus) checkData() {
     cas.ReqData["audit_id"] = cas.auditId
 }
 
-func (cas *auditStatus) SendRequest() api.ApiResult {
+func (cas *auditStatus) SendRequest() api.APIResult {
     cas.checkData()
 
     reqBody := mpf.JSONMarshal(cas.ReqData)
-    cas.ReqUrl = "https://api.weixin.qq.com/wxa/get_auditstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cas.appId)
+    cas.ReqURI = "https://api.weixin.qq.com/wxa/get_auditstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cas.appId)
     client, req := cas.GetRequest()
     req.SetBody([]byte(reqBody))
 

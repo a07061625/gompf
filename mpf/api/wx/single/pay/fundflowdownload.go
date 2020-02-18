@@ -72,13 +72,13 @@ func (ffd *fundFlowDownload) checkData() {
     ffd.ReqData["account_type"] = ffd.accountType
 }
 
-func (ffd *fundFlowDownload) SendRequest() api.ApiResult {
+func (ffd *fundFlowDownload) SendRequest() api.APIResult {
     ffd.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(ffd.ReqData, ffd.appId, "sha256")
     ffd.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(ffd.ReqData))
-    ffd.ReqUrl = "https://api.mch.weixin.qq.com/pay/downloadfundflow"
+    ffd.ReqURI = "https://api.mch.weixin.qq.com/pay/downloadfundflow"
     client, req := ffd.GetRequest()
     req.SetBody([]byte(reqBody))
 

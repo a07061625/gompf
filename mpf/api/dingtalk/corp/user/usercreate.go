@@ -172,7 +172,7 @@ func (uc *userCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     uc.ExtendData["mobile"] = uc.mobile
     uc.ExtendData["jobnumber"] = uc.jobNumber
 
-    uc.ReqUrl = dingtalk.UrlService + "/user/create?access_token=" + dingtalk.NewUtil().GetAccessToken(uc.corpId, uc.agentTag, uc.atType)
+    uc.ReqURI = dingtalk.UrlService + "/user/create?access_token=" + dingtalk.NewUtil().GetAccessToken(uc.corpId, uc.agentTag, uc.atType)
 
     reqBody := mpf.JSONMarshal(uc.ExtendData)
     client, req := uc.GetRequest()

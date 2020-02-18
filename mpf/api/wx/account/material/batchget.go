@@ -57,7 +57,7 @@ func (bg *batchGet) checkData() {
     }
 }
 
-func (bg *batchGet) SendRequest() api.ApiResult {
+func (bg *batchGet) SendRequest() api.APIResult {
     bg.checkData()
 
     reqData := make(map[string]interface{})
@@ -65,7 +65,7 @@ func (bg *batchGet) SendRequest() api.ApiResult {
     reqData["offset"] = bg.offset
     reqData["count"] = bg.count
     reqBody := mpf.JSONMarshal(reqData)
-    bg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=" + wx.NewUtilWx().GetSingleAccessToken(bg.appId)
+    bg.ReqURI = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=" + wx.NewUtilWx().GetSingleAccessToken(bg.appId)
     client, req := bg.GetRequest()
     req.SetBody([]byte(reqBody))
 

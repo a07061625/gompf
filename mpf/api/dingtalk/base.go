@@ -10,7 +10,7 @@ import (
 )
 
 type baseDingTalk struct {
-    api.ApiOuter
+    api.APIOuter
     ExtendData map[string]interface{}
 }
 
@@ -19,7 +19,7 @@ func (dt *baseDingTalk) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(dt.ReqUrl)
+    req.Header.SetRequestURI(dt.ReqURI)
     req.Header.SetContentType(dt.ReqContentType)
     req.Header.SetMethod(dt.ReqMethod)
     mpf.HTTPAddReqHeader(req, dt.ReqHeader)
@@ -28,7 +28,7 @@ func (dt *baseDingTalk) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 }
 
 func newDingTalk() baseDingTalk {
-    dt := baseDingTalk{api.NewApiOuter(), make(map[string]interface{})}
+    dt := baseDingTalk{api.NewAPIOuter(), make(map[string]interface{})}
     dt.ReqContentType = project.HTTPContentTypeForm
     dt.ReqMethod = fasthttp.MethodGet
     return dt

@@ -36,13 +36,13 @@ func (sg *skuGet) checkData() {
     }
 }
 
-func (sg *skuGet) SendRequest() api.ApiResult {
+func (sg *skuGet) SendRequest() api.APIResult {
     sg.checkData()
 
     reqData := make(map[string]interface{})
     reqData["cate_id"] = sg.categoryId
     reqBody := mpf.JSONMarshal(reqData)
-    sg.ReqUrl = "https://api.weixin.qq.com/merchant/category/getsku?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sg.appId)
+    sg.ReqURI = "https://api.weixin.qq.com/merchant/category/getsku?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sg.appId)
     client, req := sg.GetRequest()
     req.SetBody([]byte(reqBody))
 

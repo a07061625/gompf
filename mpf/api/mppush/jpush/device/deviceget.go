@@ -37,7 +37,7 @@ func (dg *deviceGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dg.ServiceUri = "/v3/devices/" + dg.registrationId
 
-    dg.ReqUrl = dg.GetServiceUrl()
+    dg.ReqURI = dg.GetServiceUrl()
 
     return dg.GetRequest()
 }

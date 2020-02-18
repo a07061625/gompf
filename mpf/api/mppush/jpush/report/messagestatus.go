@@ -70,7 +70,7 @@ func (ms *messageStatus) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     dt := time.Unix(int64(ms.dateTime), 0)
     ms.ExtendData["date"] = dt.Format("2006-01-02")
 
-    ms.ReqUrl = ms.GetServiceUrl()
+    ms.ReqURI = ms.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(ms.ExtendData)
     client, req := ms.GetRequest()

@@ -38,13 +38,13 @@ func (ca *audit) checkData() {
     }
 }
 
-func (ca *audit) SendRequest() api.ApiResult {
+func (ca *audit) SendRequest() api.APIResult {
     ca.checkData()
 
     reqData := make(map[string]interface{})
     reqData["item_list"] = ca.auditList
     reqBody := mpf.JSONMarshal(ca.ReqData)
-    ca.ReqUrl = "https://api.weixin.qq.com/wxa/submit_audit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ca.appId)
+    ca.ReqURI = "https://api.weixin.qq.com/wxa/submit_audit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ca.appId)
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
 

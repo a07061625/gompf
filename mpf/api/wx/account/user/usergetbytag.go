@@ -48,14 +48,14 @@ func (ugt *userGetByTag) checkData() {
     }
 }
 
-func (ugt *userGetByTag) SendRequest() api.ApiResult {
+func (ugt *userGetByTag) SendRequest() api.APIResult {
     ugt.checkData()
 
     reqData := make(map[string]interface{})
     reqData["tagid"] = ugt.tagId
     reqData["next_openid"] = ugt.openid
     reqBody := mpf.JSONMarshal(reqData)
-    ugt.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ugt.appId)
+    ugt.ReqURI = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ugt.appId)
     client, req := ugt.GetRequest()
     req.SetBody([]byte(reqBody))
 

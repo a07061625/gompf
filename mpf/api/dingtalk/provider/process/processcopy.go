@@ -74,7 +74,7 @@ func (pc *processCopy) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     pc.ExtendData["description"] = pc.processDesc
     pc.ExtendData["biz_category_id"] = pc.bizCategoryId
 
-    pc.ReqUrl = dingtalk.UrlService + "/topapi/process/copy?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(pc.corpId)
+    pc.ReqURI = dingtalk.UrlService + "/topapi/process/copy?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(pc.corpId)
 
     reqBody := mpf.JSONMarshal(pc.ExtendData)
     client, req := pc.GetRequest()

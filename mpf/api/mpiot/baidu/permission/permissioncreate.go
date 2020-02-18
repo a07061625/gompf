@@ -83,7 +83,7 @@ func (pc *permissionCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     pc.ExtendData["topic"] = pc.topic
     pc.ExtendData["operations"] = pc.operationList
 
-    pc.ReqUrl = pc.GetServiceUrl()
+    pc.ReqURI = pc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(pc.ExtendData)
     client, req := pc.GetRequest()

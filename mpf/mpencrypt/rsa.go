@@ -1,9 +1,6 @@
-/**
- * rsa加解密
- * User: 姜伟
- * Date: 2019/12/16 0016
- * Time: 10:58
- */
+// Package mpencrypt rsa
+// User: 姜伟
+// Time: 2020-02-19 06:29:32
 package mpencrypt
 
 import (
@@ -19,7 +16,7 @@ import (
 // 私钥文件生成
 // openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
 
-// 加密
+// RsaEncrypt 加密
 // originData []byte 原始数据
 // publicKey []byte 公钥,公钥文件内容,包含-----BEGIN PUBLIC KEY-----和-----END PUBLIC KEY-----
 func RsaEncrypt(originData []byte, publicKey []byte) ([]byte, error) {
@@ -38,14 +35,14 @@ func RsaEncrypt(originData []byte, publicKey []byte) ([]byte, error) {
     return rsa.EncryptPKCS1v15(rand.Reader, pub, originData)
 }
 
-// 解密
+// RsaDecrypt 解密
 // encryptData []byte 加密数据
 // privateKey []byte 私钥,私钥文件内容,包含-----BEGIN RSA PRIVATE KEY-----和-----END RSA PRIVATE KEY-----
 func RsaDecrypt(encryptData []byte, privateKey []byte) ([]byte, error) {
     // 解密pem格式的私钥
     block, _ := pem.Decode(privateKey)
     if block == nil {
-        return nil, errors.New("private key error!")
+        return nil, errors.New("private key error! ")
     }
     // 解析PKCS1格式的私钥
     priKey, err := x509.ParsePKCS1PrivateKey(block.Bytes)

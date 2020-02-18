@@ -40,11 +40,11 @@ func (acg *appChatGet) checkData() {
     acg.ReqData["chatid"] = acg.chatId
 }
 
-func (acg *appChatGet) SendRequest() api.ApiResult {
+func (acg *appChatGet) SendRequest() api.APIResult {
     acg.checkData()
 
     acg.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(acg.corpId, acg.agentTag)
-    acg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/appchat/get?" + mpf.HTTPCreateParams(acg.ReqData, "none", 1)
+    acg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/appchat/get?" + mpf.HTTPCreateParams(acg.ReqData, "none", 1)
     client, req := acg.GetRequest()
 
     resp, result := acg.SendInner(client, req, errorcode.WxCorpRequestGet)

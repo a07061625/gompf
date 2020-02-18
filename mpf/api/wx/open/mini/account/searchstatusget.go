@@ -19,8 +19,8 @@ type searchStatusGet struct {
     appId string // 应用ID
 }
 
-func (ssg *searchStatusGet) SendRequest() api.ApiResult {
-    ssg.ReqUrl = "https://api.weixin.qq.com/wxa/getwxasearchstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ssg.appId)
+func (ssg *searchStatusGet) SendRequest() api.APIResult {
+    ssg.ReqURI = "https://api.weixin.qq.com/wxa/getwxasearchstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ssg.appId)
     client, req := ssg.GetRequest()
 
     resp, result := ssg.SendInner(client, req, errorcode.WxOpenRequestGet)

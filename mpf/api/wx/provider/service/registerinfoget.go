@@ -36,12 +36,12 @@ func (rig *registerInfoGet) checkData() {
     }
 }
 
-func (rig *registerInfoGet) SendRequest() api.ApiResult {
+func (rig *registerInfoGet) SendRequest() api.APIResult {
     rig.checkData()
 
     rig.ReqData["register_code"] = rig.registerCode
     reqBody := mpf.JSONMarshal(rig.ReqData)
-    rig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_register_info?provider_access_token=" + wx.NewUtilWx().GetProviderToken()
+    rig.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/service/get_register_info?provider_access_token=" + wx.NewUtilWx().GetProviderToken()
     client, req := rig.GetRequest()
     req.SetBody([]byte(reqBody))
 

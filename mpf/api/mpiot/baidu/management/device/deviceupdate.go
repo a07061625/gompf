@@ -51,7 +51,7 @@ func (du *deviceUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     du.ServiceUri = "/v3/iot/management/device/" + du.deviceName
 
-    du.ReqUrl = du.GetServiceUrl() + "?updateProfile"
+    du.ReqURI = du.GetServiceUrl() + "?updateProfile"
 
     reqBody := mpf.JSONMarshal(du.ExtendData)
     client, req := du.GetRequest()

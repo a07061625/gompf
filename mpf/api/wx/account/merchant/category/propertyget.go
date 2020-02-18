@@ -36,13 +36,13 @@ func (pg *propertyGet) checkData() {
     }
 }
 
-func (pg *propertyGet) SendRequest() api.ApiResult {
+func (pg *propertyGet) SendRequest() api.APIResult {
     pg.checkData()
 
     reqData := make(map[string]interface{})
     reqData["cate_id"] = pg.categoryId
     reqBody := mpf.JSONMarshal(reqData)
-    pg.ReqUrl = "https://api.weixin.qq.com/merchant/category/getproperty?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pg.appId)
+    pg.ReqURI = "https://api.weixin.qq.com/merchant/category/getproperty?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pg.appId)
     client, req := pg.GetRequest()
     req.SetBody([]byte(reqBody))
 

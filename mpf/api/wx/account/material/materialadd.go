@@ -102,10 +102,10 @@ func (ma *materialAdd) checkData() (string, []byte, error) {
     return contentType, content, nil
 }
 
-func (ma *materialAdd) SendRequest() api.ApiResult {
+func (ma *materialAdd) SendRequest() api.APIResult {
     contentType, content, err := ma.checkData()
     if err != nil {
-        result := api.NewApiResult()
+        result := api.NewAPIResult()
         result.Code = errorcode.WxCorpRequestPost
         result.Msg = "上传文件失败"
         return result
@@ -113,7 +113,7 @@ func (ma *materialAdd) SendRequest() api.ApiResult {
 
     ma.ReqData["type"] = ma.materialType
     ma.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(ma.appId)
-    ma.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/add_material?" + mpf.HTTPCreateParams(ma.ReqData, "none", 1)
+    ma.ReqURI = "https://api.weixin.qq.com/cgi-bin/material/add_material?" + mpf.HTTPCreateParams(ma.ReqData, "none", 1)
     client, req := ma.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)

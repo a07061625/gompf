@@ -51,7 +51,7 @@ func (ol *orderList) SetTime(beginTime, endTime int) {
     ol.endTime = endTime
 }
 
-func (ol *orderList) SendRequest() api.ApiResult {
+func (ol *orderList) SendRequest() api.APIResult {
     reqData := make(map[string]interface{})
     if ol.beginTime > 0 {
         reqData["begintime"] = ol.beginTime
@@ -63,7 +63,7 @@ func (ol *orderList) SendRequest() api.ApiResult {
         reqData["status"] = ol.orderStatus
     }
     reqBody := mpf.JSONMarshal(ol.ReqData)
-    ol.ReqUrl = "https://api.weixin.qq.com/merchant/order/getbyfilter?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ol.appId)
+    ol.ReqURI = "https://api.weixin.qq.com/merchant/order/getbyfilter?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ol.appId)
     client, req := ol.GetRequest()
     req.SetBody([]byte(reqBody))
 

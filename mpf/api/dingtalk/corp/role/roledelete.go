@@ -38,7 +38,7 @@ func (rd *roleDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     rd.ExtendData["role_id"] = rd.roleId
 
-    rd.ReqUrl = dingtalk.UrlService + "/topapi/role/deleterole?access_token=" + dingtalk.NewUtil().GetAccessToken(rd.corpId, rd.agentTag, rd.atType)
+    rd.ReqURI = dingtalk.UrlService + "/topapi/role/deleterole?access_token=" + dingtalk.NewUtil().GetAccessToken(rd.corpId, rd.agentTag, rd.atType)
 
     reqBody := mpf.JSONMarshal(rd.ExtendData)
     client, req := rd.GetRequest()

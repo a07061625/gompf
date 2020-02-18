@@ -34,7 +34,7 @@ func (lgl *labelGroupsList) SetSize(size int) {
 }
 
 func (lgl *labelGroupsList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    lgl.ReqUrl = dingtalk.UrlService + "/topapi/extcontact/listlabelgroups?access_token=" + dingtalk.NewUtil().GetAccessToken(lgl.corpId, lgl.agentTag, lgl.atType)
+    lgl.ReqURI = dingtalk.UrlService + "/topapi/extcontact/listlabelgroups?access_token=" + dingtalk.NewUtil().GetAccessToken(lgl.corpId, lgl.agentTag, lgl.atType)
 
     reqBody := mpf.JSONMarshal(lgl.ExtendData)
     client, req := lgl.GetRequest()

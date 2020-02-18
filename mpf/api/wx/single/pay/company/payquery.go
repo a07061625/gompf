@@ -44,13 +44,13 @@ func (pq *payQuery) checkData() {
     pq.ReqData["partner_trade_no"] = pq.partnerTradeNo
 }
 
-func (pq *payQuery) SendRequest() api.ApiResult {
+func (pq *payQuery) SendRequest() api.APIResult {
     pq.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(pq.ReqData, pq.appId, "md5")
     pq.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(pq.ReqData))
-    pq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo"
+    pq.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo"
     client, req := pq.GetRequest()
     req.SetBody([]byte(reqBody))
 

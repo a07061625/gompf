@@ -63,7 +63,7 @@ func (df *deviceFile) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewIotBaiDu(errorcode.IotBaiDuParam, "文件不合法", nil))
     }
 
-    df.ReqUrl = df.GetServiceUrl()
+    df.ReqURI = df.GetServiceUrl()
     df.ReqContentType = bodyWriter.FormDataContentType()
 
     client, req := df.GetRequest()

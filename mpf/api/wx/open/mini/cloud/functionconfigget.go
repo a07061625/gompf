@@ -65,7 +65,7 @@ func (fcg *functionConfigGet) checkData() {
     }
 }
 
-func (fcg *functionConfigGet) SendRequest() api.ApiResult {
+func (fcg *functionConfigGet) SendRequest() api.APIResult {
     fcg.checkData()
 
     reqData := make(map[string]interface{})
@@ -73,7 +73,7 @@ func (fcg *functionConfigGet) SendRequest() api.ApiResult {
     reqData["env"] = fcg.env
     reqData["function_name"] = fcg.functionName
     reqBody := mpf.JSONMarshal(fcg.ReqData)
-    fcg.ReqUrl = "https://api.weixin.qq.com/tcb/getfuncconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fcg.appId)
+    fcg.ReqURI = "https://api.weixin.qq.com/tcb/getfuncconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fcg.appId)
     client, req := fcg.GetRequest()
     req.SetBody([]byte(reqBody))
 

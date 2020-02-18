@@ -81,7 +81,7 @@ func (pm *permissionModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     pm.ExtendData["topic"] = pm.topic
     pm.ExtendData["operations"] = pm.operationList
 
-    pm.ReqUrl = pm.GetServiceUrl()
+    pm.ReqURI = pm.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(pm.ExtendData)
     client, req := pm.GetRequest()

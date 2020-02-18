@@ -19,8 +19,8 @@ type templateList struct {
     appId string
 }
 
-func (tl *templateList) SendRequest() api.ApiResult {
-    tl.ReqUrl = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tl.appId)
+func (tl *templateList) SendRequest() api.APIResult {
+    tl.ReqURI = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tl.appId)
     client, req := tl.GetRequest()
 
     resp, result := tl.SendInner(client, req, errorcode.WxAccountRequestGet)

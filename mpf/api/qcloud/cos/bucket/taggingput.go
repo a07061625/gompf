@@ -47,7 +47,7 @@ func (tp *taggingPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := project.DataPrefixXML + "<Tagging><TagSet>" + xmlStr + "</TagSet></Tagging>"
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     tp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
-    tp.ReqUrl = "http://" + tp.ReqHeader["Host"] + tp.ReqUri + "?tagging"
+    tp.ReqURI = "http://" + tp.ReqHeader["Host"] + tp.ReqUri + "?tagging"
     client, req := tp.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

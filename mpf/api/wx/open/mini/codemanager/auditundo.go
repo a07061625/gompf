@@ -21,8 +21,8 @@ type auditUndo struct {
     appId string // 应用ID
 }
 
-func (au *auditUndo) SendRequest() api.ApiResult {
-    au.ReqUrl = "https://api.weixin.qq.com/wxa/undocodeaudit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(au.appId)
+func (au *auditUndo) SendRequest() api.APIResult {
+    au.ReqURI = "https://api.weixin.qq.com/wxa/undocodeaudit?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(au.appId)
     client, req := au.GetRequest()
 
     resp, result := au.SendInner(client, req, errorcode.WxOpenRequestGet)

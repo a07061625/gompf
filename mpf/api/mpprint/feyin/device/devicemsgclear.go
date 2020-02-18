@@ -27,7 +27,7 @@ func (dmc *deviceMsgClear) SetDeviceNo(deviceNo string) {
     match, _ := regexp.MatchString(project.RegexDigit, deviceNo)
     if match {
         dmc.deviceNo = deviceNo
-        dmc.ReqUrl = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/msg/clear?access_token="
+        dmc.ReqURI = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/msg/clear?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "机器编号不合法", nil))
     }
@@ -38,14 +38,14 @@ func (dmc *deviceMsgClear) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "机器编号不能为空", nil))
     }
 
-    dmc.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(dmc.GetAppId())
+    dmc.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(dmc.GetAppId())
     client, req := dmc.GetRequest()
     req.SetBody([]byte("[]"))
 
     return client, req
 }
 
-func (dmc *deviceMsgClear) SendRequest() api.ApiResult {
+func (dmc *deviceMsgClear) SendRequest() api.APIResult {
     client, req := dmc.checkData()
     resp, result := dmc.SendInner(client, req, errorcode.PrintFeYinRequestPost)
     if resp.RespCode > 0 {

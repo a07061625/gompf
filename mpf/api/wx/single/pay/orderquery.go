@@ -56,13 +56,13 @@ func (oq *orderQuery) checkData() {
     }
 }
 
-func (oq *orderQuery) SendRequest() api.ApiResult {
+func (oq *orderQuery) SendRequest() api.APIResult {
     oq.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(oq.ReqData, oq.appId, "md5")
     oq.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(oq.ReqData))
-    oq.ReqUrl = "https://api.mch.weixin.qq.com/pay/orderquery"
+    oq.ReqURI = "https://api.mch.weixin.qq.com/pay/orderquery"
     client, req := oq.GetRequest()
     req.SetBody([]byte(reqBody))
 

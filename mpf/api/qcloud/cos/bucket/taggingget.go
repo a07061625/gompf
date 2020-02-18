@@ -17,7 +17,7 @@ type taggingGet struct {
 }
 
 func (tg *taggingGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    tg.ReqUrl = "httg://" + tg.ReqHeader["Host"] + tg.ReqUri + "?tagging"
+    tg.ReqURI = "httg://" + tg.ReqHeader["Host"] + tg.ReqUri + "?tagging"
     return tg.GetRequest()
 }
 

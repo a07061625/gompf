@@ -19,8 +19,8 @@ type countGet struct {
     appId string
 }
 
-func (mc *countGet) SendRequest() api.ApiResult {
-    mc.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mc.appId)
+func (mc *countGet) SendRequest() api.APIResult {
+    mc.ReqURI = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mc.appId)
     client, req := mc.GetRequest()
 
     resp, result := mc.SendInner(client, req, errorcode.WxAccountRequestGet)

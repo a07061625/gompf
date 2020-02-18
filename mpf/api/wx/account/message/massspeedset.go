@@ -37,13 +37,13 @@ func (mss *massSpeedSet) checkData() {
     }
 }
 
-func (mss *massSpeedSet) SendRequest() api.ApiResult {
+func (mss *massSpeedSet) SendRequest() api.APIResult {
     mss.checkData()
 
     reqData := make(map[string]interface{})
     reqData["speed"] = mss.speed
     reqBody := mpf.JSONMarshal(reqData)
-    mss.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/speed/set?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mss.appId)
+    mss.ReqURI = "https://api.weixin.qq.com/cgi-bin/message/mass/speed/set?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mss.appId)
     client, req := mss.GetRequest()
     req.SetBody([]byte(reqBody))
 

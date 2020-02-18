@@ -108,13 +108,13 @@ func (p *pay) checkData() {
     p.ReqData["desc"] = p.desc
 }
 
-func (p *pay) SendRequest() api.ApiResult {
+func (p *pay) SendRequest() api.APIResult {
     p.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(p.ReqData, p.appId, "md5")
     p.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(p.ReqData))
-    p.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"
+    p.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"
     client, req := p.GetRequest()
     req.SetBody([]byte(reqBody))
 

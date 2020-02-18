@@ -104,7 +104,7 @@ func (lms *linkedMessageSend) checkData() {
     }
 }
 
-func (lms *linkedMessageSend) SendRequest() api.ApiResult {
+func (lms *linkedMessageSend) SendRequest() api.APIResult {
     lms.checkData()
 
     agentInfo := wx.NewConfig().GetCorp(lms.corpId).GetAgentInfo(lms.agentTag)
@@ -125,7 +125,7 @@ func (lms *linkedMessageSend) SendRequest() api.ApiResult {
     reqData[lms.msgType] = lms.msgData
     reqBody := mpf.JSONMarshal(reqData)
 
-    lms.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/message/send?access_token=" + wx.NewUtilWx().GetCorpAccessToken(lms.corpId, lms.agentTag)
+    lms.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/message/send?access_token=" + wx.NewUtilWx().GetCorpAccessToken(lms.corpId, lms.agentTag)
     client, req := lms.GetRequest()
     req.SetBody([]byte(reqBody))
 

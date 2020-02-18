@@ -20,8 +20,8 @@ type tagGet struct {
     appId string
 }
 
-func (tg *tagGet) SendRequest() api.ApiResult {
-    tg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tg.appId)
+func (tg *tagGet) SendRequest() api.APIResult {
+    tg.ReqURI = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tg.appId)
     client, req := tg.GetRequest()
 
     resp, result := tg.SendInner(client, req, errorcode.WxAccountRequestGet)

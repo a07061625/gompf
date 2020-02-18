@@ -77,7 +77,7 @@ func (pl *permissionList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     pl.ServiceUri = "/v1/endpoint/" + pl.endpointName + "/permission"
     pl.ReqData["policyName"] = pl.policyName
 
-    pl.ReqUrl = pl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(pl.ReqData, "none", 1)
+    pl.ReqURI = pl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(pl.ReqData, "none", 1)
 
     return pl.GetRequest()
 }

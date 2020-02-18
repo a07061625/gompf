@@ -118,7 +118,7 @@ func (cc *chatCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     cc.ExtendData["owner"] = cc.owner
     cc.ExtendData["useridlist"] = cc.userList
 
-    cc.ReqUrl = dingtalk.UrlService + "/chat/create?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(cc.corpId, cc.agentTag)
+    cc.ReqURI = dingtalk.UrlService + "/chat/create?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(cc.corpId, cc.agentTag)
 
     reqBody := mpf.JSONMarshal(cc.ExtendData)
     client, req := cc.GetRequest()

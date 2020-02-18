@@ -47,7 +47,7 @@ func (lcp *lifeCyclePut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := project.DataPrefixXML + "<LifecycleConfiguration>" + xmlStr + "</LifecycleConfiguration>"
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     lcp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
-    lcp.ReqUrl = "http://" + lcp.ReqHeader["Host"] + lcp.ReqUri + "?lifecycle"
+    lcp.ReqURI = "http://" + lcp.ReqHeader["Host"] + lcp.ReqUri + "?lifecycle"
     client, req := lcp.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

@@ -71,7 +71,7 @@ func NewSmsSend() *smsSend {
     now := time.Now()
     send := &smsSend{mpsms.NewBaseYun253(), make([]string, 0), "", "", "", ""}
     conf := mpsms.NewConfigYun253()
-    send.ReqUrl = conf.GetUrlSmsSend()
+    send.ReqURI = conf.GetUrlSmsSend()
     send.ReqData["account"] = conf.GetAppKey()
     send.ReqData["password"] = conf.GetAppSecret()
     send.ReqData["report"] = "false"

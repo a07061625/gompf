@@ -18,8 +18,8 @@ type waitCaseGet struct {
     appId string
 }
 
-func (wcg *waitCaseGet) SendRequest() api.ApiResult {
-    wcg.ReqUrl = "https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token=" + wx.NewUtilWx().GetSingleAccessToken(wcg.appId)
+func (wcg *waitCaseGet) SendRequest() api.APIResult {
+    wcg.ReqURI = "https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token=" + wx.NewUtilWx().GetSingleAccessToken(wcg.appId)
     client, req := wcg.GetRequest()
 
     resp, result := wcg.SendInner(client, req, errorcode.WxAccountRequestGet)

@@ -54,7 +54,7 @@ func (bds *businessDomainSet) checkData() {
     }
 }
 
-func (bds *businessDomainSet) SendRequest() api.ApiResult {
+func (bds *businessDomainSet) SendRequest() api.APIResult {
     bds.checkData()
 
     reqData := make(map[string]interface{})
@@ -65,7 +65,7 @@ func (bds *businessDomainSet) SendRequest() api.ApiResult {
     }
     reqData["action"] = bds.action
     reqBody := mpf.JSONMarshal(reqData)
-    bds.ReqUrl = "https://api.weixin.qq.com/wxa/setwebviewdomain?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(bds.appId)
+    bds.ReqURI = "https://api.weixin.qq.com/wxa/setwebviewdomain?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(bds.appId)
     client, req := bds.GetRequest()
     req.SetBody([]byte(reqBody))
 

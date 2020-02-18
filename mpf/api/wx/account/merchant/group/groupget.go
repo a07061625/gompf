@@ -36,13 +36,13 @@ func (gg *groupGet) checkData() {
     }
 }
 
-func (gg *groupGet) SendRequest() api.ApiResult {
+func (gg *groupGet) SendRequest() api.APIResult {
     gg.checkData()
 
     reqData := make(map[string]interface{})
     reqData["group_id"] = gg.groupId
     reqBody := mpf.JSONMarshal(reqData)
-    gg.ReqUrl = "https://api.weixin.qq.com/merchant/group/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(gg.appId)
+    gg.ReqURI = "https://api.weixin.qq.com/merchant/group/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(gg.appId)
     client, req := gg.GetRequest()
     req.SetBody([]byte(reqBody))
 

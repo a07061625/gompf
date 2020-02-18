@@ -78,7 +78,7 @@ func (cdg *checkInDataGet) checkData() {
     }
 }
 
-func (cdg *checkInDataGet) SendRequest() api.ApiResult {
+func (cdg *checkInDataGet) SendRequest() api.APIResult {
     cdg.checkData()
 
     reqData := make(map[string]interface{})
@@ -88,7 +88,7 @@ func (cdg *checkInDataGet) SendRequest() api.ApiResult {
     reqData["useridlist"] = cdg.userList
     reqBody := mpf.JSONMarshal(reqData)
 
-    cdg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token=" + wx.NewUtilWx().GetCorpAccessToken(cdg.corpId, cdg.agentTag)
+    cdg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token=" + wx.NewUtilWx().GetCorpAccessToken(cdg.corpId, cdg.agentTag)
     client, req := cdg.GetRequest()
     req.SetBody([]byte(reqBody))
 

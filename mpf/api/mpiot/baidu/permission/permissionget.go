@@ -49,7 +49,7 @@ func (pg *permissionGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pg.ServiceUri = "/v1/endpoint/" + pg.endpointName + "/permission/" + pg.permissionUuid
 
-    pg.ReqUrl = pg.GetServiceUrl()
+    pg.ReqURI = pg.GetServiceUrl()
 
     return pg.GetRequest()
 }

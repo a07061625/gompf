@@ -53,7 +53,7 @@ func (mu *mediaUpload) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     mu.ReqData["type"] = mu.fileType
     mu.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(mu.corpId, mu.agentTag, mu.atType)
-    mu.ReqUrl = dingtalk.UrlService + "/media/upload?" + mpf.HTTPCreateParams(mu.ReqData, "none", 1)
+    mu.ReqURI = dingtalk.UrlService + "/media/upload?" + mpf.HTTPCreateParams(mu.ReqData, "none", 1)
 
     // 新建一个缓冲，用于存放文件内容
     bodyBuffer := &bytes.Buffer{}

@@ -18,8 +18,8 @@ type groupList struct {
     appId string
 }
 
-func (gl *groupList) SendRequest() api.ApiResult {
-    gl.ReqUrl = "https://api.weixin.qq.com/merchant/group/getall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(gl.appId)
+func (gl *groupList) SendRequest() api.APIResult {
+    gl.ReqURI = "https://api.weixin.qq.com/merchant/group/getall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(gl.appId)
     client, req := gl.GetRequest()
 
     resp, result := gl.SendInner(client, req, errorcode.WxAccountRequestGet)

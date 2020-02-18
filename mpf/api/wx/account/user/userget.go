@@ -32,9 +32,9 @@ func (ug *userGet) SetOpenid(openid string) {
     }
 }
 
-func (ug *userGet) SendRequest() api.ApiResult {
+func (ug *userGet) SendRequest() api.APIResult {
     ug.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(ug.appId)
-    ug.ReqUrl = "https://api.weixin.qq.com/cgi-bin/user/get?" + mpf.HTTPCreateParams(ug.ReqData, "none", 1)
+    ug.ReqURI = "https://api.weixin.qq.com/cgi-bin/user/get?" + mpf.HTTPCreateParams(ug.ReqData, "none", 1)
     client, req := ug.GetRequest()
 
     resp, result := ug.SendInner(client, req, errorcode.WxAccountRequestGet)

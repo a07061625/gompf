@@ -65,7 +65,7 @@ func (rm *ruleModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     rm.ServiceUri = "/v3/iot/rules/device/" + rm.deviceName
 
-    rm.ReqUrl = rm.GetServiceUrl()
+    rm.ReqURI = rm.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(rm.ExtendData)
     client, req := rm.GetRequest()

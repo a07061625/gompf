@@ -32,9 +32,9 @@ func (dl *departmentList) SetId(id int) {
     }
 }
 
-func (dl *departmentList) SendRequest(getType string) api.ApiResult {
+func (dl *departmentList) SendRequest(getType string) api.APIResult {
     dl.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(dl.corpId, dl.agentTag, getType)
-    dl.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/list?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
+    dl.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/department/list?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
     client, req := dl.GetRequest()
 
     resp, result := dl.SendInner(client, req, errorcode.WxCorpRequestGet)

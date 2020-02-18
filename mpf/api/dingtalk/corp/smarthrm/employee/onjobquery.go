@@ -60,7 +60,7 @@ func (ojq *onJobQuery) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ojq.ExtendData["status_list"] = strings.Join(ojq.statusList, ",")
 
-    ojq.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/queryonjob?access_token=" + dingtalk.NewUtil().GetAccessToken(ojq.corpId, ojq.agentTag, ojq.atType)
+    ojq.ReqURI = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/queryonjob?access_token=" + dingtalk.NewUtil().GetAccessToken(ojq.corpId, ojq.agentTag, ojq.atType)
 
     reqBody := mpf.JSONMarshal(ojq.ExtendData)
     client, req := ojq.GetRequest()

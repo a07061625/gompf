@@ -54,11 +54,11 @@ func (vg *voiceGet) checkData() {
     vg.ReqData["media_id"] = vg.mediaId
 }
 
-func (vg *voiceGet) SendRequest(getType string) api.ApiResult {
+func (vg *voiceGet) SendRequest(getType string) api.APIResult {
     vg.checkData()
 
     vg.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(vg.corpId, vg.agentTag, getType)
-    vg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/media/get/jssdkt?" + mpf.HTTPCreateParams(vg.ReqData, "none", 1)
+    vg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/media/get/jssdkt?" + mpf.HTTPCreateParams(vg.ReqData, "none", 1)
     client, req := vg.GetRequest()
 
     resp, result := vg.SendInner(client, req, errorcode.WxCorpRequestGet)

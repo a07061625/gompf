@@ -40,11 +40,11 @@ func (ug *userGet) checkData() {
     ug.ReqData["userid"] = ug.userId
 }
 
-func (ug *userGet) SendRequest(getType string) api.ApiResult {
+func (ug *userGet) SendRequest(getType string) api.APIResult {
     ug.checkData()
 
     ug.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(ug.corpId, ug.agentTag, getType)
-    ug.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/get?" + mpf.HTTPCreateParams(ug.ReqData, "none", 1)
+    ug.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/user/get?" + mpf.HTTPCreateParams(ug.ReqData, "none", 1)
     client, req := ug.GetRequest()
 
     resp, result := ug.SendInner(client, req, errorcode.WxCorpRequestGet)

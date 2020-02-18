@@ -61,13 +61,13 @@ func (r *report) checkData() {
     r.ReqData["trades"] = mpf.JSONMarshal(r.trades)
 }
 
-func (r *report) SendRequest() api.ApiResult {
+func (r *report) SendRequest() api.APIResult {
     r.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(r.ReqData, r.appId, "md5")
     r.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(r.ReqData))
-    r.ReqUrl = "https://api.mch.weixin.qq.com/payitil/report"
+    r.ReqURI = "https://api.mch.weixin.qq.com/payitil/report"
     client, req := r.GetRequest()
     req.SetBody([]byte(reqBody))
 

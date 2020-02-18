@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 20-2-16
- * Time: 下午4:30
- */
+// Package mpdb container_mysql
+// User: 姜伟
+// Time: 2020-02-19 06:20:01
 package mpdb
 
 import (
@@ -53,6 +50,7 @@ func (container *containerMysql) NotifyObservers(data interface{}) error {
     return errObj
 }
 
+// NewContainerMysql NewContainerMysql
 func NewContainerMysql() *containerMysql {
     return &containerMysql{mpdp.NewSubject()}
 }

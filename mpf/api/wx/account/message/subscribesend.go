@@ -108,7 +108,7 @@ func (ss *subscribeSend) checkData() {
     }
 }
 
-func (ss *subscribeSend) SendRequest() api.ApiResult {
+func (ss *subscribeSend) SendRequest() api.APIResult {
     ss.checkData()
 
     reqData := make(map[string]interface{})
@@ -124,7 +124,7 @@ func (ss *subscribeSend) SendRequest() api.ApiResult {
         reqData["url"] = ss.redirectUrl
     }
     reqBody := mpf.JSONMarshal(reqData)
-    ss.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ss.appId)
+    ss.ReqURI = "https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ss.appId)
     client, req := ss.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -76,7 +76,7 @@ func (rl *recordList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     rl.ExtendData["checkDateFrom"] = rl.fromDate
     rl.ExtendData["checkDateTo"] = rl.toDate
 
-    rl.ReqUrl = dingtalk.UrlService + "/attendance/listRecord?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(rl.corpId, rl.agentTag)
+    rl.ReqURI = dingtalk.UrlService + "/attendance/listRecord?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(rl.corpId, rl.agentTag)
 
     reqBody := mpf.JSONMarshal(rl.ExtendData)
     client, req := rl.GetRequest()

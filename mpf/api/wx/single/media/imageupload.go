@@ -70,16 +70,16 @@ func (iu *imageUpload) checkData() (string, []byte, error) {
     return contentType, content, nil
 }
 
-func (iu *imageUpload) SendRequest() api.ApiResult {
+func (iu *imageUpload) SendRequest() api.APIResult {
     contentType, content, err := iu.checkData()
     if err != nil {
-        result := api.NewApiResult()
+        result := api.NewAPIResult()
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = "上传文件失败"
         return result
     }
 
-    iu.ReqUrl = "https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=" + wx.NewUtilWx().GetSingleAccessToken(iu.appId)
+    iu.ReqURI = "https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=" + wx.NewUtilWx().GetSingleAccessToken(iu.appId)
     client, req := iu.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)

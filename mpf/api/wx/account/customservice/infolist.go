@@ -18,8 +18,8 @@ type infoList struct {
     appId string
 }
 
-func (il *infoList) SendRequest() api.ApiResult {
-    il.ReqUrl = "https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(il.appId)
+func (il *infoList) SendRequest() api.APIResult {
+    il.ReqURI = "https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(il.appId)
     client, req := il.GetRequest()
 
     resp, result := il.SendInner(client, req, errorcode.WxAccountRequestGet)

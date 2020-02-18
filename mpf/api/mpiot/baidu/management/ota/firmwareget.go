@@ -33,7 +33,7 @@ func (fg *firmwareGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     fg.ServiceUri = "/v3/iot/management/ota/firmware/" + fg.firmwareId
 
-    fg.ReqUrl = fg.GetServiceUrl()
+    fg.ReqURI = fg.GetServiceUrl()
 
     return fg.GetRequest()
 }

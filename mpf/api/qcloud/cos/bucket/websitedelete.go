@@ -17,7 +17,7 @@ type websiteDelete struct {
 }
 
 func (wd *websiteDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    wd.ReqUrl = "http://" + wd.ReqHeader["Host"] + wd.ReqUri + "?website"
+    wd.ReqURI = "http://" + wd.ReqHeader["Host"] + wd.ReqUri + "?website"
     return wd.GetRequest()
 }
 

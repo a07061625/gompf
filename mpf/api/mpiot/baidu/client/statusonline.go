@@ -48,7 +48,7 @@ func (so *statusOnline) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewIotBaiDu(errorcode.IotBaiDuParam, "客户端ID不能为空", nil))
     }
     so.ServiceUri = "/v2/endpoint/" + so.endpointName + "/client/" + so.clientId + "/status/online"
-    so.ReqUrl = so.GetServiceUrl()
+    so.ReqURI = so.GetServiceUrl()
 
     return so.GetRequest()
 }

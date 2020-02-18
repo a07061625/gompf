@@ -72,7 +72,7 @@ func (tua *tagUsersAdd) checkData() {
     }
 }
 
-func (tua *tagUsersAdd) SendRequest(getType string) api.ApiResult {
+func (tua *tagUsersAdd) SendRequest(getType string) api.APIResult {
     tua.checkData()
 
     reqData := make(map[string]interface{})
@@ -80,7 +80,7 @@ func (tua *tagUsersAdd) SendRequest(getType string) api.ApiResult {
     reqData["userlist"] = tua.userList
     reqData["partylist"] = tua.partyList
     reqBody := mpf.JSONMarshal(reqData)
-    tua.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token=" + wx.NewUtilWx().GetCorpCache(tua.corpId, tua.agentTag, getType)
+    tua.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token=" + wx.NewUtilWx().GetCorpCache(tua.corpId, tua.agentTag, getType)
     client, req := tua.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -37,7 +37,7 @@ func (uu *unionId2UserId) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     uu.ReqData["unionid"] = uu.unionId
     uu.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(uu.corpId, uu.agentTag, uu.atType)
-    uu.ReqUrl = dingtalk.UrlService + "/user/getUseridByUnionid?" + mpf.HTTPCreateParams(uu.ReqData, "none", 1)
+    uu.ReqURI = dingtalk.UrlService + "/user/getUseridByUnionid?" + mpf.HTTPCreateParams(uu.ReqData, "none", 1)
 
     return uu.GetRequest()
 }

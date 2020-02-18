@@ -85,17 +85,17 @@ func (mu *mediaUpload) checkData() (string, []byte, error) {
     return contentType, content, nil
 }
 
-func (mu *mediaUpload) SendRequest() api.ApiResult {
+func (mu *mediaUpload) SendRequest() api.APIResult {
     contentType, content, err := mu.checkData()
     if err != nil {
-        result := api.NewApiResult()
+        result := api.NewAPIResult()
         result.Code = errorcode.WxAccountRequestPost
         result.Msg = "上传文件失败"
         return result
     }
 
     mu.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(mu.appId)
-    mu.ReqUrl = "https://api.weixin.qq.com/cgi-bin/media/upload?" + mpf.HTTPCreateParams(mu.ReqData, "none", 1)
+    mu.ReqURI = "https://api.weixin.qq.com/cgi-bin/media/upload?" + mpf.HTTPCreateParams(mu.ReqData, "none", 1)
     client, req := mu.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)

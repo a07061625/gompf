@@ -33,7 +33,7 @@ func (mui *mulUploadInitiate) CheckData() (*fasthttp.Client, *fasthttp.Request) 
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "对象名称不能为空", nil))
     }
 
-    mui.ReqUrl = "http://" + mui.ReqHeader["Host"] + mui.ReqUri + "?uploads"
+    mui.ReqURI = "http://" + mui.ReqHeader["Host"] + mui.ReqUri + "?uploads"
     return mui.GetRequest()
 }
 

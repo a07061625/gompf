@@ -181,7 +181,7 @@ func (pp *pocketPay) checkData() {
     pp.ReqData["act_name"] = pp.actName
 }
 
-func (pp *pocketPay) SendRequest() api.ApiResult {
+func (pp *pocketPay) SendRequest() api.APIResult {
     pp.checkData()
 
     conf := wx.NewConfig().GetCorp(pp.corpId)
@@ -193,7 +193,7 @@ func (pp *pocketPay) SendRequest() api.ApiResult {
     pp.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(pp.ReqData))
 
-    pp.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/paywwsptrans2pocket"
+    pp.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/paywwsptrans2pocket"
     client, req := pp.GetRequest()
     req.SetBody(reqBody)
 

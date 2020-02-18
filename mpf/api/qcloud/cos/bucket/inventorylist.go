@@ -29,9 +29,9 @@ func (il *inventoryList) SetToken(token string) {
 
 func (il *inventoryList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     delete(il.ReqData, "inventory")
-    il.ReqUrl = "http://" + il.ReqHeader["Host"] + il.ReqUri + "?inventory"
+    il.ReqURI = "http://" + il.ReqHeader["Host"] + il.ReqUri + "?inventory"
     if len(il.ReqData) > 0 {
-        il.ReqUrl += "&" + mpf.HTTPCreateParams(il.ReqData, "none", 1)
+        il.ReqURI += "&" + mpf.HTTPCreateParams(il.ReqData, "none", 1)
     }
     return il.GetRequest()
 }

@@ -68,13 +68,13 @@ func (am *applyMulti) checkData() {
     am.ReqData["receivers"] = mpf.JSONMarshal(am.receivers)
 }
 
-func (am *applyMulti) SendRequest() api.ApiResult {
+func (am *applyMulti) SendRequest() api.APIResult {
     am.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(am.ReqData, am.appId, "sha256")
     am.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(am.ReqData))
-    am.ReqUrl = "https://api.mch.weixin.qq.com/secapi/pay/multiprofitsharing"
+    am.ReqURI = "https://api.mch.weixin.qq.com/secapi/pay/multiprofitsharing"
     client, req := am.GetRequest()
     req.SetBody([]byte(reqBody))
 

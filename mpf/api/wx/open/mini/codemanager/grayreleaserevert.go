@@ -19,8 +19,8 @@ type grayReleaseRevert struct {
     appId string // 应用ID
 }
 
-func (grr *grayReleaseRevert) SendRequest() api.ApiResult {
-    grr.ReqUrl = "https://api.weixin.qq.com/wxa/revertgrayrelease?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(grr.appId)
+func (grr *grayReleaseRevert) SendRequest() api.APIResult {
+    grr.ReqURI = "https://api.weixin.qq.com/wxa/revertgrayrelease?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(grr.appId)
     client, req := grr.GetRequest()
 
     resp, result := grr.SendInner(client, req, errorcode.WxOpenRequestGet)

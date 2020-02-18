@@ -81,11 +81,11 @@ func (ns *nicknameSet) checkData() {
     }
 }
 
-func (ns *nicknameSet) SendRequest() api.ApiResult {
+func (ns *nicknameSet) SendRequest() api.APIResult {
     ns.checkData()
 
     reqBody := mpf.JSONMarshal(ns.ReqData)
-    ns.ReqUrl = "https://api.weixin.qq.com/wxa/setnickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ns.appId)
+    ns.ReqURI = "https://api.weixin.qq.com/wxa/setnickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ns.appId)
     client, req := ns.GetRequest()
     req.SetBody([]byte(reqBody))
 

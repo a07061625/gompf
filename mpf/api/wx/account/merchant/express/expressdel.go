@@ -40,11 +40,11 @@ func (ed *expressDel) checkData() {
     ed.ReqData["template_id"] = ed.templateId
 }
 
-func (ed *expressDel) SendRequest() api.ApiResult {
+func (ed *expressDel) SendRequest() api.APIResult {
     ed.checkData()
 
     reqBody := mpf.JSONMarshal(ed.ReqData)
-    ed.ReqUrl = "https://api.weixin.qq.com/merchant/express/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ed.appId)
+    ed.ReqURI = "https://api.weixin.qq.com/merchant/express/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ed.appId)
     client, req := ed.GetRequest()
     req.SetBody([]byte(reqBody))
 

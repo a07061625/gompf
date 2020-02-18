@@ -40,11 +40,11 @@ func (tlg *tagListGet) checkData() {
     tlg.ReqData["openid"] = tlg.openid
 }
 
-func (tlg *tagListGet) SendRequest() api.ApiResult {
+func (tlg *tagListGet) SendRequest() api.APIResult {
     tlg.checkData()
 
     reqBody := mpf.JSONMarshal(tlg.ReqData)
-    tlg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tlg.appId)
+    tlg.ReqURI = "https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tlg.appId)
     client, req := tlg.GetRequest()
     req.SetBody([]byte(reqBody))
 

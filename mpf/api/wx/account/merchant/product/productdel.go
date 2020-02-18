@@ -37,11 +37,11 @@ func (pd *productDel) checkData() {
     pd.ReqData["product_id"] = pd.productId
 }
 
-func (pd *productDel) SendRequest() api.ApiResult {
+func (pd *productDel) SendRequest() api.APIResult {
     pd.checkData()
 
     reqBody := mpf.JSONMarshal(pd.ReqData)
-    pd.ReqUrl = "https://api.weixin.qq.com/merchant/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pd.appId)
+    pd.ReqURI = "https://api.weixin.qq.com/merchant/del?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pd.appId)
     client, req := pd.GetRequest()
     req.SetBody([]byte(reqBody))
 

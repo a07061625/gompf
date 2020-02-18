@@ -38,7 +38,7 @@ func (uig *userInfoGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         uig.ReqData["access_token"] = dingtalk.NewUtil().GetProviderSsoToken()
     }
 
-    uig.ReqUrl = dingtalk.UrlService + "/sso/getuserinfo?" + mpf.HTTPCreateParams(uig.ReqData, "none", 1)
+    uig.ReqURI = dingtalk.UrlService + "/sso/getuserinfo?" + mpf.HTTPCreateParams(uig.ReqData, "none", 1)
 
     return uig.GetRequest()
 }

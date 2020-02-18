@@ -29,55 +29,55 @@ type statistics struct {
 func (s *statistics) SetStatType(statType string) {
     switch statType {
     case "0100": // 用户每日变动数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getusersummary?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getusersummary?access_token="
         s.maxDate = 7
     case "0101": // 用户每日总数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getusercumulate?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getusercumulate?access_token="
         s.maxDate = 7
     case "0200": // 图文每日发送数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getarticlesummary?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getarticlesummary?access_token="
         s.maxDate = 1
     case "0201": // 图文每日发送总数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getarticletotal?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getarticletotal?access_token="
         s.maxDate = 1
     case "0202": // 图文每日浏览数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getuserread?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getuserread?access_token="
         s.maxDate = 3
     case "0203": // 图文每小时浏览数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getuserreadhour?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getuserreadhour?access_token="
         s.maxDate = 1
     case "0204": // 图文每日分享数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getusershare?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getusershare?access_token="
         s.maxDate = 7
     case "0205": // 图文每小时分享数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getusersharehour?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getusersharehour?access_token="
         s.maxDate = 1
     case "0300": // 消息每日发送数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getupstreammsg?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getupstreammsg?access_token="
         s.maxDate = 7
     case "0301": // 消息每小时发送数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getupstreammsghour?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getupstreammsghour?access_token="
         s.maxDate = 1
     case "0302": // 消息每周发送数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token="
         s.maxDate = 30
     case "0303": // 消息每月发送数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token="
         s.maxDate = 30
     case "0304": // 消息每日分布数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token="
         s.maxDate = 15
     case "0305": // 消息每周分布数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token="
         s.maxDate = 30
     case "0306": // 消息每月分布数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token="
         s.maxDate = 30
     case "0400": // 接口每日调用数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getinterfacesummary?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getinterfacesummary?access_token="
         s.maxDate = 30
     case "0401": // 接口每小时调用数
-        s.ReqUrl = "https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token="
+        s.ReqURI = "https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token="
         s.maxDate = 1
     default:
         panic(mperr.NewWxAccount(errorcode.WxAccountParam, "统计类型不支持", nil))
@@ -121,11 +121,11 @@ func (s *statistics) checkData() {
     s.ReqData["end_date"] = s.endDate
 }
 
-func (s *statistics) SendRequest() api.ApiResult {
+func (s *statistics) SendRequest() api.APIResult {
     s.checkData()
 
     reqBody := mpf.JSONMarshal(s.ReqData)
-    s.ReqUrl += wx.NewUtilWx().GetSingleAccessToken(s.appId)
+    s.ReqURI += wx.NewUtilWx().GetSingleAccessToken(s.appId)
     client, req := s.GetRequest()
     req.SetBody([]byte(reqBody))
 

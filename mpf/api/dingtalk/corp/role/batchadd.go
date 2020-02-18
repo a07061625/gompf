@@ -70,7 +70,7 @@ func (ba *batchAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ba.ExtendData["roleIds"] = strings.Join(ba.roleList, ",")
     ba.ExtendData["userIds"] = strings.Join(ba.userList, ",")
 
-    ba.ReqUrl = dingtalk.UrlService + "/topapi/role/addrolesforemps?access_token=" + dingtalk.NewUtil().GetAccessToken(ba.corpId, ba.agentTag, ba.atType)
+    ba.ReqURI = dingtalk.UrlService + "/topapi/role/addrolesforemps?access_token=" + dingtalk.NewUtil().GetAccessToken(ba.corpId, ba.agentTag, ba.atType)
 
     reqBody := mpf.JSONMarshal(ba.ExtendData)
     client, req := ba.GetRequest()

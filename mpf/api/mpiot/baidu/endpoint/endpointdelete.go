@@ -37,7 +37,7 @@ func (ed *endpointDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ed.ServiceUri = "/v1/endpoint/" + ed.endpointName
 
-    ed.ReqUrl = ed.GetServiceUrl()
+    ed.ReqURI = ed.GetServiceUrl()
 
     return ed.GetRequest()
 }

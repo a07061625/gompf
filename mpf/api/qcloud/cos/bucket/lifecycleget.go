@@ -17,7 +17,7 @@ type lifeCycleGet struct {
 }
 
 func (lcg *lifeCycleGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    lcg.ReqUrl = "http://" + lcg.ReqHeader["Host"] + lcg.ReqUri + "?lifecycle"
+    lcg.ReqURI = "http://" + lcg.ReqHeader["Host"] + lcg.ReqUri + "?lifecycle"
     return lcg.GetRequest()
 }
 

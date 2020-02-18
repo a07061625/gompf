@@ -70,7 +70,7 @@ func (vu *viewUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         vu.ExtendData["desired"] = vu.desired
     }
 
-    vu.ReqUrl = vu.GetServiceUrl() + "?updateView"
+    vu.ReqURI = vu.GetServiceUrl() + "?updateView"
 
     reqBody := mpf.JSONMarshal(vu.ExtendData)
     client, req := vu.GetRequest()

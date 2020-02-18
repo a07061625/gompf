@@ -18,8 +18,8 @@ type expressAll struct {
     appId string
 }
 
-func (ea *expressAll) SendRequest() api.ApiResult {
-    ea.ReqUrl = "https://api.weixin.qq.com/merchant/express/getall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ea.appId)
+func (ea *expressAll) SendRequest() api.APIResult {
+    ea.ReqURI = "https://api.weixin.qq.com/merchant/express/getall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ea.appId)
     client, req := ea.GetRequest()
 
     resp, result := ea.SendInner(client, req, errorcode.WxAccountRequestGet)

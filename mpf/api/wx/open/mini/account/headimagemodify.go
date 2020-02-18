@@ -73,7 +73,7 @@ func (him *headImageModify) checkData() {
     }
 }
 
-func (him *headImageModify) SendRequest() api.ApiResult {
+func (him *headImageModify) SendRequest() api.APIResult {
     him.checkData()
 
     reqData := make(map[string]interface{})
@@ -83,7 +83,7 @@ func (him *headImageModify) SendRequest() api.ApiResult {
     reqData["x2"] = him.x2
     reqData["y2"] = him.y2
     reqBody := mpf.JSONMarshal(reqData)
-    him.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/modifyheadimage?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(him.appId)
+    him.ReqURI = "https://api.weixin.qq.com/cgi-bin/account/modifyheadimage?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(him.appId)
     client, req := him.GetRequest()
     req.SetBody([]byte(reqBody))
 

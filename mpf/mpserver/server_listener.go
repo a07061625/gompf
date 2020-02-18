@@ -35,6 +35,7 @@ func (sl *serverListener) File() (uintptr, error) {
     return f.Fd(), nil
 }
 
+// NewListener NewListener
 func NewListener(addr string) *serverListener {
     listener := &serverListener{}
     if os.Getenv(mpf.GoEnvServerMode) == mpf.EnvServerModeChild { // 子进程

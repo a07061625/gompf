@@ -84,16 +84,16 @@ func (auh *accountUpdateHead) checkData() (string, []byte, error) {
     return contentType, content, nil
 }
 
-func (auh *accountUpdateHead) SendRequest() api.ApiResult {
+func (auh *accountUpdateHead) SendRequest() api.APIResult {
     contentType, content, err := auh.checkData()
     if err != nil {
-        result := api.NewApiResult()
+        result := api.NewAPIResult()
         result.Code = errorcode.WxCorpRequestPost
         result.Msg = "上传文件失败"
         return result
     }
 
-    auh.ReqUrl = "https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token=" + wx.NewUtilWx().GetSingleAccessToken(auh.appId)
+    auh.ReqURI = "https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token=" + wx.NewUtilWx().GetSingleAccessToken(auh.appId)
     client, req := auh.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)

@@ -37,7 +37,7 @@ func (eg *endpointGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     eg.ServiceUri = "/v1/endpoint/" + eg.endpointName
 
-    eg.ReqUrl = eg.GetServiceUrl()
+    eg.ReqURI = eg.GetServiceUrl()
 
     return eg.GetRequest()
 }

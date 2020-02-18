@@ -57,7 +57,7 @@ func (ea *expressAdd) checkData() {
     }
 }
 
-func (ea *expressAdd) SendRequest() api.ApiResult {
+func (ea *expressAdd) SendRequest() api.APIResult {
     ea.checkData()
 
     templateInfo := make(map[string]interface{})
@@ -68,7 +68,7 @@ func (ea *expressAdd) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["delivery_template"] = templateInfo
     reqBody := mpf.JSONMarshal(reqData)
-    ea.ReqUrl = "https://api.weixin.qq.com/merchant/express/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ea.appId)
+    ea.ReqURI = "https://api.weixin.qq.com/merchant/express/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ea.appId)
     client, req := ea.GetRequest()
     req.SetBody([]byte(reqBody))
 

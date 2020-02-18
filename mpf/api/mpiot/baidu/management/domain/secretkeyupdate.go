@@ -37,7 +37,7 @@ func (sku *secretKeyUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     sku.ServiceUri = "/v3/iot/management/domain/" + sku.domainName
 
-    sku.ReqUrl = sku.GetServiceUrl() + "?updateSecretKey"
+    sku.ReqURI = sku.GetServiceUrl() + "?updateSecretKey"
 
     return sku.GetRequest()
 }

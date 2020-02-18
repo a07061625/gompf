@@ -53,11 +53,11 @@ func (aig *authInfoGet) checkData() {
     aig.ReqData["permanent_code"] = aig.permanentCode
 }
 
-func (aig *authInfoGet) SendRequest() api.ApiResult {
+func (aig *authInfoGet) SendRequest() api.APIResult {
     aig.checkData()
 
     reqBody := mpf.JSONMarshal(aig.ReqData)
-    aig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
+    aig.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := aig.GetRequest()
     req.SetBody([]byte(reqBody))
 

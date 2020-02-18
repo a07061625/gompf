@@ -38,11 +38,11 @@ func (cd *conditionalDel) checkData() {
     cd.ReqData["menuid"] = cd.menuId
 }
 
-func (cd *conditionalDel) SendRequest() api.ApiResult {
+func (cd *conditionalDel) SendRequest() api.APIResult {
     cd.checkData()
 
     reqBody := mpf.JSONMarshal(cd.ReqData)
-    cd.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=" + wx.NewUtilWx().GetSingleAccessToken(cd.appId)
+    cd.ReqURI = "https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=" + wx.NewUtilWx().GetSingleAccessToken(cd.appId)
     client, req := cd.GetRequest()
     req.SetBody([]byte(reqBody))
 

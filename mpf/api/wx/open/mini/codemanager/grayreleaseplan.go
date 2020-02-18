@@ -19,8 +19,8 @@ type grayReleasePlan struct {
     appId string // 应用ID
 }
 
-func (grp *grayReleasePlan) SendRequest() api.ApiResult {
-    grp.ReqUrl = "https://api.weixin.qq.com/wxa/getgrayreleaseplan?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(grp.appId)
+func (grp *grayReleasePlan) SendRequest() api.APIResult {
+    grp.ReqURI = "https://api.weixin.qq.com/wxa/getgrayreleaseplan?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(grp.appId)
     client, req := grp.GetRequest()
 
     resp, result := grp.SendInner(client, req, errorcode.WxOpenRequestGet)

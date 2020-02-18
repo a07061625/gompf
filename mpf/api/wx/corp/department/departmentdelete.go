@@ -39,11 +39,11 @@ func (dd *departmentDelete) checkData() {
     dd.ReqData["id"] = strconv.Itoa(dd.id)
 }
 
-func (dd *departmentDelete) SendRequest(getType string) api.ApiResult {
+func (dd *departmentDelete) SendRequest(getType string) api.APIResult {
     dd.checkData()
 
     dd.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(dd.corpId, dd.agentTag, getType)
-    dd.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/department/delete?" + mpf.HTTPCreateParams(dd.ReqData, "none", 1)
+    dd.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/department/delete?" + mpf.HTTPCreateParams(dd.ReqData, "none", 1)
     client, req := dd.GetRequest()
 
     resp, result := dd.SendInner(client, req, errorcode.WxCorpRequestGet)

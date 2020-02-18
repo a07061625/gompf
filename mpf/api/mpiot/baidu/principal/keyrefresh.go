@@ -64,7 +64,7 @@ func (kr *keyRefresh) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     kr.ServiceUri = "/v1/endpoint/" + kr.endpointName + "/principal/" + kr.principalName
 
-    kr.ReqUrl = kr.GetServiceUrl()
+    kr.ReqURI = kr.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(kr.ExtendData)
     client, req := kr.GetRequest()

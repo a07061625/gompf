@@ -157,7 +157,7 @@ func (rps *redPackSend) checkData() {
     }
 }
 
-func (rps *redPackSend) SendRequest() api.ApiResult {
+func (rps *redPackSend) SendRequest() api.APIResult {
     rps.checkData()
 
     conf := wx.NewConfig().GetCorp(rps.corpId)
@@ -168,7 +168,7 @@ func (rps *redPackSend) SendRequest() api.ApiResult {
     rps.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(rps.ReqData))
 
-    rps.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendworkwxredpack"
+    rps.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendworkwxredpack"
     client, req := rps.GetRequest()
     req.SetBody(reqBody)
 

@@ -61,7 +61,7 @@ func (ufa *userFileAdd) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ufa.ReqData["media_id"] = ufa.mediaId
     ufa.ReqData["file_name"] = ufa.fileName
     ufa.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(ufa.corpId, ufa.agentTag, ufa.atType)
-    ufa.ReqUrl = dingtalk.UrlService + "/cspace/add_to_single_chat?" + mpf.HTTPCreateParams(ufa.ReqData, "none", 1)
+    ufa.ReqURI = dingtalk.UrlService + "/cspace/add_to_single_chat?" + mpf.HTTPCreateParams(ufa.ReqData, "none", 1)
 
     return ufa.GetRequest()
 }

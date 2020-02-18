@@ -17,7 +17,7 @@ type policyGet struct {
 }
 
 func (pg *policyGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    pg.ReqUrl = "http://" + pg.ReqHeader["Host"] + pg.ReqUri + "?policy"
+    pg.ReqURI = "http://" + pg.ReqHeader["Host"] + pg.ReqUri + "?policy"
     return pg.GetRequest()
 }
 

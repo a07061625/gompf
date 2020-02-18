@@ -17,7 +17,7 @@ type serviceGet struct {
 }
 
 func (sg *serviceGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    sg.ReqUrl = "http://" + sg.ReqHeader["Host"] + sg.ReqUri
+    sg.ReqURI = "http://" + sg.ReqHeader["Host"] + sg.ReqUri
     return sg.GetRequest()
 }
 

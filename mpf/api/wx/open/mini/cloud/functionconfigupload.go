@@ -69,7 +69,7 @@ func (fcu *functionConfigUpload) checkData() {
     }
 }
 
-func (fcu *functionConfigUpload) SendRequest() api.ApiResult {
+func (fcu *functionConfigUpload) SendRequest() api.APIResult {
     fcu.checkData()
 
     reqData := make(map[string]interface{})
@@ -78,7 +78,7 @@ func (fcu *functionConfigUpload) SendRequest() api.ApiResult {
     reqData["env"] = fcu.env
     reqData["function_name"] = fcu.functionName
     reqBody := mpf.JSONMarshal(fcu.ReqData)
-    fcu.ReqUrl = "https://api.weixin.qq.com/tcb/uploadfuncconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fcu.appId)
+    fcu.ReqURI = "https://api.weixin.qq.com/tcb/uploadfuncconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fcu.appId)
     client, req := fcu.GetRequest()
     req.SetBody([]byte(reqBody))
 

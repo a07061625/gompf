@@ -12,10 +12,10 @@ import (
 )
 
 type utilPush struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
-func (util *utilPush) SendXinGeRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilPush) SendXinGeRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -32,7 +32,7 @@ func (util *utilPush) SendXinGeRequest(service api.IApiOuter, errorCode uint) ap
     return result
 }
 
-func (util *utilPush) SendBaiDuRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilPush) SendBaiDuRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -54,7 +54,7 @@ func (util *utilPush) SendBaiDuRequest(service api.IApiOuter, errorCode uint) ap
     return result
 }
 
-func (util *utilPush) SendJPushRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilPush) SendJPushRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -77,7 +77,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilPush{api.NewUtilApi()}
+    insUtil = &utilPush{api.NewUtilAPI()}
 }
 
 func NewUtil() *utilPush {

@@ -90,7 +90,7 @@ func (mp *messagePublish) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     mp.ReqHeader["auth.username"] = mp.userName
     mp.ReqHeader["auth.password"] = mp.password
 
-    mp.ReqUrl = mp.GetServiceUrl() + "?" + mpf.HTTPCreateParams(mp.ReqData, "none", 1)
+    mp.ReqURI = mp.GetServiceUrl() + "?" + mpf.HTTPCreateParams(mp.ReqData, "none", 1)
 
     client, req := mp.GetRequest()
     req.SetBody([]byte(mp.msgContent))

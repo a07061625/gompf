@@ -17,7 +17,7 @@ import (
 )
 
 type utilQCloud struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
 // 生成权限策略签名
@@ -44,7 +44,7 @@ func (util *utilQCloud) CreatePolicySign(policyConfig map[string]interface{}) ma
     return result
 }
 
-func (util *utilQCloud) SendCosRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilQCloud) SendCosRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -77,7 +77,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilQCloud{api.NewUtilApi()}
+    insUtil = &utilQCloud{api.NewUtilAPI()}
 }
 
 func NewUtil() *utilQCloud {

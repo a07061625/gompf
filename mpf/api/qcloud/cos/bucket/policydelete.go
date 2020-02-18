@@ -17,7 +17,7 @@ type policyDelete struct {
 }
 
 func (pd *policyDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    pd.ReqUrl = "http://" + pd.ReqHeader["Host"] + pd.ReqUri + "?policy"
+    pd.ReqURI = "http://" + pd.ReqHeader["Host"] + pd.ReqUri + "?policy"
     return pd.GetRequest()
 }
 

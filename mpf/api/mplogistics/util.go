@@ -11,7 +11,7 @@ import (
 )
 
 type utilLogistics struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
 var (
@@ -19,7 +19,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilLogistics{api.NewUtilApi()}
+    insUtil = &utilLogistics{api.NewUtilAPI()}
 }
 
 func NewUtilLogistics() *utilLogistics {

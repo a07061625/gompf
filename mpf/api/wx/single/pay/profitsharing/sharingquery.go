@@ -56,13 +56,13 @@ func (sq *sharingQuery) checkData() {
     sq.ReqData["out_order_no"] = sq.outOrderNo
 }
 
-func (sq *sharingQuery) SendRequest() api.ApiResult {
+func (sq *sharingQuery) SendRequest() api.APIResult {
     sq.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(sq.ReqData, sq.appId, "sha256")
     sq.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(sq.ReqData))
-    sq.ReqUrl = "https://api.mch.weixin.qq.com/pay/profitsharingquery"
+    sq.ReqURI = "https://api.mch.weixin.qq.com/pay/profitsharingquery"
     client, req := sq.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -37,7 +37,7 @@ func (vg *viewGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     vg.ServiceUri = "/v3/iot/management/deviceView/" + vg.deviceName
 
-    vg.ReqUrl = vg.GetServiceUrl()
+    vg.ReqURI = vg.GetServiceUrl()
 
     return vg.GetRequest()
 }

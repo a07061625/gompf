@@ -67,11 +67,11 @@ func (su *statusUpdate) checkData() {
     su.ReqData["reimburse_status"] = su.reimburseStatus
 }
 
-func (su *statusUpdate) SendRequest(getType string) api.ApiResult {
+func (su *statusUpdate) SendRequest(getType string) api.APIResult {
     su.checkData()
     reqBody := mpf.JSONMarshal(su.ReqData)
 
-    su.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/updateinvoicestatus?access_token=" + wx.NewUtilWx().GetCorpCache(su.corpId, su.agentTag, getType)
+    su.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/updateinvoicestatus?access_token=" + wx.NewUtilWx().GetCorpCache(su.corpId, su.agentTag, getType)
     client, req := su.GetRequest()
     req.SetBody([]byte(reqBody))
 

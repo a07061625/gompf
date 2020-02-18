@@ -56,7 +56,7 @@ type WxResponse struct {
 }
 
 type baseWx struct {
-    api.ApiInner
+    api.APIInner
 }
 
 func (bw *baseWx) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -64,7 +64,7 @@ func (bw *baseWx) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(bw.ReqUrl)
+    req.Header.SetRequestURI(bw.ReqURI)
     req.Header.SetContentType(bw.ReqContentType)
     req.Header.SetMethod(bw.ReqMethod)
     mpf.HTTPAddReqHeader(req, bw.ReqHeader)
@@ -73,7 +73,7 @@ func (bw *baseWx) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 }
 
 func newBaseWx() baseWx {
-    bw := baseWx{api.NewApiInner()}
+    bw := baseWx{api.NewAPIInner()}
     bw.ReqContentType = project.HTTPContentTypeForm
     bw.ReqMethod = fasthttp.MethodGet
     return bw

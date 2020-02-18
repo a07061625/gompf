@@ -48,7 +48,7 @@ func (rpq *redPackQuery) checkData() {
     rpq.ReqData["mch_billno"] = rpq.mchBillNo
 }
 
-func (rpq *redPackQuery) SendRequest() api.ApiResult {
+func (rpq *redPackQuery) SendRequest() api.APIResult {
     rpq.checkData()
 
     conf := wx.NewConfig().GetCorp(rpq.corpId)
@@ -56,7 +56,7 @@ func (rpq *redPackQuery) SendRequest() api.ApiResult {
     rpq.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(rpq.ReqData))
 
-    rpq.ReqUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/queryworkwxredpack"
+    rpq.ReqURI = "https://api.mch.weixin.qq.com/mmpaymkttransfers/queryworkwxredpack"
     client, req := rpq.GetRequest()
     req.SetBody(reqBody)
 

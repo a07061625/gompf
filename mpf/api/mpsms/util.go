@@ -11,7 +11,7 @@ import (
 )
 
 type utilSms struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
 var (
@@ -19,7 +19,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilSms{api.NewUtilApi()}
+    insUtil = &utilSms{api.NewUtilAPI()}
 }
 
 func NewUtilSms() *utilSms {

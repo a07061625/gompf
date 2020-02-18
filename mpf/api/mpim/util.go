@@ -18,7 +18,7 @@ type ICache interface {
 }
 
 type utilIM struct {
-    api.UtilApi
+    api.UtilAPI
     cache ICache
 }
 
@@ -28,7 +28,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilIM{api.NewUtilApi(), nil}
+    insUtil = &utilIM{api.NewUtilAPI(), nil}
 }
 
 func LoadUtil(cache ICache) {

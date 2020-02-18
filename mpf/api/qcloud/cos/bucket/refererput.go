@@ -45,7 +45,7 @@ func (rp *refererPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     rp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     rp.SetHeaderData("Content-Length", strconv.Itoa(len(reqBody)))
-    rp.ReqUrl = "http://" + rp.ReqHeader["Host"] + rp.ReqUri + "?referer"
+    rp.ReqURI = "http://" + rp.ReqHeader["Host"] + rp.ReqUri + "?referer"
     client, req := rp.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

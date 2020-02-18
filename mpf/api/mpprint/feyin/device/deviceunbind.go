@@ -27,7 +27,7 @@ func (du *deviceUnbind) SetDeviceNo(deviceNo string) {
     match, _ := regexp.MatchString(project.RegexDigit, deviceNo)
     if match {
         du.deviceNo = deviceNo
-        du.ReqUrl = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/unbind?access_token="
+        du.ReqURI = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/unbind?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "机器编号不合法", nil))
     }
@@ -38,14 +38,14 @@ func (du *deviceUnbind) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "机器编号不能为空", nil))
     }
 
-    du.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(du.GetAppId())
+    du.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(du.GetAppId())
     client, req := du.GetRequest()
     req.SetBody([]byte("[]"))
 
     return client, req
 }
 
-func (du *deviceUnbind) SendRequest() api.ApiResult {
+func (du *deviceUnbind) SendRequest() api.APIResult {
     client, req := du.checkData()
     resp, result := du.SendInner(client, req, errorcode.PrintFeYinRequestPost)
     if resp.RespCode > 0 {

@@ -72,7 +72,7 @@ func (pl *partList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(pl.uploadId) == 0 {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "上传ID不能为空", nil))
     }
-    pl.ReqUrl = "http://" + pl.ReqHeader["Host"] + pl.ReqUri + "?" + mpf.HTTPCreateParams(pl.ReqData, "none", 1)
+    pl.ReqURI = "http://" + pl.ReqHeader["Host"] + pl.ReqUri + "?" + mpf.HTTPCreateParams(pl.ReqData, "none", 1)
     return pl.GetRequest()
 }
 

@@ -39,11 +39,11 @@ func (pcg *persistentCodeGet) CheckData() (*fasthttp.Client, *fasthttp.Request) 
     }
     pcg.ExtendData["tmp_auth_code"] = pcg.tmpAuthCode
 
-    pcg.ReqUrl = dingtalk.UrlService + "/sns/get_persistent_code?access_token="
+    pcg.ReqURI = dingtalk.UrlService + "/sns/get_persistent_code?access_token="
     if len(pcg.corpId) > 0 {
-        pcg.ReqUrl += dingtalk.NewUtil().GetCorpSnsToken(pcg.corpId)
+        pcg.ReqURI += dingtalk.NewUtil().GetCorpSnsToken(pcg.corpId)
     } else {
-        pcg.ReqUrl += dingtalk.NewUtil().GetProviderSnsToken()
+        pcg.ReqURI += dingtalk.NewUtil().GetProviderSnsToken()
     }
 
     reqBody := mpf.JSONMarshal(pcg.ExtendData)

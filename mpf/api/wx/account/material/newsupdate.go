@@ -61,7 +61,7 @@ func (nu *newsUpdate) checkData() {
     }
 }
 
-func (nu *newsUpdate) SendRequest() api.ApiResult {
+func (nu *newsUpdate) SendRequest() api.APIResult {
     nu.checkData()
 
     reqData := make(map[string]interface{})
@@ -69,7 +69,7 @@ func (nu *newsUpdate) SendRequest() api.ApiResult {
     reqData["index"] = nu.index
     reqData["articles"] = nu.articles
     reqBody := mpf.JSONMarshal(reqData)
-    nu.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token=" + wx.NewUtilWx().GetSingleAccessToken(nu.appId)
+    nu.ReqURI = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token=" + wx.NewUtilWx().GetSingleAccessToken(nu.appId)
     client, req := nu.GetRequest()
     req.SetBody([]byte(reqBody))
 

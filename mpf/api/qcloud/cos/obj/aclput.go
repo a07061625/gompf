@@ -54,7 +54,7 @@ func (ap *aclPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := project.DataPrefixXML + string(xmlInfo) + ""
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     ap.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
-    ap.ReqUrl = "http://" + ap.ReqHeader["Host"] + ap.ReqUri + "?acl"
+    ap.ReqURI = "http://" + ap.ReqHeader["Host"] + ap.ReqUri + "?acl"
     client, req := ap.GetRequest()
     req.SetBody([]byte(reqBody))
 

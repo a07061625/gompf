@@ -75,13 +75,13 @@ func (bd *billDownload) checkData() {
     bd.ReqData["bill_date"] = bd.billDate
 }
 
-func (bd *billDownload) SendRequest() api.ApiResult {
+func (bd *billDownload) SendRequest() api.APIResult {
     bd.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(bd.ReqData, bd.appId, "md5")
     bd.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(bd.ReqData))
-    bd.ReqUrl = "https://api.mch.weixin.qq.com/pay/downloadbill"
+    bd.ReqURI = "https://api.mch.weixin.qq.com/pay/downloadbill"
     client, req := bd.GetRequest()
     req.SetBody([]byte(reqBody))
 

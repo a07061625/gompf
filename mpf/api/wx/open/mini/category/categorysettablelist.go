@@ -19,8 +19,8 @@ type categorySettableList struct {
     appId string // 应用ID
 }
 
-func (csl *categorySettableList) SendRequest() api.ApiResult {
-    csl.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/getallcategories?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(csl.appId)
+func (csl *categorySettableList) SendRequest() api.APIResult {
+    csl.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/getallcategories?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(csl.appId)
     client, req := csl.GetRequest()
 
     resp, result := csl.SendInner(client, req, errorcode.WxOpenRequestGet)

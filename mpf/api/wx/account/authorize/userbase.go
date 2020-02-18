@@ -36,10 +36,10 @@ func (ub *userBase) checkData() {
     ub.ReqData["code"] = ub.authCode
 }
 
-func (ub *userBase) SendRequest() api.ApiResult {
+func (ub *userBase) SendRequest() api.APIResult {
     ub.checkData()
 
-    ub.ReqUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?" + mpf.HTTPCreateParams(ub.ReqData, "none", 1)
+    ub.ReqURI = "https://api.weixin.qq.com/sns/oauth2/access_token?" + mpf.HTTPCreateParams(ub.ReqData, "none", 1)
     client, req := ub.GetRequest()
 
     resp, result := ub.SendInner(client, req, errorcode.WxAccountRequestGet)

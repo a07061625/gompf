@@ -66,7 +66,7 @@ func (tpa *thingPrincipalRemove) CheckData() (*fasthttp.Client, *fasthttp.Reques
     tpa.ExtendData["thingName"] = tpa.thingName
     tpa.ExtendData["principalName"] = tpa.principalName
 
-    tpa.ReqUrl = tpa.GetServiceUrl()
+    tpa.ReqURI = tpa.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(tpa.ExtendData)
     client, req := tpa.GetRequest()

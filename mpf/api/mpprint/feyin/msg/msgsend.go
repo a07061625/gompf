@@ -99,7 +99,7 @@ func (ms *msgSend) checkData() (*fasthttp.Client, *fasthttp.Request) {
     }
     reqBody := mpf.JSONMarshal(newData)
 
-    ms.ReqUrl = mpprint.FeYinServiceDomain + "/msg?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(ms.GetAppId())
+    ms.ReqURI = mpprint.FeYinServiceDomain + "/msg?access_token=" + mpprint.NewUtilPrint().GetFeYinAccessToken(ms.GetAppId())
 
     client, req := ms.GetRequest()
     req.SetBody([]byte(reqBody))
@@ -107,7 +107,7 @@ func (ms *msgSend) checkData() (*fasthttp.Client, *fasthttp.Request) {
     return client, req
 }
 
-func (ms *msgSend) SendRequest() api.ApiResult {
+func (ms *msgSend) SendRequest() api.APIResult {
     client, req := ms.checkData()
     resp, result := ms.SendInner(client, req, errorcode.PrintFeYinRequestPost)
     if resp.RespCode > 0 {
@@ -130,7 +130,7 @@ func NewMsgSend(appId string) *msgSend {
     ms := &msgSend{mpprint.NewBaseFeYin(), make([]string, 0), "", "", "", make(map[string]string)}
     ms.SetAppId(appId)
     ms.ReqData["appid"] = appId
-    ms.ReqData["msg_no"] = mpcache.NewUtilCache().CreateUniqueId()
+    ms.ReqData["msg_no"] = mpcache.NewUtilCache().CreateUniqueID()
     ms.ReqMethod = fasthttp.MethodPost
     ms.ReqContentType = project.HTTPContentTypeJSON
     return ms

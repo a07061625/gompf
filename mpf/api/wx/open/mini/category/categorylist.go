@@ -19,8 +19,8 @@ type categoryList struct {
     appId string // 应用ID
 }
 
-func (cl *categoryList) SendRequest() api.ApiResult {
-    cl.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/getcategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cl.appId)
+func (cl *categoryList) SendRequest() api.APIResult {
+    cl.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/getcategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(cl.appId)
     client, req := cl.GetRequest()
 
     resp, result := cl.SendInner(client, req, errorcode.WxOpenRequestGet)

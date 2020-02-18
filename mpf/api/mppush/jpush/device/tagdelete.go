@@ -56,9 +56,9 @@ func (td *tagDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     td.ServiceUri = "/v3/tags/" + td.tag
 
-    td.ReqUrl = td.GetServiceUrl()
+    td.ReqURI = td.GetServiceUrl()
     if len(td.ReqData) > 0 {
-        td.ReqUrl += "?" + mpf.HTTPCreateParams(td.ReqData, "none", 1)
+        td.ReqURI += "?" + mpf.HTTPCreateParams(td.ReqData, "none", 1)
     }
 
     return td.GetRequest()

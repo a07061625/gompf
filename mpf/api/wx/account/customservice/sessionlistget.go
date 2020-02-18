@@ -35,11 +35,11 @@ func (slg *sessionListGet) checkData() {
     slg.ReqData["kf_account"] = slg.kfAccount
 }
 
-func (slg *sessionListGet) SendRequest() api.ApiResult {
+func (slg *sessionListGet) SendRequest() api.APIResult {
     slg.checkData()
 
     slg.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(slg.appId)
-    slg.ReqUrl = "https://api.weixin.qq.com/customservice/kfsession/getsessionlist?" + mpf.HTTPCreateParams(slg.ReqData, "none", 1)
+    slg.ReqURI = "https://api.weixin.qq.com/customservice/kfsession/getsessionlist?" + mpf.HTTPCreateParams(slg.ReqData, "none", 1)
     client, req := slg.GetRequest()
 
     resp, result := slg.SendInner(client, req, errorcode.WxAccountRequestGet)

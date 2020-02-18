@@ -31,14 +31,14 @@ func (siu *showItemUpdate) SetBizFlag(bizFlag int) {
     }
 }
 
-func (siu *showItemUpdate) SendRequest() api.ApiResult {
+func (siu *showItemUpdate) SendRequest() api.APIResult {
     reqData := make(map[string]interface{})
     reqData["wxa_subscribe_biz_flag"] = siu.bizFlag
     if siu.bizFlag == 1 {
         reqData["appid"] = siu.appId
     }
     reqBody := mpf.JSONMarshal(reqData)
-    siu.ReqUrl = "https://api.weixin.qq.com/wxa/updateshowwxaitem?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(siu.appId)
+    siu.ReqURI = "https://api.weixin.qq.com/wxa/updateshowwxaitem?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(siu.appId)
     client, req := siu.GetRequest()
     req.SetBody([]byte(reqBody))
 

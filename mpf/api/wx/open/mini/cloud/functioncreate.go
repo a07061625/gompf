@@ -55,11 +55,11 @@ func (fc *functionCreate) checkData() {
     fc.ReqData["function_name"] = fc.functionName
 }
 
-func (fc *functionCreate) SendRequest() api.ApiResult {
+func (fc *functionCreate) SendRequest() api.APIResult {
     fc.checkData()
 
     reqBody := mpf.JSONMarshal(fc.ReqData)
-    fc.ReqUrl = "https://api.weixin.qq.com/tcb/createfunction?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fc.appId)
+    fc.ReqURI = "https://api.weixin.qq.com/tcb/createfunction?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(fc.appId)
     client, req := fc.GetRequest()
     req.SetBody([]byte(reqBody))
 

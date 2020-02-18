@@ -19,8 +19,8 @@ type rollback struct {
     appId string // 应用ID
 }
 
-func (r *rollback) SendRequest() api.ApiResult {
-    r.ReqUrl = "https://api.weixin.qq.com/wxa/revertcoderelease?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(r.appId)
+func (r *rollback) SendRequest() api.APIResult {
+    r.ReqURI = "https://api.weixin.qq.com/wxa/revertcoderelease?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(r.appId)
     client, req := r.GetRequest()
 
     resp, result := r.SendInner(client, req, errorcode.WxOpenRequestGet)

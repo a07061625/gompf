@@ -20,9 +20,9 @@ type authorizeUrl struct {
     urlAuthCallback string
 }
 
-func (au *authorizeUrl) SendRequest() api.ApiResult {
+func (au *authorizeUrl) SendRequest() api.APIResult {
     reqBody := mpf.JSONMarshal(au.ReqData)
-    au.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    au.ReqURI = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := au.GetRequest()
     req.SetBody([]byte(reqBody))
 

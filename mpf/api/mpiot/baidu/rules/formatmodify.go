@@ -69,7 +69,7 @@ func (fm *formatModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     fm.ServiceUri = "/v3/iot/rules/device/" + fm.deviceName + "/format"
 
-    fm.ReqUrl = fm.GetServiceUrl()
+    fm.ReqURI = fm.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(fm.ExtendData)
     client, req := fm.GetRequest()

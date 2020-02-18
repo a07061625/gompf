@@ -17,7 +17,7 @@ type bucketHead struct {
 }
 
 func (bh *bucketHead) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    bh.ReqUrl = "http://" + bh.ReqHeader["Host"] + bh.ReqUri
+    bh.ReqURI = "http://" + bh.ReqHeader["Host"] + bh.ReqUri
     return bh.GetRequest()
 }
 

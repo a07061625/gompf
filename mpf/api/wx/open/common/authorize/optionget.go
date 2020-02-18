@@ -36,11 +36,11 @@ func (og *optionGet) checkData() {
     og.ReqData["option_name"] = og.optionName
 }
 
-func (og *optionGet) SendRequest() api.ApiResult {
+func (og *optionGet) SendRequest() api.APIResult {
     og.checkData()
 
     reqBody := mpf.JSONMarshal(og.ReqData)
-    og.ReqUrl = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_option?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    og.ReqURI = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_option?component_access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := og.GetRequest()
     req.SetBody([]byte(reqBody))
 

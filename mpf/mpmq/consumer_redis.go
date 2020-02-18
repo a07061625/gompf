@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/5 0005
- * Time: 15:11
- */
+// Package mpmq consumer_redis
+// User: 姜伟
+// Time: 2020-02-19 06:41:20
 package mpmq
 
 import (

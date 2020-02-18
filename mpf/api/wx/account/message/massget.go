@@ -41,11 +41,11 @@ func (mg *massGet) checkData() {
     mg.ReqData["msg_id"] = mg.msgId
 }
 
-func (mg *massGet) SendRequest() api.ApiResult {
+func (mg *massGet) SendRequest() api.APIResult {
     mg.checkData()
 
     reqBody := mpf.JSONMarshal(mg.ReqData)
-    mg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mg.appId)
+    mg.ReqURI = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mg.appId)
     client, req := mg.GetRequest()
     req.SetBody([]byte(reqBody))
 

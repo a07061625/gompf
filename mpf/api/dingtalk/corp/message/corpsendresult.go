@@ -32,7 +32,7 @@ func (csr *corpSendResult) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     csr.ExtendData["task_id"] = csr.taskId
 
-    csr.ReqUrl = dingtalk.UrlService + "/topapi/message/corpconversation/getsendresult?access_token=" + dingtalk.NewUtil().GetAccessToken(csr.corpId, csr.agentTag, csr.atType)
+    csr.ReqURI = dingtalk.UrlService + "/topapi/message/corpconversation/getsendresult?access_token=" + dingtalk.NewUtil().GetAccessToken(csr.corpId, csr.agentTag, csr.atType)
 
     reqBody := mpf.JSONMarshal(csr.ExtendData)
     client, req := csr.GetRequest()

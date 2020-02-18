@@ -51,7 +51,7 @@ func (dm *domainModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     dm.ServiceUri = "/v3/iot/management/domain/" + dm.domainName
     dm.ExtendData["description"] = dm.domainDesc
 
-    dm.ReqUrl = dm.GetServiceUrl()
+    dm.ReqURI = dm.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(dm.ExtendData)
     client, req := dm.GetRequest()

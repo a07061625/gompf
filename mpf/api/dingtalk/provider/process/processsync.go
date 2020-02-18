@@ -74,7 +74,7 @@ func (ps *processSync) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ps.ExtendData["process_name"] = ps.processName
     ps.ExtendData["biz_category_id"] = ps.bizCategoryId
 
-    ps.ReqUrl = dingtalk.UrlService + "/topapi/process/sync?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(ps.corpId)
+    ps.ReqURI = dingtalk.UrlService + "/topapi/process/sync?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(ps.corpId)
 
     reqBody := mpf.JSONMarshal(ps.ReqData)
     client, req := ps.GetRequest()

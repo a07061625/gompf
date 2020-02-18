@@ -81,7 +81,7 @@ func (msa *massSendAll) checkData() {
     }
 }
 
-func (msa *massSendAll) SendRequest() api.ApiResult {
+func (msa *massSendAll) SendRequest() api.APIResult {
     msa.checkData()
 
     reqData := make(map[string]interface{})
@@ -93,7 +93,7 @@ func (msa *massSendAll) SendRequest() api.ApiResult {
         reqData["send_ignore_reprint"] = msa.sendReprint
     }
     reqBody := mpf.JSONMarshal(reqData)
-    msa.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(msa.appId)
+    msa.ReqURI = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(msa.appId)
     client, req := msa.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -12,10 +12,10 @@ import (
 )
 
 type utilIot struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
-func (util *utilIot) SendBaiDuRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilIot) SendBaiDuRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -43,7 +43,7 @@ func (util *utilIot) SendBaiDuRequest(service api.IApiOuter, errorCode uint) api
     return result
 }
 
-func (util *utilIot) SendTencentRequest(service api.IApiOuter, errorCode uint) api.ApiResult {
+func (util *utilIot) SendTencentRequest(service api.IAPIOuter, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -73,7 +73,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilIot{api.NewUtilApi()}
+    insUtil = &utilIot{api.NewUtilAPI()}
 }
 
 func NewUtil() *utilIot {

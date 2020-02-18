@@ -1,9 +1,6 @@
-/**
- * 外部接口公共结构体
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 9:13
- */
+// Package api api_base
+// User: 姜伟
+// Time: 2020-02-19 06:43:49
 package api
 
 import (
@@ -14,37 +11,38 @@ import (
     "github.com/valyala/fasthttp"
 )
 
-type iApiCommon interface {
+type iAPICommon interface {
     GetRequest() (*fasthttp.Client, *fasthttp.Request) // 获取请求http操作对象
 }
 
-// 外部请求处理接口,针对有统一接口返回规范的api
-type IApiOuter interface {
-    iApiCommon
+// IAPIOuter 外部请求处理接口,针对有统一接口返回规范的api
+type IAPIOuter interface {
+    iAPICommon
     GetReqTimeout() time.Duration
     CheckData() (*fasthttp.Client, *fasthttp.Request) // 数据校验
 }
 
-// 内部请求处理接口,针对没有统一接口返回规范的api
-type IApiInner interface {
-    iApiCommon
+// IAPIInner 内部请求处理接口,针对没有统一接口返回规范的api
+type IAPIInner interface {
+    iAPICommon
     checkData() (*fasthttp.Client, *fasthttp.Request) // 数据校验
-    SendRequest() ApiResult                           // 发送请求
+    SendRequest() APIResult                           // 发送请求
 }
 
-// api返回结果
-type ApiResult struct {
+// APIResult api返回结果
+type APIResult struct {
     Code uint        `json:"code"` // 结果状态码
     Msg  string      `json:"msg"`  // 错误描述
     Data interface{} `json:"data"` // 结果数据
 }
 
-func NewApiResult() ApiResult {
-    return ApiResult{0, "", make(map[string]interface{})}
+// NewAPIResult NewAPIResult
+func NewAPIResult() APIResult {
+    return APIResult{0, "", make(map[string]interface{})}
 }
 
 type apiCommon struct {
-    ReqUrl         string            // 请求地址
+    ReqURI         string            // 请求地址
     ReqTimeout     time.Duration     // 请求超时时间,单位为纳秒
     ReqMethod      string            // 请求方式
     ReqContentType string            // 请求数据类型
@@ -52,9 +50,9 @@ type apiCommon struct {
     ReqHeader      map[string]string // 请求头
 }
 
-func newApi() apiCommon {
+func newAPI() apiCommon {
     api := apiCommon{}
-    api.ReqUrl = ""
+    api.ReqURI = ""
     api.ReqTimeout = 3 * time.Second
     api.ReqMethod = fasthttp.MethodGet
     api.ReqContentType = project.HTTPContentTypeForm
@@ -63,27 +61,30 @@ func newApi() apiCommon {
     return api
 }
 
-// 外部实现请求处理的结构体
-type ApiOuter struct {
+// APIOuter 外部实现请求处理的结构体
+type APIOuter struct {
     apiCommon
 }
 
-func (api *ApiOuter) GetReqTimeout() time.Duration {
+// GetReqTimeout GetReqTimeout
+func (api *APIOuter) GetReqTimeout() time.Duration {
     return api.ReqTimeout
 }
 
-func NewApiOuter() ApiOuter {
-    return ApiOuter{newApi()}
+// NewAPIOuter NewAPIOuter
+func NewAPIOuter() APIOuter {
+    return APIOuter{newAPI()}
 }
 
-// 内部实现请求处理的结构体
-type ApiInner struct {
+// APIInner 内部实现请求处理的结构体
+type APIInner struct {
     apiCommon
 }
 
-func (api *ApiInner) SendInner(client *fasthttp.Client, req *fasthttp.Request, errorCode uint) (mpf.HTTPResp, ApiResult) {
+// SendInner SendInner
+func (api *APIInner) SendInner(client *fasthttp.Client, req *fasthttp.Request, errorCode uint) (mpf.HTTPResp, APIResult) {
     resp := mpf.HTTPSendReq(client, req, api.ReqTimeout)
-    result := NewApiResult()
+    result := NewAPIResult()
     if resp.RespCode > 0 {
         result.Code = errorCode
         result.Msg = resp.Msg
@@ -92,6 +93,7 @@ func (api *ApiInner) SendInner(client *fasthttp.Client, req *fasthttp.Request, e
     return resp, result
 }
 
-func NewApiInner() ApiInner {
-    return ApiInner{newApi()}
+// NewAPIInner NewAPIInner
+func NewAPIInner() APIInner {
+    return APIInner{newAPI()}
 }

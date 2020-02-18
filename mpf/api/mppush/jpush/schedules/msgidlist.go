@@ -33,7 +33,7 @@ func (mil *msgIdList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     mil.ServiceUri = "/v3/schedules/" + mil.scheduleId + "/msg_ids"
 
-    mil.ReqUrl = mil.GetServiceUrl()
+    mil.ReqURI = mil.GetServiceUrl()
 
     return mil.GetRequest()
 }

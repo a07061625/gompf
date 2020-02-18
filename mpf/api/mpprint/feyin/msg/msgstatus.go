@@ -27,7 +27,7 @@ func (ms *msgStatus) SetMsgNo(msgNo string) {
     match, _ := regexp.MatchString(project.RegexDigitAlpha, msgNo)
     if match {
         ms.msgNo = msgNo
-        ms.ReqUrl = mpprint.FeYinServiceDomain + "/msg/" + msgNo + "/status?access_token="
+        ms.ReqURI = mpprint.FeYinServiceDomain + "/msg/" + msgNo + "/status?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "消息ID不合法", nil))
     }
@@ -38,11 +38,11 @@ func (ms *msgStatus) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "消息ID不能为空", nil))
     }
 
-    ms.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(ms.GetAppId())
+    ms.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(ms.GetAppId())
     return ms.GetRequest()
 }
 
-func (ms *msgStatus) SendRequest() api.ApiResult {
+func (ms *msgStatus) SendRequest() api.APIResult {
     client, req := ms.checkData()
     resp, result := ms.SendInner(client, req, errorcode.PrintFeYinRequestGet)
     if resp.RespCode > 0 {

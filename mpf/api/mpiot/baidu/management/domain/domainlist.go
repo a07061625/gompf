@@ -91,7 +91,7 @@ func (dl *domainList) SetDeviceName(deviceName string) {
 }
 
 func (dl *domainList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    dl.ReqUrl = dl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
+    dl.ReqURI = dl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
 
     return dl.GetRequest()
 }

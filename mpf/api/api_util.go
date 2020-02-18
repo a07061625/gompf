@@ -1,22 +1,21 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2019/12/26 0026
- * Time: 10:57
- */
+// Package api api_util
+// User: 姜伟
+// Time: 2020-02-19 06:51:27
 package api
 
 import (
     "github.com/a07061625/gompf/mpf"
 )
 
-type UtilApi struct {
+// UtilAPI UtilAPI
+type UtilAPI struct {
 }
 
-func (util *UtilApi) SendOuter(service IApiOuter, errorCode uint) (mpf.HTTPResp, ApiResult) {
+// SendOuter SendOuter
+func (util *UtilAPI) SendOuter(service IAPIOuter, errorCode uint) (mpf.HTTPResp, APIResult) {
     client, req := service.CheckData()
     resp := mpf.HTTPSendReq(client, req, service.GetReqTimeout())
-    result := NewApiResult()
+    result := NewAPIResult()
     if resp.RespCode > 0 {
         result.Code = errorCode
         result.Msg = resp.Msg
@@ -25,6 +24,7 @@ func (util *UtilApi) SendOuter(service IApiOuter, errorCode uint) (mpf.HTTPResp,
     return resp, result
 }
 
-func NewUtilApi() UtilApi {
-    return UtilApi{}
+// NewUtilAPI NewUtilAPI
+func NewUtilAPI() UtilAPI {
+    return UtilAPI{}
 }

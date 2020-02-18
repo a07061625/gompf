@@ -81,7 +81,7 @@ func (ss *scopeSet) checkData() {
     }
 }
 
-func (ss *scopeSet) SendRequest() api.ApiResult {
+func (ss *scopeSet) SendRequest() api.APIResult {
     ss.checkData()
 
     reqData := make(map[string]interface{})
@@ -96,7 +96,7 @@ func (ss *scopeSet) SendRequest() api.ApiResult {
         reqData["allow_tag"] = ss.allowTagList
     }
     reqBody := mpf.JSONMarshal(reqData)
-    ss.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/agent/set_scope?access_token=" + ss.accessToken
+    ss.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/agent/set_scope?access_token=" + ss.accessToken
     client, req := ss.GetRequest()
     req.SetBody([]byte(reqBody))
 

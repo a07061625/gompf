@@ -38,11 +38,11 @@ func (mf *miniFast) checkData() {
     mf.ReqData["ticket"] = mf.ticket
 }
 
-func (mf *miniFast) SendRequest() api.ApiResult {
+func (mf *miniFast) SendRequest() api.APIResult {
     mf.checkData()
 
     reqBody := mpf.JSONMarshal(mf.ReqData)
-    mf.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/fastregister?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(mf.appId)
+    mf.ReqURI = "https://api.weixin.qq.com/cgi-bin/account/fastregister?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(mf.appId)
     client, req := mf.GetRequest()
     req.SetBody([]byte(reqBody))
 

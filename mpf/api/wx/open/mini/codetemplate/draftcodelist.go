@@ -18,8 +18,8 @@ type draftCodeList struct {
     wx.BaseWxOpen
 }
 
-func (dcl *draftCodeList) SendRequest() api.ApiResult {
-    dcl.ReqUrl = "https://api.weixin.qq.com/wxa/gettemplatedraftlist?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+func (dcl *draftCodeList) SendRequest() api.APIResult {
+    dcl.ReqURI = "https://api.weixin.qq.com/wxa/gettemplatedraftlist?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := dcl.GetRequest()
 
     resp, result := dcl.SendInner(client, req, errorcode.WxOpenRequestGet)

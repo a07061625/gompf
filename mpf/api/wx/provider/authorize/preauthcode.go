@@ -18,8 +18,8 @@ type preAuthCode struct {
     wx.BaseWxProvider
 }
 
-func (pac *preAuthCode) SendRequest() api.ApiResult {
-    pac.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
+func (pac *preAuthCode) SendRequest() api.APIResult {
+    pac.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := pac.GetRequest()
 
     resp, result := pac.SendInner(client, req, errorcode.WxProviderRequestGet)

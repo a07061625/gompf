@@ -44,7 +44,7 @@ func (tlu *templateListByUser) SetSize(size int) {
 }
 
 func (tlu *templateListByUser) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    tlu.ReqUrl = dingtalk.UrlService + "/topapi/process/listbyuserid?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(tlu.corpId, tlu.agentTag)
+    tlu.ReqURI = dingtalk.UrlService + "/topapi/process/listbyuserid?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(tlu.corpId, tlu.agentTag)
 
     reqBody := mpf.JSONMarshal(tlu.ExtendData)
     client, req := tlu.GetRequest()

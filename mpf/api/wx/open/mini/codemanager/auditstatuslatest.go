@@ -19,8 +19,8 @@ type auditStatusLatest struct {
     appId string // 应用ID
 }
 
-func (asl *auditStatusLatest) SendRequest() api.ApiResult {
-    asl.ReqUrl = "https://api.weixin.qq.com/wxa/get_latest_auditstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(asl.appId)
+func (asl *auditStatusLatest) SendRequest() api.APIResult {
+    asl.ReqURI = "https://api.weixin.qq.com/wxa/get_latest_auditstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(asl.appId)
     client, req := asl.GetRequest()
 
     resp, result := asl.SendInner(client, req, errorcode.WxOpenRequestGet)

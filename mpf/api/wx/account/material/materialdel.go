@@ -38,11 +38,11 @@ func (md *materialDel) checkData() {
     md.ReqData["media_id"] = md.mediaId
 }
 
-func (md *materialDel) SendRequest() api.ApiResult {
+func (md *materialDel) SendRequest() api.APIResult {
     md.checkData()
 
     reqBody := mpf.JSONMarshal(md.ReqData)
-    md.ReqUrl = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=" + wx.NewUtilWx().GetSingleAccessToken(md.appId)
+    md.ReqURI = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=" + wx.NewUtilWx().GetSingleAccessToken(md.appId)
     client, req := md.GetRequest()
     req.SetBody([]byte(reqBody))
 

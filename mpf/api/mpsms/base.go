@@ -16,7 +16,7 @@ import (
 )
 
 type BaseYun253 struct {
-    api.ApiOuter
+    api.APIOuter
     Account  string // API账号
     Password string // API密码
 }
@@ -28,7 +28,7 @@ func (b *BaseYun253) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := mpf.HTTPCreateParams(b.ReqData, "key", 2)
     req := fasthttp.AcquireRequest()
     req.SetBody([]byte(reqBody))
-    req.Header.SetRequestURI(b.ReqUrl)
+    req.Header.SetRequestURI(b.ReqURI)
     req.Header.SetContentType(b.ReqContentType)
     req.Header.SetMethod(b.ReqMethod)
     mpf.HTTPAddReqHeader(req, b.ReqHeader)
@@ -37,7 +37,7 @@ func (b *BaseYun253) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 }
 
 func NewBaseYun253() BaseYun253 {
-    base := BaseYun253{api.NewApiOuter(), "", ""}
+    base := BaseYun253{api.NewAPIOuter(), "", ""}
     base.ReqMethod = fasthttp.MethodPost
     base.ReqContentType = project.HTTPContentTypeJSON
     base.ReqHeader["Expect"] = ""

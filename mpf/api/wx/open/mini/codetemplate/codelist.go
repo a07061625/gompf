@@ -18,8 +18,8 @@ type codeList struct {
     wx.BaseWxOpen
 }
 
-func (cl *codeList) SendRequest() api.ApiResult {
-    cl.ReqUrl = "https://api.weixin.qq.com/wxa/gettemplatelist?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+func (cl *codeList) SendRequest() api.APIResult {
+    cl.ReqURI = "https://api.weixin.qq.com/wxa/gettemplatelist?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := cl.GetRequest()
 
     resp, result := cl.SendInner(client, req, errorcode.WxOpenRequestGet)

@@ -35,7 +35,7 @@ func (alu *appListByUser) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     alu.ReqData["userid"] = alu.userId
     alu.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(alu.corpId, alu.agentTag, alu.atType)
-    alu.ReqUrl = dingtalk.UrlService + "/microapp/list_by_userid?" + mpf.HTTPCreateParams(alu.ReqData, "none", 1)
+    alu.ReqURI = dingtalk.UrlService + "/microapp/list_by_userid?" + mpf.HTTPCreateParams(alu.ReqData, "none", 1)
 
     return alu.GetRequest()
 }

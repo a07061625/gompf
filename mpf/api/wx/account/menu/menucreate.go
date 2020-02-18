@@ -36,13 +36,13 @@ func (mc *menuCreate) checkData() {
     }
 }
 
-func (mc *menuCreate) SendRequest() api.ApiResult {
+func (mc *menuCreate) SendRequest() api.APIResult {
     mc.checkData()
 
     reqData := make(map[string]interface{})
     reqData["button"] = mc.menuList
     reqBody := mpf.JSONMarshal(reqData)
-    mc.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mc.appId)
+    mc.ReqURI = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mc.appId)
     client, req := mc.GetRequest()
     req.SetBody([]byte(reqBody))
 

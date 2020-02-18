@@ -17,7 +17,7 @@ type corsDelete struct {
 }
 
 func (cd *corsDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    cd.ReqUrl = "http://" + cd.ReqHeader["Host"] + cd.ReqUri + "?cors"
+    cd.ReqURI = "http://" + cd.ReqHeader["Host"] + cd.ReqUri + "?cors"
     return cd.GetRequest()
 }
 

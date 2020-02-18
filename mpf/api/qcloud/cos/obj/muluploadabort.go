@@ -47,7 +47,7 @@ func (mua *mulUploadAbort) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "上传ID不能为空", nil))
     }
 
-    mua.ReqUrl = "http://" + mua.ReqHeader["Host"] + mua.ReqUri + "?" + mpf.HTTPCreateParams(mua.ReqData, "none", 1)
+    mua.ReqURI = "http://" + mua.ReqHeader["Host"] + mua.ReqUri + "?" + mpf.HTTPCreateParams(mua.ReqData, "none", 1)
     return mua.GetRequest()
 }
 

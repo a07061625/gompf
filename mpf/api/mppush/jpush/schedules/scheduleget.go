@@ -33,7 +33,7 @@ func (sg *scheduleGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     sg.ServiceUri = "/v3/schedules/" + sg.scheduleId
 
-    sg.ReqUrl = sg.GetServiceUrl()
+    sg.ReqURI = sg.GetServiceUrl()
 
     return sg.GetRequest()
 }

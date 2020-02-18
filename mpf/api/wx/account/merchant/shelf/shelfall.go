@@ -18,8 +18,8 @@ type shelfAll struct {
     appId string
 }
 
-func (sa *shelfAll) SendRequest() api.ApiResult {
-    sa.ReqUrl = "https://api.weixin.qq.com/merchant/shelf/getall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sa.appId)
+func (sa *shelfAll) SendRequest() api.APIResult {
+    sa.ReqURI = "https://api.weixin.qq.com/merchant/shelf/getall?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sa.appId)
     client, req := sa.GetRequest()
 
     resp, result := sa.SendInner(client, req, errorcode.WxAccountRequestGet)

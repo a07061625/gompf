@@ -50,7 +50,7 @@ func (tg *thingGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     tg.ServiceUri = "/v1/endpoint/" + tg.endpointName + "/thing/" + tg.thingName
 
-    tg.ReqUrl = tg.GetServiceUrl()
+    tg.ReqURI = tg.GetServiceUrl()
 
     return tg.GetRequest()
 }

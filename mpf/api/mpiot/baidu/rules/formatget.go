@@ -37,7 +37,7 @@ func (fg *formatGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     fg.ServiceUri = "/v3/iot/rules/device/" + fg.deviceName + "/format"
 
-    fg.ReqUrl = fg.GetServiceUrl()
+    fg.ReqURI = fg.GetServiceUrl()
 
     return fg.GetRequest()
 }

@@ -81,7 +81,7 @@ func (rl *reportList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     rl.ExtendData["template_name"] = rl.templateName
     rl.ExtendData["userid"] = rl.userId
 
-    rl.ReqUrl = dingtalk.UrlService + "/topapi/report/list?access_token=" + dingtalk.NewUtil().GetAccessToken(rl.corpId, rl.agentTag, rl.atType)
+    rl.ReqURI = dingtalk.UrlService + "/topapi/report/list?access_token=" + dingtalk.NewUtil().GetAccessToken(rl.corpId, rl.agentTag, rl.atType)
 
     reqBody := mpf.JSONMarshal(rl.ExtendData)
     client, req := rl.GetRequest()

@@ -92,7 +92,7 @@ func (pcb *payBank) checkData() {
     pcb.ReqData["bank_code"] = pcb.bankCode
 }
 
-func (pcb *payBank) SendRequest() api.ApiResult {
+func (pcb *payBank) SendRequest() api.APIResult {
     pcb.checkData()
 
     conf := wx.NewConfig().GetAccount(pcb.appId)
@@ -107,7 +107,7 @@ func (pcb *payBank) SendRequest() api.ApiResult {
     sign := wx.NewUtilWx().CreateSinglePaySign(pcb.ReqData, pcb.appId, "md5")
     pcb.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(pcb.ReqData))
-    pcb.ReqUrl = "https://api.mch.weixin.qq.com/mmpaysptrans/pay_bank"
+    pcb.ReqURI = "https://api.mch.weixin.qq.com/mmpaysptrans/pay_bank"
     client, req := pcb.GetRequest()
     req.SetBody([]byte(reqBody))
 

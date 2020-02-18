@@ -39,11 +39,11 @@ func (rg *resultGet) checkData() {
     rg.ReqData["jobid"] = rg.jobId
 }
 
-func (rg *resultGet) SendRequest() api.ApiResult {
+func (rg *resultGet) SendRequest() api.APIResult {
     rg.checkData()
 
     rg.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(rg.corpId, rg.agentTag)
-    rg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?" + mpf.HTTPCreateParams(rg.ReqData, "none", 1)
+    rg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?" + mpf.HTTPCreateParams(rg.ReqData, "none", 1)
     client, req := rg.GetRequest()
 
     resp, result := rg.SendInner(client, req, errorcode.WxCorpRequestGet)

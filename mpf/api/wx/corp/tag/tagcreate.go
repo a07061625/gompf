@@ -49,11 +49,11 @@ func (tc *tagCreate) checkData() {
     tc.ReqData["tagname"] = tc.tagName
 }
 
-func (tc *tagCreate) SendRequest(getType string) api.ApiResult {
+func (tc *tagCreate) SendRequest(getType string) api.APIResult {
     tc.checkData()
 
     reqBody := mpf.JSONMarshal(tc.ReqData)
-    tc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token=" + wx.NewUtilWx().GetCorpCache(tc.corpId, tc.agentTag, getType)
+    tc.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token=" + wx.NewUtilWx().GetCorpCache(tc.corpId, tc.agentTag, getType)
     client, req := tc.GetRequest()
     req.SetBody([]byte(reqBody))
 

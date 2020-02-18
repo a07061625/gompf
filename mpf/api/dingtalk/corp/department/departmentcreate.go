@@ -154,7 +154,7 @@ func (dc *departmentCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     dc.ExtendData["parentid"] = dc.parentId
     dc.ExtendData["sourceIdentifier"] = dc.sourceIdentifier
 
-    dc.ReqUrl = dingtalk.UrlService + "/department/create?access_token=" + dingtalk.NewUtil().GetAccessToken(dc.corpId, dc.agentTag, dc.atType)
+    dc.ReqURI = dingtalk.UrlService + "/department/create?access_token=" + dingtalk.NewUtil().GetAccessToken(dc.corpId, dc.agentTag, dc.atType)
 
     reqBody := mpf.JSONMarshal(dc.ExtendData)
     client, req := dc.GetRequest()

@@ -54,7 +54,7 @@ func (sds *serverDomainSet) checkData() {
     }
 }
 
-func (sds *serverDomainSet) SendRequest() api.ApiResult {
+func (sds *serverDomainSet) SendRequest() api.APIResult {
     sds.checkData()
 
     reqData := make(map[string]interface{})
@@ -65,7 +65,7 @@ func (sds *serverDomainSet) SendRequest() api.ApiResult {
     }
     reqData["action"] = sds.action
     reqBody := mpf.JSONMarshal(reqData)
-    sds.ReqUrl = "https://api.weixin.qq.com/wxa/modify_domain?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(sds.appId)
+    sds.ReqURI = "https://api.weixin.qq.com/wxa/modify_domain?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(sds.appId)
     client, req := sds.GetRequest()
     req.SetBody([]byte(reqBody))
 

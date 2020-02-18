@@ -183,7 +183,7 @@ func main() {
 
     go listenNotify()
 
-    listener := mpserver.NewListenerTcp(mpf.EnvServerDomain())
+    listener := mpserver.NewListenerTCP(mpf.EnvServerDomain())
     if *optionType == "start" {
         logMsg := "server " + serverTag
         if checkRunning() {

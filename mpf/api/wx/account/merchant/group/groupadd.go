@@ -49,7 +49,7 @@ func (ga *groupAdd) checkData() {
     }
 }
 
-func (ga *groupAdd) SendRequest() api.ApiResult {
+func (ga *groupAdd) SendRequest() api.APIResult {
     ga.checkData()
 
     groupInfo := make(map[string]interface{})
@@ -58,7 +58,7 @@ func (ga *groupAdd) SendRequest() api.ApiResult {
     reqData := make(map[string]interface{})
     reqData["group_detail"] = groupInfo
     reqBody := mpf.JSONMarshal(reqData)
-    ga.ReqUrl = "https://api.weixin.qq.com/merchant/group/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ga.appId)
+    ga.ReqURI = "https://api.weixin.qq.com/merchant/group/add?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ga.appId)
     client, req := ga.GetRequest()
     req.SetBody([]byte(reqBody))
 

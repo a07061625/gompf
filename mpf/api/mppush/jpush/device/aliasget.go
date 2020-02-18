@@ -56,9 +56,9 @@ func (ag *aliasGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ag.ServiceUri = "/v3/aliases/" + ag.aliasName
 
-    ag.ReqUrl = ag.GetServiceUrl()
+    ag.ReqURI = ag.GetServiceUrl()
     if len(ag.ReqData) > 0 {
-        ag.ReqUrl += "?" + mpf.HTTPCreateParams(ag.ReqData, "none", 1)
+        ag.ReqURI += "?" + mpf.HTTPCreateParams(ag.ReqData, "none", 1)
     }
 
     return ag.GetRequest()

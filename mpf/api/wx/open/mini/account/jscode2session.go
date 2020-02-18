@@ -35,11 +35,11 @@ func (jcs *jsCode2Session) checkData() {
     jcs.ReqData["js_code"] = jcs.jsCode
 }
 
-func (jcs *jsCode2Session) SendRequest() api.ApiResult {
+func (jcs *jsCode2Session) SendRequest() api.APIResult {
     jcs.checkData()
 
     jcs.ReqData["component_access_token"] = wx.NewUtilWx().GetOpenAccessToken()
-    jcs.ReqUrl = "https://api.weixin.qq.com/sns/component/jscode2session?" + mpf.HTTPCreateParams(jcs.ReqData, "none", 1)
+    jcs.ReqURI = "https://api.weixin.qq.com/sns/component/jscode2session?" + mpf.HTTPCreateParams(jcs.ReqData, "none", 1)
     client, req := jcs.GetRequest()
 
     resp, result := jcs.SendInner(client, req, errorcode.WxOpenRequestGet)

@@ -43,13 +43,13 @@ func (ubb *unBlackBatch) checkData() {
     }
 }
 
-func (ubb *unBlackBatch) SendRequest() api.ApiResult {
+func (ubb *unBlackBatch) SendRequest() api.APIResult {
     ubb.checkData()
 
     reqData := make(map[string]interface{})
     reqData["openid_list"] = ubb.openidList
     reqBody := mpf.JSONMarshal(reqData)
-    ubb.ReqUrl = "https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ubb.appId)
+    ubb.ReqURI = "https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=" + wx.NewUtilWx().GetSingleAccessToken(ubb.appId)
     client, req := ubb.GetRequest()
     req.SetBody([]byte(reqBody))
 

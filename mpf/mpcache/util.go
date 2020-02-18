@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2019/12/29 0029
- * Time: 11:51
- */
+// Package mpcache util
+// User: 姜伟
+// Time: 2020-02-19 06:17:54
 package mpcache
 
 import (
@@ -19,37 +16,39 @@ import (
 type utilCache struct {
 }
 
-func (util *utilCache) CreateUniqueId() string {
-    num := insRedis.conn.Incr(keyUniqueId).Val()
+// CreateUniqueID 生成唯一ID
+func (util *utilCache) CreateUniqueID() string {
+    num := insRedis.conn.Incr(keyUniqueID).Val()
     numStr := strconv.FormatInt(num, 10)
 
     return time.Now().Format("20060102150405") + numStr[len(numStr)-8:]
 }
 
 var (
-    keyUniqueId string
+    keyUniqueID string
     insUtil     *utilCache
 )
 
 func init() {
-    keyUniqueId = project.RedisPrefix(project.RedisPrefixCommonUniqueID)
-    keyUniqueId += "unique"
+    keyUniqueID = project.RedisPrefix(project.RedisPrefixCommonUniqueID)
+    keyUniqueID += "unique"
     insUtil = &utilCache{}
 
-    num := insRedis.conn.Incr(keyUniqueId).Val()
+    num := insRedis.conn.Incr(keyUniqueID).Val()
     if num < 100000000 {
         rand.Seed(time.Now().UnixNano())
         randNum := rand.Int63n(50000000) + 100000000
-        _, err := insRedis.conn.Set(keyUniqueId, randNum, 0).Result()
+        _, err := insRedis.conn.Set(keyUniqueID, randNum, 0).Result()
         if err != nil {
             panic(mperr.NewCacheRedis(errorcode.CacheRedisOperate, "设置唯一ID自增基数出错", err))
         }
     } else if num > 500000000 {
         reduceNum := num - 100000000 - num%100000000
-        insRedis.conn.DecrBy(keyUniqueId, reduceNum)
+        insRedis.conn.DecrBy(keyUniqueID, reduceNum)
     }
 }
 
+// NewUtilCache NewUtilCache
 func NewUtilCache() *utilCache {
     return insUtil
 }

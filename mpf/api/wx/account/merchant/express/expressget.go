@@ -40,11 +40,11 @@ func (eg *expressGet) checkData() {
     eg.ReqData["template_id"] = eg.templateId
 }
 
-func (eg *expressGet) SendRequest() api.ApiResult {
+func (eg *expressGet) SendRequest() api.APIResult {
     eg.checkData()
 
     reqBody := mpf.JSONMarshal(eg.ReqData)
-    eg.ReqUrl = "https://api.weixin.qq.com/merchant/express/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(eg.appId)
+    eg.ReqURI = "https://api.weixin.qq.com/merchant/express/getbyid?access_token=" + wx.NewUtilWx().GetSingleAccessToken(eg.appId)
     client, req := eg.GetRequest()
     req.SetBody([]byte(reqBody))
 

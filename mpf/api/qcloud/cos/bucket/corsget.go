@@ -17,7 +17,7 @@ type corsGet struct {
 }
 
 func (cg *corsGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    cg.ReqUrl = "http://" + cg.ReqHeader["Host"] + cg.ReqUri + "?cors"
+    cg.ReqURI = "http://" + cg.ReqHeader["Host"] + cg.ReqUri + "?cors"
     return cg.GetRequest()
 }
 

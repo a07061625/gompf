@@ -17,7 +17,7 @@ type logGet struct {
 }
 
 func (lg *logGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    lg.ReqUrl = "http://" + lg.ReqHeader["Host"] + lg.ReqUri + "?logging"
+    lg.ReqURI = "http://" + lg.ReqHeader["Host"] + lg.ReqUri + "?logging"
     return lg.GetRequest()
 }
 

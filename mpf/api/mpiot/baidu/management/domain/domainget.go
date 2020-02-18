@@ -37,7 +37,7 @@ func (dg *domainGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dg.ServiceUri = "/v3/iot/management/domain/" + dg.domainName
 
-    dg.ReqUrl = dg.GetServiceUrl()
+    dg.ReqURI = dg.GetServiceUrl()
 
     return dg.GetRequest()
 }

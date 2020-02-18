@@ -20,9 +20,9 @@ type menuGet struct {
     agentTag string
 }
 
-func (mg *menuGet) SendRequest() api.ApiResult {
+func (mg *menuGet) SendRequest() api.APIResult {
     mg.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(mg.corpId, mg.agentTag)
-    mg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/get?" + mpf.HTTPCreateParams(mg.ReqData, "none", 1)
+    mg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/menu/get?" + mpf.HTTPCreateParams(mg.ReqData, "none", 1)
     client, req := mg.GetRequest()
     resp, result := mg.SendInner(client, req, errorcode.WxCorpRequestGet)
     if resp.RespCode > 0 {

@@ -52,7 +52,7 @@ func (tc *thingCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     tc.ServiceUri = "/v1/endpoint/" + tc.endpointName + "/thing"
     tc.ExtendData["thingName"] = tc.thingName
 
-    tc.ReqUrl = tc.GetServiceUrl()
+    tc.ReqURI = tc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(tc.ExtendData)
     client, req := tc.GetRequest()

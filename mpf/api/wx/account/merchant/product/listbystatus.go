@@ -30,11 +30,11 @@ func (lbs *listByStatus) SetProductStatus(productStatus int) {
     }
 }
 
-func (lbs *listByStatus) SendRequest() api.ApiResult {
+func (lbs *listByStatus) SendRequest() api.APIResult {
     reqData := make(map[string]interface{})
     reqData["status"] = lbs.productStatus
     reqBody := mpf.JSONMarshal(reqData)
-    lbs.ReqUrl = "https://api.weixin.qq.com/merchant/getbystatus?access_token=" + wx.NewUtilWx().GetSingleAccessToken(lbs.appId)
+    lbs.ReqURI = "https://api.weixin.qq.com/merchant/getbystatus?access_token=" + wx.NewUtilWx().GetSingleAccessToken(lbs.appId)
     client, req := lbs.GetRequest()
     req.SetBody([]byte(reqBody))
 

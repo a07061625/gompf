@@ -37,13 +37,13 @@ func (acg *appConfigGet) checkData() {
     }
 }
 
-func (acg *appConfigGet) SendRequest() api.ApiResult {
+func (acg *appConfigGet) SendRequest() api.APIResult {
     acg.checkData()
 
     reqData := make(map[string]interface{})
     reqData["type"] = acg.configType
     reqBody := mpf.JSONMarshal(reqData)
-    acg.ReqUrl = "https://api.weixin.qq.com/tcb/getappconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(acg.appId)
+    acg.ReqURI = "https://api.weixin.qq.com/tcb/getappconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(acg.appId)
     client, req := acg.GetRequest()
     req.SetBody([]byte(reqBody))
 

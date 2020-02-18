@@ -11,12 +11,12 @@ import (
 )
 
 type IMapBase interface {
-    api.IApiOuter
+    api.IAPIOuter
     GetRespTag() string
 }
 
 type utilMap struct {
-    api.UtilApi
+    api.UtilAPI
 }
 
 var (
@@ -24,7 +24,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilMap{api.NewUtilApi()}
+    insUtil = &utilMap{api.NewUtilAPI()}
 }
 
 func NewUtilMap() *utilMap {

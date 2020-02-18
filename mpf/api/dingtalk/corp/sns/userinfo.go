@@ -50,11 +50,11 @@ func (ui *userInfo) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewDingTalkCorp(errorcode.DingTalkCorpParam, "持久授权码不能为空", nil))
     }
 
-    ui.ReqUrl = dingtalk.UrlService + "/sns/getuserinfo?sns_token="
+    ui.ReqURI = dingtalk.UrlService + "/sns/getuserinfo?sns_token="
     if len(ui.corpId) > 0 {
-        ui.ReqUrl += dingtalk.NewUtil().GetCorpUserSnsToken(ui.corpId, ui.openid, ui.persistentCode)
+        ui.ReqURI += dingtalk.NewUtil().GetCorpUserSnsToken(ui.corpId, ui.openid, ui.persistentCode)
     } else {
-        ui.ReqUrl += dingtalk.NewUtil().GetProviderUserSnsToken(ui.openid, ui.persistentCode)
+        ui.ReqURI += dingtalk.NewUtil().GetProviderUserSnsToken(ui.openid, ui.persistentCode)
     }
 
     return ui.GetRequest()

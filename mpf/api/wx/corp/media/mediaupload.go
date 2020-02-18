@@ -86,17 +86,17 @@ func (mu *mediaUpload) checkData() (string, []byte, error) {
     return contentType, content, nil
 }
 
-func (mu *mediaUpload) SendRequest(getType string) api.ApiResult {
+func (mu *mediaUpload) SendRequest(getType string) api.APIResult {
     contentType, content, err := mu.checkData()
     if err != nil {
-        result := api.NewApiResult()
+        result := api.NewAPIResult()
         result.Code = errorcode.WxCorpRequestPost
         result.Msg = "上传文件失败"
         return result
     }
 
     mu.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(mu.corpId, mu.agentTag, getType)
-    mu.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?" + mpf.HTTPCreateParams(mu.ReqData, "none", 1)
+    mu.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?" + mpf.HTTPCreateParams(mu.ReqData, "none", 1)
     client, req := mu.GetRequest()
     req.Header.SetContentType(contentType)
     req.SetBody(content)

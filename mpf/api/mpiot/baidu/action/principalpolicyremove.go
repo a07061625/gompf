@@ -66,7 +66,7 @@ func (ppr *principalPolicyRemove) CheckData() (*fasthttp.Client, *fasthttp.Reque
     ppr.ExtendData["principalName"] = ppr.principalName
     ppr.ExtendData["policyName"] = ppr.policyName
 
-    ppr.ReqUrl = ppr.GetServiceUrl()
+    ppr.ReqURI = ppr.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(ppr.ExtendData)
     client, req := ppr.GetRequest()

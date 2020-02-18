@@ -41,11 +41,11 @@ func (usg *uploadSignatureGet) checkData() {
     usg.ReqData["hashed_payload"] = usg.hashedPayload
 }
 
-func (usg *uploadSignatureGet) SendRequest() api.ApiResult {
+func (usg *uploadSignatureGet) SendRequest() api.APIResult {
     usg.checkData()
 
     reqBody := mpf.JSONMarshal(usg.ReqData)
-    usg.ReqUrl = "https://api.weixin.qq.com/tcb/getuploadsignature?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(usg.appId)
+    usg.ReqURI = "https://api.weixin.qq.com/tcb/getuploadsignature?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(usg.appId)
     client, req := usg.GetRequest()
     req.SetBody([]byte(reqBody))
 

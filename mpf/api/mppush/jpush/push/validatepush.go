@@ -98,7 +98,7 @@ func (vp *validatePush) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         vp.ExtendData["message"] = vp.messageContent
     }
 
-    vp.ReqUrl = vp.GetServiceUrl()
+    vp.ReqURI = vp.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(vp.ExtendData)
     client, req := vp.GetRequest()

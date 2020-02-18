@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/5 0005
- * Time: 15:17
- */
+// Package mpmq constant
+// User: 姜伟
+// Time: 2020-02-19 06:40:53
 package mpmq
 
 const (

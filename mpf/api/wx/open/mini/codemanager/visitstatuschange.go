@@ -38,11 +38,11 @@ func (vsc *visitStatusChange) checkData() {
     vsc.ReqData["action"] = vsc.visitStatus
 }
 
-func (vsc *visitStatusChange) SendRequest() api.ApiResult {
+func (vsc *visitStatusChange) SendRequest() api.APIResult {
     vsc.checkData()
 
     reqBody := mpf.JSONMarshal(vsc.ReqData)
-    vsc.ReqUrl = "https://api.weixin.qq.com/wxa/change_visitstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(vsc.appId)
+    vsc.ReqURI = "https://api.weixin.qq.com/wxa/change_visitstatus?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(vsc.appId)
     client, req := vsc.GetRequest()
     req.SetBody([]byte(reqBody))
 

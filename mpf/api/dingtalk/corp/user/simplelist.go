@@ -81,7 +81,7 @@ func (sl *simpleList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     sl.ReqData["department_id"] = strconv.Itoa(sl.departId)
     sl.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(sl.corpId, sl.agentTag, sl.atType)
-    sl.ReqUrl = dingtalk.UrlService + "/user/simplelist?" + mpf.HTTPCreateParams(sl.ReqData, "none", 1)
+    sl.ReqURI = dingtalk.UrlService + "/user/simplelist?" + mpf.HTTPCreateParams(sl.ReqData, "none", 1)
 
     return sl.GetRequest()
 }

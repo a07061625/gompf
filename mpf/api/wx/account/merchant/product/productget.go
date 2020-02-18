@@ -37,11 +37,11 @@ func (pg *productGet) checkData() {
     pg.ReqData["product_id"] = pg.productId
 }
 
-func (pg *productGet) SendRequest() api.ApiResult {
+func (pg *productGet) SendRequest() api.APIResult {
     pg.checkData()
 
     reqBody := mpf.JSONMarshal(pg.ReqData)
-    pg.ReqUrl = "https://api.weixin.qq.com/merchant/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pg.appId)
+    pg.ReqURI = "https://api.weixin.qq.com/merchant/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(pg.appId)
     client, req := pg.GetRequest()
     req.SetBody([]byte(reqBody))
 

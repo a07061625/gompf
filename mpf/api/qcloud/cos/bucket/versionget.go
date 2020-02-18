@@ -17,7 +17,7 @@ type versionGet struct {
 }
 
 func (vg *versionGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    vg.ReqUrl = "http://" + vg.ReqHeader["Host"] + vg.ReqUri + "?versioning"
+    vg.ReqURI = "http://" + vg.ReqHeader["Host"] + vg.ReqUri + "?versioning"
     return vg.GetRequest()
 }
 

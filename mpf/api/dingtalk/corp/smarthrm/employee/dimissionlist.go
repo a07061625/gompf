@@ -49,7 +49,7 @@ func (dl *dimissionList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dl.ExtendData["userid_list"] = strings.Join(dl.userList, ",")
 
-    dl.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/listdimission?access_token=" + dingtalk.NewUtil().GetAccessToken(dl.corpId, dl.agentTag, dl.atType)
+    dl.ReqURI = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/listdimission?access_token=" + dingtalk.NewUtil().GetAccessToken(dl.corpId, dl.agentTag, dl.atType)
 
     reqBody := mpf.JSONMarshal(dl.ExtendData)
     dlient, req := dl.GetRequest()

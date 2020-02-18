@@ -105,7 +105,7 @@ func (dl *deviceList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dl.ServiceUri = "/v3/iot/management/domain/" + dl.domainName + "/devices"
 
-    dl.ReqUrl = dl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
+    dl.ReqURI = dl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(dl.ReqData, "none", 1)
 
     return dl.GetRequest()
 }

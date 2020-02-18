@@ -41,11 +41,11 @@ func (naq *nicknameAuditQuery) checkData() {
     naq.ReqData["audit_id"] = naq.auditId
 }
 
-func (naq *nicknameAuditQuery) SendRequest() api.ApiResult {
+func (naq *nicknameAuditQuery) SendRequest() api.APIResult {
     naq.checkData()
 
     reqBody := mpf.JSONMarshal(naq.ReqData)
-    naq.ReqUrl = "https://api.weixin.qq.com/wxa/api_wxa_querynickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(naq.appId)
+    naq.ReqURI = "https://api.weixin.qq.com/wxa/api_wxa_querynickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(naq.appId)
     client, req := naq.GetRequest()
     req.SetBody([]byte(reqBody))
 

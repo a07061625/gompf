@@ -69,7 +69,7 @@ func (muc *mulUploadComplete) CheckData() (*fasthttp.Client, *fasthttp.Request) 
     }
 
     reqBody := project.DataPrefixXML + "<CompleteMultipartUpload>" + xmlStr + "</CompleteMultipartUpload>"
-    muc.ReqUrl = "http://" + muc.ReqHeader["Host"] + muc.ReqUri + "?" + mpf.HTTPCreateParams(muc.ReqData, "none", 1)
+    muc.ReqURI = "http://" + muc.ReqHeader["Host"] + muc.ReqUri + "?" + mpf.HTTPCreateParams(muc.ReqData, "none", 1)
     client, req := muc.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

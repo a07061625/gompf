@@ -1,15 +1,14 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/10 0010
- * Time: 19:43
- */
+// Package mpvalidator validator
+// User: 姜伟
+// Time: 2020-02-19 06:31:26
 package mpvalidator
 
 const (
-    FieldIgnoreSign = "_sign" // 字段-忽略接口签名
+    // FieldIgnoreSign 字段-忽略接口签名
+    FieldIgnoreSign = "_sign"
 )
 
+// Filter Filter
 type Filter struct {
     Field     string                 `json:"field"`      // 字段名
     Desc      string                 `json:"desc"`       // 字段描述
@@ -17,4 +16,5 @@ type Filter struct {
     DataRules map[string]interface{} `json:"data_rules"` // 字段数据规则
 }
 
+// Filters Filters
 type Filters []Filter

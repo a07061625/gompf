@@ -17,7 +17,7 @@ type encryptionGet struct {
 }
 
 func (eg *encryptionGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    eg.ReqUrl = "http://" + eg.ReqHeader["Host"] + eg.ReqUri + "?encryption"
+    eg.ReqURI = "http://" + eg.ReqHeader["Host"] + eg.ReqUri + "?encryption"
     return eg.GetRequest()
 }
 

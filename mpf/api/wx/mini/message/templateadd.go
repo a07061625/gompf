@@ -45,14 +45,14 @@ func (ta *templateAdd) checkData() {
     }
 }
 
-func (ta *templateAdd) SendRequest(getType string) api.ApiResult {
+func (ta *templateAdd) SendRequest(getType string) api.APIResult {
     ta.checkData()
     reqData := make(map[string]interface{})
     reqData["id"] = ta.titleId
     reqData["keyword_id_list"] = ta.keywordIds
     reqBody := mpf.JSONMarshal(reqData)
 
-    ta.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/template/add?access_token=" + wx.NewUtilWx().GetSingleCache(ta.appId, getType)
+    ta.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/template/add?access_token=" + wx.NewUtilWx().GetSingleCache(ta.appId, getType)
     client, req := ta.GetRequest()
     req.SetBody([]byte(reqBody))
 

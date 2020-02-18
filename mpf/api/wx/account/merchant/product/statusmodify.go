@@ -48,14 +48,14 @@ func (sm *statusModify) checkData() {
     }
 }
 
-func (sm *statusModify) SendRequest() api.ApiResult {
+func (sm *statusModify) SendRequest() api.APIResult {
     sm.checkData()
 
     reqData := make(map[string]interface{})
     reqData["product_id"] = sm.productId
     reqData["status"] = sm.productStatus
     reqBody := mpf.JSONMarshal(reqData)
-    sm.ReqUrl = "https://api.weixin.qq.com/merchant/modproductstatus?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sm.appId)
+    sm.ReqURI = "https://api.weixin.qq.com/merchant/modproductstatus?access_token=" + wx.NewUtilWx().GetSingleAccessToken(sm.appId)
     client, req := sm.GetRequest()
     req.SetBody([]byte(reqBody))
 

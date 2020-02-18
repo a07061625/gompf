@@ -50,7 +50,7 @@ func (pd *policyDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pd.ServiceUri = "/v1/endpoint/" + pd.endpointName + "/policy/" + pd.policyName
 
-    pd.ReqUrl = pd.GetServiceUrl()
+    pd.ReqURI = pd.GetServiceUrl()
 
     return pd.GetRequest()
 }

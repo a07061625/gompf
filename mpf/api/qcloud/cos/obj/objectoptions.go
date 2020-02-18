@@ -41,7 +41,7 @@ func (oo *objectOptions) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "跨域请求方法不能为空", nil))
     }
 
-    oo.ReqUrl = "http://" + oo.ReqHeader["Host"] + oo.ReqUri
+    oo.ReqURI = "http://" + oo.ReqHeader["Host"] + oo.ReqUri
     return oo.GetRequest()
 }
 

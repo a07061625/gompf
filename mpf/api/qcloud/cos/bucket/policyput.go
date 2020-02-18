@@ -39,7 +39,7 @@ func (pp *policyPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     reqBody := mpf.JSONMarshal(pp.policyConfig)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     pp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
-    pp.ReqUrl = "http://" + pp.ReqHeader["Host"] + pp.ReqUri + "?policy"
+    pp.ReqURI = "http://" + pp.ReqHeader["Host"] + pp.ReqUri + "?policy"
     client, req := pp.GetRequest()
     req.SetBody([]byte(reqBody))
     return client, req

@@ -16,11 +16,11 @@ import (
 )
 
 type baseCurrency struct {
-    api.ApiOuter
+    api.APIOuter
 }
 
 func newBaseCurrency() baseCurrency {
-    return baseCurrency{api.NewApiOuter()}
+    return baseCurrency{api.NewAPIOuter()}
 }
 
 type BaseAMJiSu struct {
@@ -30,14 +30,14 @@ type BaseAMJiSu struct {
 
 func (c *BaseAMJiSu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     conf := NewConfigAMJiSu()
-    c.ReqUrl = conf.serviceAddress + c.ServiceUri
+    c.ReqURI = conf.serviceAddress + c.ServiceUri
     c.ReqHeader["Authorization"] = "APPCODE " + conf.GetAppCode()
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(c.ReqUrl)
+    req.Header.SetRequestURI(c.ReqURI)
     req.Header.SetContentType(c.ReqContentType)
     req.Header.SetMethod(c.ReqMethod)
     mpf.HTTPAddReqHeader(req, c.ReqHeader)
@@ -59,14 +59,14 @@ type BaseAMYiYuan struct {
 
 func (c *BaseAMYiYuan) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     conf := NewConfigAMYiYuan()
-    c.ReqUrl = conf.serviceAddress + c.ServiceUri
+    c.ReqURI = conf.serviceAddress + c.ServiceUri
     c.ReqHeader["Authorization"] = "APPCODE " + conf.GetAppCode()
 
     client := &fasthttp.Client{}
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(c.ReqUrl)
+    req.Header.SetRequestURI(c.ReqURI)
     req.Header.SetContentType(c.ReqContentType)
     req.Header.SetMethod(c.ReqMethod)
     mpf.HTTPAddReqHeader(req, c.ReqHeader)

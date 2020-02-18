@@ -40,13 +40,13 @@ func (rr *receiverRemove) checkData() {
     rr.ReqData["receiver"] = mpf.JSONMarshal(rr.receiver)
 }
 
-func (rr *receiverRemove) SendRequest() api.ApiResult {
+func (rr *receiverRemove) SendRequest() api.APIResult {
     rr.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(rr.ReqData, rr.appId, "sha256")
     rr.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(rr.ReqData))
-    rr.ReqUrl = "https://api.mch.weixin.qq.com/pay/profitsharingremovereceiver"
+    rr.ReqURI = "https://api.mch.weixin.qq.com/pay/profitsharingremovereceiver"
     client, req := rr.GetRequest()
     req.SetBody([]byte(reqBody))
 

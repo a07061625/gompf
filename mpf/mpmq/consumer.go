@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/4 0004
- * Time: 23:35
- */
+// Package mpmq consumer
+// User: 姜伟
+// Time: 2020-02-19 06:41:32
 package mpmq
 
 import (
@@ -12,6 +9,7 @@ import (
     "github.com/a07061625/gompf/mpf/mperr"
 )
 
+// IConsumer IConsumer
 type IConsumer interface {
     PullData(topic string) (interface{}, error)
     Shutdown() int
@@ -51,6 +49,7 @@ func init() {
     }
 }
 
+// NewConsumer NewConsumer
 func NewConsumer() *consumerMQ {
     return insConsumer
 }

@@ -42,11 +42,11 @@ func (ou *openid2UserId) checkData() {
     ou.ReqData["openid"] = ou.openid
 }
 
-func (ou *openid2UserId) SendRequest(getType string) api.ApiResult {
+func (ou *openid2UserId) SendRequest(getType string) api.APIResult {
     ou.checkData()
 
     reqBody := mpf.JSONMarshal(ou.ReqData)
-    ou.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid?access_token=" + wx.NewUtilWx().GetCorpCache(ou.corpId, ou.agentTag, getType)
+    ou.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid?access_token=" + wx.NewUtilWx().GetCorpCache(ou.corpId, ou.agentTag, getType)
     client, req := ou.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -86,7 +86,7 @@ func (fc *formatCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     fc.ExtendData["destinations"] = fc.destinationList
     fc.ExtendData["format"] = fc.format
 
-    fc.ReqUrl = fc.GetServiceUrl()
+    fc.ReqURI = fc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(fc.ExtendData)
     client, req := fc.GetRequest()

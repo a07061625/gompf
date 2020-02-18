@@ -50,7 +50,7 @@ func (pg *principalGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pg.ServiceUri = "/v1/endpoint/" + pg.endpointName + "/principal/" + pg.principalName
 
-    pg.ReqUrl = pg.GetServiceUrl()
+    pg.ReqURI = pg.GetServiceUrl()
 
     return pg.GetRequest()
 }

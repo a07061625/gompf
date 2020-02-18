@@ -17,7 +17,7 @@ import (
 )
 
 type BaseTaoBao struct {
-    api.ApiOuter
+    api.APIOuter
     respTag   string // 响应标识
     AppKey    string // 应用标识
     AppSecret string // 应用密钥
@@ -56,7 +56,7 @@ func (b *BaseTaoBao) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
     req := fasthttp.AcquireRequest()
     req.SetBody([]byte(reqBody))
-    req.Header.SetRequestURI(b.ReqUrl)
+    req.Header.SetRequestURI(b.ReqURI)
     req.Header.SetMethod(b.ReqMethod)
     mpf.HTTPAddReqHeader(req, b.ReqHeader)
 
@@ -65,7 +65,7 @@ func (b *BaseTaoBao) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewBaseTaoBao() BaseTaoBao {
     now := time.Now()
-    b := BaseTaoBao{api.NewApiOuter(), "", "", ""}
+    b := BaseTaoBao{api.NewAPIOuter(), "", "", ""}
     b.ReqData["v"] = "2.0"
     b.ReqData["sign_method"] = "md5"
     b.ReqData["format"] = "json"
@@ -73,6 +73,6 @@ func NewBaseTaoBao() BaseTaoBao {
     b.ReqData["timestamp"] = now.Format("2006-01-02 03:04:05")
     b.ReqHeader["Expect"] = ""
     b.ReqMethod = fasthttp.MethodPost
-    b.ReqUrl = TaoBaoUrlEnv
+    b.ReqURI = TaoBaoUrlEnv
     return b
 }

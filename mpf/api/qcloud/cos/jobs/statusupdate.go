@@ -54,7 +54,7 @@ func (su *statusUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     if len(su.jobStatus) == 0 {
         panic(mperr.NewQCloudCos(errorcode.QCloudCosParam, "任务状态不能为空", nil))
     }
-    su.ReqUrl = "http://" + su.ReqHeader["Host"] + su.ReqUri + "?" + mpf.HTTPCreateParams(su.ReqData, "none", 1)
+    su.ReqURI = "http://" + su.ReqHeader["Host"] + su.ReqUri + "?" + mpf.HTTPCreateParams(su.ReqData, "none", 1)
     return su.GetRequest()
 }
 

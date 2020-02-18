@@ -20,7 +20,7 @@ import (
 )
 
 type baseMap struct {
-    api.ApiOuter
+    api.APIOuter
     respTag string // 响应标识
 }
 
@@ -33,7 +33,7 @@ func (m *baseMap) SetRespTag(respTag string) {
 }
 
 func newBase() baseMap {
-    return baseMap{api.NewApiOuter(), ""}
+    return baseMap{api.NewAPIOuter(), ""}
 }
 
 type BaseBaiDu struct {
@@ -50,7 +50,7 @@ type BaseBaiDu struct {
 
 func (m *BaseBaiDu) SetServiceUri(uri string) {
     m.serviceUri = uri
-    m.ReqUrl = m.serviceDomain + uri
+    m.ReqURI = m.serviceDomain + uri
 }
 
 func (m *BaseBaiDu) SetCheckType(checkType string) {
@@ -101,7 +101,7 @@ func (m *BaseBaiDu) verifyData() {
         m.ReqHeader["Referer"] = m.reqRefer
         m.ReqHeader["User-Agent"] = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11"
     }
-    m.ReqUrl += "?" + mpf.HTTPCreateParams(m.ReqData, "key", 1)
+    m.ReqURI += "?" + mpf.HTTPCreateParams(m.ReqData, "key", 1)
 }
 
 func (m *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -111,7 +111,7 @@ func (m *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(m.ReqUrl)
+    req.Header.SetRequestURI(m.ReqURI)
     req.Header.SetContentType(m.ReqContentType)
     req.Header.SetMethod(m.ReqMethod)
 
@@ -152,7 +152,7 @@ type BaseGaoDe struct {
 
 func (m *BaseGaoDe) SetServiceUri(uri string) {
     m.serviceUri = uri
-    m.ReqUrl = m.serviceDomain + uri
+    m.ReqURI = m.serviceDomain + uri
 }
 
 func (m *BaseGaoDe) createSign() {
@@ -162,7 +162,7 @@ func (m *BaseGaoDe) createSign() {
     delete(m.ReqData, "sig")
     signStr := mpf.HTTPCreateParams(m.ReqData, "key", 4)
     m.ReqData["sig"] = mpf.HashMd5(signStr+m.secret, "")
-    m.ReqUrl += "?" + mpf.HTTPCreateParams(m.ReqData, "key", 1)
+    m.ReqURI += "?" + mpf.HTTPCreateParams(m.ReqData, "key", 1)
 }
 
 func (m *BaseGaoDe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -172,7 +172,7 @@ func (m *BaseGaoDe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(m.ReqUrl)
+    req.Header.SetRequestURI(m.ReqURI)
     req.Header.SetContentType(m.ReqContentType)
     req.Header.SetMethod(m.ReqMethod)
     mpf.HTTPAddReqHeader(req, m.ReqHeader)
@@ -239,7 +239,7 @@ func (t *BaseTencent) verifyData() {
         t.ReqHeader["Client-Ip"] = t.serverIp
     }
 
-    t.ReqUrl = t.serviceUrl + "?" + mpf.HTTPCreateParams(t.ReqData, "key", 1)
+    t.ReqURI = t.serviceUrl + "?" + mpf.HTTPCreateParams(t.ReqData, "key", 1)
 }
 
 func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
@@ -249,7 +249,7 @@ func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
     req := fasthttp.AcquireRequest()
-    req.Header.SetRequestURI(t.ReqUrl)
+    req.Header.SetRequestURI(t.ReqURI)
     req.Header.SetContentType(t.ReqContentType)
     req.Header.SetMethod(t.ReqMethod)
 

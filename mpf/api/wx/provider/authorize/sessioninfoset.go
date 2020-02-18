@@ -45,7 +45,7 @@ func (sis *sessionInfoSet) checkData() {
     }
 }
 
-func (sis *sessionInfoSet) SendRequest() api.ApiResult {
+func (sis *sessionInfoSet) SendRequest() api.APIResult {
     sis.checkData()
 
     sessionInfo := make(map[string]interface{})
@@ -54,7 +54,7 @@ func (sis *sessionInfoSet) SendRequest() api.ApiResult {
     reqData["pre_auth_code"] = sis.preAuthCode
     reqData["session_info"] = sessionInfo
     reqBody := mpf.JSONMarshal(reqData)
-    sis.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
+    sis.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := sis.GetRequest()
     req.SetBody([]byte(reqBody))
 

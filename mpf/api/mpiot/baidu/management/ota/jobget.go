@@ -33,7 +33,7 @@ func (jg *jobGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     jg.ServiceUri = "/v3/iot/management/ota/job/" + jg.jobId
 
-    jg.ReqUrl = jg.GetServiceUrl()
+    jg.ReqURI = jg.GetServiceUrl()
 
     return jg.GetRequest()
 }

@@ -41,7 +41,7 @@ func (cl *cidList) SetCidType(cidType string) {
 }
 
 func (cl *cidList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    cl.ReqUrl = cl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(cl.ReqData, "none", 1)
+    cl.ReqURI = cl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(cl.ReqData, "none", 1)
 
     return cl.GetRequest()
 }

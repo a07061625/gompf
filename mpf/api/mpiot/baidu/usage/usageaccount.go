@@ -17,7 +17,7 @@ type usageAccount struct {
 }
 
 func (ua *usageAccount) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    ua.ReqUrl = ua.GetServiceUrl()
+    ua.ReqURI = ua.GetServiceUrl()
 
     return ua.GetRequest()
 }

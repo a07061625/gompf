@@ -41,11 +41,11 @@ func (alg *adminListGet) checkData() {
     alg.ReqData["agentid"] = alg.agentId
 }
 
-func (alg *adminListGet) SendRequest() api.ApiResult {
+func (alg *adminListGet) SendRequest() api.APIResult {
     alg.checkData()
 
     reqBody := mpf.JSONMarshal(alg.ReqData)
-    alg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/get_admin_list?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
+    alg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/service/get_admin_list?suite_access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := alg.GetRequest()
     req.SetBody([]byte(reqBody))
 

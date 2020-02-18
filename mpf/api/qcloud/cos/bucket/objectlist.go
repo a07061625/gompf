@@ -46,7 +46,7 @@ func (ol *objectList) SetMaxNum(maxNum int) {
 }
 
 func (ol *objectList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    ol.ReqUrl = "http://" + ol.ReqHeader["Host"] + ol.ReqUri + "?" + mpf.HTTPCreateParams(ol.ReqData, "none", 1)
+    ol.ReqURI = "http://" + ol.ReqHeader["Host"] + ol.ReqUri + "?" + mpf.HTTPCreateParams(ol.ReqData, "none", 1)
     return ol.GetRequest()
 }
 

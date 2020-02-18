@@ -61,7 +61,7 @@ func (ru *registryUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ru.ServiceUri = "/v3/iot/management/device/" + ru.deviceName
 
-    ru.ReqUrl = ru.GetServiceUrl() + "?updateRegistry"
+    ru.ReqURI = ru.GetServiceUrl() + "?updateRegistry"
 
     reqBody := mpf.JSONMarshal(ru.ExtendData)
     client, req := ru.GetRequest()

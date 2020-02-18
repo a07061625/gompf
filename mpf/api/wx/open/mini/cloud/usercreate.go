@@ -21,8 +21,8 @@ type userCreate struct {
     appId string // 应用ID
 }
 
-func (uc *userCreate) SendRequest() api.ApiResult {
-    uc.ReqUrl = "https://api.weixin.qq.com/tcb/createclouduser?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(uc.appId)
+func (uc *userCreate) SendRequest() api.APIResult {
+    uc.ReqURI = "https://api.weixin.qq.com/tcb/createclouduser?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(uc.appId)
     client, req := uc.GetRequest()
     req.SetBody([]byte("{}"))
 

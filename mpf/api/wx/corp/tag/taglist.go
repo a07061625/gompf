@@ -20,9 +20,9 @@ type tagList struct {
     agentTag string
 }
 
-func (tl *tagList) SendRequest(getType string) api.ApiResult {
+func (tl *tagList) SendRequest(getType string) api.APIResult {
     tl.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(tl.corpId, tl.agentTag, getType)
-    tl.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/list?" + mpf.HTTPCreateParams(tl.ReqData, "none", 1)
+    tl.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/tag/list?" + mpf.HTTPCreateParams(tl.ReqData, "none", 1)
     client, req := tl.GetRequest()
 
     resp, result := tl.SendInner(client, req, errorcode.WxCorpRequestGet)

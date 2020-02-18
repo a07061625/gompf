@@ -35,11 +35,11 @@ func (ad *accountDel) checkData() {
     ad.ReqData["kf_account"] = ad.kfAccount
 }
 
-func (ad *accountDel) SendRequest() api.ApiResult {
+func (ad *accountDel) SendRequest() api.APIResult {
     ad.checkData()
 
     ad.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(ad.appId)
-    ad.ReqUrl = "https://api.weixin.qq.com/customservice/kfaccount/del?" + mpf.HTTPCreateParams(ad.ReqData, "none", 1)
+    ad.ReqURI = "https://api.weixin.qq.com/customservice/kfaccount/del?" + mpf.HTTPCreateParams(ad.ReqData, "none", 1)
     client, req := ad.GetRequest()
 
     resp, result := ad.SendInner(client, req, errorcode.WxAccountRequestGet)

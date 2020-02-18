@@ -19,8 +19,8 @@ type menuSelfInfo struct {
     appId string
 }
 
-func (msi *menuSelfInfo) SendRequest() api.ApiResult {
-    msi.ReqUrl = "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=" + wx.NewUtilWx().GetSingleAccessToken(msi.appId)
+func (msi *menuSelfInfo) SendRequest() api.APIResult {
+    msi.ReqURI = "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=" + wx.NewUtilWx().GetSingleAccessToken(msi.appId)
     client, req := msi.GetRequest()
 
     resp, result := msi.SendInner(client, req, errorcode.WxAccountRequestGet)

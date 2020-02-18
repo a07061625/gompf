@@ -17,7 +17,7 @@ type tagList struct {
 }
 
 func (tl *tagList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    tl.ReqUrl = tl.GetServiceUrl()
+    tl.ReqURI = tl.GetServiceUrl()
 
     return tl.GetRequest()
 }

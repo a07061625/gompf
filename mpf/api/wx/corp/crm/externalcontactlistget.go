@@ -41,11 +41,11 @@ func (ecg *externalContactListGet) checkData() {
     ecg.ReqData["userid"] = ecg.userId
 }
 
-func (ecg *externalContactListGet) SendRequest(getType string) api.ApiResult {
+func (ecg *externalContactListGet) SendRequest(getType string) api.APIResult {
     ecg.checkData()
 
     ecg.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(ecg.corpId, ecg.agentTag, getType)
-    ecg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/crm/get_external_contact_list?" + mpf.HTTPCreateParams(ecg.ReqData, "none", 1)
+    ecg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/crm/get_external_contact_list?" + mpf.HTTPCreateParams(ecg.ReqData, "none", 1)
     client, req := ecg.GetRequest()
 
     resp, result := ecg.SendInner(client, req, errorcode.WxCorpRequestGet)

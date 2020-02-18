@@ -30,7 +30,7 @@ import (
 )
 
 type IAliPayBase interface {
-    api.IApiOuter
+    api.IAPIOuter
     GetRespTag() string
 }
 
@@ -38,7 +38,7 @@ type IAliPayOuter interface {
 }
 
 type utilAliPay struct {
-    api.UtilApi
+    api.UtilAPI
     outer IAliPayOuter
 }
 
@@ -148,7 +148,7 @@ func (util *utilAliPay) VerifySign(data map[string]string, verifyType int, signT
 }
 
 // 发送服务请求
-func (util *utilAliPay) SendRequest(service IAliPayBase, errorCode uint) api.ApiResult {
+func (util *utilAliPay) SendRequest(service IAliPayBase, errorCode uint) api.APIResult {
     resp, result := util.SendOuter(service, errorCode)
     if result.Code > 0 {
         return result
@@ -201,7 +201,7 @@ var (
 )
 
 func init() {
-    insUtil = &utilAliPay{api.NewUtilApi(), nil}
+    insUtil = &utilAliPay{api.NewUtilAPI(), nil}
 }
 
 func LoadUtil(outer IAliPayOuter) {

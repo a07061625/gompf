@@ -19,8 +19,8 @@ type basicInfoGet struct {
     appId string // 应用ID
 }
 
-func (big *basicInfoGet) SendRequest() api.ApiResult {
-    big.ReqUrl = "https://api.weixin.qq.com/cgi-bin/account/getaccountbasicinfo?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(big.appId)
+func (big *basicInfoGet) SendRequest() api.APIResult {
+    big.ReqURI = "https://api.weixin.qq.com/cgi-bin/account/getaccountbasicinfo?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(big.appId)
     client, req := big.GetRequest()
 
     resp, result := big.SendInner(client, req, errorcode.WxOpenRequestGet)

@@ -34,7 +34,7 @@ func (ecl *extContactList) SetSize(size int) {
 }
 
 func (ecl *extContactList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    ecl.ReqUrl = dingtalk.UrlService + "/topapi/extcontact/list?access_token=" + dingtalk.NewUtil().GetAccessToken(ecl.corpId, ecl.agentTag, ecl.atType)
+    ecl.ReqURI = dingtalk.UrlService + "/topapi/extcontact/list?access_token=" + dingtalk.NewUtil().GetAccessToken(ecl.corpId, ecl.agentTag, ecl.atType)
 
     reqBody := mpf.JSONMarshal(ecl.ExtendData)
     client, req := ecl.GetRequest()

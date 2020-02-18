@@ -37,7 +37,7 @@ func (dd *domainDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     dd.ServiceUri = "/v3/iot/management/domain/" + dd.domainName
 
-    dd.ReqUrl = dd.GetServiceUrl()
+    dd.ReqURI = dd.GetServiceUrl()
 
     return dd.GetRequest()
 }

@@ -41,13 +41,13 @@ func (su *shortUrl) checkData() {
     su.ReqData["long_url"] = su.longUrl
 }
 
-func (su *shortUrl) SendRequest() api.ApiResult {
+func (su *shortUrl) SendRequest() api.APIResult {
     su.checkData()
 
     sign := wx.NewUtilWx().CreateSinglePaySign(su.ReqData, su.appId, "md5")
     su.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(su.ReqData))
-    su.ReqUrl = "https://api.mch.weixin.qq.com/tools/shorturl"
+    su.ReqURI = "https://api.mch.weixin.qq.com/tools/shorturl"
     client, req := su.GetRequest()
     req.SetBody([]byte(reqBody))
 

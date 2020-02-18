@@ -15,7 +15,7 @@ type appList struct {
 }
 
 func (al *appList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    al.ReqUrl = dingtalk.UrlService + "/microapp/list?access_token=" + dingtalk.NewUtil().GetAccessToken(al.corpId, al.agentTag, al.atType)
+    al.ReqURI = dingtalk.UrlService + "/microapp/list?access_token=" + dingtalk.NewUtil().GetAccessToken(al.corpId, al.agentTag, al.atType)
 
     client, req := al.GetRequest()
     req.SetBody([]byte("[]"))

@@ -55,7 +55,7 @@ func (lad *leaveApproveDuration) CheckData() (*fasthttp.Client, *fasthttp.Reques
     lad.ExtendData["from_date"] = lad.fromDate
     lad.ExtendData["to_date"] = lad.toDate
 
-    lad.ReqUrl = dingtalk.UrlService + "/topapi/attendance/getleaveapproveduration?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(lad.corpId, lad.agentTag)
+    lad.ReqURI = dingtalk.UrlService + "/topapi/attendance/getleaveapproveduration?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(lad.corpId, lad.agentTag)
 
     reqBody := mpf.JSONMarshal(lad.ExtendData)
     client, req := lad.GetRequest()

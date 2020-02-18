@@ -121,7 +121,7 @@ func (ecc *extContactCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     ecc.ExtendData["name"] = ecc.name
     ecc.ExtendData["mobile"] = ecc.mobile
 
-    ecc.ReqUrl = dingtalk.UrlService + "/topapi/extcontact/create?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ecc.corpId, ecc.agentTag)
+    ecc.ReqURI = dingtalk.UrlService + "/topapi/extcontact/create?access_token=" + dingtalk.NewUtil().GetCorpAccessToken(ecc.corpId, ecc.agentTag)
 
     reqData := make(map[string]interface{})
     reqData["contact"] = ecc.ExtendData

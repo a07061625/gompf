@@ -88,7 +88,7 @@ func (pl *principalList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pl.ServiceUri = "/v1/endpoint/" + pl.endpointName + "/principal"
 
-    pl.ReqUrl = pl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(pl.ReqData, "none", 1)
+    pl.ReqURI = pl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(pl.ReqData, "none", 1)
 
     return pl.GetRequest()
 }

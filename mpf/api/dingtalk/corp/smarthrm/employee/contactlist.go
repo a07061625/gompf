@@ -48,7 +48,7 @@ func (cl *contactList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     cl.ExtendData["userid_list"] = strings.Join(cl.userList, ",")
 
-    cl.ReqUrl = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/listcontact?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(cl.corpId)
+    cl.ReqURI = dingtalk.UrlService + "/topapi/smartwork/hrm/employee/listcontact?access_token=" + dingtalk.NewUtil().GetProviderAuthorizeAccessToken(cl.corpId)
 
     reqBody := mpf.JSONMarshal(cl.ExtendData)
     client, req := cl.GetRequest()

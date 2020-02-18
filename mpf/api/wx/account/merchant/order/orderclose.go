@@ -40,11 +40,11 @@ func (oc *orderClose) checkData() {
     oc.ReqData["order_id"] = oc.orderId
 }
 
-func (oc *orderClose) SendRequest() api.ApiResult {
+func (oc *orderClose) SendRequest() api.APIResult {
     oc.checkData()
 
     reqBody := mpf.JSONMarshal(oc.ReqData)
-    oc.ReqUrl = "https://api.weixin.qq.com/merchant/order/close?access_token=" + wx.NewUtilWx().GetSingleAccessToken(oc.appId)
+    oc.ReqURI = "https://api.weixin.qq.com/merchant/order/close?access_token=" + wx.NewUtilWx().GetSingleAccessToken(oc.appId)
     client, req := oc.GetRequest()
     req.SetBody([]byte(reqBody))
 

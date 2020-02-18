@@ -17,7 +17,7 @@ type aclGet struct {
 }
 
 func (ag *aclGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    ag.ReqUrl = "http://" + ag.ReqHeader["Host"] + ag.ReqUri + "?acl"
+    ag.ReqURI = "http://" + ag.ReqHeader["Host"] + ag.ReqUri + "?acl"
     return ag.GetRequest()
 }
 

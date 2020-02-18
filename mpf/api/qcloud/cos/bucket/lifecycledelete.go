@@ -17,7 +17,7 @@ type lifeCycleDelete struct {
 }
 
 func (lcd *lifeCycleDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    lcd.ReqUrl = "http://" + lcd.ReqHeader["Host"] + lcd.ReqUri + "?lifecycle"
+    lcd.ReqURI = "http://" + lcd.ReqHeader["Host"] + lcd.ReqUri + "?lifecycle"
     return lcd.GetRequest()
 }
 

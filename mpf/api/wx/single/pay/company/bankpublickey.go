@@ -26,11 +26,11 @@ type bankPublicKey struct {
     appId string
 }
 
-func (bpk *bankPublicKey) SendRequest() api.ApiResult {
+func (bpk *bankPublicKey) SendRequest() api.APIResult {
     sign := wx.NewUtilWx().CreateSinglePaySign(bpk.ReqData, bpk.appId, "md5")
     bpk.ReqData["sign"] = sign
     reqBody, _ := xml.Marshal(mpf.XMLMap(bpk.ReqData))
-    bpk.ReqUrl = "https://fraud.mch.weixin.qq.com/risk/getpublickey"
+    bpk.ReqURI = "https://fraud.mch.weixin.qq.com/risk/getpublickey"
     client, req := bpk.GetRequest()
     req.SetBody([]byte(reqBody))
 

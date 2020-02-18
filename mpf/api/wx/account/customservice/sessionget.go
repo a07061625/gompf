@@ -39,11 +39,11 @@ func (sg *sessionGet) checkData() {
     sg.ReqData["openid"] = sg.openid
 }
 
-func (sg *sessionGet) SendRequest() api.ApiResult {
+func (sg *sessionGet) SendRequest() api.APIResult {
     sg.checkData()
 
     sg.ReqData["access_token"] = wx.NewUtilWx().GetSingleAccessToken(sg.appId)
-    sg.ReqUrl = "https://api.weixin.qq.com/customservice/kfsession/getsession?" + mpf.HTTPCreateParams(sg.ReqData, "none", 1)
+    sg.ReqURI = "https://api.weixin.qq.com/customservice/kfsession/getsession?" + mpf.HTTPCreateParams(sg.ReqData, "none", 1)
     client, req := sg.GetRequest()
 
     resp, result := sg.SendInner(client, req, errorcode.WxAccountRequestGet)

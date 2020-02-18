@@ -54,7 +54,7 @@ func (fl *firmwareList) SetFirmwareId(firmwareId string) {
 }
 
 func (fl *firmwareList) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    fl.ReqUrl = fl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(fl.ReqData, "none", 1)
+    fl.ReqURI = fl.GetServiceUrl() + "?" + mpf.HTTPCreateParams(fl.ReqData, "none", 1)
 
     return fl.GetRequest()
 }

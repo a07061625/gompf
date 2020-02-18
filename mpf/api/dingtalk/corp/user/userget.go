@@ -41,7 +41,7 @@ func (ug *userGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ug.ReqData["userid"] = ug.userId
     ug.ReqData["access_token"] = dingtalk.NewUtil().GetAccessToken(ug.corpId, ug.agentTag, ug.atType)
-    ug.ReqUrl = dingtalk.UrlService + "/user/get?" + mpf.HTTPCreateParams(ug.ReqData, "none", 1)
+    ug.ReqURI = dingtalk.UrlService + "/user/get?" + mpf.HTTPCreateParams(ug.ReqData, "none", 1)
 
     return ug.GetRequest()
 }

@@ -30,7 +30,7 @@ func (dls *deviceLogoSet) SetDeviceNo(deviceNo string) {
     match, _ := regexp.MatchString(project.RegexDigit, deviceNo)
     if match {
         dls.deviceNo = deviceNo
-        dls.ReqUrl = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/setting/logo?access_token="
+        dls.ReqURI = mpprint.FeYinServiceDomain + "/device/" + deviceNo + "/setting/logo?access_token="
     } else {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "机器编号不合法", nil))
     }
@@ -62,7 +62,7 @@ func (dls *deviceLogoSet) checkData() (*fasthttp.Client, *fasthttp.Request) {
         panic(mperr.NewPrintFeYin(errorcode.PrintFeYinParam, "LOGO图片链接不能为空", nil))
     }
 
-    dls.ReqUrl += mpprint.NewUtilPrint().GetFeYinAccessToken(dls.GetAppId())
+    dls.ReqURI += mpprint.NewUtilPrint().GetFeYinAccessToken(dls.GetAppId())
     client, req := dls.GetRequest()
     reqBody := mpf.JSONMarshal(dls.ReqData)
     req.SetBody([]byte(reqBody))
@@ -70,7 +70,7 @@ func (dls *deviceLogoSet) checkData() (*fasthttp.Client, *fasthttp.Request) {
     return client, req
 }
 
-func (dls *deviceLogoSet) SendRequest() api.ApiResult {
+func (dls *deviceLogoSet) SendRequest() api.APIResult {
     client, req := dls.checkData()
     resp, result := dls.SendInner(client, req, errorcode.PrintFeYinRequestPost)
     if resp.RespCode > 0 {

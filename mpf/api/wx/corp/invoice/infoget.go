@@ -52,11 +52,11 @@ func (ig *infoGet) checkData() {
     ig.ReqData["encrypt_code"] = ig.encryptCode
 }
 
-func (ig *infoGet) SendRequest(getType string) api.ApiResult {
+func (ig *infoGet) SendRequest(getType string) api.APIResult {
     ig.checkData()
     reqBody := mpf.JSONMarshal(ig.ReqData)
 
-    ig.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/getinvoiceinfo?access_token=" + wx.NewUtilWx().GetCorpCache(ig.corpId, ig.agentTag, getType)
+    ig.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/card/invoice/reimburse/getinvoiceinfo?access_token=" + wx.NewUtilWx().GetCorpCache(ig.corpId, ig.agentTag, getType)
     client, req := ig.GetRequest()
     req.SetBody([]byte(reqBody))
 

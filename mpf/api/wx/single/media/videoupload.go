@@ -55,11 +55,11 @@ func (vu *videoUpload) checkData() {
     vu.ReqData["title"] = vu.title
 }
 
-func (vu *videoUpload) SendRequest() api.ApiResult {
+func (vu *videoUpload) SendRequest() api.APIResult {
     vu.checkData()
 
     reqBody := mpf.JSONMarshal(vu.ReqData)
-    vu.ReqUrl = "https://api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=" + wx.NewUtilWx().GetSingleAccessToken(vu.appId)
+    vu.ReqURI = "https://api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=" + wx.NewUtilWx().GetSingleAccessToken(vu.appId)
     client, req := vu.GetRequest()
     req.SetBody([]byte(reqBody))
 

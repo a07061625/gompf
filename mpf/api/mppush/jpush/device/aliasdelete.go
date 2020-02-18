@@ -37,7 +37,7 @@ func (ad *aliasDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ad.ServiceUri = "/v3/aliases/" + ad.aliasName
 
-    ad.ReqUrl = ad.GetServiceUrl()
+    ad.ReqURI = ad.GetServiceUrl()
 
     return ad.GetRequest()
 }

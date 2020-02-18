@@ -41,14 +41,14 @@ func (acu *appConfigUpload) checkData() {
     }
 }
 
-func (acu *appConfigUpload) SendRequest() api.ApiResult {
+func (acu *appConfigUpload) SendRequest() api.APIResult {
     acu.checkData()
 
     reqData := make(map[string]interface{})
     reqData["type"] = acu.configType
     reqData["config"] = mpf.JSONMarshal(acu.configValue)
     reqBody := mpf.JSONMarshal(reqData)
-    acu.ReqUrl = "https://api.weixin.qq.com/tcb/uploadappconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(acu.appId)
+    acu.ReqURI = "https://api.weixin.qq.com/tcb/uploadappconfig?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(acu.appId)
     client, req := acu.GetRequest()
     req.SetBody([]byte(reqBody))
 

@@ -32,7 +32,7 @@ func (csp *corpSendProgress) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     csp.ExtendData["task_id"] = csp.taskId
 
-    csp.ReqUrl = dingtalk.UrlService + "/topapi/message/corpconversation/getsendprogress?access_token=" + dingtalk.NewUtil().GetAccessToken(csp.corpId, csp.agentTag, csp.atType)
+    csp.ReqURI = dingtalk.UrlService + "/topapi/message/corpconversation/getsendprogress?access_token=" + dingtalk.NewUtil().GetAccessToken(csp.corpId, csp.agentTag, csp.atType)
 
     reqBody := mpf.JSONMarshal(csp.ExtendData)
     client, req := csp.GetRequest()

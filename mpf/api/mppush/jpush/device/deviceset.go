@@ -64,7 +64,7 @@ func (ds *deviceSet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     ds.ServiceUri = "/v3/devices/" + ds.registrationId
 
-    ds.ReqUrl = ds.GetServiceUrl()
+    ds.ReqURI = ds.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(ds.ExtendData)
     client, req := ds.GetRequest()

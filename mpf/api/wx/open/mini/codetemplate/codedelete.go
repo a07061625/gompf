@@ -37,11 +37,11 @@ func (cd *codeDelete) checkData() {
     cd.ReqData["template_id"] = cd.templateId
 }
 
-func (cd *codeDelete) SendRequest() api.ApiResult {
+func (cd *codeDelete) SendRequest() api.APIResult {
     cd.checkData()
 
     reqBody := mpf.JSONMarshal(cd.ReqData)
-    cd.ReqUrl = "https://api.weixin.qq.com/wxa/deletetemplate?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
+    cd.ReqURI = "https://api.weixin.qq.com/wxa/deletetemplate?access_token=" + wx.NewUtilWx().GetOpenAccessToken()
     client, req := cd.GetRequest()
     req.SetBody([]byte(reqBody))
 

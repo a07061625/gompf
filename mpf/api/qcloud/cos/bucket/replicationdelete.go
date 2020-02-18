@@ -17,7 +17,7 @@ type replicationDelete struct {
 }
 
 func (rd *replicationDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    rd.ReqUrl = "http://" + rd.ReqHeader["Host"] + rd.ReqUri + "?replication"
+    rd.ReqURI = "http://" + rd.ReqHeader["Host"] + rd.ReqUri + "?replication"
     return rd.GetRequest()
 }
 

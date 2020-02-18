@@ -38,11 +38,11 @@ func (cm *conditionalMatch) checkData() {
     cm.ReqData["user_id"] = cm.userId
 }
 
-func (cm *conditionalMatch) SendRequest() api.ApiResult {
+func (cm *conditionalMatch) SendRequest() api.APIResult {
     cm.checkData()
 
     reqBody := mpf.JSONMarshal(cm.ReqData)
-    cm.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=" + wx.NewUtilWx().GetSingleAccessToken(cm.appId)
+    cm.ReqURI = "https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=" + wx.NewUtilWx().GetSingleAccessToken(cm.appId)
     client, req := cm.GetRequest()
     req.SetBody([]byte(reqBody))
 

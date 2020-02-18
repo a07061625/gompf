@@ -50,7 +50,7 @@ func (pg *policyGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     pg.ServiceUri = "/v1/endpoint/" + pg.endpointName + "/policy/" + pg.policyName
 
-    pg.ReqUrl = pg.GetServiceUrl()
+    pg.ReqURI = pg.GetServiceUrl()
 
     return pg.GetRequest()
 }

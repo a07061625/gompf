@@ -68,7 +68,7 @@ func (sm *scheduleModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     sm.ServiceUri = "/v3/schedules/" + sm.scheduleId
 
-    sm.ReqUrl = sm.GetServiceUrl()
+    sm.ReqURI = sm.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(sm.ExtendData)
     client, req := sm.GetRequest()

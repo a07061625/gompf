@@ -86,7 +86,7 @@ func (ts *templateSend) checkData() {
     }
 }
 
-func (ts *templateSend) SendRequest(getType string) api.ApiResult {
+func (ts *templateSend) SendRequest(getType string) api.APIResult {
     ts.checkData()
     reqData := make(map[string]interface{})
     reqData["touser"] = ts.openid
@@ -99,7 +99,7 @@ func (ts *templateSend) SendRequest(getType string) api.ApiResult {
     }
     reqBody := mpf.JSONMarshal(reqData)
 
-    ts.ReqUrl = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + wx.NewUtilWx().GetSingleCache(ts.appId, getType)
+    ts.ReqURI = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + wx.NewUtilWx().GetSingleCache(ts.appId, getType)
     client, req := ts.GetRequest()
     req.SetBody([]byte(reqBody))
 

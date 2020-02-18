@@ -38,11 +38,11 @@ func (ac *nicknameCheck) checkData() {
     ac.ReqData["nick_name"] = ac.nickname
 }
 
-func (ac *nicknameCheck) SendRequest() api.ApiResult {
+func (ac *nicknameCheck) SendRequest() api.APIResult {
     ac.checkData()
 
     reqBody := mpf.JSONMarshal(ac.ReqData)
-    ac.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxverify/checkwxverifynickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ac.appId)
+    ac.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxverify/checkwxverifynickname?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ac.appId)
     client, req := ac.GetRequest()
     req.SetBody([]byte(reqBody))
 

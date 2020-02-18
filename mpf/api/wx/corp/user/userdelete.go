@@ -40,11 +40,11 @@ func (ud *userDelete) checkData() {
     ud.ReqData["userid"] = ud.userId
 }
 
-func (ud *userDelete) SendRequest(getType string) api.ApiResult {
+func (ud *userDelete) SendRequest(getType string) api.APIResult {
     ud.checkData()
 
     ud.ReqData["access_token"] = wx.NewUtilWx().GetCorpCache(ud.corpId, ud.agentTag, getType)
-    ud.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?" + mpf.HTTPCreateParams(ud.ReqData, "none", 1)
+    ud.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?" + mpf.HTTPCreateParams(ud.ReqData, "none", 1)
     client, req := ud.GetRequest()
 
     resp, result := ud.SendInner(client, req, errorcode.WxCorpRequestGet)

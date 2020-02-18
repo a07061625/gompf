@@ -20,9 +20,9 @@ type menuDelete struct {
     agentTag string
 }
 
-func (md *menuDelete) SendRequest() api.ApiResult {
+func (md *menuDelete) SendRequest() api.APIResult {
     md.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(md.corpId, md.agentTag)
-    md.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/delete?" + mpf.HTTPCreateParams(md.ReqData, "none", 1)
+    md.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/menu/delete?" + mpf.HTTPCreateParams(md.ReqData, "none", 1)
     client, req := md.GetRequest()
     resp, result := md.SendInner(client, req, errorcode.WxCorpRequestGet)
     if resp.RespCode > 0 {

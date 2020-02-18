@@ -37,11 +37,11 @@ func (udg *userDetailGet) checkData() {
     udg.ReqData["user_ticket"] = udg.userTicket
 }
 
-func (udg *userDetailGet) SendRequest() api.ApiResult {
+func (udg *userDetailGet) SendRequest() api.APIResult {
     udg.checkData()
 
     reqBody := mpf.JSONMarshal(udg.ReqData)
-    udg.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/service/getuserdetail3rd?access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
+    udg.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/service/getuserdetail3rd?access_token=" + wx.NewUtilWx().GetProviderSuiteToken()
     client, req := udg.GetRequest()
     req.SetBody([]byte(reqBody))
 

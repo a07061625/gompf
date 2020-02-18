@@ -19,8 +19,8 @@ type templateIndustryGet struct {
     appId string
 }
 
-func (tig *templateIndustryGet) SendRequest() api.ApiResult {
-    tig.ReqUrl = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tig.appId)
+func (tig *templateIndustryGet) SendRequest() api.APIResult {
+    tig.ReqURI = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token=" + wx.NewUtilWx().GetSingleAccessToken(tig.appId)
     client, req := tig.GetRequest()
 
     resp, result := tig.SendInner(client, req, errorcode.WxAccountRequestGet)

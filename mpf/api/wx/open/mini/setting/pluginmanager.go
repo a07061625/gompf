@@ -67,11 +67,11 @@ func (pm *pluginManager) checkData() {
     }
 }
 
-func (pm *pluginManager) SendRequest() api.ApiResult {
+func (pm *pluginManager) SendRequest() api.APIResult {
     pm.checkData()
 
     reqBody := mpf.JSONMarshal(pm.data)
-    pm.ReqUrl = "https://api.weixin.qq.com/wxa/plugin?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(pm.appId)
+    pm.ReqURI = "https://api.weixin.qq.com/wxa/plugin?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(pm.appId)
     client, req := pm.GetRequest()
     req.SetBody([]byte(reqBody))
 

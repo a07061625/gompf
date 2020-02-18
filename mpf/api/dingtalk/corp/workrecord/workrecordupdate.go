@@ -55,7 +55,7 @@ func (wru *workRecordUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     wru.ExtendData["record_id"] = wru.recordId
     wru.ExtendData["userid"] = wru.userId
 
-    wru.ReqUrl = dingtalk.UrlService + "/topapi/workrecord/update?access_token=" + dingtalk.NewUtil().GetAccessToken(wru.corpId, wru.agentTag, wru.atType)
+    wru.ReqURI = dingtalk.UrlService + "/topapi/workrecord/update?access_token=" + dingtalk.NewUtil().GetAccessToken(wru.corpId, wru.agentTag, wru.atType)
 
     reqBody := mpf.JSONMarshal(wru.ExtendData)
     client, req := wru.GetRequest()

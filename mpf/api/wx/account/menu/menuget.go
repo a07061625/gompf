@@ -19,8 +19,8 @@ type menuGet struct {
     appId string
 }
 
-func (mg *menuGet) SendRequest() api.ApiResult {
-    mg.ReqUrl = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mg.appId)
+func (mg *menuGet) SendRequest() api.APIResult {
+    mg.ReqURI = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=" + wx.NewUtilWx().GetSingleAccessToken(mg.appId)
     client, req := mg.GetRequest()
 
     resp, result := mg.SendInner(client, req, errorcode.WxAccountRequestGet)

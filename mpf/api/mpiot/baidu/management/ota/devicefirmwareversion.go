@@ -35,7 +35,7 @@ func (dfv *deviceFirmwareVersion) CheckData() (*fasthttp.Client, *fasthttp.Reque
     }
     dfv.ExtendData["schemaId"] = dfv.schemaId
 
-    dfv.ReqUrl = dfv.GetServiceUrl()
+    dfv.ReqURI = dfv.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(dfv.ExtendData)
     client, req := dfv.GetRequest()

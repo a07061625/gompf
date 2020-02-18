@@ -33,13 +33,13 @@ func (ca *categoryAdd) checkData() {
     }
 }
 
-func (ca *categoryAdd) SendRequest() api.ApiResult {
+func (ca *categoryAdd) SendRequest() api.APIResult {
     ca.checkData()
 
     reqData := make(map[string]interface{})
     reqData["categories"] = ca.categories
     reqBody := mpf.JSONMarshal(reqData)
-    ca.ReqUrl = "https://api.weixin.qq.com/cgi-bin/wxopen/addcategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ca.appId)
+    ca.ReqURI = "https://api.weixin.qq.com/cgi-bin/wxopen/addcategory?access_token=" + wx.NewUtilWx().GetOpenAuthorizeAccessToken(ca.appId)
     client, req := ca.GetRequest()
     req.SetBody([]byte(reqBody))
 

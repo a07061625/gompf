@@ -17,7 +17,7 @@ type taggingDelete struct {
 }
 
 func (td *taggingDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    td.ReqUrl = "httg://" + td.ReqHeader["Host"] + td.ReqUri + "?tagging"
+    td.ReqURI = "httg://" + td.ReqHeader["Host"] + td.ReqUri + "?tagging"
     return td.GetRequest()
 }
 

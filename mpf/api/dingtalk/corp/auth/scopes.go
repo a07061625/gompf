@@ -14,7 +14,7 @@ type scopes struct {
 }
 
 func (s *scopes) CheckData() (*fasthttp.Client, *fasthttp.Request) {
-    s.ReqUrl = dingtalk.UrlService + "/auth/scopes?access_token=" + dingtalk.NewUtil().GetAccessToken(s.corpId, s.agentTag, s.atType)
+    s.ReqURI = dingtalk.UrlService + "/auth/scopes?access_token=" + dingtalk.NewUtil().GetAccessToken(s.corpId, s.agentTag, s.atType)
 
     return s.GetRequest()
 }

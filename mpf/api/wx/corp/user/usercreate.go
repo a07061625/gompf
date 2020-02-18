@@ -191,7 +191,7 @@ func (uc *userCreate) checkData() {
     }
 }
 
-func (uc *userCreate) SendRequest(getType string) api.ApiResult {
+func (uc *userCreate) SendRequest(getType string) api.APIResult {
     uc.checkData()
 
     reqData := make(map[string]interface{})
@@ -229,7 +229,7 @@ func (uc *userCreate) SendRequest(getType string) api.ApiResult {
         reqData["external_position"] = uc.externalPosition
     }
     reqBody := mpf.JSONMarshal(reqData)
-    uc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=" + wx.NewUtilWx().GetCorpCache(uc.corpId, uc.agentTag, getType)
+    uc.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=" + wx.NewUtilWx().GetCorpCache(uc.corpId, uc.agentTag, getType)
     client, req := uc.GetRequest()
     req.SetBody([]byte(reqBody))
 

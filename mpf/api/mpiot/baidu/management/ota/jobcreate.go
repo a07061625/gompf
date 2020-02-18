@@ -85,7 +85,7 @@ func (jc *jobCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     jc.ExtendData["jobName"] = jc.jobName
     jc.ExtendData["firmwareId"] = jc.firmwareId
 
-    jc.ReqUrl = jc.GetServiceUrl()
+    jc.ReqURI = jc.GetServiceUrl()
 
     reqBody := mpf.JSONMarshal(jc.ExtendData)
     client, req := jc.GetRequest()

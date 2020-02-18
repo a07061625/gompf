@@ -38,14 +38,14 @@ func (mc *menuCreate) checkData() {
     }
 }
 
-func (mc *menuCreate) SendRequest() api.ApiResult {
+func (mc *menuCreate) SendRequest() api.APIResult {
     mc.checkData()
     reqData := make(map[string]interface{})
     reqData["button"] = mc.buttons
     reqBody := mpf.JSONMarshal(reqData)
 
     mc.ReqData["access_token"] = wx.NewUtilWx().GetCorpAccessToken(mc.corpId, mc.agentTag)
-    mc.ReqUrl = "https://qyapi.weixin.qq.com/cgi-bin/menu/create?" + mpf.HTTPCreateParams(mc.ReqData, "none", 1)
+    mc.ReqURI = "https://qyapi.weixin.qq.com/cgi-bin/menu/create?" + mpf.HTTPCreateParams(mc.ReqData, "none", 1)
     client, req := mc.GetRequest()
     req.SetBody([]byte(reqBody))
 
