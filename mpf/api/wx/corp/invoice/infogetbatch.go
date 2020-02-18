@@ -68,7 +68,7 @@ func NewInfoGetBatch(corpId, agentTag string) *infoGetBatch {
     igb := &infoGetBatch{wx.NewBaseWxCorp(), "", "", make([]map[string]string, 0)}
     igb.corpId = corpId
     igb.agentTag = agentTag
-    igb.ReqContentType = project.HttpContentTypeJson
+    igb.ReqContentType = project.HTTPContentTypeJSON
     igb.ReqMethod = fasthttp.MethodPost
     return igb
 }

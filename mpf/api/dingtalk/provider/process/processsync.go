@@ -88,7 +88,7 @@ func NewProcessSync(corpId string) *processSync {
     ps := &processSync{dingtalk.NewProvider(), "", "", "", "", ""}
     ps.corpId = corpId
     ps.ExtendData["agent_id"] = strconv.Itoa(conf.GetSuiteId())
-    ps.ReqContentType = project.HttpContentTypeJson
+    ps.ReqContentType = project.HTTPContentTypeJSON
     ps.ReqMethod = fasthttp.MethodPost
     return ps
 }

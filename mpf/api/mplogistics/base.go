@@ -49,7 +49,7 @@ func (l *BaseAMAli) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewBaseAMAli() BaseAMAli {
     l := BaseAMAli{newBaseLogistics(), ""}
-    l.ReqContentType = project.HttpContentTypeForm
+    l.ReqContentType = project.HTTPContentTypeForm
     l.ReqMethod = fasthttp.MethodGet
     return l
 }
@@ -86,7 +86,7 @@ func (l *BaseKd100) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewBaseKd100() BaseKd100 {
     l := BaseKd100{newBaseLogistics(), make(map[string]interface{})}
-    l.ReqContentType = project.HttpContentTypeForm
+    l.ReqContentType = project.HTTPContentTypeForm
     l.ReqMethod = fasthttp.MethodPost
     return l
 }
@@ -103,7 +103,7 @@ func (l *BaseKdBird) createSign() {
     l.ReqData["DataSign"] = base64.StdEncoding.EncodeToString([]byte(signStr))
     l.ReqData["EBusinessID"] = conf.GetBusinessId()
     l.ReqData["DataType"] = "2"
-    l.ReqContentType = project.HttpContentTypeForm
+    l.ReqContentType = project.HTTPContentTypeForm
     l.ReqMethod = fasthttp.MethodPost
 }
 

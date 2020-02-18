@@ -56,7 +56,7 @@ func NewPreEntryQuery(corpId, agentTag, atType string) *preEntryQuery {
     peq.atType = atType
     peq.ExtendData["offset"] = 0
     peq.ExtendData["size"] = 10
-    peq.ReqContentType = project.HttpContentTypeJson
+    peq.ReqContentType = project.HTTPContentTypeJSON
     peq.ReqMethod = fasthttp.MethodPost
     return peq
 }

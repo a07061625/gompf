@@ -68,7 +68,7 @@ func (og *orderGet) SendRequest() api.ApiResult {
 func NewOrderGet(appId string) *orderGet {
     og := &orderGet{wx.NewBaseWxAccount(), "", ""}
     og.appId = appId
-    og.ReqContentType = project.HttpContentTypeJson
+    og.ReqContentType = project.HTTPContentTypeJSON
     og.ReqMethod = fasthttp.MethodPost
     return og
 }

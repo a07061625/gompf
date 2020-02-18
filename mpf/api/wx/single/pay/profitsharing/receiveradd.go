@@ -75,7 +75,7 @@ func NewReceiverAdd(appId, merchantType string) *receiverAdd {
     ra.SetPayAccount(conf, merchantType)
     ra.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     ra.ReqData["sign_type"] = "HMAC-SHA256"
-    ra.ReqContentType = project.HttpContentTypeXml
+    ra.ReqContentType = project.HTTPContentTypeXML
     ra.ReqMethod = fasthttp.MethodPost
     return ra
 }

@@ -212,7 +212,7 @@ func NewPayMicro(appId string) *payMicro {
     pm.ReqData["sign_type"] = "MD5"
     pm.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     pm.ReqData["fee_type"] = "CNY"
-    pm.ReqContentType = project.HttpContentTypeXml
+    pm.ReqContentType = project.HTTPContentTypeXML
     pm.ReqMethod = fasthttp.MethodPost
     return pm
 }

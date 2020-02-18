@@ -85,7 +85,7 @@ func (as *agentSet) SetReportEnterFlag(reportEnterFlag int) {
 }
 
 func (as *agentSet) SetHomeUrl(homeUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, homeUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, homeUrl)
     if match {
         as.ReqData["home_url"] = homeUrl
     } else {

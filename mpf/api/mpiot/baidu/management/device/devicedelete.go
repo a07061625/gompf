@@ -55,7 +55,7 @@ func NewDeviceDelete() *deviceDelete {
     dd := &deviceDelete{mpiot.NewBaseBaiDu(), make([]string, 0)}
     dd.ServiceUri = "/v3/iot/management/device"
     dd.ReqData["remove"] = ""
-    dd.ReqContentType = project.HttpContentTypeJson
+    dd.ReqContentType = project.HTTPContentTypeJSON
     dd.ReqMethod = fasthttp.MethodPut
     return dd
 }

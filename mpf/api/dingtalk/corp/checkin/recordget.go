@@ -98,7 +98,7 @@ func NewRecordGet(corpId, agentTag, atType string) *recordGet {
     rg.atType = atType
     rg.ExtendData["cursor"] = 0
     rg.ExtendData["size"] = 10
-    rg.ReqContentType = project.HttpContentTypeJson
+    rg.ReqContentType = project.HTTPContentTypeJSON
     rg.ReqMethod = fasthttp.MethodPost
     return rg
 }

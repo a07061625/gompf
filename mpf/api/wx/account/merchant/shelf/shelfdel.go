@@ -66,7 +66,7 @@ func (sd *shelfDel) SendRequest() api.ApiResult {
 func NewShelfDel(appId string) *shelfDel {
     sd := &shelfDel{wx.NewBaseWxAccount(), "", 0}
     sd.appId = appId
-    sd.ReqContentType = project.HttpContentTypeJson
+    sd.ReqContentType = project.HTTPContentTypeJSON
     sd.ReqMethod = fasthttp.MethodPost
     return sd
 }

@@ -93,7 +93,7 @@ func NewSharingQuery(appId, merchantType string) *sharingQuery {
     delete(sq.ReqData, "appid")
     sq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     sq.ReqData["sign_type"] = "HMAC-SHA256"
-    sq.ReqContentType = project.HttpContentTypeXml
+    sq.ReqContentType = project.HTTPContentTypeXML
     sq.ReqMethod = fasthttp.MethodPost
     return sq
 }

@@ -85,7 +85,7 @@ func (utb *unTaggingBatch) SendRequest() api.ApiResult {
 func NewUnTaggingBatch(appId string) *unTaggingBatch {
     utb := &unTaggingBatch{wx.NewBaseWxAccount(), "", 0, make([]string, 0)}
     utb.appId = appId
-    utb.ReqContentType = project.HttpContentTypeJson
+    utb.ReqContentType = project.HTTPContentTypeJSON
     utb.ReqMethod = fasthttp.MethodPost
     return utb
 }

@@ -1,9 +1,6 @@
-/**
- * 自定义协议解析
- * User: 姜伟
- * Date: 20-2-17
- * Time: 下午10:31
- */
+// Package mpprotocol protocol_basic
+// User: 姜伟
+// Time: 2020-02-19 04:56:11
 package mpprotocol
 
 import (
@@ -18,25 +15,28 @@ import (
 )
 
 const (
+    // HeaderLength 请求头长度
     HeaderLength uint32 = 4
 )
 
+// ProtocolData 协议数据类型
 type ProtocolData struct {
     Command string                 // 命令
     Extend  string                 // 扩展字段
-    Uri     string                 // URI
+    URI     string                 // URI
     Data    map[string]interface{} // 数据
 }
 
+// NewProtocolData 实例化协议数据类型
 func NewProtocolData() *ProtocolData {
     pd := &ProtocolData{}
     pd.Extend = "0000"
-    pd.Uri = "/"
+    pd.URI = "/"
     pd.Data = make(map[string]interface{})
     return pd
 }
 
-// 打包
+// Pack 数据打包
 func Pack(pd *ProtocolData) []byte {
     if len(pd.Command) != 4 {
         panic(mperr.NewProtocol(errorcode.ProtocolPacket, "命令不合法", nil))
@@ -44,7 +44,7 @@ func Pack(pd *ProtocolData) []byte {
     if len(pd.Extend) != 4 {
         panic(mperr.NewProtocol(errorcode.ProtocolPacket, "扩展字段不合法", nil))
     }
-    if !strings.HasPrefix(pd.Uri, "/") {
+    if !strings.HasPrefix(pd.URI, "/") {
         panic(mperr.NewProtocol(errorcode.ProtocolPacket, "URI不合法", nil))
     }
 
@@ -61,7 +61,7 @@ func Pack(pd *ProtocolData) []byte {
     return buffer
 }
 
-// 解包
+// Unpack 数据解包
 func Unpack(r io.Reader) *ProtocolData {
     // 直接先取数据,防止因部分数据格式有问题导致所有数据都不可用
     headerBuffer := make([]byte, HeaderLength)

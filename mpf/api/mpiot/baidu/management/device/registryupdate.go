@@ -74,7 +74,7 @@ func NewRegistryUpdate() *registryUpdate {
     ru := &registryUpdate{mpiot.NewBaseBaiDu(), "", "", "", true}
     ru.ReqData["updateRegistry"] = ""
     ru.ExtendData["favourite"] = true
-    ru.ReqContentType = project.HttpContentTypeJson
+    ru.ReqContentType = project.HTTPContentTypeJSON
     ru.ReqMethod = fasthttp.MethodPut
     return ru
 }

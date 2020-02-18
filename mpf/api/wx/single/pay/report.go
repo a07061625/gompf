@@ -34,7 +34,7 @@ func (r *report) SetDeviceInfo(deviceInfo string) {
 }
 
 func (r *report) SetInterfaceUrl(interfaceUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, interfaceUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, interfaceUrl)
     if match {
         r.interfaceUrl = interfaceUrl
     } else {
@@ -97,7 +97,7 @@ func NewReport(appId, merchantType string) *report {
     r.SetPayAccount(conf, merchantType)
     r.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     r.ReqData["user_ip"] = conf.GetClientIp()
-    r.ReqContentType = project.HttpContentTypeXml
+    r.ReqContentType = project.HTTPContentTypeXML
     r.ReqMethod = fasthttp.MethodPost
     return r
 }

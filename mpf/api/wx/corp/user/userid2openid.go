@@ -70,7 +70,7 @@ func NewUserId2Openid(corpId, agentTag string) *userId2Openid {
     uo := &userId2Openid{wx.NewBaseWxCorp(), "", "", ""}
     uo.corpId = corpId
     uo.agentTag = agentTag
-    uo.ReqContentType = project.HttpContentTypeJson
+    uo.ReqContentType = project.HTTPContentTypeJSON
     uo.ReqMethod = fasthttp.MethodPost
     return uo
 }

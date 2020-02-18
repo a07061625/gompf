@@ -80,7 +80,7 @@ func (c *configCos) GetBucketName() string {
 }
 
 func (c *configCos) SetBucketDomain(bucketDomain string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, bucketDomain)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, bucketDomain)
     if match {
         c.bucketDomain = bucketDomain
     } else {

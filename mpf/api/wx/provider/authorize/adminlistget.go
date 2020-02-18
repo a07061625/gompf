@@ -68,7 +68,7 @@ func (alg *adminListGet) SendRequest() api.ApiResult {
 func NewAdminListGet(corpId string) *adminListGet {
     alg := &adminListGet{wx.NewBaseWxProvider(), "", ""}
     alg.ReqData["auth_corpid"] = corpId
-    alg.ReqContentType = project.HttpContentTypeJson
+    alg.ReqContentType = project.HTTPContentTypeJSON
     alg.ReqMethod = fasthttp.MethodPost
     return alg
 }

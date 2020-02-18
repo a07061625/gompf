@@ -84,7 +84,7 @@ func NewBatchAdd(corpId, agentTag, atType string) *batchAdd {
     ba.corpId = corpId
     ba.agentTag = agentTag
     ba.atType = atType
-    ba.ReqContentType = project.HttpContentTypeJson
+    ba.ReqContentType = project.HTTPContentTypeJSON
     ba.ReqMethod = fasthttp.MethodPost
     return ba
 }

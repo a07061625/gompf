@@ -89,7 +89,7 @@ func (bds *businessDomainSet) SendRequest() api.ApiResult {
 func NewBusinessDomainSet(appId string) *businessDomainSet {
     bds := &businessDomainSet{wx.NewBaseWxOpen(), "", "", make(map[string][]string)}
     bds.appId = appId
-    bds.ReqContentType = project.HttpContentTypeJson
+    bds.ReqContentType = project.HTTPContentTypeJSON
     bds.ReqMethod = fasthttp.MethodPost
     return bds
 }

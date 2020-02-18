@@ -79,7 +79,7 @@ func (ca *conditionalAdd) SendRequest() api.ApiResult {
 func NewConditionalAdd(appId string) *conditionalAdd {
     ca := &conditionalAdd{wx.NewBaseWxAccount(), "", make([]map[string]interface{}, 0), make(map[string]interface{})}
     ca.appId = appId
-    ca.ReqContentType = project.HttpContentTypeJson
+    ca.ReqContentType = project.HTTPContentTypeJSON
     ca.ReqMethod = fasthttp.MethodPost
     return ca
 }

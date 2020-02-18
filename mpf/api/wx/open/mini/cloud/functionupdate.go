@@ -132,7 +132,7 @@ func NewFunctionUpdate(appId string) *functionUpdate {
     fu.appId = appId
     fu.ReqData["Handler"] = "index.main"
     fu.ReqData["InstallDependency"] = "FALSE"
-    fu.ReqContentType = project.HttpContentTypeJson
+    fu.ReqContentType = project.HTTPContentTypeJSON
     fu.ReqMethod = fasthttp.MethodPost
     return fu
 }

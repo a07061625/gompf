@@ -84,7 +84,7 @@ func NewScheduleCreate(key string) *scheduleCreate {
     sc := &scheduleCreate{mppush.NewBaseJPush(mppush.JPushServiceDomainApi, key, "app"), "", make(map[string]interface{}), make(map[string]interface{})}
     sc.ServiceUri = "/v3/schedules"
     sc.ExtendData["enabled"] = true
-    sc.ReqContentType = project.HttpContentTypeJson
+    sc.ReqContentType = project.HTTPContentTypeJSON
     sc.ReqMethod = fasthttp.MethodPost
     return sc
 }

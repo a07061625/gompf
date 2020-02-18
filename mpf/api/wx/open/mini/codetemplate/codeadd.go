@@ -64,7 +64,7 @@ func (ca *codeAdd) SendRequest() api.ApiResult {
 
 func NewCodeAdd() *codeAdd {
     ca := &codeAdd{wx.NewBaseWxOpen(), ""}
-    ca.ReqContentType = project.HttpContentTypeJson
+    ca.ReqContentType = project.HTTPContentTypeJSON
     ca.ReqMethod = fasthttp.MethodPost
     return ca
 }

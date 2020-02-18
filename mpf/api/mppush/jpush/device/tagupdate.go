@@ -62,7 +62,7 @@ func (tu *tagUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewTagUpdate(key string) *tagUpdate {
     tu := &tagUpdate{mppush.NewBaseJPush(mppush.JPushServiceDomainDevice, key, "app"), "", make(map[string]interface{})}
-    tu.ReqContentType = project.HttpContentTypeJson
+    tu.ReqContentType = project.HTTPContentTypeJSON
     tu.ReqMethod = fasthttp.MethodPost
     return tu
 }

@@ -135,7 +135,7 @@ func NewQrCode(appId string) *qrCode {
     qc.lineColor["r"] = "0"
     qc.lineColor["g"] = "0"
     qc.lineColor["b"] = "0"
-    qc.ReqContentType = project.HttpContentTypeJson
+    qc.ReqContentType = project.HTTPContentTypeJSON
     qc.ReqMethod = fasthttp.MethodPost
     return qc
 }

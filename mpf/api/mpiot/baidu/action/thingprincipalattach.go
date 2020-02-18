@@ -78,7 +78,7 @@ func (tpa *thingPrincipalAttach) CheckData() (*fasthttp.Client, *fasthttp.Reques
 func NewThingPrincipalAttach() *thingPrincipalAttach {
     tpa := &thingPrincipalAttach{mpiot.NewBaseBaiDu(), "", "", ""}
     tpa.ServiceUri = "/v1/action/attach-thing-principal"
-    tpa.ReqContentType = project.HttpContentTypeJson
+    tpa.ReqContentType = project.HTTPContentTypeJSON
     tpa.ReqMethod = fasthttp.MethodPost
     return tpa
 }

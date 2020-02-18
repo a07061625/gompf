@@ -78,7 +78,7 @@ func (ppr *principalPolicyRemove) CheckData() (*fasthttp.Client, *fasthttp.Reque
 func NewPrincipalPolicyRemove() *principalPolicyRemove {
     ppr := &principalPolicyRemove{mpiot.NewBaseBaiDu(), "", "", ""}
     ppr.ServiceUri = "/v1/action/remove-principal-policy"
-    ppr.ReqContentType = project.HttpContentTypeJson
+    ppr.ReqContentType = project.HTTPContentTypeJSON
     ppr.ReqMethod = fasthttp.MethodPost
     return ppr
 }

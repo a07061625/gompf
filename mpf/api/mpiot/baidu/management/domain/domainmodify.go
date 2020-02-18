@@ -62,7 +62,7 @@ func (dm *domainModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewDomainModify() *domainModify {
     dm := &domainModify{mpiot.NewBaseBaiDu(), "", ""}
-    dm.ReqContentType = project.HttpContentTypeJson
+    dm.ReqContentType = project.HTTPContentTypeJSON
     dm.ReqMethod = fasthttp.MethodPut
     return dm
 }

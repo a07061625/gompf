@@ -151,7 +151,7 @@ func NewCouponSend(appId string) *couponSend {
     cs.ReqData["openid_count"] = "1"
     cs.ReqData["version"] = "1.0"
     cs.ReqData["type"] = "XML"
-    cs.ReqContentType = project.HttpContentTypeXml
+    cs.ReqContentType = project.HTTPContentTypeXML
     cs.ReqMethod = fasthttp.MethodPost
     return cs
 }

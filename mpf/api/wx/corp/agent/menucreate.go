@@ -71,7 +71,7 @@ func NewMenuCreate(corpId, agentTag string) *menuCreate {
     mc.corpId = corpId
     mc.agentTag = agentTag
     mc.ReqData["agentid"] = agentInfo["id"]
-    mc.ReqContentType = project.HttpContentTypeJson
+    mc.ReqContentType = project.HTTPContentTypeJSON
     mc.ReqMethod = fasthttp.MethodPost
     return mc
 }

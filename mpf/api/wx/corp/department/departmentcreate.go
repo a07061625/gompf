@@ -101,7 +101,7 @@ func NewDepartmentCreate(corpId, agentTag string) *departmentCreate {
     dc := &departmentCreate{wx.NewBaseWxCorp(), "", "", "", 0, 0, 0}
     dc.corpId = corpId
     dc.agentTag = agentTag
-    dc.ReqContentType = project.HttpContentTypeJson
+    dc.ReqContentType = project.HTTPContentTypeJSON
     dc.ReqMethod = fasthttp.MethodPost
     return dc
 }

@@ -63,7 +63,7 @@ func (tc *thingCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewThingCreate() *thingCreate {
     tc := &thingCreate{mpiot.NewBaseBaiDu(), "", ""}
-    tc.ReqContentType = project.HttpContentTypeJson
+    tc.ReqContentType = project.HTTPContentTypeJSON
     tc.ReqMethod = fasthttp.MethodPost
     return tc
 }

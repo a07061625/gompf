@@ -36,7 +36,7 @@ func (vp *versionPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(vp.versionConfig)
     xmlStr, _ := xmlData.Xml("VersioningConfiguration")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     vp.ReqUrl = "http://" + vp.ReqHeader["Host"] + vp.ReqUri + "?versioning"
     client, req := vp.GetRequest()
     req.SetBody([]byte(reqBody))

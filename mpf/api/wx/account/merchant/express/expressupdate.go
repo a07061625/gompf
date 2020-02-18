@@ -110,7 +110,7 @@ func NewExpressUpdate(appId string) *expressUpdate {
     eu.appId = appId
     eu.payMode = -1
     eu.valuation = 0
-    eu.ReqContentType = project.HttpContentTypeJson
+    eu.ReqContentType = project.HTTPContentTypeJSON
     eu.ReqMethod = fasthttp.MethodPost
     return eu
 }

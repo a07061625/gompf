@@ -42,7 +42,7 @@ func (jc *singleJsConfig) SetNonceStr(nonceStr string) {
 }
 
 func (jc *singleJsConfig) SetUrl(url string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, url)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, url)
     if match {
         jc.url = url
     } else {

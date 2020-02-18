@@ -39,7 +39,7 @@ func (lp *logPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(lp.logInfo)
     xmlStr, _ := xmlData.Xml("BucketLoggingStatus")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     lp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     lp.ReqUrl = "http://" + lp.ReqHeader["Host"] + lp.ReqUri + "?logging"

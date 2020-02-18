@@ -103,7 +103,7 @@ func NewAttendanceList(corpId, agentTag string) *attendanceList {
     al.agentTag = agentTag
     al.ExtendData["offset"] = 0
     al.ExtendData["limit"] = 10
-    al.ReqContentType = project.HttpContentTypeJson
+    al.ReqContentType = project.HTTPContentTypeJSON
     al.ReqMethod = fasthttp.MethodPost
     return al
 }

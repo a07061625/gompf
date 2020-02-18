@@ -77,7 +77,7 @@ func (iu *imageUpload) SendRequest() api.ApiResult {
 func NewImageUpload(appId string) *imageUpload {
     iu := &imageUpload{wx.NewBaseWxAccount(), "", "", ""}
     iu.appId = appId
-    iu.ReqContentType = project.HttpContentTypeForm
+    iu.ReqContentType = project.HTTPContentTypeForm
     iu.ReqMethod = fasthttp.MethodPost
     return iu
 }

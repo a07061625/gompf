@@ -52,7 +52,7 @@ func (pc *productCreate) SetCategoryList(categoryList []int) {
 }
 
 func (pc *productCreate) SetMainImage(mainImage string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, mainImage)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, mainImage)
     if match {
         pc.mainImage = mainImage
     } else {
@@ -63,7 +63,7 @@ func (pc *productCreate) SetMainImage(mainImage string) {
 func (pc *productCreate) SetImageList(imageList []string) {
     pc.imageList = make([]string, 0)
     for _, v := range imageList {
-        match, _ := regexp.MatchString(project.RegexUrlHttp, v)
+        match, _ := regexp.MatchString(project.RegexURLHTTP, v)
         if match {
             pc.imageList = append(pc.imageList, v)
         }
@@ -182,7 +182,7 @@ func (pc *productCreate) SendRequest() api.ApiResult {
 func NewProductCreate(appId string) *productCreate {
     pc := &productCreate{wx.NewBaseWxAccount(), "", "", make([]int, 0), "", make([]string, 0), make([]map[string]interface{}, 0), make([]map[string]interface{}, 0), make([]map[string]interface{}, 0), 0, make([]map[string]interface{}, 0), make(map[string]interface{}), make(map[string]interface{})}
     pc.appId = appId
-    pc.ReqContentType = project.HttpContentTypeJson
+    pc.ReqContentType = project.HTTPContentTypeJSON
     pc.ReqMethod = fasthttp.MethodPost
     return pc
 }

@@ -109,7 +109,7 @@ func (ns *nicknameSet) SendRequest() api.ApiResult {
 func NewNicknameSet(appId string) *nicknameSet {
     ns := &nicknameSet{wx.NewBaseWxOpen(), "", "", "", "", make(map[string]string)}
     ns.appId = appId
-    ns.ReqContentType = project.HttpContentTypeJson
+    ns.ReqContentType = project.HTTPContentTypeJSON
     ns.ReqMethod = fasthttp.MethodPost
     return ns
 }

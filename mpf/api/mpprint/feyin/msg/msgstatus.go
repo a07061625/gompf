@@ -65,6 +65,6 @@ func NewMsgStatus(appId string) *msgStatus {
     ms := &msgStatus{mpprint.NewBaseFeYin(), ""}
     ms.SetAppId(appId)
     ms.ReqMethod = fasthttp.MethodGet
-    ms.ReqContentType = project.HttpContentTypeForm
+    ms.ReqContentType = project.HTTPContentTypeForm
     return ms
 }

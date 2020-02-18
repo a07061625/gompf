@@ -45,7 +45,7 @@ func (su *subscribeUrl) SetTemplateId(templateId string) {
 }
 
 func (su *subscribeUrl) SetRedirectUrl(redirectUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, redirectUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, redirectUrl)
     if match {
         su.redirectUrl = redirectUrl
     } else {

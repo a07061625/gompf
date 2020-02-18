@@ -72,7 +72,7 @@ func (m *BaseBaiDu) SetSk(sk string) {
 }
 
 func (m *BaseBaiDu) SetReqRefer(reqRefer string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, reqRefer)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, reqRefer)
     if match {
         m.reqRefer = reqRefer
     } else {

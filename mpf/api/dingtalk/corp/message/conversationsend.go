@@ -80,7 +80,7 @@ func NewConversationSend(corpId, agentTag, atType string) *conversationSend {
     cs.corpId = corpId
     cs.agentTag = agentTag
     cs.atType = atType
-    cs.ReqContentType = project.HttpContentTypeJson
+    cs.ReqContentType = project.HTTPContentTypeJSON
     cs.ReqMethod = fasthttp.MethodPost
     return cs
 }

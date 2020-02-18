@@ -53,7 +53,7 @@ func (aig *authInfoGet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewAuthInfoGet() *authInfoGet {
     aig := &authInfoGet{dingtalk.NewProvider(), ""}
-    aig.ReqContentType = project.HttpContentTypeJson
+    aig.ReqContentType = project.HTTPContentTypeJSON
     aig.ReqMethod = fasthttp.MethodPost
     return aig
 }

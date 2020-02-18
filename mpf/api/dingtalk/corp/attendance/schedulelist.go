@@ -69,7 +69,7 @@ func NewScheduleList(corpId, agentTag string) *scheduleList {
     sl.agentTag = agentTag
     sl.ExtendData["offset"] = 0
     sl.ExtendData["size"] = 10
-    sl.ReqContentType = project.HttpContentTypeJson
+    sl.ReqContentType = project.HTTPContentTypeJSON
     sl.ReqMethod = fasthttp.MethodPost
     return sl
 }

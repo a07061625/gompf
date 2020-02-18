@@ -79,7 +79,7 @@ func NewBankPublicKey(appId string) *bankPublicKey {
     bpk.ReqData["mch_id"] = conf.GetPayMchId()
     bpk.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     bpk.ReqData["sign_type"] = "MD5"
-    bpk.ReqContentType = project.HttpContentTypeXml
+    bpk.ReqContentType = project.HTTPContentTypeXML
     bpk.ReqMethod = fasthttp.MethodPost
     return bpk
 }

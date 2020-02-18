@@ -128,7 +128,7 @@ func NewSharingFinish(appId, merchantType string) *sharingFinish {
     delete(sf.ReqData, "sub_appid")
     sf.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     sf.ReqData["sign_type"] = "HMAC-SHA256"
-    sf.ReqContentType = project.HttpContentTypeXml
+    sf.ReqContentType = project.HTTPContentTypeXML
     sf.ReqMethod = fasthttp.MethodPost
     return sf
 }

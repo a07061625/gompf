@@ -100,7 +100,7 @@ func NewInfoGet(appId string) *infoGet {
     ig.ReqData["mch_id"] = conf.GetPayMchId()
     ig.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     ig.ReqData["bill_type"] = "MCHT"
-    ig.ReqContentType = project.HttpContentTypeXml
+    ig.ReqContentType = project.HTTPContentTypeXML
     ig.ReqMethod = fasthttp.MethodPost
     return ig
 }

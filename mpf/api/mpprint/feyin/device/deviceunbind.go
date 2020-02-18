@@ -68,6 +68,6 @@ func NewDeviceUnbind(appId string) *deviceUnbind {
     db := &deviceUnbind{mpprint.NewBaseFeYin(), ""}
     db.SetAppId(appId)
     db.ReqMethod = fasthttp.MethodPost
-    db.ReqContentType = project.HttpContentTypeJson
+    db.ReqContentType = project.HTTPContentTypeJSON
     return db
 }

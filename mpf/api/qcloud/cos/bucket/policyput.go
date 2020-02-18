@@ -48,7 +48,7 @@ func (pp *policyPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewPolicyPut() *policyPut {
     pp := &policyPut{qcloud.NewCos(), make(map[string]interface{})}
     pp.ReqMethod = fasthttp.MethodPut
-    pp.ReqContentType = project.HttpContentTypeJson
+    pp.ReqContentType = project.HTTPContentTypeJSON
     pp.SetParamData("policy", "")
     return pp
 }

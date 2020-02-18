@@ -79,7 +79,7 @@ func (ibg *infoBatchGet) SendRequest() api.ApiResult {
 func NewInfoBatchGet(appId string) *infoBatchGet {
     ibg := &infoBatchGet{wx.NewBaseWxAccount(), "", make([]string, 0)}
     ibg.appId = appId
-    ibg.ReqContentType = project.HttpContentTypeJson
+    ibg.ReqContentType = project.HTTPContentTypeJSON
     ibg.ReqMethod = fasthttp.MethodPost
     return ibg
 }

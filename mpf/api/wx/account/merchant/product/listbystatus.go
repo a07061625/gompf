@@ -59,7 +59,7 @@ func NewListByStatus(appId string) *listByStatus {
     lbs := &listByStatus{wx.NewBaseWxAccount(), "", 0}
     lbs.appId = appId
     lbs.productStatus = 0
-    lbs.ReqContentType = project.HttpContentTypeJson
+    lbs.ReqContentType = project.HTTPContentTypeJSON
     lbs.ReqMethod = fasthttp.MethodPost
     return lbs
 }

@@ -35,7 +35,7 @@ func (sa *shelfAdd) SetShelfName(shelfName string) {
 }
 
 func (sa *shelfAdd) SetShelfBanner(shelfBanner string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, shelfBanner)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, shelfBanner)
     if match {
         sa.shelfBanner = shelfBanner
     } else {
@@ -93,7 +93,7 @@ func (sa *shelfAdd) SendRequest() api.ApiResult {
 func NewShelfAdd(appId string) *shelfAdd {
     sa := &shelfAdd{wx.NewBaseWxAccount(), "", "", "", make([]map[string]interface{}, 0)}
     sa.appId = appId
-    sa.ReqContentType = project.HttpContentTypeJson
+    sa.ReqContentType = project.HTTPContentTypeJSON
     sa.ReqMethod = fasthttp.MethodPost
     return sa
 }

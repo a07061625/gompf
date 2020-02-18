@@ -66,7 +66,7 @@ func (ac *nicknameCheck) SendRequest() api.ApiResult {
 func NewNicknameCheck(appId string) *nicknameCheck {
     ac := &nicknameCheck{wx.NewBaseWxOpen(), "", ""}
     ac.appId = appId
-    ac.ReqContentType = project.HttpContentTypeJson
+    ac.ReqContentType = project.HTTPContentTypeJSON
     ac.ReqMethod = fasthttp.MethodPost
     return ac
 }

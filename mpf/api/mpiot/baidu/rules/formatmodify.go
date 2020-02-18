@@ -80,7 +80,7 @@ func (fm *formatModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewFormatModify() *formatModify {
     fm := &formatModify{mpiot.NewBaseBaiDu(), ""}
-    fm.ReqContentType = project.HttpContentTypeJson
+    fm.ReqContentType = project.HTTPContentTypeJSON
     fm.ReqMethod = fasthttp.MethodPut
     return fm
 }

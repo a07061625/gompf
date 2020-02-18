@@ -66,7 +66,7 @@ func NewUserInfoByCode(corpId, atType string) *userInfoByCode {
     uic := &userInfoByCode{dingtalk.NewCorp(), "", "", ""}
     uic.corpId = corpId
     uic.atType = atType
-    uic.ReqContentType = project.HttpContentTypeJson
+    uic.ReqContentType = project.HTTPContentTypeJSON
     uic.ReqMethod = fasthttp.MethodPost
     return uic
 }

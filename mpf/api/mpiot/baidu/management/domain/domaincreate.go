@@ -76,7 +76,7 @@ func (dc *domainCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewDomainCreate() *domainCreate {
     dc := &domainCreate{mpiot.NewBaseBaiDu(), "", "", ""}
     dc.ServiceUri = "/v3/iot/management/domain"
-    dc.ReqContentType = project.HttpContentTypeJson
+    dc.ReqContentType = project.HTTPContentTypeJSON
     dc.ReqMethod = fasthttp.MethodPost
     return dc
 }

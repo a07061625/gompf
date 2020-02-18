@@ -52,7 +52,7 @@ func NewRoleDelete(corpId, agentTag, atType string) *roleDelete {
     rd.corpId = corpId
     rd.agentTag = agentTag
     rd.atType = atType
-    rd.ReqContentType = project.HttpContentTypeJson
+    rd.ReqContentType = project.HTTPContentTypeJSON
     rd.ReqMethod = fasthttp.MethodPost
     return rd
 }

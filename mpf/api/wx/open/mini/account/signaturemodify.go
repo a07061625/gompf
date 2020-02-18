@@ -66,7 +66,7 @@ func (sm *signatureModify) SendRequest() api.ApiResult {
 func NewSignatureModify(appId string) *signatureModify {
     sm := &signatureModify{wx.NewBaseWxOpen(), "", ""}
     sm.appId = appId
-    sm.ReqContentType = project.HttpContentTypeJson
+    sm.ReqContentType = project.HTTPContentTypeJSON
     sm.ReqMethod = fasthttp.MethodPost
     return sm
 }

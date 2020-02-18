@@ -73,7 +73,7 @@ func (ubb *unBlackBatch) SendRequest() api.ApiResult {
 func NewUnBlackBatch(appId string) *unBlackBatch {
     ubb := &unBlackBatch{wx.NewBaseWxAccount(), "", make([]string, 0)}
     ubb.appId = appId
-    ubb.ReqContentType = project.HttpContentTypeJson
+    ubb.ReqContentType = project.HTTPContentTypeJSON
     ubb.ReqMethod = fasthttp.MethodPost
     return ubb
 }

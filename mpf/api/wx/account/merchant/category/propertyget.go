@@ -66,7 +66,7 @@ func (pg *propertyGet) SendRequest() api.ApiResult {
 func NewPropertyGet(appId string) *propertyGet {
     pg := &propertyGet{wx.NewBaseWxAccount(), "", 0}
     pg.appId = appId
-    pg.ReqContentType = project.HttpContentTypeJson
+    pg.ReqContentType = project.HTTPContentTypeJSON
     pg.ReqMethod = fasthttp.MethodPost
     return pg
 }

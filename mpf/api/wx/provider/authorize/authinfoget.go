@@ -79,7 +79,7 @@ func (aig *authInfoGet) SendRequest() api.ApiResult {
 
 func NewAuthInfoGet() *authInfoGet {
     aig := &authInfoGet{wx.NewBaseWxProvider(), "", ""}
-    aig.ReqContentType = project.HttpContentTypeJson
+    aig.ReqContentType = project.HTTPContentTypeJSON
     aig.ReqMethod = fasthttp.MethodPost
     return aig
 }

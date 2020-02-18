@@ -79,7 +79,7 @@ func (pm *propertyModify) SendRequest() api.ApiResult {
 func NewPropertyModify(appId string) *propertyModify {
     pm := &propertyModify{wx.NewBaseWxAccount(), "", 0, ""}
     pm.appId = appId
-    pm.ReqContentType = project.HttpContentTypeJson
+    pm.ReqContentType = project.HTTPContentTypeJSON
     pm.ReqMethod = fasthttp.MethodPost
     return pm
 }

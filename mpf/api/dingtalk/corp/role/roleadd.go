@@ -59,7 +59,7 @@ func NewRoleAdd(corpId, agentTag, atType string) *roleAdd {
     ra.corpId = corpId
     ra.agentTag = agentTag
     ra.atType = atType
-    ra.ReqContentType = project.HttpContentTypeJson
+    ra.ReqContentType = project.HTTPContentTypeJSON
     ra.ReqMethod = fasthttp.MethodPost
     return ra
 }

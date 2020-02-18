@@ -112,7 +112,7 @@ func NewCheckInDataGet(corpId, agentTag string) *checkInDataGet {
     cdg := &checkInDataGet{wx.NewBaseWxCorp(), "", "", 0, 0, make([]string, 0), 0}
     cdg.corpId = corpId
     cdg.agentTag = agentTag
-    cdg.ReqContentType = project.HttpContentTypeJson
+    cdg.ReqContentType = project.HTTPContentTypeJSON
     cdg.ReqMethod = fasthttp.MethodPost
     return cdg
 }

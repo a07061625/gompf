@@ -216,7 +216,7 @@ func NewDepartmentUpdate(corpId, agentTag, atType string) *departmentUpdate {
     du.corpId = corpId
     du.agentTag = agentTag
     du.atType = atType
-    du.ReqContentType = project.HttpContentTypeJson
+    du.ReqContentType = project.HTTPContentTypeJSON
     du.ReqMethod = fasthttp.MethodPost
     return du
 }

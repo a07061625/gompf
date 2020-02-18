@@ -93,7 +93,7 @@ func NewDialRecordGet(corpId, agentTag string) *dialRecordGet {
     drg.agentTag = agentTag
     drg.offset = 0
     drg.limit = 20
-    drg.ReqContentType = project.HttpContentTypeJson
+    drg.ReqContentType = project.HTTPContentTypeJSON
     drg.ReqMethod = fasthttp.MethodPost
     return drg
 }

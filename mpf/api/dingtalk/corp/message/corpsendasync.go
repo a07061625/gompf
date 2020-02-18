@@ -101,7 +101,7 @@ func NewCorpSendAsync(corpId, agentTag, atType string) *corpSendAsync {
     csa.atType = atType
     csa.ExtendData["agent_id"] = agentInfo["id"]
     csa.ExtendData["to_all_user"] = false
-    csa.ReqContentType = project.HttpContentTypeJson
+    csa.ReqContentType = project.HTTPContentTypeJSON
     csa.ReqMethod = fasthttp.MethodPost
     return csa
 }

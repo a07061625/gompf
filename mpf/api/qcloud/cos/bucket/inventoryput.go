@@ -52,7 +52,7 @@ func (ip *inventoryPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(ip.taskInfo)
     xmlStr, _ := xmlData.Xml("InventoryConfiguration")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     ip.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     delete(ip.ReqData, "inventory")

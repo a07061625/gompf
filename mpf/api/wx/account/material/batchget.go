@@ -91,7 +91,7 @@ func NewBatchGet(appId string) *batchGet {
     bg.appId = appId
     bg.offset = 0
     bg.count = 20
-    bg.ReqContentType = project.HttpContentTypeJson
+    bg.ReqContentType = project.HTTPContentTypeJSON
     bg.ReqMethod = fasthttp.MethodPost
     return bg
 }

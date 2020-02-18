@@ -47,7 +47,7 @@ func NewUserGroup(corpId, agentTag string) *userGroup {
     ug := &userGroup{dingtalk.NewCorp(), "", "", ""}
     ug.corpId = corpId
     ug.agentTag = agentTag
-    ug.ReqContentType = project.HttpContentTypeJson
+    ug.ReqContentType = project.HTTPContentTypeJSON
     ug.ReqMethod = fasthttp.MethodPost
     return ug
 }

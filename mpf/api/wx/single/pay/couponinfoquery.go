@@ -125,7 +125,7 @@ func NewCouponInfoQuery(appId string) *couponInfoQuery {
     ciq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     ciq.ReqData["version"] = "1.0"
     ciq.ReqData["type"] = "XML"
-    ciq.ReqContentType = project.HttpContentTypeXml
+    ciq.ReqContentType = project.HTTPContentTypeXML
     ciq.ReqMethod = fasthttp.MethodPost
     return ciq
 }

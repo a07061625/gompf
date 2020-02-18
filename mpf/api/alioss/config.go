@@ -89,7 +89,7 @@ func (c *configAliOss) GetBucketName() string {
 }
 
 func (c *configAliOss) SetBucketDomain(bucketDomain string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, bucketDomain)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, bucketDomain)
     if match {
         c.bucketDomain = bucketDomain
     } else {

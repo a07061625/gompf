@@ -66,7 +66,7 @@ func (sg *shelfGet) SendRequest() api.ApiResult {
 func NewShelfGet(appId string) *shelfGet {
     sg := &shelfGet{wx.NewBaseWxAccount(), "", 0}
     sg.appId = appId
-    sg.ReqContentType = project.HttpContentTypeJson
+    sg.ReqContentType = project.HTTPContentTypeJSON
     sg.ReqMethod = fasthttp.MethodPost
     return sg
 }

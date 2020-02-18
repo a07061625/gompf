@@ -48,6 +48,6 @@ func NewMemberList(appId string) *memberList {
     ml := &memberList{mpprint.NewBaseFeYin()}
     ml.SetAppId(appId)
     ml.ReqMethod = fasthttp.MethodGet
-    ml.ReqContentType = project.HttpContentTypeForm
+    ml.ReqContentType = project.HTTPContentTypeForm
     return ml
 }

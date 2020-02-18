@@ -77,7 +77,7 @@ func NewOrderClose(appId, merchantType string) *orderClose {
     oc.SetPayAccount(conf, merchantType)
     oc.ReqData["sign_type"] = "MD5"
     oc.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    oc.ReqContentType = project.HttpContentTypeXml
+    oc.ReqContentType = project.HTTPContentTypeXML
     oc.ReqMethod = fasthttp.MethodPost
     return oc
 }

@@ -43,7 +43,7 @@ func (util *utilDingTalk) refreshSsoToken(corpId string) map[string]interface{} 
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
     resp := mpf.HttpSendReq(client, req, 3*time.Second)
@@ -78,7 +78,7 @@ func (util *utilDingTalk) refreshSnsToken(corpId string) map[string]interface{} 
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(stUrl)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
     resp := mpf.HttpSendReq(client, req, 3*time.Second)
@@ -109,7 +109,7 @@ func (util *utilDingTalk) refreshUserSnsToken(corpId, openid, persistentCode str
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(stUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
     stData := make(map[string]string)

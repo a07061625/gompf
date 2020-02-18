@@ -222,7 +222,7 @@ func NewRedPackSend(corpId, agentTag string) *redPackSend {
     rps.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     rps.ReqData["agentid"] = agentInfo["id"]
     rps.acceptKeys = append(rps.acceptKeys, "act_name", "mch_billno", "mch_id", "nonce_str", "re_openid", "total_amount", "wxappid")
-    rps.ReqContentType = project.HttpContentTypeXml
+    rps.ReqContentType = project.HTTPContentTypeXML
     rps.ReqMethod = fasthttp.MethodPost
     return rps
 }

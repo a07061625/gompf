@@ -67,7 +67,7 @@ func (nu *newsUpload) SendRequest() api.ApiResult {
 func NewNewsUpload(appId string) *newsUpload {
     nu := &newsUpload{wx.NewBaseWxAccount(), "", make([]map[string]interface{}, 0)}
     nu.appId = appId
-    nu.ReqContentType = project.HttpContentTypeJson
+    nu.ReqContentType = project.HTTPContentTypeJSON
     nu.ReqMethod = fasthttp.MethodPost
     return nu
 }

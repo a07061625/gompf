@@ -75,7 +75,7 @@ func (ta *templateAdd) SendRequest(getType string) api.ApiResult {
 func NewTemplateAdd(appId string) *templateAdd {
     ta := &templateAdd{wx.NewBaseWxMini(), "", "", make([]uint, 0)}
     ta.appId = appId
-    ta.ReqContentType = project.HttpContentTypeJson
+    ta.ReqContentType = project.HTTPContentTypeJSON
     ta.ReqMethod = fasthttp.MethodPost
     return ta
 }

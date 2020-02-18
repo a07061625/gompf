@@ -95,7 +95,7 @@ func NewStatusUpdate(corpId, agentTag string) *statusUpdate {
     su := &statusUpdate{wx.NewBaseWxCorp(), "", "", "", "", ""}
     su.corpId = corpId
     su.agentTag = agentTag
-    su.ReqContentType = project.HttpContentTypeJson
+    su.ReqContentType = project.HTTPContentTypeJSON
     su.ReqMethod = fasthttp.MethodPost
     return su
 }

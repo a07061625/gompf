@@ -47,7 +47,7 @@ func NewQuotaClear(appId string) *quotaClear {
     qc := &quotaClear{wx.NewBaseWxAccount(), ""}
     qc.appId = appId
     qc.ReqData["appid"] = appId
-    qc.ReqContentType = project.HttpContentTypeJson
+    qc.ReqContentType = project.HTTPContentTypeJSON
     qc.ReqMethod = fasthttp.MethodPost
     return qc
 }

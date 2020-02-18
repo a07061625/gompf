@@ -44,7 +44,7 @@ func (cp *corsPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         xmlStr += string(eXml)
     }
 
-    reqBody := project.DataPrefixXml + "<CORSConfiguration>" + xmlStr + "</CORSConfiguration>"
+    reqBody := project.DataPrefixXML + "<CORSConfiguration>" + xmlStr + "</CORSConfiguration>"
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     cp.ReqUrl = "http://" + cp.ReqHeader["Host"] + cp.ReqUri + "?cors"
     cp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))

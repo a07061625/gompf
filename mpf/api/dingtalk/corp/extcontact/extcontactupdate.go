@@ -138,7 +138,7 @@ func NewExtContactUpdate(corpId, agentTag, atType string) *extContactUpdate {
     ecu.corpId = corpId
     ecu.agentTag = agentTag
     ecu.atType = atType
-    ecu.ReqContentType = project.HttpContentTypeJson
+    ecu.ReqContentType = project.HTTPContentTypeJSON
     ecu.ReqMethod = fasthttp.MethodPost
     return ecu
 }

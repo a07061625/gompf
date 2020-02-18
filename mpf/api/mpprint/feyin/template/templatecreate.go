@@ -102,6 +102,6 @@ func NewTemplateCreate(appId string) *templateCreate {
     tc := &templateCreate{mpprint.NewBaseFeYin(), "", "", "", ""}
     tc.SetAppId(appId)
     tc.ReqMethod = fasthttp.MethodPost
-    tc.ReqContentType = project.HttpContentTypeJson
+    tc.ReqContentType = project.HTTPContentTypeJSON
     return tc
 }

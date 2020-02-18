@@ -60,7 +60,7 @@ func (ap *authenticatePassword) CheckData() (*fasthttp.Client, *fasthttp.Request
 func NewAuthenticatePassword() *authenticatePassword {
     ap := &authenticatePassword{mpiot.NewBaseBaiDu(), "", ""}
     ap.ServiceUri = "/v1/auth/authenticate/password"
-    ap.ReqContentType = project.HttpContentTypeJson
+    ap.ReqContentType = project.HTTPContentTypeJSON
     ap.ReqMethod = fasthttp.MethodPost
     return ap
 }

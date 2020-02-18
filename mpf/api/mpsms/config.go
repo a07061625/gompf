@@ -49,7 +49,7 @@ func (c *configYun253) GetAppSecret() string {
 }
 
 func (c *configYun253) SetUrlSmsSend(urlSmsSend string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlSmsSend)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlSmsSend)
     if match {
         c.urlSmsSend = urlSmsSend
     } else {

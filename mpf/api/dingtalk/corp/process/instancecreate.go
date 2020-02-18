@@ -141,7 +141,7 @@ func NewInstanceCreate(corpId, agentTag, atType string) *instanceCreate {
     ic.corpId = corpId
     ic.agentTag = agentTag
     ic.atType = atType
-    ic.ReqContentType = project.HttpContentTypeJson
+    ic.ReqContentType = project.HTTPContentTypeJSON
     ic.ReqMethod = fasthttp.MethodPost
     return ic
 }

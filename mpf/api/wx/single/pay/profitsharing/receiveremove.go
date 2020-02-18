@@ -75,7 +75,7 @@ func NewReceiverRemove(appId, merchantType string) *receiverRemove {
     rr.SetPayAccount(conf, merchantType)
     rr.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     rr.ReqData["sign_type"] = "HMAC-SHA256"
-    rr.ReqContentType = project.HttpContentTypeXml
+    rr.ReqContentType = project.HTTPContentTypeXML
     rr.ReqMethod = fasthttp.MethodPost
     return rr
 }

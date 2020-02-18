@@ -44,7 +44,7 @@ func NewAgentGet(corpId, agentTag string) *agentGet {
     ag.corpId = corpId
     ag.agentTag = agentTag
     ag.ExtendData["auth_corpid"] = corpId
-    ag.ReqContentType = project.HttpContentTypeJson
+    ag.ReqContentType = project.HTTPContentTypeJSON
     ag.ReqMethod = fasthttp.MethodPost
     return ag
 }

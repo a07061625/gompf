@@ -257,7 +257,7 @@ func NewUserCreate(corpId, agentTag string) *userCreate {
     uc.gender = 1
     uc.enableFlag = 1
     uc.inviteFlag = true
-    uc.ReqContentType = project.HttpContentTypeJson
+    uc.ReqContentType = project.HTTPContentTypeJSON
     uc.ReqMethod = fasthttp.MethodPost
     return uc
 }

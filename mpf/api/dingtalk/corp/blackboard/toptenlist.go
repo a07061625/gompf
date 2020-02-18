@@ -49,7 +49,7 @@ func NewTopTenList(corpId, agentTag, atType string) *topTenList {
     ttl.corpId = corpId
     ttl.agentTag = agentTag
     ttl.atType = atType
-    ttl.ReqContentType = project.HttpContentTypeJson
+    ttl.ReqContentType = project.HTTPContentTypeJSON
     ttl.ReqMethod = fasthttp.MethodPost
     return ttl
 }

@@ -80,7 +80,7 @@ func NewStatusModify(appId string) *statusModify {
     sm := &statusModify{wx.NewBaseWxAccount(), "", "", 0}
     sm.appId = appId
     sm.productStatus = -1
-    sm.ReqContentType = project.HttpContentTypeJson
+    sm.ReqContentType = project.HTTPContentTypeJSON
     sm.ReqMethod = fasthttp.MethodPost
     return sm
 }

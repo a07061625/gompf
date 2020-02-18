@@ -150,7 +150,7 @@ func NewStatistics(appId string) *statistics {
     s := &statistics{wx.NewBaseWxAccount(), "", "", "", 0}
     s.appId = appId
     s.maxDate = 0
-    s.ReqContentType = project.HttpContentTypeJson
+    s.ReqContentType = project.HTTPContentTypeJSON
     s.ReqMethod = fasthttp.MethodPost
     return s
 }

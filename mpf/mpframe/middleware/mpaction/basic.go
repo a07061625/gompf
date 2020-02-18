@@ -23,7 +23,7 @@ import (
 // 动作日志
 func NewBasicLog() context.Handler {
     return func(ctx context.Context) {
-        reqUrl := ctx.Values().GetString(project.DataParamKeyReqUrl)
+        reqUrl := ctx.Values().GetString(project.DataParamKeyReqURL)
         mplog.LogInfo(reqUrl + " action-enter")
 
         // 业务结束日志

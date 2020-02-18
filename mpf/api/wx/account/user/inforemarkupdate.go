@@ -81,7 +81,7 @@ func (iru *infoRemarkUpdate) SendRequest() api.ApiResult {
 func NewInfoRemarkUpdate(appId string) *infoRemarkUpdate {
     iru := &infoRemarkUpdate{wx.NewBaseWxAccount(), "", "", ""}
     iru.appId = appId
-    iru.ReqContentType = project.HttpContentTypeJson
+    iru.ReqContentType = project.HTTPContentTypeJSON
     iru.ReqMethod = fasthttp.MethodPost
     return iru
 }

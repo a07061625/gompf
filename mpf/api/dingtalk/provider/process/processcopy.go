@@ -88,7 +88,7 @@ func NewProcessCopy(corpId string) *processCopy {
     pc := &processCopy{dingtalk.NewProvider(), "", "", "", "", ""}
     pc.corpId = corpId
     pc.ExtendData["agent_id"] = strconv.Itoa(conf.GetSuiteId())
-    pc.ReqContentType = project.HttpContentTypeJson
+    pc.ReqContentType = project.HTTPContentTypeJSON
     pc.ReqMethod = fasthttp.MethodPost
     return pc
 }

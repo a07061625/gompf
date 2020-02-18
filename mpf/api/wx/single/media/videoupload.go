@@ -84,7 +84,7 @@ func NewVideoUpload(appId string) *videoUpload {
     vu := &videoUpload{wx.NewBaseWxAccount(), "", "", "", ""}
     vu.appId = appId
     vu.ReqData["description"] = ""
-    vu.ReqContentType = project.HttpContentTypeJson
+    vu.ReqContentType = project.HTTPContentTypeJSON
     vu.ReqMethod = fasthttp.MethodPost
     return vu
 }

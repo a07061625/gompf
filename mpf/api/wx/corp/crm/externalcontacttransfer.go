@@ -98,7 +98,7 @@ func NewExternalContactTransfer(corpId, agentTag string) *externalContactTransfe
     ect := &externalContactTransfer{wx.NewBaseWxCorp(), "", "", "", "", ""}
     ect.corpId = corpId
     ect.agentTag = agentTag
-    ect.ReqContentType = project.HttpContentTypeJson
+    ect.ReqContentType = project.HTTPContentTypeJSON
     ect.ReqMethod = fasthttp.MethodPost
     return ect
 }

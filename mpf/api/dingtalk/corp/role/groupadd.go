@@ -46,7 +46,7 @@ func NewGroupAdd(corpId, agentTag, atType string) *groupAdd {
     ga.corpId = corpId
     ga.agentTag = agentTag
     ga.atType = atType
-    ga.ReqContentType = project.HttpContentTypeJson
+    ga.ReqContentType = project.HTTPContentTypeJSON
     ga.ReqMethod = fasthttp.MethodPost
     return ga
 }

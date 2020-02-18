@@ -50,7 +50,7 @@ func NewExtContactList(corpId, agentTag, atType string) *extContactList {
     ecl.atType = atType
     ecl.ExtendData["offset"] = 0
     ecl.ExtendData["size"] = 10
-    ecl.ReqContentType = project.HttpContentTypeJson
+    ecl.ReqContentType = project.HTTPContentTypeJSON
     ecl.ReqMethod = fasthttp.MethodPost
     return ecl
 }

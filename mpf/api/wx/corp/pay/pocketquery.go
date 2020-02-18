@@ -105,7 +105,7 @@ func NewPocketQuery(corpId, agentTag string) *pocketQuery {
     pq.ReqData["appid"] = conf.GetCorpId()
     pq.ReqData["mch_id"] = conf.GetPayMchId()
     pq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    pq.ReqContentType = project.HttpContentTypeXml
+    pq.ReqContentType = project.HTTPContentTypeXML
     pq.ReqMethod = fasthttp.MethodPost
     return pq
 }

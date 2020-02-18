@@ -73,7 +73,7 @@ func NewAppConfigUpload(appId string) *appConfigUpload {
     acu := &appConfigUpload{wx.NewBaseWxOpen(), "", 0, make(map[string]interface{})}
     acu.appId = appId
     acu.configType = 0
-    acu.ReqContentType = project.HttpContentTypeJson
+    acu.ReqContentType = project.HTTPContentTypeJSON
     acu.ReqMethod = fasthttp.MethodPost
     return acu
 }

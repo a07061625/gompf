@@ -66,7 +66,7 @@ func (ta *templateDel) SendRequest() api.ApiResult {
 func NewTemplateDel(appId string) *templateDel {
     ta := &templateDel{wx.NewBaseWxAccount(), "", ""}
     ta.appId = appId
-    ta.ReqContentType = project.HttpContentTypeJson
+    ta.ReqContentType = project.HTTPContentTypeJSON
     ta.ReqMethod = fasthttp.MethodPost
     return ta
 }

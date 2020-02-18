@@ -122,7 +122,7 @@ func (ts *templateSend) SendRequest(getType string) api.ApiResult {
 func NewTemplateSend(appId string) *templateSend {
     ts := &templateSend{wx.NewBaseWxMini(), "", "", "", make(map[string]interface{}), "", "", ""}
     ts.appId = appId
-    ts.ReqContentType = project.HttpContentTypeJson
+    ts.ReqContentType = project.HTTPContentTypeJSON
     ts.ReqMethod = fasthttp.MethodPost
     return ts
 }

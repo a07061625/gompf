@@ -99,7 +99,7 @@ func NewSingleSend() *singleSend {
     ss.ServiceUri = "/openim/sendmsg"
     ss.ExtendData["MsgRandom"] = mpf.ToolCreateRandNum(10000000, 89999999)
     ss.ExtendData["MsgTimeStamp"] = time.Now().Unix()
-    ss.ReqContentType = project.HttpContentTypeJson
+    ss.ReqContentType = project.HTTPContentTypeJSON
     ss.ReqMethod = fasthttp.MethodPost
     return ss
 }

@@ -68,7 +68,7 @@ func (eg *expressGet) SendRequest() api.ApiResult {
 func NewExpressGet(appId string) *expressGet {
     eg := &expressGet{wx.NewBaseWxAccount(), "", ""}
     eg.appId = appId
-    eg.ReqContentType = project.HttpContentTypeJson
+    eg.ReqContentType = project.HTTPContentTypeJSON
     eg.ReqMethod = fasthttp.MethodPost
     return eg
 }

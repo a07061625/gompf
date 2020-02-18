@@ -79,7 +79,7 @@ func (ugt *userGetByTag) SendRequest() api.ApiResult {
 func NewUserGetByTag(appId string) *userGetByTag {
     ugt := &userGetByTag{wx.NewBaseWxAccount(), "", 0, ""}
     ugt.appId = appId
-    ugt.ReqContentType = project.HttpContentTypeJson
+    ugt.ReqContentType = project.HTTPContentTypeJSON
     ugt.ReqMethod = fasthttp.MethodPost
     return ugt
 }

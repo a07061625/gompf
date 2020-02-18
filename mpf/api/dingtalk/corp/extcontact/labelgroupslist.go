@@ -50,7 +50,7 @@ func NewLabelGroupsList(corpId, agentTag, atType string) *labelGroupsList {
     lgl.atType = atType
     lgl.ExtendData["offset"] = 0
     lgl.ExtendData["size"] = 10
-    lgl.ReqContentType = project.HttpContentTypeJson
+    lgl.ReqContentType = project.HTTPContentTypeJSON
     lgl.ReqMethod = fasthttp.MethodPost
     return lgl
 }

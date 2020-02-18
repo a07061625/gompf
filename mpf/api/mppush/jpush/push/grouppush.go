@@ -112,7 +112,7 @@ func NewGroupPush(key string) *groupPush {
     gp.ServiceUri = "/v3/grouppush"
     gp.ExtendData["platform"] = "all"
     gp.ExtendData["audience"] = "all"
-    gp.ReqContentType = project.HttpContentTypeJson
+    gp.ReqContentType = project.HTTPContentTypeJSON
     gp.ReqMethod = fasthttp.MethodPost
     return gp
 }

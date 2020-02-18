@@ -86,7 +86,7 @@ func (fc *firmwareCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewFirmwareCreate() *firmwareCreate {
     fc := &firmwareCreate{mpiot.NewBaseBaiDu(), "", "", "", ""}
     fc.ServiceUri = "/v3/iot/management/ota/firmware"
-    fc.ReqContentType = project.HttpContentTypeJson
+    fc.ReqContentType = project.HTTPContentTypeJSON
     fc.ReqMethod = fasthttp.MethodPost
     return fc
 }

@@ -81,7 +81,7 @@ func (sc *sessionCreate) SendRequest() api.ApiResult {
 func NewSessionCreate(appId string) *sessionCreate {
     sc := &sessionCreate{wx.NewBaseWxAccount(), "", "", ""}
     sc.appId = appId
-    sc.ReqContentType = project.HttpContentTypeJson
+    sc.ReqContentType = project.HTTPContentTypeJSON
     sc.ReqMethod = fasthttp.MethodPost
     return sc
 }

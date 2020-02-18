@@ -82,7 +82,7 @@ func (ec *envCreate) SendRequest() api.ApiResult {
 func NewEnvCreate(appId string) *envCreate {
     ec := &envCreate{wx.NewBaseWxOpen(), "", "", ""}
     ec.appId = appId
-    ec.ReqContentType = project.HttpContentTypeJson
+    ec.ReqContentType = project.HTTPContentTypeJSON
     ec.ReqMethod = fasthttp.MethodPost
     return ec
 }

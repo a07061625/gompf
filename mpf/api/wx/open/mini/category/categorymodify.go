@@ -89,7 +89,7 @@ func (cm *categoryModify) SendRequest() api.ApiResult {
 func NewCategoryModify(appId string) *categoryModify {
     cm := &categoryModify{wx.NewBaseWxOpen(), "", 0, 0, make([]map[string]interface{}, 0)}
     cm.appId = appId
-    cm.ReqContentType = project.HttpContentTypeJson
+    cm.ReqContentType = project.HTTPContentTypeJSON
     cm.ReqMethod = fasthttp.MethodPost
     return cm
 }

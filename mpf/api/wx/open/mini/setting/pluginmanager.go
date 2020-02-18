@@ -95,7 +95,7 @@ func (pm *pluginManager) SendRequest() api.ApiResult {
 func NewPluginManager(appId string) *pluginManager {
     pm := &pluginManager{wx.NewBaseWxOpen(), "", make(map[string]interface{})}
     pm.appId = appId
-    pm.ReqContentType = project.HttpContentTypeJson
+    pm.ReqContentType = project.HTTPContentTypeJSON
     pm.ReqMethod = fasthttp.MethodPost
     return pm
 }

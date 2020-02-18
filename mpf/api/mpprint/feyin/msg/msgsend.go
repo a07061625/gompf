@@ -132,6 +132,6 @@ func NewMsgSend(appId string) *msgSend {
     ms.ReqData["appid"] = appId
     ms.ReqData["msg_no"] = mpcache.NewUtilCache().CreateUniqueId()
     ms.ReqMethod = fasthttp.MethodPost
-    ms.ReqContentType = project.HttpContentTypeJson
+    ms.ReqContentType = project.HTTPContentTypeJSON
     return ms
 }

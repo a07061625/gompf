@@ -30,7 +30,7 @@ type configSingle struct {
 }
 
 func (c *configSingle) SetClientIp(clientIp string) {
-    match, _ := regexp.MatchString(project.RegexIp, "."+clientIp)
+    match, _ := regexp.MatchString(project.RegexIP, "."+clientIp)
     if match {
         c.clientIp = clientIp
     } else {
@@ -69,7 +69,7 @@ func (c *configSingle) GetPayKey() string {
 }
 
 func (c *configSingle) SetPayNotifyUrl(payNotifyUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, payNotifyUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, payNotifyUrl)
     if match {
         c.payNotifyUrl = payNotifyUrl
     } else {
@@ -82,7 +82,7 @@ func (c *configSingle) GetPayNotifyUrl() string {
 }
 
 func (c *configSingle) SetPayAuthUrl(payAuthUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, payAuthUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, payAuthUrl)
     if match {
         c.payAuthUrl = payAuthUrl
     } else {
@@ -257,7 +257,7 @@ func (c *configCorp) GetAgentInfo(agentTag string) map[string]string {
 }
 
 func (c *configCorp) SetUrlAuthLogin(urlAuthLogin string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlAuthLogin)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlAuthLogin)
     if match {
         c.urlAuthLogin = urlAuthLogin
     } else {
@@ -354,7 +354,7 @@ func (c *configOpen) GetAesKeyNow() string {
 }
 
 func (c *configOpen) SetUrlAuth(urlAuth string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlAuth)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlAuth)
     if match {
         c.urlAuth = urlAuth
     } else {
@@ -367,7 +367,7 @@ func (c *configOpen) GetUrlAuth() string {
 }
 
 func (c *configOpen) SetUrlAuthCallback(urlAuthCallback string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlAuthCallback)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlAuthCallback)
     if match {
         c.urlAuthCallback = urlAuthCallback
     } else {
@@ -380,7 +380,7 @@ func (c *configOpen) GetUrlAuthCallback() string {
 }
 
 func (c *configOpen) SetUrlMiniRebindAdmin(urlMiniRebindAdmin string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlMiniRebindAdmin)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlMiniRebindAdmin)
     if match {
         c.urlMiniRebindAdmin = urlMiniRebindAdmin
     } else {
@@ -393,7 +393,7 @@ func (c *configOpen) GetUrlMiniRebindAdmin() string {
 }
 
 func (c *configOpen) SetUrlMiniFastRegister(urlMiniFastRegister string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlMiniFastRegister)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlMiniFastRegister)
     if match {
         c.urlMiniFastRegister = urlMiniFastRegister
     } else {
@@ -511,7 +511,7 @@ func (c *configProvider) GetSuiteSecret() string {
 }
 
 func (c *configProvider) SetUrlAuthSuite(urlAuthSuite string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlAuthSuite)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlAuthSuite)
     if match {
         c.urlAuthSuite = urlAuthSuite
     } else {
@@ -524,7 +524,7 @@ func (c *configProvider) GetUrlAuthSuite() string {
 }
 
 func (c *configProvider) SetUrlAuthLogin(urlAuthLogin string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlAuthLogin)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlAuthLogin)
     if match {
         c.urlAuthLogin = urlAuthLogin
     } else {

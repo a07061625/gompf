@@ -100,7 +100,7 @@ func NewStepInfoList(corpId, agentTag, atType string) *stepInfoList {
     sil.agentTag = agentTag
     sil.atType = atType
     sil.dataType = -1
-    sil.ReqContentType = project.HttpContentTypeJson
+    sil.ReqContentType = project.HTTPContentTypeJSON
     sil.ReqMethod = fasthttp.MethodPost
     return sil
 }

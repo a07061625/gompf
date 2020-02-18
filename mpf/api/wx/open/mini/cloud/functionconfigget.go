@@ -98,7 +98,7 @@ func NewFunctionConfigGet(appId string) *functionConfigGet {
     fcg := &functionConfigGet{wx.NewBaseWxOpen(), "", 0, "", ""}
     fcg.appId = appId
     fcg.configType = 0
-    fcg.ReqContentType = project.HttpContentTypeJson
+    fcg.ReqContentType = project.HTTPContentTypeJSON
     fcg.ReqMethod = fasthttp.MethodPost
     return fcg
 }

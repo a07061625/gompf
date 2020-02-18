@@ -94,7 +94,7 @@ func NewNewsUpdate(appId string) *newsUpdate {
     nu := &newsUpdate{wx.NewBaseWxAccount(), "", "", 0, make(map[string]interface{})}
     nu.appId = appId
     nu.index = -1
-    nu.ReqContentType = project.HttpContentTypeJson
+    nu.ReqContentType = project.HTTPContentTypeJSON
     nu.ReqMethod = fasthttp.MethodPost
     return nu
 }

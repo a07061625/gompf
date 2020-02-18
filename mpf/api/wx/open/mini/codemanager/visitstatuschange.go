@@ -66,7 +66,7 @@ func (vsc *visitStatusChange) SendRequest() api.ApiResult {
 func NewVisitStatusChange(appId string) *visitStatusChange {
     vsc := &visitStatusChange{wx.NewBaseWxOpen(), "", ""}
     vsc.appId = appId
-    vsc.ReqContentType = project.HttpContentTypeJson
+    vsc.ReqContentType = project.HTTPContentTypeJSON
     vsc.ReqMethod = fasthttp.MethodPost
     return vsc
 }

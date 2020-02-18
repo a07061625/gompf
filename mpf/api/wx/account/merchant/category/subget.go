@@ -66,7 +66,7 @@ func (sg *subGet) SendRequest() api.ApiResult {
 func NewSubGet(appId string) *subGet {
     sg := &subGet{wx.NewBaseWxAccount(), "", 0}
     sg.appId = appId
-    sg.ReqContentType = project.HttpContentTypeJson
+    sg.ReqContentType = project.HTTPContentTypeJSON
     sg.ReqMethod = fasthttp.MethodPost
     return sg
 }

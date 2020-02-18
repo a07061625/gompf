@@ -89,7 +89,7 @@ func (cs *customSend) SendRequest(getType string) api.ApiResult {
 func NewCustomSend(appId string) *customSend {
     cs := &customSend{wx.NewBaseWxMini(), "", "", "", make(map[string]interface{})}
     cs.appId = appId
-    cs.ReqContentType = project.HttpContentTypeJson
+    cs.ReqContentType = project.HTTPContentTypeJSON
     cs.ReqMethod = fasthttp.MethodPost
     cs.ReqHeader["Expect"] = ""
     return cs

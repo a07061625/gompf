@@ -63,7 +63,7 @@ func NewDimissionList(corpId, agentTag, atType string) *dimissionList {
     dl.corpId = corpId
     dl.agentTag = agentTag
     dl.atType = atType
-    dl.ReqContentType = project.HttpContentTypeJson
+    dl.ReqContentType = project.HTTPContentTypeJSON
     dl.ReqMethod = fasthttp.MethodPost
     return dl
 }

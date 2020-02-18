@@ -26,7 +26,7 @@ type accountUrl struct {
 }
 
 func (au *accountUrl) SetRedirectUrl(redirectUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, redirectUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, redirectUrl)
     if match {
         au.redirectUrl = redirectUrl
     } else {

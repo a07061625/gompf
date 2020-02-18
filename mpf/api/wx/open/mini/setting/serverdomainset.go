@@ -89,7 +89,7 @@ func (sds *serverDomainSet) SendRequest() api.ApiResult {
 func NewServerDomainSet(appId string) *serverDomainSet {
     sds := &serverDomainSet{wx.NewBaseWxOpen(), "", "", make(map[string][]string)}
     sds.appId = appId
-    sds.ReqContentType = project.HttpContentTypeJson
+    sds.ReqContentType = project.HTTPContentTypeJSON
     sds.ReqMethod = fasthttp.MethodPost
     return sds
 }

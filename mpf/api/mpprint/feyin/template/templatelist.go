@@ -48,6 +48,6 @@ func NewTemplateList(appId string) *templateList {
     tl := &templateList{mpprint.NewBaseFeYin()}
     tl.SetAppId(appId)
     tl.ReqMethod = fasthttp.MethodGet
-    tl.ReqContentType = project.HttpContentTypeForm
+    tl.ReqContentType = project.HTTPContentTypeForm
     return tl
 }

@@ -92,7 +92,7 @@ func NewOrderQuery(appId, merchantType string) *orderQuery {
     oq.SetPayAccount(conf, merchantType)
     oq.ReqData["sign_type"] = "MD5"
     oq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    oq.ReqContentType = project.HttpContentTypeXml
+    oq.ReqContentType = project.HTTPContentTypeXML
     oq.ReqMethod = fasthttp.MethodPost
     return oq
 }

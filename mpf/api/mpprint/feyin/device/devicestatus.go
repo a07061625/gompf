@@ -66,6 +66,6 @@ func NewDeviceStatus(appId string) *deviceStatus {
     db := &deviceStatus{mpprint.NewBaseFeYin(), ""}
     db.SetAppId(appId)
     db.ReqMethod = fasthttp.MethodGet
-    db.ReqContentType = project.HttpContentTypeForm
+    db.ReqContentType = project.HTTPContentTypeForm
     return db
 }

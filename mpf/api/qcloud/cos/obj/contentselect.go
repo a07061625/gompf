@@ -50,7 +50,7 @@ func (cs *contentSelect) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(cs.selectInfo)
     xmlStr, _ := xmlData.Xml("SelectRequest")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     delete(cs.ReqData, "select")
     cs.ReqUrl = "http://" + cs.ReqHeader["Host"] + cs.ReqUri + "?select&" + mpf.HttpCreateParams(cs.ReqData, "none", 1)
     client, req := cs.GetRequest()

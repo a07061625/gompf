@@ -49,7 +49,7 @@ func NewExtContactGet(corpId, agentTag, atType string) *extContactGet {
     ecg.corpId = corpId
     ecg.agentTag = agentTag
     ecg.atType = atType
-    ecg.ReqContentType = project.HttpContentTypeJson
+    ecg.ReqContentType = project.HTTPContentTypeJSON
     ecg.ReqMethod = fasthttp.MethodPost
     return ecg
 }

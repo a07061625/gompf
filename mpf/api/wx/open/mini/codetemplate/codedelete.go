@@ -64,7 +64,7 @@ func (cd *codeDelete) SendRequest() api.ApiResult {
 
 func NewCodeDelete() *codeDelete {
     cd := &codeDelete{wx.NewBaseWxOpen(), ""}
-    cd.ReqContentType = project.HttpContentTypeJson
+    cd.ReqContentType = project.HTTPContentTypeJSON
     cd.ReqMethod = fasthttp.MethodPost
     return cd
 }

@@ -97,7 +97,7 @@ func (fc *formatCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewFormatCreate() *formatCreate {
     fc := &formatCreate{mpiot.NewBaseBaiDu(), "", "", make([]map[string]interface{}, 0), make([]map[string]interface{}, 0), make(map[string]interface{})}
-    fc.ReqContentType = project.HttpContentTypeJson
+    fc.ReqContentType = project.HTTPContentTypeJSON
     fc.ReqMethod = fasthttp.MethodPost
     return fc
 }

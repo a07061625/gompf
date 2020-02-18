@@ -136,7 +136,7 @@ func NewChatCreate(corpId, agentTag string) *chatCreate {
     cc.ExtendData["validationType"] = 0
     cc.ExtendData["mentionAllAuthority"] = 0
     cc.ExtendData["managementType"] = 1
-    cc.ReqContentType = project.HttpContentTypeJson
+    cc.ReqContentType = project.HTTPContentTypeJSON
     cc.ReqMethod = fasthttp.MethodPost
     return cc
 }

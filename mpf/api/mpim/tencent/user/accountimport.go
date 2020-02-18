@@ -48,7 +48,7 @@ func (ai *accountImport) SetNickname(nickname string) {
 }
 
 func (ai *accountImport) SetFaceUrl(faceUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, faceUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, faceUrl)
     if match {
         ai.faceUrl = faceUrl
     } else {
@@ -79,7 +79,7 @@ func NewAccountImport() *accountImport {
     ai := &accountImport{mpim.NewBaseTencent(), "", 0, "", ""}
     ai.userType = 0
     ai.ServiceUri = "/im_open_login_svc/account_import"
-    ai.ReqContentType = project.HttpContentTypeJson
+    ai.ReqContentType = project.HTTPContentTypeJSON
     ai.ReqMethod = fasthttp.MethodPost
     return ai
 }

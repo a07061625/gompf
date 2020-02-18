@@ -76,7 +76,7 @@ func (rm *ruleModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewRuleModify() *ruleModify {
     rm := &ruleModify{mpiot.NewBaseBaiDu(), ""}
-    rm.ReqContentType = project.HttpContentTypeJson
+    rm.ReqContentType = project.HTTPContentTypeJSON
     rm.ReqMethod = fasthttp.MethodPut
     return rm
 }

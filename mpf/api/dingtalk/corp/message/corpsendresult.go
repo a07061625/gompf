@@ -48,7 +48,7 @@ func NewCorpSendResult(corpId, agentTag, atType string) *corpSendResult {
     csr.agentTag = agentTag
     csr.atType = atType
     csr.ExtendData["agent_id"] = agentInfo["id"]
-    csr.ReqContentType = project.HttpContentTypeJson
+    csr.ReqContentType = project.HTTPContentTypeJSON
     csr.ReqMethod = fasthttp.MethodPost
     return csr
 }

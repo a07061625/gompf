@@ -85,7 +85,7 @@ func (a *authorize) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewAuthorize() *authorize {
     a := &authorize{mpiot.NewBaseBaiDu(), "", "", ""}
     a.ServiceUri = "/v1/auth/authorize"
-    a.ReqContentType = project.HttpContentTypeJson
+    a.ReqContentType = project.HTTPContentTypeJSON
     a.ReqMethod = fasthttp.MethodPost
     return a
 }

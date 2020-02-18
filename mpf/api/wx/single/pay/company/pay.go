@@ -166,7 +166,7 @@ func NewPay(appId string) *pay {
     p.ReqData["mch_id"] = conf.GetPayMchId()
     p.ReqData["spbill_create_ip"] = conf.GetClientIp()
     p.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    p.ReqContentType = project.HttpContentTypeXml
+    p.ReqContentType = project.HTTPContentTypeXML
     p.ReqMethod = fasthttp.MethodPost
     return p
 }

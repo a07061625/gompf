@@ -49,7 +49,7 @@ func NewExtContactDelete(corpId, agentTag, atType string) *extContactDelete {
     ecd.corpId = corpId
     ecd.agentTag = agentTag
     ecd.atType = atType
-    ecd.ReqContentType = project.HttpContentTypeJson
+    ecd.ReqContentType = project.HTTPContentTypeJSON
     ecd.ReqMethod = fasthttp.MethodPost
     return ecd
 }

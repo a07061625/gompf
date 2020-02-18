@@ -47,6 +47,6 @@ func NewDeviceListStatus(appId string) *deviceListStatus {
     dls := &deviceListStatus{mpprint.NewBaseFeYin()}
     dls.SetAppId(appId)
     dls.ReqMethod = fasthttp.MethodGet
-    dls.ReqContentType = project.HttpContentTypeForm
+    dls.ReqContentType = project.HTTPContentTypeForm
     return dls
 }

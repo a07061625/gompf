@@ -69,7 +69,7 @@ func NewWorkRecordUpdate(corpId, agentTag, atType string) *workRecordUpdate {
     wru.corpId = corpId
     wru.agentTag = agentTag
     wru.atType = atType
-    wru.ReqContentType = project.HttpContentTypeJson
+    wru.ReqContentType = project.HTTPContentTypeJSON
     wru.ReqMethod = fasthttp.MethodPost
     return wru
 }

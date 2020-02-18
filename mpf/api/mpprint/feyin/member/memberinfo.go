@@ -66,6 +66,6 @@ func NewMemberInfo(appId string) *memberInfo {
     mi := &memberInfo{mpprint.NewBaseFeYin(), ""}
     mi.SetAppId(appId)
     mi.ReqMethod = fasthttp.MethodGet
-    mi.ReqContentType = project.HttpContentTypeForm
+    mi.ReqContentType = project.HTTPContentTypeForm
     return mi
 }

@@ -118,7 +118,7 @@ func NewMassSendAll(appId string) *massSendAll {
     msa := &massSendAll{wx.NewBaseWxAccount(), "", "", make(map[string]interface{}), make(map[string]interface{}), 0, ""}
     msa.appId = appId
     msa.sendReprint = -1
-    msa.ReqContentType = project.HttpContentTypeJson
+    msa.ReqContentType = project.HTTPContentTypeJSON
     msa.ReqMethod = fasthttp.MethodPost
     return msa
 }

@@ -155,7 +155,7 @@ func NewMessageSend(corpId, agentTag string) *messageSend {
     ms := &messageSend{wx.NewBaseWxCorp(), "", "", make([]string, 0), make([]uint, 0), make([]uint, 0), "", make(map[string]interface{}), 0}
     ms.corpId = corpId
     ms.agentTag = agentTag
-    ms.ReqContentType = project.HttpContentTypeJson
+    ms.ReqContentType = project.HTTPContentTypeJSON
     ms.ReqMethod = fasthttp.MethodPost
     return ms
 }

@@ -55,7 +55,7 @@ func NewDeviceReset() *deviceReset {
     dr := &deviceReset{mpiot.NewBaseBaiDu(), make([]string, 0)}
     dr.ServiceUri = "/v3/iot/management/device"
     dr.ReqData["reset"] = ""
-    dr.ReqContentType = project.HttpContentTypeJson
+    dr.ReqContentType = project.HTTPContentTypeJSON
     dr.ReqMethod = fasthttp.MethodPut
     return dr
 }

@@ -71,7 +71,7 @@ func NewAuthorizeList() *authorizeList {
     al.componentAppId = conf.GetAppId()
     al.offset = 0
     al.count = 20
-    al.ReqContentType = project.HttpContentTypeJson
+    al.ReqContentType = project.HTTPContentTypeJSON
     al.ReqMethod = fasthttp.MethodPost
     return al
 }

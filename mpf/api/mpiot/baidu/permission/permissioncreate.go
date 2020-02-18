@@ -94,7 +94,7 @@ func (pc *permissionCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewPermissionCreate() *permissionCreate {
     pc := &permissionCreate{mpiot.NewBaseBaiDu(), "", "", make([]string, 0), ""}
-    pc.ReqContentType = project.HttpContentTypeJson
+    pc.ReqContentType = project.HTTPContentTypeJSON
     pc.ReqMethod = fasthttp.MethodPost
     return pc
 }

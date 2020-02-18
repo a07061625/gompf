@@ -69,7 +69,7 @@ func NewTemplateTitleList(appId string) *templateTitleList {
     ttl.appId = appId
     ttl.ReqData["offset"] = "0"
     ttl.ReqData["count"] = "20"
-    ttl.ReqContentType = project.HttpContentTypeJson
+    ttl.ReqContentType = project.HTTPContentTypeJSON
     ttl.ReqMethod = fasthttp.MethodPost
     return ttl
 }

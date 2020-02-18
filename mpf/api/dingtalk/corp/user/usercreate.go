@@ -189,7 +189,7 @@ func NewUserCreate(corpId, agentTag, atType string) *userCreate {
     uc.ExtendData["userid"] = mpf.ToolCreateNonceStr(8, "numlower") + strconv.FormatInt(time.Now().Unix(), 10)
     uc.ExtendData["isHide"] = false
     uc.ExtendData["isSenior"] = false
-    uc.ReqContentType = project.HttpContentTypeJson
+    uc.ReqContentType = project.HTTPContentTypeJSON
     uc.ReqMethod = fasthttp.MethodPost
     return uc
 }

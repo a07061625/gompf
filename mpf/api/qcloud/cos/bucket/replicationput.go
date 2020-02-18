@@ -39,7 +39,7 @@ func (rp *replicationPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(rp.ruleInfo)
     xmlStr, _ := xmlData.Xml("ReplicationConfiguration")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     rp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     rp.ReqUrl = "http://" + rp.ReqHeader["Host"] + rp.ReqUri + "?replication"

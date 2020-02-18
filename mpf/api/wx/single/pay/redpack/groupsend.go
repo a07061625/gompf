@@ -239,7 +239,7 @@ func NewGroupSend(appId string) *groupSend {
     gs.ReqData["client_ip"] = conf.GetClientIp()
     gs.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     gs.ReqData["amt_type"] = "ALL_RAND"
-    gs.ReqContentType = project.HttpContentTypeXml
+    gs.ReqContentType = project.HTTPContentTypeXML
     gs.ReqMethod = fasthttp.MethodPost
     return gs
 }

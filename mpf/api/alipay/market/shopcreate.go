@@ -296,7 +296,7 @@ func (sc *shopCreate) SetOtherOnlineFlag(otherOnlineFlag string) {
 func (sc *shopCreate) SetOnlineUrl(onlineUrl []string) {
     urls := make([]string, 0)
     for _, v := range onlineUrl {
-        match, _ := regexp.MatchString(project.RegexUrlHttp, v)
+        match, _ := regexp.MatchString(project.RegexURLHTTP, v)
         if match {
             urls = append(urls, v)
         }
@@ -310,7 +310,7 @@ func (sc *shopCreate) SetOnlineUrl(onlineUrl []string) {
 }
 
 func (sc *shopCreate) SetOperateNotifyUrl(operateNotifyUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, operateNotifyUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, operateNotifyUrl)
     if match {
         sc.BizContent["operate_notify_url"] = operateNotifyUrl
     } else {

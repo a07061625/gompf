@@ -112,7 +112,7 @@ func NewMessagePush(key string) *messagePush {
     mp.ServiceUri = "/v3/push"
     mp.ExtendData["platform"] = "all"
     mp.ExtendData["audience"] = "all"
-    mp.ReqContentType = project.HttpContentTypeJson
+    mp.ReqContentType = project.HTTPContentTypeJSON
     mp.ReqMethod = fasthttp.MethodPost
     return mp
 }

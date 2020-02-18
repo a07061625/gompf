@@ -36,7 +36,7 @@ func (ep *encryptionPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(ep.configInfo)
     xmlStr, _ := xmlData.Xml("ServerSideEncryptionConfiguration")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     ep.ReqUrl = "http://" + ep.ReqHeader["Host"] + ep.ReqUri + "?encryption"
     client, req := ep.GetRequest()
     req.SetBody([]byte(reqBody))

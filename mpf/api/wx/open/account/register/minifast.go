@@ -66,7 +66,7 @@ func (mf *miniFast) SendRequest() api.ApiResult {
 func NewMiniFast(appId string) *miniFast {
     mf := &miniFast{wx.NewBaseWxOpen(), "", ""}
     mf.appId = appId
-    mf.ReqContentType = project.HttpContentTypeJson
+    mf.ReqContentType = project.HTTPContentTypeJSON
     mf.ReqMethod = fasthttp.MethodPost
     return mf
 }

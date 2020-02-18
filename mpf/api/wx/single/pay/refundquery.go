@@ -121,7 +121,7 @@ func NewRefundQuery(appId, merchantType string) *refundQuery {
     rq.SetPayAccount(conf, merchantType)
     rq.ReqData["sign_type"] = "MD5"
     rq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    rq.ReqContentType = project.HttpContentTypeXml
+    rq.ReqContentType = project.HTTPContentTypeXML
     rq.ReqMethod = fasthttp.MethodPost
     return rq
 }

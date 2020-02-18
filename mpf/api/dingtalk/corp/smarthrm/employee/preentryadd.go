@@ -97,7 +97,7 @@ func NewPreEntryAdd(corpId, agentTag, atType string) *preEntryAdd {
     pea.corpId = corpId
     pea.agentTag = agentTag
     pea.atType = atType
-    pea.ReqContentType = project.HttpContentTypeJson
+    pea.ReqContentType = project.HTTPContentTypeJSON
     pea.ReqMethod = fasthttp.MethodPost
     return pea
 }

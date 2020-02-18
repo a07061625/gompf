@@ -100,7 +100,7 @@ func NewLeaveStatus(corpId, agentTag string) *leaveStatus {
     ls.agentTag = agentTag
     ls.ExtendData["offset"] = 0
     ls.ExtendData["size"] = 10
-    ls.ReqContentType = project.HttpContentTypeJson
+    ls.ReqContentType = project.HTTPContentTypeJSON
     ls.ReqMethod = fasthttp.MethodPost
     return ls
 }

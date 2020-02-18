@@ -68,7 +68,7 @@ func NewMassSpeedSet(appId string) *massSpeedSet {
     mss := &massSpeedSet{wx.NewBaseWxAccount(), "", 0}
     mss.appId = appId
     mss.speed = -1
-    mss.ReqContentType = project.HttpContentTypeJson
+    mss.ReqContentType = project.HTTPContentTypeJSON
     mss.ReqMethod = fasthttp.MethodPost
     return mss
 }

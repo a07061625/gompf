@@ -254,7 +254,7 @@ func NewUserUpdate(corpId, agentTag string) *userUpdate {
     uu.gender = 1
     uu.enableFlag = 1
     uu.inviteFlag = true
-    uu.ReqContentType = project.HttpContentTypeJson
+    uu.ReqContentType = project.HTTPContentTypeJSON
     uu.ReqMethod = fasthttp.MethodPost
     return uu
 }

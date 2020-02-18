@@ -50,7 +50,7 @@ func (ec *endpointCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewEndpointCreate() *endpointCreate {
     ec := &endpointCreate{mpiot.NewBaseBaiDu(), ""}
     ec.ServiceUri = "/v1/endpoint"
-    ec.ReqContentType = project.HttpContentTypeJson
+    ec.ReqContentType = project.HTTPContentTypeJSON
     ec.ReqMethod = fasthttp.MethodPost
     return ec
 }

@@ -154,7 +154,7 @@ func NewPayBank(appId string) *payBank {
     pcb.amount = 0
     pcb.ReqData["mch_id"] = conf.GetPayMchId()
     pcb.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    pcb.ReqContentType = project.HttpContentTypeXml
+    pcb.ReqContentType = project.HTTPContentTypeXML
     pcb.ReqMethod = fasthttp.MethodPost
     return pcb
 }

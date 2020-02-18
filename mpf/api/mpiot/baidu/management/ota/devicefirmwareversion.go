@@ -47,7 +47,7 @@ func (dfv *deviceFirmwareVersion) CheckData() (*fasthttp.Client, *fasthttp.Reque
 func NewDeviceFirmwareVersion() *deviceFirmwareVersion {
     dfv := &deviceFirmwareVersion{mpiot.NewBaseBaiDu(), ""}
     dfv.ServiceUri = "/v3/iot/management/ota/device-firmware-version-query"
-    dfv.ReqContentType = project.HttpContentTypeJson
+    dfv.ReqContentType = project.HTTPContentTypeJSON
     dfv.ReqMethod = fasthttp.MethodPost
     return dfv
 }

@@ -96,7 +96,7 @@ func NewMsgRecordList(appId string) *msgRecordList {
     mrl.appId = appId
     mrl.msgId = 1
     mrl.number = 100
-    mrl.ReqContentType = project.HttpContentTypeJson
+    mrl.ReqContentType = project.HTTPContentTypeJSON
     mrl.ReqMethod = fasthttp.MethodPost
     return mrl
 }

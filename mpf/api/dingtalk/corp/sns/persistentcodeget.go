@@ -56,7 +56,7 @@ func (pcg *persistentCodeGet) CheckData() (*fasthttp.Client, *fasthttp.Request) 
 func NewPersistentCodeGet(corpId string) *persistentCodeGet {
     pcg := &persistentCodeGet{dingtalk.NewCorp(), "", ""}
     pcg.corpId = corpId
-    pcg.ReqContentType = project.HttpContentTypeJson
+    pcg.ReqContentType = project.HTTPContentTypeJSON
     pcg.ReqMethod = fasthttp.MethodPost
     return pcg
 }

@@ -35,7 +35,7 @@ func (jc *jobCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     xmlData := mxj.Map(jc.jobInfo)
     xmlInfo, _ := xmlData.Xml("CreateJobRequest")
-    reqBody := project.DataPrefixXml + string(xmlInfo) + ""
+    reqBody := project.DataPrefixXML + string(xmlInfo) + ""
     jc.ReqUrl = "http://" + jc.ReqHeader["Host"] + jc.ReqUri
     client, req := jc.GetRequest()
     req.SetBody([]byte(reqBody))

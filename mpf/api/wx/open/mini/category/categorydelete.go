@@ -80,7 +80,7 @@ func (cd *categoryDelete) SendRequest() api.ApiResult {
 func NewCategoryDelete(appId string) *categoryDelete {
     cd := &categoryDelete{wx.NewBaseWxOpen(), "", 0, 0}
     cd.appId = appId
-    cd.ReqContentType = project.HttpContentTypeJson
+    cd.ReqContentType = project.HTTPContentTypeJSON
     cd.ReqMethod = fasthttp.MethodPost
     return cd
 }

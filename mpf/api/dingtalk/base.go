@@ -29,7 +29,7 @@ func (dt *baseDingTalk) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
 func newDingTalk() baseDingTalk {
     dt := baseDingTalk{api.NewApiOuter(), make(map[string]interface{})}
-    dt.ReqContentType = project.HttpContentTypeForm
+    dt.ReqContentType = project.HTTPContentTypeForm
     dt.ReqMethod = fasthttp.MethodGet
     return dt
 }

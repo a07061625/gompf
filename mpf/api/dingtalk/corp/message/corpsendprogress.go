@@ -48,7 +48,7 @@ func NewCorpSendProgress(corpId, agentTag, atType string) *corpSendProgress {
     csp.agentTag = agentTag
     csp.atType = atType
     csp.ExtendData["agent_id"] = agentInfo["id"]
-    csp.ReqContentType = project.HttpContentTypeJson
+    csp.ReqContentType = project.HTTPContentTypeJSON
     csp.ReqMethod = fasthttp.MethodPost
     return csp
 }

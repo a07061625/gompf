@@ -56,7 +56,7 @@ func NewRoleList(corpId, agentTag, atType string) *roleList {
     rl.atType = atType
     rl.ExtendData["offset"] = 0
     rl.ExtendData["size"] = 10
-    rl.ReqContentType = project.HttpContentTypeJson
+    rl.ReqContentType = project.HTTPContentTypeJSON
     rl.ReqMethod = fasthttp.MethodPost
     return rl
 }

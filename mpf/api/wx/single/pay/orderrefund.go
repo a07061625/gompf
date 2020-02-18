@@ -165,7 +165,7 @@ func NewOrderRefund(appId, merchantType string) *orderRefund {
     or.ReqData["sign_type"] = "MD5"
     or.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     or.ReqData["refund_fee_type"] = "CNY"
-    or.ReqContentType = project.HttpContentTypeXml
+    or.ReqContentType = project.HTTPContentTypeXML
     or.ReqMethod = fasthttp.MethodPost
     return or
 }

@@ -66,7 +66,7 @@ func (mc *menuCreate) SendRequest() api.ApiResult {
 func NewMenuCreate(appId string) *menuCreate {
     mc := &menuCreate{wx.NewBaseWxAccount(), "", make([]map[string]interface{}, 0)}
     mc.appId = appId
-    mc.ReqContentType = project.HttpContentTypeJson
+    mc.ReqContentType = project.HTTPContentTypeJSON
     mc.ReqMethod = fasthttp.MethodPost
     return mc
 }

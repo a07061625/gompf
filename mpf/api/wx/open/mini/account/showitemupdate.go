@@ -63,7 +63,7 @@ func NewShowItemUpdate(appId string) *showItemUpdate {
     siu := &showItemUpdate{wx.NewBaseWxOpen(), "", 0}
     siu.appId = appId
     siu.bizFlag = 0
-    siu.ReqContentType = project.HttpContentTypeJson
+    siu.ReqContentType = project.HTTPContentTypeJSON
     siu.ReqMethod = fasthttp.MethodPost
     return siu
 }

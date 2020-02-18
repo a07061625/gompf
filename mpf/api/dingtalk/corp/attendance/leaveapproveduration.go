@@ -68,7 +68,7 @@ func NewLeaveApproveDuration(corpId, agentTag string) *leaveApproveDuration {
     lad := &leaveApproveDuration{dingtalk.NewCorp(), "", "", "", "", ""}
     lad.corpId = corpId
     lad.agentTag = agentTag
-    lad.ReqContentType = project.HttpContentTypeJson
+    lad.ReqContentType = project.HTTPContentTypeJSON
     lad.ReqMethod = fasthttp.MethodPost
     return lad
 }

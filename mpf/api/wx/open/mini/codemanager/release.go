@@ -46,7 +46,7 @@ func (r *release) SendRequest() api.ApiResult {
 func NewRelease(appId string) *release {
     r := &release{wx.NewBaseWxOpen(), ""}
     r.appId = appId
-    r.ReqContentType = project.HttpContentTypeJson
+    r.ReqContentType = project.HTTPContentTypeJSON
     r.ReqMethod = fasthttp.MethodPost
     return r
 }

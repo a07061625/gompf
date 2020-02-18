@@ -47,7 +47,7 @@ func NewTodoNumGet(corpId, agentTag string) *todoNumGet {
     ig := &todoNumGet{dingtalk.NewCorp(), "", "", ""}
     ig.corpId = corpId
     ig.agentTag = agentTag
-    ig.ReqContentType = project.HttpContentTypeJson
+    ig.ReqContentType = project.HTTPContentTypeJSON
     ig.ReqMethod = fasthttp.MethodPost
     return ig
 }

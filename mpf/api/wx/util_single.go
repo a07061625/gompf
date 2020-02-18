@@ -33,7 +33,7 @@ func (util *utilWx) refreshSingleAccessToken(appId string) map[string]interface{
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
     resp := mpf.HttpSendReq(client, req, 3*time.Second)
@@ -85,7 +85,7 @@ func (util *utilWx) refreshSingleTicket(appId string, accessToken string, refres
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(ticketUrl)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
     resp := mpf.HttpSendReq(client, req, 3*time.Second)

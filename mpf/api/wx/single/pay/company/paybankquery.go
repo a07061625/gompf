@@ -98,7 +98,7 @@ func NewPayBankQuery(appId string) *payBankQuery {
     pbq.appId = appId
     pbq.ReqData["mch_id"] = conf.GetPayMchId()
     pbq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    pbq.ReqContentType = project.HttpContentTypeXml
+    pbq.ReqContentType = project.HTTPContentTypeXML
     pbq.ReqMethod = fasthttp.MethodPost
     return pbq
 }

@@ -63,7 +63,7 @@ func (lig *loginInfoGet) SendRequest() api.ApiResult {
 
 func NewLoginInfoGet() *loginInfoGet {
     lig := &loginInfoGet{wx.NewBaseWxProvider(), ""}
-    lig.ReqContentType = project.HttpContentTypeJson
+    lig.ReqContentType = project.HTTPContentTypeJSON
     lig.ReqMethod = fasthttp.MethodPost
     return lig
 }

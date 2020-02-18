@@ -79,7 +79,7 @@ func (sm *scheduleModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewScheduleModify(key string) *scheduleModify {
     sm := &scheduleModify{mppush.NewBaseJPush(mppush.JPushServiceDomainApi, key, "app"), ""}
-    sm.ReqContentType = project.HttpContentTypeJson
+    sm.ReqContentType = project.HTTPContentTypeJSON
     sm.ReqMethod = fasthttp.MethodPut
     return sm
 }

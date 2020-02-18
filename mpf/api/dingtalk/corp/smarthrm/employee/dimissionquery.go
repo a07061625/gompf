@@ -56,7 +56,7 @@ func NewDimissionQuery(corpId, agentTag, atType string) *dimissionQuery {
     dq.atType = atType
     dq.ExtendData["offset"] = 0
     dq.ExtendData["size"] = 10
-    dq.ReqContentType = project.HttpContentTypeJson
+    dq.ReqContentType = project.HTTPContentTypeJSON
     dq.ReqMethod = fasthttp.MethodPost
     return dq
 }

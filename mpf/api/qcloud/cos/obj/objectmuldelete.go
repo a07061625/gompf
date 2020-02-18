@@ -55,7 +55,7 @@ func (omd *objectMulDelete) CheckData() (*fasthttp.Client, *fasthttp.Request) {
         eXml, _ := xmlData.Xml("Object")
         xmlStr += string(eXml)
     }
-    reqBody := project.DataPrefixXml + "<Delete><Quiet>" + omd.modeType + "</Quiet>" + xmlStr + "</Delete>"
+    reqBody := project.DataPrefixXML + "<Delete><Quiet>" + omd.modeType + "</Quiet>" + xmlStr + "</Delete>"
 
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     omd.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))

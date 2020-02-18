@@ -43,7 +43,7 @@ func NewBasicInit() context.Handler {
 
         reqId := ""
         if mpf.EnvServerTypeRpc == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
-            reqId = ctx.PostValueDefault(project.DataParamKeyReqId, "")
+            reqId = ctx.PostValueDefault(project.DataParamKeyReqID, "")
         }
         mpf.ToolCreateReqId(reqId)
 
@@ -51,7 +51,7 @@ func NewBasicInit() context.Handler {
         if len(ctx.Request().URL.RawQuery) > 0 {
             reqUrl += "?" + ctx.Request().URL.RawQuery
         }
-        ctx.Values().Set(project.DataParamKeyReqUrl, reqUrl)
+        ctx.Values().Set(project.DataParamKeyReqURL, reqUrl)
 
         ctx.Next()
     }
@@ -60,7 +60,7 @@ func NewBasicInit() context.Handler {
 // 请求日志
 func NewBasicLog() context.Handler {
     return func(ctx context.Context) {
-        reqUrl := ctx.Values().GetString(project.DataParamKeyReqUrl)
+        reqUrl := ctx.Values().GetString(project.DataParamKeyReqURL)
         mplog.LogInfo(reqUrl + " request-enter")
 
         reqStart := time.Now()

@@ -1,7 +1,4 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/6 0006
- * Time: 10:15
- */
+// Package mprequest request
+// User: 姜伟
+// Time: 2020-02-19 05:03:55
 package mprequest

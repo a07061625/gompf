@@ -156,7 +156,7 @@ func NewCommentQueryBatch(appId string) *commentQueryBatch {
     cqb.ReqData["mch_id"] = conf.GetPayMchId()
     cqb.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     cqb.ReqData["sign_type"] = "HMAC-SHA256"
-    cqb.ReqContentType = project.HttpContentTypeXml
+    cqb.ReqContentType = project.HTTPContentTypeXML
     cqb.ReqMethod = fasthttp.MethodPost
     return cqb
 }

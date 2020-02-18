@@ -74,7 +74,7 @@ func (bw *baseWx) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
 func newBaseWx() baseWx {
     bw := baseWx{api.NewApiInner()}
-    bw.ReqContentType = project.HttpContentTypeForm
+    bw.ReqContentType = project.HTTPContentTypeForm
     bw.ReqMethod = fasthttp.MethodGet
     return bw
 }

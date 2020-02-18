@@ -137,7 +137,7 @@ func NewExtContactCreate(corpId, agentTag string) *extContactCreate {
     ecc.corpId = corpId
     ecc.agentTag = agentTag
     ecc.ExtendData["state_code"] = "86"
-    ecc.ReqContentType = project.HttpContentTypeJson
+    ecc.ReqContentType = project.HTTPContentTypeJSON
     ecc.ReqMethod = fasthttp.MethodPost
     return ecc
 }

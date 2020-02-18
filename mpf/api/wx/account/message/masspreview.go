@@ -103,7 +103,7 @@ func (mp *massPreview) SendRequest() api.ApiResult {
 func NewMassPreview(appId string) *massPreview {
     mp := &massPreview{wx.NewBaseWxAccount(), "", "", make(map[string]interface{}), "", ""}
     mp.appId = appId
-    mp.ReqContentType = project.HttpContentTypeJson
+    mp.ReqContentType = project.HTTPContentTypeJSON
     mp.ReqMethod = fasthttp.MethodPost
     return mp
 }

@@ -101,7 +101,7 @@ func (c *configCorp) GetLoginAppSecret() string {
 }
 
 func (c *configCorp) SetLoginUrlCallback(loginUrlCallback string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, loginUrlCallback)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, loginUrlCallback)
     if match {
         c.loginUrlCallback = loginUrlCallback
     } else {
@@ -262,7 +262,7 @@ func (c *configProvider) GetLoginAppSecret() string {
 }
 
 func (c *configProvider) SetLoginUrlCallback(loginUrlCallback string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, loginUrlCallback)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, loginUrlCallback)
     if match {
         c.loginUrlCallback = loginUrlCallback
     } else {

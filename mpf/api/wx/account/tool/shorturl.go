@@ -78,7 +78,7 @@ func NewShortUrl(appId string) *shortUrl {
     su.ReqData["mch_id"] = conf.GetPayMchId()
     su.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     su.ReqData["sign_type"] = "MD5"
-    su.ReqContentType = project.HttpContentTypeXml
+    su.ReqContentType = project.HTTPContentTypeXML
     su.ReqMethod = fasthttp.MethodPost
     return su
 }

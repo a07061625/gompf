@@ -68,7 +68,7 @@ func (ed *expressDel) SendRequest() api.ApiResult {
 func NewExpressDel(appId string) *expressDel {
     ed := &expressDel{wx.NewBaseWxAccount(), "", ""}
     ed.appId = appId
-    ed.ReqContentType = project.HttpContentTypeJson
+    ed.ReqContentType = project.HTTPContentTypeJSON
     ed.ReqMethod = fasthttp.MethodPost
     return ed
 }

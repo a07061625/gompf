@@ -63,7 +63,7 @@ func (udg *userDetailGet) SendRequest() api.ApiResult {
 
 func NewUserDetailGet() *userDetailGet {
     udg := &userDetailGet{wx.NewBaseWxProvider(), ""}
-    udg.ReqContentType = project.HttpContentTypeJson
+    udg.ReqContentType = project.HTTPContentTypeJSON
     udg.ReqMethod = fasthttp.MethodPost
     return udg
 }

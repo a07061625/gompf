@@ -173,7 +173,7 @@ func NewDepartmentCreate(corpId, agentTag, atType string) *departmentCreate {
     dc.ExtendData["deptHiding"] = false
     dc.ExtendData["outerDept"] = false
     dc.ExtendData["outerDeptOnlySelf"] = false
-    dc.ReqContentType = project.HttpContentTypeJson
+    dc.ReqContentType = project.HTTPContentTypeJSON
     dc.ReqMethod = fasthttp.MethodPost
     return dc
 }

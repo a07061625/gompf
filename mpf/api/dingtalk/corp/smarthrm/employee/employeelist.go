@@ -81,7 +81,7 @@ func NewEmployeeList(corpId, agentTag, atType string) *employeeList {
     el.corpId = corpId
     el.agentTag = agentTag
     el.atType = atType
-    el.ReqContentType = project.HttpContentTypeJson
+    el.ReqContentType = project.HTTPContentTypeJSON
     el.ReqMethod = fasthttp.MethodPost
     return el
 }

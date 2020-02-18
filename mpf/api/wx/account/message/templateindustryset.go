@@ -80,7 +80,7 @@ func (tis *templateIndustrySet) SendRequest() api.ApiResult {
 func NewTemplateIndustrySet(appId string) *templateIndustrySet {
     tis := &templateIndustrySet{wx.NewBaseWxAccount(), "", 0, 0}
     tis.appId = appId
-    tis.ReqContentType = project.HttpContentTypeJson
+    tis.ReqContentType = project.HTTPContentTypeJSON
     tis.ReqMethod = fasthttp.MethodPost
     return tis
 }

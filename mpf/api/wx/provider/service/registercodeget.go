@@ -114,7 +114,7 @@ func (rcg *registerCodeGet) SendRequest() api.ApiResult {
 func NewRegisterCodeGet() *registerCodeGet {
     rcg := &registerCodeGet{wx.NewBaseWxProvider(), "", "", "", "", "", ""}
     rcg.state = mpf.ToolCreateNonceStr(8, "numlower")
-    rcg.ReqContentType = project.HttpContentTypeJson
+    rcg.ReqContentType = project.HTTPContentTypeJSON
     rcg.ReqMethod = fasthttp.MethodPost
     return rcg
 }

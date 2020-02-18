@@ -61,7 +61,7 @@ func NewBlackList(appId string) *blackList {
     bl := &blackList{wx.NewBaseWxAccount(), "", ""}
     bl.appId = appId
     bl.ReqData["begin_openid"] = ""
-    bl.ReqContentType = project.HttpContentTypeJson
+    bl.ReqContentType = project.HTTPContentTypeJSON
     bl.ReqMethod = fasthttp.MethodPost
     return bl
 }

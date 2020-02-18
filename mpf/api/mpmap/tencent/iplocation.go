@@ -22,7 +22,7 @@ type ipLocation struct {
 }
 
 func (il *ipLocation) SetIp(ip string) {
-    match, _ := regexp.MatchString(project.RegexIp, "."+ip)
+    match, _ := regexp.MatchString(project.RegexIP, "."+ip)
     if match {
         il.ReqData["ip"] = ip
     } else {

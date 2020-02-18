@@ -111,7 +111,7 @@ func NewHeadImageModify(appId string) *headImageModify {
     him.y1 = 0.00
     him.x2 = 1.00
     him.y2 = 1.00
-    him.ReqContentType = project.HttpContentTypeJson
+    him.ReqContentType = project.HTTPContentTypeJSON
     him.ReqMethod = fasthttp.MethodPost
     return him
 }

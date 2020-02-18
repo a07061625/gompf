@@ -64,7 +64,7 @@ func (ar *adminRebind) SendRequest() api.ApiResult {
 
 func NewAdminRebind() *adminRebind {
     ar := &adminRebind{wx.NewBaseWxOpen(), ""}
-    ar.ReqContentType = project.HttpContentTypeJson
+    ar.ReqContentType = project.HTTPContentTypeJSON
     ar.ReqMethod = fasthttp.MethodPost
     return ar
 }

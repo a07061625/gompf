@@ -118,7 +118,7 @@ func (ss *scopeSet) SendRequest() api.ApiResult {
 
 func NewScopeSet() *scopeSet {
     ss := &scopeSet{wx.NewBaseWxProvider(), "", 0, make([]string, 0), make([]int, 0), make([]int, 0)}
-    ss.ReqContentType = project.HttpContentTypeJson
+    ss.ReqContentType = project.HTTPContentTypeJSON
     ss.ReqMethod = fasthttp.MethodPost
     return ss
 }

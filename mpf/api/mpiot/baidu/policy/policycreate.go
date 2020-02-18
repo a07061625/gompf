@@ -63,7 +63,7 @@ func (pc *policyCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewPolicyCreate() *policyCreate {
     pc := &policyCreate{mpiot.NewBaseBaiDu(), "", ""}
-    pc.ReqContentType = project.HttpContentTypeJson
+    pc.ReqContentType = project.HTTPContentTypeJSON
     pc.ReqMethod = fasthttp.MethodPost
     return pc
 }

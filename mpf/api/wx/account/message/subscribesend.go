@@ -49,7 +49,7 @@ func (ss *subscribeSend) SetTemplateId(templateId string) {
 }
 
 func (ss *subscribeSend) SetRedirectUrl(redirectUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, redirectUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, redirectUrl)
     if match {
         ss.redirectUrl = redirectUrl
     } else {
@@ -149,7 +149,7 @@ func NewSubscribeSend(appId string) *subscribeSend {
     ss := &subscribeSend{wx.NewBaseWxAccount(), "", "", "", "", make(map[string]interface{}), 0, "", make(map[string]interface{})}
     ss.appId = appId
     ss.scene = -1
-    ss.ReqContentType = project.HttpContentTypeJson
+    ss.ReqContentType = project.HTTPContentTypeJSON
     ss.ReqMethod = fasthttp.MethodPost
     return ss
 }

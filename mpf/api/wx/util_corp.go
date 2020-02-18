@@ -33,7 +33,7 @@ func (util *utilWx) refreshCorpAccessToken(corpId string, agentTag string) map[s
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
     resp := mpf.HttpSendReq(client, req, 3*time.Second)
@@ -83,7 +83,7 @@ func (util *utilWx) refreshCorpJsTicket(accessToken string) map[string]interface
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(jtUrl)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
     resp := mpf.HttpSendReq(client, req, 3*time.Second)

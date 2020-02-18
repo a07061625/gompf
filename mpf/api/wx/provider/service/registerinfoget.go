@@ -63,7 +63,7 @@ func (rig *registerInfoGet) SendRequest() api.ApiResult {
 
 func NewRegisterInfoGet() *registerInfoGet {
     rig := &registerInfoGet{wx.NewBaseWxProvider(), ""}
-    rig.ReqContentType = project.HttpContentTypeJson
+    rig.ReqContentType = project.HTTPContentTypeJSON
     rig.ReqMethod = fasthttp.MethodPost
     return rig
 }

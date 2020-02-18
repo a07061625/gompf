@@ -105,7 +105,7 @@ func NewInviteUser(corpId, agentTag string) *inviteUser {
     iu := &inviteUser{wx.NewBaseWxCorp(), "", "", make([]string, 0), make([]uint, 0), make([]uint, 0)}
     iu.corpId = corpId
     iu.agentTag = agentTag
-    iu.ReqContentType = project.HttpContentTypeJson
+    iu.ReqContentType = project.HTTPContentTypeJSON
     iu.ReqMethod = fasthttp.MethodPost
     return iu
 }

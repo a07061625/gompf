@@ -47,7 +47,7 @@ func (ts *templateSend) SetTemplateId(templateId string) {
 }
 
 func (ts *templateSend) SetRedirectUrl(redirectUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, redirectUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, redirectUrl)
     if match {
         ts.redirectUrl = redirectUrl
     } else {
@@ -112,7 +112,7 @@ func (ts *templateSend) SendRequest() api.ApiResult {
 func NewTemplateSend(appId string) *templateSend {
     ts := &templateSend{wx.NewBaseWxAccount(), "", "", "", "", make(map[string]interface{}), make(map[string]interface{})}
     ts.appId = appId
-    ts.ReqContentType = project.HttpContentTypeJson
+    ts.ReqContentType = project.HTTPContentTypeJSON
     ts.ReqMethod = fasthttp.MethodPost
     return ts
 }

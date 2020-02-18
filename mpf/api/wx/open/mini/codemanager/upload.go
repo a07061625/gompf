@@ -104,7 +104,7 @@ func (u *upload) SendRequest() api.ApiResult {
 func NewNicknameAuditQuery(appId string) *upload {
     u := &upload{wx.NewBaseWxOpen(), "", "", "", "", make(map[string]interface{})}
     u.appId = appId
-    u.ReqContentType = project.HttpContentTypeJson
+    u.ReqContentType = project.HTTPContentTypeJSON
     u.ReqMethod = fasthttp.MethodPost
     return u
 }

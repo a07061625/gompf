@@ -138,7 +138,7 @@ func (uo *unifiedOrder) SetProfitSharing(profitSharing string) {
 }
 
 func (uo *unifiedOrder) SetClientIp(clientIp string) {
-    match, _ := regexp.MatchString(project.RegexIp, "."+clientIp)
+    match, _ := regexp.MatchString(project.RegexIP, "."+clientIp)
     if match {
         uo.clientIp = clientIp
     } else {
@@ -231,7 +231,7 @@ func NewUnifiedOrder(appId, tradeType, merchantType string) *unifiedOrder {
     if tradeType != single.TradeTypeMobileWeb {
         uo.ReqData["spbill_create_ip"] = conf.GetClientIp()
     }
-    uo.ReqContentType = project.HttpContentTypeXml
+    uo.ReqContentType = project.HTTPContentTypeXML
     uo.ReqMethod = fasthttp.MethodPost
     return uo
 }

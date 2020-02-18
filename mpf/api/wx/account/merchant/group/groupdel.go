@@ -66,7 +66,7 @@ func (gd *groupDel) SendRequest() api.ApiResult {
 func NewGroupDel(appId string) *groupDel {
     gd := &groupDel{wx.NewBaseWxAccount(), "", 0}
     gd.appId = appId
-    gd.ReqContentType = project.HttpContentTypeJson
+    gd.ReqContentType = project.HTTPContentTypeJSON
     gd.ReqMethod = fasthttp.MethodPost
     return gd
 }

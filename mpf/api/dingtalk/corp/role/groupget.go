@@ -52,7 +52,7 @@ func NewGroupGet(corpId, agentTag, atType string) *groupGet {
     gg.corpId = corpId
     gg.agentTag = agentTag
     gg.atType = atType
-    gg.ReqContentType = project.HttpContentTypeJson
+    gg.ReqContentType = project.HTTPContentTypeJSON
     gg.ReqMethod = fasthttp.MethodPost
     return gg
 }

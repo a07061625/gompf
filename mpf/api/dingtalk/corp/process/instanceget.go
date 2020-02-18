@@ -44,7 +44,7 @@ func NewInstanceGet(corpId, agentTag string) *instanceGet {
     ig := &instanceGet{dingtalk.NewCorp(), "", "", ""}
     ig.corpId = corpId
     ig.agentTag = agentTag
-    ig.ReqContentType = project.HttpContentTypeJson
+    ig.ReqContentType = project.HTTPContentTypeJSON
     ig.ReqMethod = fasthttp.MethodPost
     return ig
 }

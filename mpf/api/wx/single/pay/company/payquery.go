@@ -99,7 +99,7 @@ func NewPayQuery(appId string) *payQuery {
     pq.ReqData["appid"] = conf.GetAppId()
     pq.ReqData["mch_id"] = conf.GetPayMchId()
     pq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    pq.ReqContentType = project.HttpContentTypeXml
+    pq.ReqContentType = project.HTTPContentTypeXML
     pq.ReqMethod = fasthttp.MethodPost
     return pq
 }

@@ -70,7 +70,7 @@ func NewSimpleList(corpId, agentTag, atType string) *simpleList {
     sl.atType = atType
     sl.ExtendData["offset"] = 0
     sl.ExtendData["size"] = 10
-    sl.ReqContentType = project.HttpContentTypeJson
+    sl.ReqContentType = project.HTTPContentTypeJSON
     sl.ReqMethod = fasthttp.MethodPost
     return sl
 }

@@ -66,7 +66,7 @@ func (cd *conditionalDel) SendRequest() api.ApiResult {
 func NewConditionalDel(appId string) *conditionalDel {
     cd := &conditionalDel{wx.NewBaseWxAccount(), "", ""}
     cd.appId = appId
-    cd.ReqContentType = project.HttpContentTypeJson
+    cd.ReqContentType = project.HTTPContentTypeJSON
     cd.ReqMethod = fasthttp.MethodPost
     return cd
 }

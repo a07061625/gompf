@@ -93,7 +93,7 @@ func (mg *materialGet) SendRequest() api.ApiResult {
 func NewMaterialGet(appId string) *materialGet {
     mg := &materialGet{wx.NewBaseWxAccount(), "", "", ""}
     mg.appId = appId
-    mg.ReqContentType = project.HttpContentTypeJson
+    mg.ReqContentType = project.HTTPContentTypeJSON
     mg.ReqMethod = fasthttp.MethodPost
     return mg
 }

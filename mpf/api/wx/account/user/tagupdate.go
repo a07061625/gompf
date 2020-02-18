@@ -81,7 +81,7 @@ func (tu *tagUpdate) SendRequest() api.ApiResult {
 func NewTagUpdate(appId string) *tagUpdate {
     tu := &tagUpdate{wx.NewBaseWxAccount(), "", 0, ""}
     tu.appId = appId
-    tu.ReqContentType = project.HttpContentTypeJson
+    tu.ReqContentType = project.HTTPContentTypeJSON
     tu.ReqMethod = fasthttp.MethodPost
     return tu
 }

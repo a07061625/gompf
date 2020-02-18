@@ -69,7 +69,7 @@ func (usg *uploadSignatureGet) SendRequest() api.ApiResult {
 func NewUploadSignatureGet(appId string) *uploadSignatureGet {
     usg := &uploadSignatureGet{wx.NewBaseWxOpen(), "", ""}
     usg.appId = appId
-    usg.ReqContentType = project.HttpContentTypeJson
+    usg.ReqContentType = project.HTTPContentTypeJSON
     usg.ReqMethod = fasthttp.MethodPost
     return usg
 }

@@ -97,7 +97,7 @@ func NewReportList(corpId, agentTag, atType string) *reportList {
     rl.atType = atType
     rl.ExtendData["cursor"] = 0
     rl.ExtendData["size"] = 10
-    rl.ReqContentType = project.HttpContentTypeJson
+    rl.ReqContentType = project.HTTPContentTypeJSON
     rl.ReqMethod = fasthttp.MethodPost
     return rl
 }

@@ -137,7 +137,7 @@ func NewBillDownload(appId string) *billDownload {
     bd.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     bd.ReqData["tar_type"] = "GZIP"
     bd.ReqData["bill_type"] = "ALL"
-    bd.ReqContentType = project.HttpContentTypeXml
+    bd.ReqContentType = project.HTTPContentTypeXML
     bd.ReqMethod = fasthttp.MethodPost
     return bd
 }

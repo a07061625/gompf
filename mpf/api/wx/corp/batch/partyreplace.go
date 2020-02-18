@@ -80,7 +80,7 @@ func NewPartyReplace(corpId, agentTag string) *partyReplace {
     pr := &partyReplace{wx.NewBaseWxCorp(), "", "", "", make(map[string]string)}
     pr.corpId = corpId
     pr.agentTag = agentTag
-    pr.ReqContentType = project.HttpContentTypeJson
+    pr.ReqContentType = project.HTTPContentTypeJSON
     pr.ReqMethod = fasthttp.MethodPost
     return pr
 }

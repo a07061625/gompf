@@ -77,7 +77,7 @@ func NewCode2Openid(appId string) *code2Openid {
     co.ReqData["appid"] = conf.GetAppId()
     co.ReqData["mch_id"] = conf.GetPayMchId()
     co.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    co.ReqContentType = project.HttpContentTypeXml
+    co.ReqContentType = project.HTTPContentTypeXML
     co.ReqMethod = fasthttp.MethodPost
     return co
 }

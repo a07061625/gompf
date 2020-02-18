@@ -68,7 +68,7 @@ func (tc *tagCreate) SendRequest() api.ApiResult {
 func NewTagCreate(appId string) *tagCreate {
     tc := &tagCreate{wx.NewBaseWxAccount(), "", ""}
     tc.appId = appId
-    tc.ReqContentType = project.HttpContentTypeJson
+    tc.ReqContentType = project.HTTPContentTypeJSON
     tc.ReqMethod = fasthttp.MethodPost
     return tc
 }

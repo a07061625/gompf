@@ -41,7 +41,7 @@ func (rp *refererPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     xmlData := mxj.Map(rp.refererConfig)
     xmlStr, _ := xmlData.Xml("RefererConfiguration")
 
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     rp.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     rp.SetHeaderData("Content-Length", strconv.Itoa(len(reqBody)))

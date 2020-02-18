@@ -68,7 +68,7 @@ func (td *tagDelete) SendRequest() api.ApiResult {
 func NewTagDelete(appId string) *tagDelete {
     td := &tagDelete{wx.NewBaseWxAccount(), "", 0}
     td.appId = appId
-    td.ReqContentType = project.HttpContentTypeJson
+    td.ReqContentType = project.HTTPContentTypeJSON
     td.ReqMethod = fasthttp.MethodPost
     return td
 }

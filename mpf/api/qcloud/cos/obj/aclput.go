@@ -51,7 +51,7 @@ func (ap *aclPut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
     }
     xmlData := mxj.Map(ap.policyInfo)
     xmlInfo, _ := xmlData.Xml("AccessControlPolicy")
-    reqBody := project.DataPrefixXml + string(xmlInfo) + ""
+    reqBody := project.DataPrefixXML + string(xmlInfo) + ""
     encodeStr := base64.StdEncoding.EncodeToString([]byte(reqBody))
     ap.SetHeaderData("Content-MD5", mpf.HashMd5(encodeStr, ""))
     ap.ReqUrl = "http://" + ap.ReqHeader["Host"] + ap.ReqUri + "?acl"

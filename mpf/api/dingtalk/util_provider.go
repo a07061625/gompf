@@ -51,7 +51,7 @@ func (util *utilDingTalk) refreshProviderAuthorizeAccessToken(corpId string) map
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
     atData := make(map[string]string)

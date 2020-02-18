@@ -68,7 +68,7 @@ func NewGrayRelease(appId string) *grayRelease {
     gr := &grayRelease{wx.NewBaseWxOpen(), "", 0}
     gr.appId = appId
     gr.percentage = 0
-    gr.ReqContentType = project.HttpContentTypeJson
+    gr.ReqContentType = project.HTTPContentTypeJSON
     gr.ReqMethod = fasthttp.MethodPost
     return gr
 }

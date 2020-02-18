@@ -69,7 +69,7 @@ func (cas *auditStatus) SendRequest() api.ApiResult {
 func NewCodeAuditStatus(appId string) *auditStatus {
     cas := &auditStatus{wx.NewBaseWxOpen(), "", ""}
     cas.appId = appId
-    cas.ReqContentType = project.HttpContentTypeJson
+    cas.ReqContentType = project.HTTPContentTypeJSON
     cas.ReqMethod = fasthttp.MethodPost
     return cas
 }

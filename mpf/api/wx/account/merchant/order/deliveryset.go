@@ -121,7 +121,7 @@ func NewDeliverySet(appId string) *deliverySet {
     ds.appId = appId
     ds.needDelivery = 1
     ds.isOthers = 0
-    ds.ReqContentType = project.HttpContentTypeJson
+    ds.ReqContentType = project.HTTPContentTypeJSON
     ds.ReqMethod = fasthttp.MethodPost
     return ds
 }

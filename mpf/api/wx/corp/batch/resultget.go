@@ -66,7 +66,7 @@ func NewResultGet(corpId, agentTag string) *resultGet {
     rg := &resultGet{wx.NewBaseWxCorp(), "", "", ""}
     rg.corpId = corpId
     rg.agentTag = agentTag
-    rg.ReqContentType = project.HttpContentTypeJson
+    rg.ReqContentType = project.HTTPContentTypeJSON
     rg.ReqMethod = fasthttp.MethodPost
     return rg
 }

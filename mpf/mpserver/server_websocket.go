@@ -15,7 +15,7 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
-type HandlerFunc func(messageType int, messageData map[string]interface{}) (bool, *mpresponse.ResultApi)
+type HandlerFunc func(messageType int, messageData map[string]interface{}) (bool, *mpresponse.ResultAPI)
 
 type connWebSocket struct {
     Id   string
@@ -101,8 +101,8 @@ func (s *serverWebSocket) handleUpGrader(ctx context.Context) (string, *websocke
     return webSocketKey, conn
 }
 
-func (s *serverWebSocket) handleMessage(messageType int, messageData []byte, connKey string) (bool, *mpresponse.ResultApi) {
-    result := mpresponse.NewResultApi()
+func (s *serverWebSocket) handleMessage(messageType int, messageData []byte, connKey string) (bool, *mpresponse.ResultAPI) {
+    result := mpresponse.NewResultAPI()
 
     handlerData, err := mpf.JsonUnmarshalMap(string(messageData))
     if err != nil {
@@ -143,7 +143,7 @@ func (s *serverWebSocket) Handler() context.Handler {
 
         go func() {
             closeFlag := false
-            result := mpresponse.NewResultApi()
+            result := mpresponse.NewResultAPI()
             for {
                 result.Refresh()
                 messageType, messageData, err := conn.ReadMessage()
@@ -177,7 +177,7 @@ func NewServerWebSocket() *serverWebSocket {
         Error: func(w http.ResponseWriter, r *http.Request, status int, reason error) {
             mplog.LogError("web socket error: " + reason.Error() + ", status: " + strconv.Itoa(status))
 
-            result := mpresponse.NewResultApi()
+            result := mpresponse.NewResultAPI()
             result.Code = errorcode.CommonBaseWebSocket
             result.Msg = reason.Error()
             w.Write([]byte(mpf.JsonMarshal(result)))

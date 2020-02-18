@@ -64,7 +64,7 @@ func (td *templateDelete) SendRequest(getType string) api.ApiResult {
 func NewTemplateDelete(appId string) *templateDelete {
     td := &templateDelete{wx.NewBaseWxMini(), "", ""}
     td.appId = appId
-    td.ReqContentType = project.HttpContentTypeJson
+    td.ReqContentType = project.HTTPContentTypeJSON
     td.ReqMethod = fasthttp.MethodPost
     return td
 }

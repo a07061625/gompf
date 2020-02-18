@@ -131,7 +131,7 @@ func HttpSendReq(client *fasthttp.Client, req *fasthttp.Request, timeout time.Du
         result.StatusCode = resp.Header.StatusCode()
         resp.Header.VisitAll(func(key, value []byte) {
             headerKey := string(key)
-            if (headerKey != project.HttpHeadKeyContentLength) && (headerKey != project.HttpHeadKeyCookie) {
+            if (headerKey != project.HTTPHeadKeyContentLength) && (headerKey != project.HTTPHeadKeyCookie) {
                 result.Headers[headerKey] = string(value)
             }
         })

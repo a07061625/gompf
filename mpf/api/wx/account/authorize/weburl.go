@@ -25,7 +25,7 @@ type webUrl struct {
 }
 
 func (wu *webUrl) SetRedirectUrl(redirectUrl string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, redirectUrl)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, redirectUrl)
     if match {
         wu.redirectUrl = redirectUrl
     } else {

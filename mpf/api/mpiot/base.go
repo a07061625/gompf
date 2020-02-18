@@ -96,7 +96,7 @@ func NewBaseBaiDu() BaseBaiDu {
     base.serviceDomain = BaiDuDomainGZ
     base.ReqHeader["Host"] = base.serviceDomain
     base.ReqHeader["Content-Type"] = "application/json; charset=utf-8"
-    base.ReqContentType = project.HttpContentTypeJson
+    base.ReqContentType = project.HTTPContentTypeJSON
     base.ReqMethod = fasthttp.MethodGet
     return base
 }
@@ -147,7 +147,7 @@ func (t *BaseTencent) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     t.createTC3Sign(reqBody)
 
     t.ReqUrl = "https://" + t.serviceDomain
-    t.ReqContentType = project.HttpContentTypeJson
+    t.ReqContentType = project.HTTPContentTypeJSON
     t.ReqMethod = fasthttp.MethodPost
 
     client := &fasthttp.Client{}

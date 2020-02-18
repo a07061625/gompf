@@ -61,7 +61,7 @@ func NewContactList(corpId, agentTag string) *contactList {
     cl := &contactList{dingtalk.NewCorp(), "", "", make([]string, 0)}
     cl.corpId = corpId
     cl.agentTag = agentTag
-    cl.ReqContentType = project.HttpContentTypeJson
+    cl.ReqContentType = project.HTTPContentTypeJSON
     cl.ReqMethod = fasthttp.MethodPost
     return cl
 }

@@ -49,7 +49,7 @@ func NewStepInfoUserStatus(corpId, agentTag, atType string) *stepInfoUserStatus 
     ius.corpId = corpId
     ius.agentTag = agentTag
     ius.atType = atType
-    ius.ReqContentType = project.HttpContentTypeJson
+    ius.ReqContentType = project.HTTPContentTypeJSON
     ius.ReqMethod = fasthttp.MethodPost
     return ius
 }

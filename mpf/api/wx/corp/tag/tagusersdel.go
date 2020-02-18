@@ -104,7 +104,7 @@ func NewTagUsersDel(corpId, agentTag string) *tagUsersDel {
     tud := &tagUsersDel{wx.NewBaseWxCorp(), "", "", "", make([]string, 0), make([]int, 0)}
     tud.corpId = corpId
     tud.agentTag = agentTag
-    tud.ReqContentType = project.HttpContentTypeJson
+    tud.ReqContentType = project.HTTPContentTypeJSON
     tud.ReqMethod = fasthttp.MethodPost
     return tud
 }

@@ -32,7 +32,7 @@ func (util *utilPrint) refreshFeYinAccessToken(appId string) map[string]interfac
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodGet)
 
     resp := mpf.HttpSendReq(client, req, 3*time.Second)

@@ -68,7 +68,7 @@ func (oc *orderClose) SendRequest() api.ApiResult {
 func NewOrderClose(appId string) *orderClose {
     oc := &orderClose{wx.NewBaseWxAccount(), "", ""}
     oc.appId = appId
-    oc.ReqContentType = project.HttpContentTypeJson
+    oc.ReqContentType = project.HTTPContentTypeJSON
     oc.ReqMethod = fasthttp.MethodPost
     return oc
 }

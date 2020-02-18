@@ -59,7 +59,7 @@ func (m *menu) SetKey(key string) {
 }
 
 func (m *menu) SetUrl(url string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, url)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, url)
     if match {
         m.url = url
     } else {

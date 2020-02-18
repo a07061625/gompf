@@ -122,7 +122,7 @@ func NewApply(appId, merchantType string) *apply {
     a.SetPayAccount(conf, merchantType)
     a.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     a.ReqData["sign_type"] = "HMAC-SHA256"
-    a.ReqContentType = project.HttpContentTypeXml
+    a.ReqContentType = project.HTTPContentTypeXML
     a.ReqMethod = fasthttp.MethodPost
     return a
 }

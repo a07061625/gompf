@@ -81,7 +81,7 @@ func (sc *sessionClose) SendRequest() api.ApiResult {
 func NewSessionClose(appId string) *sessionClose {
     sc := &sessionClose{wx.NewBaseWxAccount(), "", "", ""}
     sc.appId = appId
-    sc.ReqContentType = project.HttpContentTypeJson
+    sc.ReqContentType = project.HTTPContentTypeJSON
     sc.ReqMethod = fasthttp.MethodPost
     return sc
 }

@@ -55,7 +55,7 @@ func NewAdminScope(corpId, agentTag, atType string) *adminScope {
     as.corpId = corpId
     as.agentTag = agentTag
     as.atType = atType
-    as.ReqContentType = project.HttpContentTypeJson
+    as.ReqContentType = project.HTTPContentTypeJSON
     as.ReqMethod = fasthttp.MethodPost
     return as
 }

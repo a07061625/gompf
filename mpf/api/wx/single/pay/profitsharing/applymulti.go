@@ -122,7 +122,7 @@ func NewApplyMulti(appId, merchantType string) *applyMulti {
     am.SetPayAccount(conf, merchantType)
     am.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     am.ReqData["sign_type"] = "HMAC-SHA256"
-    am.ReqContentType = project.HttpContentTypeXml
+    am.ReqContentType = project.HTTPContentTypeXML
     am.ReqMethod = fasthttp.MethodPost
     return am
 }

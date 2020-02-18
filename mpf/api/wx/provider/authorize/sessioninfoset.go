@@ -77,7 +77,7 @@ func (sis *sessionInfoSet) SendRequest() api.ApiResult {
 func NewSessionInfoSet() *sessionInfoSet {
     sis := &sessionInfoSet{wx.NewBaseWxProvider(), "", 0}
     sis.authType = 0
-    sis.ReqContentType = project.HttpContentTypeJson
+    sis.ReqContentType = project.HTTPContentTypeJSON
     sis.ReqMethod = fasthttp.MethodPost
     return sis
 }

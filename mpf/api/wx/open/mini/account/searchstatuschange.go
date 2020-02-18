@@ -68,7 +68,7 @@ func NewSearchStatusChange(appId string) *searchStatusChange {
     ssc := &searchStatusChange{wx.NewBaseWxOpen(), "", 0}
     ssc.appId = appId
     ssc.searchStatus = -1
-    ssc.ReqContentType = project.HttpContentTypeJson
+    ssc.ReqContentType = project.HTTPContentTypeJSON
     ssc.ReqMethod = fasthttp.MethodPost
     return ssc
 }

@@ -99,7 +99,7 @@ func NewStatusUpdateBatch(corpId, agentTag string) *statusUpdateBatch {
     sub := &statusUpdateBatch{wx.NewBaseWxCorp(), "", "", "", "", make([]map[string]string, 0)}
     sub.corpId = corpId
     sub.agentTag = agentTag
-    sub.ReqContentType = project.HttpContentTypeJson
+    sub.ReqContentType = project.HTTPContentTypeJSON
     sub.ReqMethod = fasthttp.MethodPost
     return sub
 }

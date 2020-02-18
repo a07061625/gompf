@@ -91,7 +91,7 @@ func NewCheckInOptionGet(corpId, agentTag string) *checkInOptionGet {
     cog := &checkInOptionGet{wx.NewBaseWxCorp(), "", "", 0, make([]string, 0)}
     cog.corpId = corpId
     cog.agentTag = agentTag
-    cog.ReqContentType = project.HttpContentTypeJson
+    cog.ReqContentType = project.HTTPContentTypeJSON
     cog.ReqMethod = fasthttp.MethodPost
     return cog
 }

@@ -67,7 +67,7 @@ func (sqb *statusQueryBatch) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewStatusQueryBatch() *statusQueryBatch {
     sqb := &statusQueryBatch{mpiot.NewBaseBaiDu(), "", make([]string, 0)}
-    sqb.ReqContentType = project.HttpContentTypeJson
+    sqb.ReqContentType = project.HTTPContentTypeJSON
     sqb.ReqMethod = fasthttp.MethodPost
     return sqb
 }

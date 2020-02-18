@@ -46,7 +46,7 @@ func NewVisibleScopesGet(corpId, agentTag, atType string) *visibleScopesGet {
     vsg.corpId = corpId
     vsg.agentTag = agentTag
     vsg.atType = atType
-    vsg.ReqContentType = project.HttpContentTypeJson
+    vsg.ReqContentType = project.HTTPContentTypeJSON
     vsg.ReqMethod = fasthttp.MethodPost
     return vsg
 }

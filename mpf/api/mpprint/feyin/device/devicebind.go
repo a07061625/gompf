@@ -68,6 +68,6 @@ func NewDeviceBind(appId string) *deviceBind {
     db := &deviceBind{mpprint.NewBaseFeYin(), ""}
     db.SetAppId(appId)
     db.ReqMethod = fasthttp.MethodPost
-    db.ReqContentType = project.HttpContentTypeJson
+    db.ReqContentType = project.HTTPContentTypeJSON
     return db
 }

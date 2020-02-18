@@ -78,7 +78,7 @@ func (ppa *principalPolicyAttach) CheckData() (*fasthttp.Client, *fasthttp.Reque
 func NewPrincipalPolicyAttach() *principalPolicyAttach {
     ppa := &principalPolicyAttach{mpiot.NewBaseBaiDu(), "", "", ""}
     ppa.ServiceUri = "/v1/action/attach-principal-policy"
-    ppa.ReqContentType = project.HttpContentTypeJson
+    ppa.ReqContentType = project.HTTPContentTypeJSON
     ppa.ReqMethod = fasthttp.MethodPost
     return ppa
 }

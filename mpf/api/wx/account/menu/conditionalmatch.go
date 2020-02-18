@@ -66,7 +66,7 @@ func (cm *conditionalMatch) SendRequest() api.ApiResult {
 func NewConditionalMatch(appId string) *conditionalMatch {
     cm := &conditionalMatch{wx.NewBaseWxAccount(), "", ""}
     cm.appId = appId
-    cm.ReqContentType = project.HttpContentTypeJson
+    cm.ReqContentType = project.HTTPContentTypeJSON
     cm.ReqMethod = fasthttp.MethodPost
     return cm
 }

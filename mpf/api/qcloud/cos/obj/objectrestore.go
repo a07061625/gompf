@@ -49,7 +49,7 @@ func (or *objectRestore) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(or.restoreInfo)
     xmlStr, _ := xmlData.Xml("RestoreRequest")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     or.ReqUrl = "http://" + or.ReqHeader["Host"] + or.ReqUri + "?restore"
     client, req := or.GetRequest()
     req.SetBody([]byte(reqBody))

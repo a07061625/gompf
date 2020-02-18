@@ -45,7 +45,7 @@ func (au *auditUndo) SendRequest() api.ApiResult {
 func NewAuditUndo(appId string) *auditUndo {
     au := &auditUndo{wx.NewBaseWxOpen(), ""}
     au.appId = appId
-    au.ReqContentType = project.HttpContentTypeJson
+    au.ReqContentType = project.HTTPContentTypeJSON
     au.ReqMethod = fasthttp.MethodPost
     return au
 }

@@ -78,7 +78,7 @@ func NewDeviceSet(key string) *deviceSet {
     ds.ExtendData["tags"] = ""
     ds.ExtendData["alias"] = ""
     ds.ExtendData["mobile"] = ""
-    ds.ReqContentType = project.HttpContentTypeJson
+    ds.ReqContentType = project.HTTPContentTypeJSON
     ds.ReqMethod = fasthttp.MethodPost
     return ds
 }

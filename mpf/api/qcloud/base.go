@@ -118,7 +118,7 @@ func NewCos() BaseCos {
     cos.ReqUri = "/"
     cos.signExpireTime = 30
     cos.SetHeaderData("Host", conf.GetBucketHost())
-    cos.ReqContentType = project.HttpContentTypeXml
+    cos.ReqContentType = project.HTTPContentTypeXML
     cos.ReqMethod = fasthttp.MethodGet
     return cos
 }

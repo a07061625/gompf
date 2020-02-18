@@ -78,7 +78,7 @@ func (tpa *thingPrincipalRemove) CheckData() (*fasthttp.Client, *fasthttp.Reques
 func NewThingPrincipalRemove() *thingPrincipalRemove {
     tpa := &thingPrincipalRemove{mpiot.NewBaseBaiDu(), "", "", ""}
     tpa.ServiceUri = "/v1/action/remove-thing-principal"
-    tpa.ReqContentType = project.HttpContentTypeJson
+    tpa.ReqContentType = project.HTTPContentTypeJSON
     tpa.ReqMethod = fasthttp.MethodPost
     return tpa
 }

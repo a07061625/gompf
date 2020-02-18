@@ -64,7 +64,7 @@ func (ttk *templateTitleKeywords) SendRequest(getType string) api.ApiResult {
 func NewTemplateTitleKeywords(appId string) *templateTitleKeywords {
     ttk := &templateTitleKeywords{wx.NewBaseWxMini(), "", ""}
     ttk.appId = appId
-    ttk.ReqContentType = project.HttpContentTypeJson
+    ttk.ReqContentType = project.HTTPContentTypeJSON
     ttk.ReqMethod = fasthttp.MethodPost
     return ttk
 }

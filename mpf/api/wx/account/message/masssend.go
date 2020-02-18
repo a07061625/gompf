@@ -108,7 +108,7 @@ func NewMassSend(appId string) *massSend {
     ms := &massSend{wx.NewBaseWxAccount(), "", "", make(map[string]interface{}), make([]string, 0), 0}
     ms.appId = appId
     ms.sendReprint = -1
-    ms.ReqContentType = project.HttpContentTypeJson
+    ms.ReqContentType = project.HTTPContentTypeJSON
     ms.ReqMethod = fasthttp.MethodPost
     return ms
 }

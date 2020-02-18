@@ -66,7 +66,7 @@ func (sg *skuGet) SendRequest() api.ApiResult {
 func NewSkuGet(appId string) *skuGet {
     sg := &skuGet{wx.NewBaseWxAccount(), "", 0}
     sg.appId = appId
-    sg.ReqContentType = project.HttpContentTypeJson
+    sg.ReqContentType = project.HTTPContentTypeJSON
     sg.ReqMethod = fasthttp.MethodPost
     return sg
 }

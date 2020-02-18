@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/6 0006
- * Time: 0:59
- */
+// Package mpf bootstrap
+// User: 姜伟
+// Time: 2020-02-19 04:59:21
 package mpf
 
 import (
@@ -39,9 +36,8 @@ func (bs *bootstrap) formatDir(dir string) string {
 
     if (len(trueDir) > 1) && strings.HasSuffix(trueDir, "/") {
         return strings.TrimSuffix(trueDir, "/")
-    } else {
-        return trueDir
     }
+    return trueDir
 }
 
 func (bs *bootstrap) SetDirRoot(dirRoot string) {
@@ -114,6 +110,7 @@ func (bs *bootstrap) CheckProjectModule() string {
     return bs.projectModule
 }
 
+// NewBootstrap 实例化
 func NewBootstrap() *bootstrap {
     return &bootstrap{"", "", "", "", "", ""}
 }
@@ -122,6 +119,7 @@ var (
     onceBoot sync.Once
 )
 
+// LoadBoot 初始化加载
 func LoadBoot(bs *bootstrap) {
     onceBoot.Do(func() {
         // 配置相关

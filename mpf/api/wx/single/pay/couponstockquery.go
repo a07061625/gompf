@@ -97,7 +97,7 @@ func NewCouponStockQuery(appId string) *couponStockQuery {
     csq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     csq.ReqData["version"] = "1.0"
     csq.ReqData["type"] = "XML"
-    csq.ReqContentType = project.HttpContentTypeXml
+    csq.ReqContentType = project.HTTPContentTypeXML
     csq.ReqMethod = fasthttp.MethodPost
     return csq
 }

@@ -60,9 +60,9 @@ func NewCidList(key string) *cidList {
 func GetAppCid(key, cidType string) string {
     redisKey := ""
     if cidType == "push" {
-        redisKey = project.RedisPrefix(project.RedisPrefixJpushUidPush) + key
+        redisKey = project.RedisPrefix(project.RedisPrefixJpushUIDPush) + key
     } else {
-        redisKey = project.RedisPrefix(project.RedisPrefixJpushUidSchedule) + key
+        redisKey = project.RedisPrefix(project.RedisPrefixJpushUIDSchedule) + key
     }
 
     cid, err := mpcache.NewRedis().GetConn().LPop(redisKey).Result()

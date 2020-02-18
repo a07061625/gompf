@@ -18,7 +18,7 @@ import (
 // 控制器日志
 func NewBasicLog() context.Handler {
     return func(ctx context.Context) {
-        reqUrl := ctx.Values().GetString(project.DataParamKeyReqUrl)
+        reqUrl := ctx.Values().GetString(project.DataParamKeyReqURL)
         mplog.LogInfo(reqUrl + " controller-enter")
 
         // 业务结束日志

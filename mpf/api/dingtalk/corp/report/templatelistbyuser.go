@@ -61,7 +61,7 @@ func NewTemplateListByUser(corpId, agentTag, atType string) *templateListByUser 
     tlu.atType = atType
     tlu.ExtendData["offset"] = 0
     tlu.ExtendData["size"] = 10
-    tlu.ReqContentType = project.HttpContentTypeJson
+    tlu.ReqContentType = project.HTTPContentTypeJSON
     tlu.ReqMethod = fasthttp.MethodPost
     return tlu
 }

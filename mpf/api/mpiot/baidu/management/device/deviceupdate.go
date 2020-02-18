@@ -63,7 +63,7 @@ func (du *deviceUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewDeviceUpdate() *deviceUpdate {
     du := &deviceUpdate{mpiot.NewBaseBaiDu(), "", make(map[string]interface{}), make(map[string]interface{})}
     du.ReqData["updateProfile"] = ""
-    du.ReqContentType = project.HttpContentTypeJson
+    du.ReqContentType = project.HTTPContentTypeJSON
     du.ReqMethod = fasthttp.MethodPut
     return du
 }

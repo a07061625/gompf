@@ -68,7 +68,7 @@ func NewAppConfigGet(appId string) *appConfigGet {
     acg := &appConfigGet{wx.NewBaseWxOpen(), "", 0}
     acg.appId = appId
     acg.configType = 0
-    acg.ReqContentType = project.HttpContentTypeJson
+    acg.ReqContentType = project.HTTPContentTypeJSON
     acg.ReqMethod = fasthttp.MethodPost
     return acg
 }

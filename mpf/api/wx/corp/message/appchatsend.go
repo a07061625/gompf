@@ -107,7 +107,7 @@ func NewAppChatSend(corpId, agentTag string) *appChatSend {
     acs.corpId = corpId
     acs.agentTag = agentTag
     acs.safeFlag = 0
-    acs.ReqContentType = project.HttpContentTypeJson
+    acs.ReqContentType = project.HTTPContentTypeJSON
     acs.ReqMethod = fasthttp.MethodPost
     return acs
 }

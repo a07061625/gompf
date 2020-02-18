@@ -238,7 +238,7 @@ func NewNormalSend(appId string) *normalSend {
     ns.ReqData["mch_id"] = conf.GetPayMchId()
     ns.ReqData["client_ip"] = conf.GetClientIp()
     ns.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    ns.ReqContentType = project.HttpContentTypeXml
+    ns.ReqContentType = project.HTTPContentTypeXML
     ns.ReqMethod = fasthttp.MethodPost
     return ns
 }

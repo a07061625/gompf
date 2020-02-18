@@ -48,7 +48,7 @@ func NewAuthorizeInfoGet(appId string) *authorizeInfoGet {
     aig := &authorizeInfoGet{wx.NewBaseWxOpen(), ""}
     aig.ReqData["component_appid"] = conf.GetAppId()
     aig.ReqData["authorizer_appid"] = appId
-    aig.ReqContentType = project.HttpContentTypeJson
+    aig.ReqContentType = project.HTTPContentTypeJSON
     aig.ReqMethod = fasthttp.MethodPost
     return aig
 }

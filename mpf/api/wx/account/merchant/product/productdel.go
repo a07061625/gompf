@@ -65,7 +65,7 @@ func (pd *productDel) SendRequest() api.ApiResult {
 func NewProductDel(appId string) *productDel {
     pd := &productDel{wx.NewBaseWxAccount(), "", ""}
     pd.appId = appId
-    pd.ReqContentType = project.HttpContentTypeJson
+    pd.ReqContentType = project.HTTPContentTypeJSON
     pd.ReqMethod = fasthttp.MethodPost
     return pd
 }

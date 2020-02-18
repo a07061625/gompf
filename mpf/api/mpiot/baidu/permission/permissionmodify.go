@@ -92,7 +92,7 @@ func (pm *permissionModify) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewPermissionModify() *permissionModify {
     pm := &permissionModify{mpiot.NewBaseBaiDu(), "", "", make([]string, 0), ""}
-    pm.ReqContentType = project.HttpContentTypeJson
+    pm.ReqContentType = project.HTTPContentTypeJSON
     pm.ReqMethod = fasthttp.MethodPut
     return pm
 }

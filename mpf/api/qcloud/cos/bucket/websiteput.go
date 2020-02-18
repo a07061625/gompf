@@ -36,7 +36,7 @@ func (wp *websitePut) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
     xmlData := mxj.Map(wp.websiteConfig)
     xmlStr, _ := xmlData.Xml("WebsiteConfiguration")
-    reqBody := project.DataPrefixXml + string(xmlStr)
+    reqBody := project.DataPrefixXML + string(xmlStr)
     wp.ReqUrl = "http://" + wp.ReqHeader["Host"] + wp.ReqUri + "?website"
     client, req := wp.GetRequest()
     req.SetBody([]byte(reqBody))

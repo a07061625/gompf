@@ -57,7 +57,7 @@ func newApi() apiCommon {
     api.ReqUrl = ""
     api.ReqTimeout = 3 * time.Second
     api.ReqMethod = fasthttp.MethodGet
-    api.ReqContentType = project.HttpContentTypeForm
+    api.ReqContentType = project.HTTPContentTypeForm
     api.ReqData = make(map[string]string)
     api.ReqHeader = make(map[string]string)
     return api

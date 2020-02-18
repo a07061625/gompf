@@ -104,7 +104,7 @@ func NewTagUsersAdd(corpId, agentTag string) *tagUsersAdd {
     tua := &tagUsersAdd{wx.NewBaseWxCorp(), "", "", "", make([]string, 0), make([]int, 0)}
     tua.corpId = corpId
     tua.agentTag = agentTag
-    tua.ReqContentType = project.HttpContentTypeJson
+    tua.ReqContentType = project.HTTPContentTypeJSON
     tua.ReqMethod = fasthttp.MethodPost
     return tua
 }

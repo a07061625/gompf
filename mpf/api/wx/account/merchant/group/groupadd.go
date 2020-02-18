@@ -82,7 +82,7 @@ func (ga *groupAdd) SendRequest() api.ApiResult {
 func NewGroupAdd(appId string) *groupAdd {
     ga := &groupAdd{wx.NewBaseWxAccount(), "", "", make([]string, 0)}
     ga.appId = appId
-    ga.ReqContentType = project.HttpContentTypeJson
+    ga.ReqContentType = project.HTTPContentTypeJSON
     ga.ReqMethod = fasthttp.MethodPost
     return ga
 }

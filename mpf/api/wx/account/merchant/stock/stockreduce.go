@@ -92,7 +92,7 @@ func (sr *stockReduce) SendRequest() api.ApiResult {
 func NewStockReduce(appId string) *stockReduce {
     sr := &stockReduce{wx.NewBaseWxAccount(), "", "", "", 0}
     sr.appId = appId
-    sr.ReqContentType = project.HttpContentTypeJson
+    sr.ReqContentType = project.HTTPContentTypeJSON
     sr.ReqMethod = fasthttp.MethodPost
     return sr
 }

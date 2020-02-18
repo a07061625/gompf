@@ -52,7 +52,7 @@ func NewAuthorizeUrl(appId string) *authorizeUrl {
     au := &authorizeUrl{wx.NewBaseWxOpen(), ""}
     au.ReqData["component_appid"] = conf.GetAppId()
     au.urlAuthCallback = conf.GetUrlAuthCallback()
-    au.ReqContentType = project.HttpContentTypeJson
+    au.ReqContentType = project.HTTPContentTypeJSON
     au.ReqMethod = fasthttp.MethodPost
     return au
 }

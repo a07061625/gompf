@@ -180,7 +180,7 @@ func NewUserUpdate(corpId, agentTag, atType string) *userUpdate {
     uu.corpId = corpId
     uu.agentTag = agentTag
     uu.atType = atType
-    uu.ReqContentType = project.HttpContentTypeJson
+    uu.ReqContentType = project.HTTPContentTypeJSON
     uu.ReqMethod = fasthttp.MethodPost
     return uu
 }

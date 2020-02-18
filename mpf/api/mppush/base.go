@@ -53,7 +53,7 @@ func (xg *BaseXinGe) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
         xg.ReqHeader["Authorization"] = conf.GetAppAuth()
     }
     xg.ReqUrl = XinGeServiceDomain + xg.ServiceUri
-    xg.ReqContentType = project.HttpContentTypeJson
+    xg.ReqContentType = project.HTTPContentTypeJSON
     xg.ReqMethod = fasthttp.MethodPost
 
     client := &fasthttp.Client{}
@@ -106,9 +106,9 @@ func (bd *BaseBaiDu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
         bd.ReqData["device_type"] = conf.GetDeviceType()
     }
     bd.ReqUrl = BaiDuServiceDomain + BaiDuServiceUriPrefix + bd.ServiceUri
-    bd.ReqContentType = project.HttpContentTypeForm
+    bd.ReqContentType = project.HTTPContentTypeForm
     bd.ReqMethod = fasthttp.MethodPost
-    bd.ReqHeader["Content-Type"] = project.HttpContentTypeForm
+    bd.ReqHeader["Content-Type"] = project.HTTPContentTypeForm
     bd.ReqHeader["User-Agent"] = conf.GetUserAgent()
     bd.createSign(conf.GetAppSecret())
 
@@ -173,7 +173,7 @@ func (jp *BaseJPush) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 func NewBaseJPush(domain, key, authType string) BaseJPush {
     jp := BaseJPush{newBasePush(), "", ""}
     jp.serviceDomain = domain
-    jp.ReqContentType = project.HttpContentTypeJson
+    jp.ReqContentType = project.HTTPContentTypeJSON
     jp.ReqMethod = fasthttp.MethodGet
     jp.ReqHeader["Content-Type"] = "application/json"
     jp.ReqHeader["Authorization"] = jp.getServiceAuth(key, authType)

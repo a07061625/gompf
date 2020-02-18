@@ -66,6 +66,6 @@ func NewTemplateDetail(appId string) *templateDetail {
     td := &templateDetail{mpprint.NewBaseFeYin(), ""}
     td.SetAppId(appId)
     td.ReqMethod = fasthttp.MethodGet
-    td.ReqContentType = project.HttpContentTypeForm
+    td.ReqContentType = project.HTTPContentTypeForm
     return td
 }

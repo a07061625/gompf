@@ -76,7 +76,7 @@ func (dc *deviceCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewDeviceCreate() *deviceCreate {
     dc := &deviceCreate{mpiot.NewBaseBaiDu(), "", "", ""}
     dc.ServiceUri = "/v3/iot/management/device"
-    dc.ReqContentType = project.HttpContentTypeJson
+    dc.ReqContentType = project.HTTPContentTypeJSON
     dc.ReqMethod = fasthttp.MethodPost
     return dc
 }

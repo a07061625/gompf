@@ -83,7 +83,7 @@ func (fc *functionCreate) SendRequest() api.ApiResult {
 func NewFunctionCreate(appId string) *functionCreate {
     fc := &functionCreate{wx.NewBaseWxOpen(), "", "", ""}
     fc.appId = appId
-    fc.ReqContentType = project.HttpContentTypeJson
+    fc.ReqContentType = project.HTTPContentTypeJSON
     fc.ReqMethod = fasthttp.MethodPost
     return fc
 }

@@ -103,7 +103,7 @@ func NewFunctionConfigUpload(appId string) *functionConfigUpload {
     fcu := &functionConfigUpload{wx.NewBaseWxOpen(), "", 0, make(map[string]interface{}), "", ""}
     fcu.appId = appId
     fcu.configType = 0
-    fcu.ReqContentType = project.HttpContentTypeJson
+    fcu.ReqContentType = project.HTTPContentTypeJSON
     fcu.ReqMethod = fasthttp.MethodPost
     return fcu
 }

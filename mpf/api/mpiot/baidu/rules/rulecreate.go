@@ -88,7 +88,7 @@ func (rc *ruleCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewRuleCreate() *ruleCreate {
     rc := &ruleCreate{mpiot.NewBaseBaiDu(), "", "", make([]map[string]interface{}, 0), make([]map[string]interface{}, 0)}
-    rc.ReqContentType = project.HttpContentTypeJson
+    rc.ReqContentType = project.HTTPContentTypeJSON
     rc.ReqMethod = fasthttp.MethodPost
     return rc
 }

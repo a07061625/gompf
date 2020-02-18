@@ -76,7 +76,7 @@ func (kr *keyRefresh) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewKeyRefresh() *keyRefresh {
     kr := &keyRefresh{mpiot.NewBaseBaiDu(), "", ""}
     kr.ExtendData["target"] = "all"
-    kr.ReqContentType = project.HttpContentTypeJson
+    kr.ReqContentType = project.HTTPContentTypeJSON
     kr.ReqMethod = fasthttp.MethodPost
     return kr
 }

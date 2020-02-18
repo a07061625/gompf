@@ -57,7 +57,7 @@ func (wra *workRecordAdd) SetTitle(title string) {
 }
 
 func (wra *workRecordAdd) SetUrl(url string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, url)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, url)
     if match {
         wra.url = url
     } else {
@@ -109,7 +109,7 @@ func NewWorkRecordAdd(corpId, agentTag, atType string) *workRecordAdd {
     wra.corpId = corpId
     wra.agentTag = agentTag
     wra.atType = atType
-    wra.ReqContentType = project.HttpContentTypeJson
+    wra.ReqContentType = project.HTTPContentTypeJSON
     wra.ReqMethod = fasthttp.MethodPost
     return wra
 }

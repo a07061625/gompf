@@ -97,7 +97,7 @@ func (jc *jobCreate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewJobCreate() *jobCreate {
     jc := &jobCreate{mpiot.NewBaseBaiDu(), "", ""}
     jc.ServiceUri = "/v3/iot/management/ota/job"
-    jc.ReqContentType = project.HttpContentTypeJson
+    jc.ReqContentType = project.HTTPContentTypeJSON
     jc.ReqMethod = fasthttp.MethodPost
     return jc
 }

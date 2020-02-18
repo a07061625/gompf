@@ -75,7 +75,7 @@ func (pm *productModify) SendRequest() api.ApiResult {
 func NewProductModify(appId string) *productModify {
     pm := &productModify{wx.NewBaseWxAccount(), "", 0, make([]map[string]interface{}, 0)}
     pm.appId = appId
-    pm.ReqContentType = project.HttpContentTypeJson
+    pm.ReqContentType = project.HTTPContentTypeJSON
     pm.ReqMethod = fasthttp.MethodPost
     return pm
 }

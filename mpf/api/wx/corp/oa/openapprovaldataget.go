@@ -70,7 +70,7 @@ func NewOpenApprovalDataGet(corpId, agentTag string) *openApprovalDataGet {
     adg := &openApprovalDataGet{wx.NewBaseWxCorp(), "", "", ""}
     adg.corpId = corpId
     adg.agentTag = agentTag
-    adg.ReqContentType = project.HttpContentTypeJson
+    adg.ReqContentType = project.HTTPContentTypeJSON
     adg.ReqMethod = fasthttp.MethodPost
     return adg
 }

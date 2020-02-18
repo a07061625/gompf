@@ -87,7 +87,7 @@ func NewUserReplace(corpId, agentTag string) *userReplace {
     ur.corpId = corpId
     ur.agentTag = agentTag
     ur.inviteFlag = true
-    ur.ReqContentType = project.HttpContentTypeJson
+    ur.ReqContentType = project.HTTPContentTypeJSON
     ur.ReqMethod = fasthttp.MethodPost
     return ur
 }

@@ -112,7 +112,7 @@ func NewValidatePush(key string) *validatePush {
     vp.ServiceUri = "/v3/push/validate"
     vp.ExtendData["platform"] = "all"
     vp.ExtendData["audience"] = "all"
-    vp.ReqContentType = project.HttpContentTypeJson
+    vp.ReqContentType = project.HTTPContentTypeJSON
     vp.ReqMethod = fasthttp.MethodPost
     return vp
 }

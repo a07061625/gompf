@@ -47,7 +47,7 @@ func (ap *BaseAliPay) SetUrlNotify(notifyFlag bool) {
 }
 
 func (ap *BaseAliPay) SetUrlReturn(urlReturn string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlReturn)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlReturn)
     if match {
         ap.ReqData["return_url"] = ap.urlReturnBase + url.QueryEscape(urlReturn)
     } else {
@@ -68,7 +68,7 @@ func (ap *BaseAliPay) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
     req := fasthttp.AcquireRequest()
     req.SetBody([]byte(reqBody))
     req.Header.SetRequestURI(UrlGateWay)
-    req.Header.SetContentType(project.HttpContentTypeForm)
+    req.Header.SetContentType(project.HTTPContentTypeForm)
     req.Header.SetMethod(fasthttp.MethodPost)
     mpf.HttpAddReqHeader(req, ap.ReqHeader)
 

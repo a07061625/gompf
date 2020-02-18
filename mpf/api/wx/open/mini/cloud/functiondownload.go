@@ -83,7 +83,7 @@ func (fd *functionDownload) SendRequest() api.ApiResult {
 func NewFunctionDownload(appId string) *functionDownload {
     fd := &functionDownload{wx.NewBaseWxOpen(), "", "", ""}
     fd.appId = appId
-    fd.ReqContentType = project.HttpContentTypeJson
+    fd.ReqContentType = project.HTTPContentTypeJSON
     fd.ReqMethod = fasthttp.MethodPost
     return fd
 }

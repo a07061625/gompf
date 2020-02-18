@@ -39,7 +39,7 @@ func (b *BaseYun253) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 func NewBaseYun253() BaseYun253 {
     base := BaseYun253{api.NewApiOuter(), "", ""}
     base.ReqMethod = fasthttp.MethodPost
-    base.ReqContentType = project.HttpContentTypeJson
+    base.ReqContentType = project.HTTPContentTypeJSON
     base.ReqHeader["Expect"] = ""
     return base
 }

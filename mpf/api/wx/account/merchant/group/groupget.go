@@ -66,7 +66,7 @@ func (gg *groupGet) SendRequest() api.ApiResult {
 func NewGroupGet(appId string) *groupGet {
     gg := &groupGet{wx.NewBaseWxAccount(), "", 0}
     gg.appId = appId
-    gg.ReqContentType = project.HttpContentTypeJson
+    gg.ReqContentType = project.HTTPContentTypeJSON
     gg.ReqMethod = fasthttp.MethodPost
     return gg
 }

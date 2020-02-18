@@ -87,7 +87,7 @@ func NewListByUser(corpId, agentTag, atType string) *listByUser {
     lu.status = -1
     lu.ExtendData["offset"] = 0
     lu.ExtendData["limit"] = 10
-    lu.ReqContentType = project.HttpContentTypeJson
+    lu.ReqContentType = project.HTTPContentTypeJSON
     lu.ReqMethod = fasthttp.MethodPost
     return lu
 }

@@ -46,7 +46,7 @@ func (uc *userCreate) SendRequest() api.ApiResult {
 func NewUserCreate(appId string) *userCreate {
     uc := &userCreate{wx.NewBaseWxOpen(), ""}
     uc.appId = appId
-    uc.ReqContentType = project.HttpContentTypeJson
+    uc.ReqContentType = project.HTTPContentTypeJSON
     uc.ReqMethod = fasthttp.MethodPost
     return uc
 }

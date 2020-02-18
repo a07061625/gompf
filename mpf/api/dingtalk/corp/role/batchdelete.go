@@ -84,7 +84,7 @@ func NewBatchDelete(corpId, agentTag, atType string) *batchDelete {
     bd.corpId = corpId
     bd.agentTag = agentTag
     bd.atType = atType
-    bd.ReqContentType = project.HttpContentTypeJson
+    bd.ReqContentType = project.HTTPContentTypeJSON
     bd.ReqMethod = fasthttp.MethodPost
     return bd
 }

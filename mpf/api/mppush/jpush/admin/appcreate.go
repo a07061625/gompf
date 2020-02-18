@@ -67,7 +67,7 @@ func NewAppCreate(key string) *appCreate {
     ac := &appCreate{mppush.NewBaseJPush(mppush.JPushServiceDomainAdmin, key, "dev"), "", ""}
     ac.ServiceUri = "/v1/app"
     ac.ExtendData["group_name"] = ""
-    ac.ReqContentType = project.HttpContentTypeJson
+    ac.ReqContentType = project.HTTPContentTypeJSON
     ac.ReqMethod = fasthttp.MethodPost
     return ac
 }

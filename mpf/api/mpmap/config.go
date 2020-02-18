@@ -35,7 +35,7 @@ func (c *configBaiDu) GetAk() string {
 }
 
 func (c *configBaiDu) SetServerIp(serverIp string) {
-    match, _ := regexp.MatchString(project.RegexIp, "."+serverIp)
+    match, _ := regexp.MatchString(project.RegexIP, "."+serverIp)
     if match {
         c.serverIp = serverIp
     } else {
@@ -98,7 +98,7 @@ func (c *configTencent) GetKey() string {
 }
 
 func (c *configTencent) SetServerIp(serverIp string) {
-    match, _ := regexp.MatchString(project.RegexIp, "."+serverIp)
+    match, _ := regexp.MatchString(project.RegexIP, "."+serverIp)
     if match {
         c.serverIp = serverIp
     } else {
@@ -111,7 +111,7 @@ func (c *configTencent) GetServerIp() string {
 }
 
 func (c *configTencent) SetDomain(domain string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, domain)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, domain)
     if match {
         c.domain = domain
     } else {

@@ -87,7 +87,7 @@ func NewUserSync(corpId, agentTag string) *userSync {
     us.corpId = corpId
     us.agentTag = agentTag
     us.inviteFlag = true
-    us.ReqContentType = project.HttpContentTypeJson
+    us.ReqContentType = project.HTTPContentTypeJSON
     us.ReqMethod = fasthttp.MethodPost
     return us
 }

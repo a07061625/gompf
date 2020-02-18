@@ -47,7 +47,7 @@ func (c *BaseAMJiSu) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewBaseAMJiSu() BaseAMJiSu {
     c := BaseAMJiSu{newBaseCurrency(), ""}
-    c.ReqContentType = project.HttpContentTypeForm
+    c.ReqContentType = project.HTTPContentTypeForm
     c.ReqMethod = fasthttp.MethodGet
     return c
 }
@@ -76,7 +76,7 @@ func (c *BaseAMYiYuan) GetRequest() (*fasthttp.Client, *fasthttp.Request) {
 
 func NewBaseAMYiYuan() BaseAMYiYuan {
     c := BaseAMYiYuan{newBaseCurrency(), ""}
-    c.ReqContentType = project.HttpContentTypeForm
+    c.ReqContentType = project.HTTPContentTypeForm
     c.ReqMethod = fasthttp.MethodGet
     return c
 }

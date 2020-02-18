@@ -90,7 +90,7 @@ func NewRecordList(corpId, agentTag string) *recordList {
     rl.corpId = corpId
     rl.agentTag = agentTag
     rl.ExtendData["isI18n"] = "false"
-    rl.ReqContentType = project.HttpContentTypeJson
+    rl.ReqContentType = project.HTTPContentTypeJSON
     rl.ReqMethod = fasthttp.MethodPost
     return rl
 }

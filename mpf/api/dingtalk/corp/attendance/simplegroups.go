@@ -52,7 +52,7 @@ func NewSimpleGroups(corpId, agentTag string) *simpleGroups {
     sg.agentTag = agentTag
     sg.ExtendData["offset"] = 0
     sg.ExtendData["size"] = 10
-    sg.ReqContentType = project.HttpContentTypeJson
+    sg.ReqContentType = project.HTTPContentTypeJSON
     sg.ReqMethod = fasthttp.MethodPost
     return sg
 }

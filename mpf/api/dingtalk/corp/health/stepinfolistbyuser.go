@@ -71,7 +71,7 @@ func NewStepInfoListByUser(corpId, agentTag, atType string) *stepInfoListByUser 
     ilu.corpId = corpId
     ilu.agentTag = agentTag
     ilu.atType = atType
-    ilu.ReqContentType = project.HttpContentTypeJson
+    ilu.ReqContentType = project.HTTPContentTypeJSON
     ilu.ReqMethod = fasthttp.MethodPost
     return ilu
 }

@@ -76,7 +76,7 @@ func NewVisibleScopesSet(corpId, agentTag, atType string) *visibleScopesSet {
     vss.ExtendData["isHidden"] = false
     vss.ExtendData["deptVisibleScopes"] = make([]int, 0)
     vss.ExtendData["userVisibleScopes"] = make([]string, 0)
-    vss.ReqContentType = project.HttpContentTypeJson
+    vss.ReqContentType = project.HTTPContentTypeJSON
     vss.ReqMethod = fasthttp.MethodPost
     return vss
 }

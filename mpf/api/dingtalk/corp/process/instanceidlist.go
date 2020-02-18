@@ -98,7 +98,7 @@ func NewInstanceIdList(corpId, agentTag string) *instanceIdList {
     iil.ExtendData["cursor"] = 0
     iil.ExtendData["size"] = 10
     iil.ExtendData["userid_list"] = ""
-    iil.ReqContentType = project.HttpContentTypeJson
+    iil.ReqContentType = project.HTTPContentTypeJSON
     iil.ReqMethod = fasthttp.MethodPost
     return iil
 }

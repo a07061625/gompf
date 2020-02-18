@@ -94,7 +94,7 @@ func NewExpressAdd(appId string) *expressAdd {
     ea.appId = appId
     ea.payMode = -1
     ea.valuation = 0
-    ea.ReqContentType = project.HttpContentTypeJson
+    ea.ReqContentType = project.HTTPContentTypeJSON
     ea.ReqMethod = fasthttp.MethodPost
     return ea
 }

@@ -65,7 +65,7 @@ func (pg *productGet) SendRequest() api.ApiResult {
 func NewProductGet(appId string) *productGet {
     pg := &productGet{wx.NewBaseWxAccount(), "", ""}
     pg.appId = appId
-    pg.ReqContentType = project.HttpContentTypeJson
+    pg.ReqContentType = project.HTTPContentTypeJSON
     pg.ReqMethod = fasthttp.MethodPost
     return pg
 }

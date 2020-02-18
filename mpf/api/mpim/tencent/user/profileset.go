@@ -60,7 +60,7 @@ func (ps *profileSet) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewProfileSet() *profileSet {
     ps := &profileSet{mpim.NewBaseTencent(), "", make([]map[string]interface{}, 0)}
     ps.ServiceUri = "/profile/portrait_set"
-    ps.ReqContentType = project.HttpContentTypeJson
+    ps.ReqContentType = project.HTTPContentTypeJSON
     ps.ReqMethod = fasthttp.MethodPost
     return ps
 }

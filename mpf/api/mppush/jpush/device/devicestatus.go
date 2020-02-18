@@ -56,7 +56,7 @@ func (ds *deviceStatus) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewDeviceStatus(key string) *deviceStatus {
     ds := &deviceStatus{mppush.NewBaseJPush(mppush.JPushServiceDomainDevice, key, "app"), make([]string, 0)}
     ds.ServiceUri = "/v3/devices/status"
-    ds.ReqContentType = project.HttpContentTypeJson
+    ds.ReqContentType = project.HTTPContentTypeJSON
     ds.ReqMethod = fasthttp.MethodPost
     return ds
 }

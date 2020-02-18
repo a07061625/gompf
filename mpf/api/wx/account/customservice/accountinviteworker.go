@@ -78,7 +78,7 @@ func (aiw *accountInviteWorker) SendRequest() api.ApiResult {
 func NewAccountInviteWorker(appId string) *accountInviteWorker {
     aiw := &accountInviteWorker{wx.NewBaseWxAccount(), "", "", ""}
     aiw.appId = appId
-    aiw.ReqContentType = project.HttpContentTypeJson
+    aiw.ReqContentType = project.HTTPContentTypeJSON
     aiw.ReqMethod = fasthttp.MethodPost
     return aiw
 }

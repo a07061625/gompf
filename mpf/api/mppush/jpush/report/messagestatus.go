@@ -83,7 +83,7 @@ func NewMessageStatus(key string) *messageStatus {
     ms := &messageStatus{mppush.NewBaseJPush(mppush.JPushServiceDomainReport, key, "app"), "", make([]string, 0), 0}
     ms.dateTime = time.Now().Unix()
     ms.ServiceUri = "/v3/status/message"
-    ms.ReqContentType = project.HttpContentTypeJson
+    ms.ReqContentType = project.HTTPContentTypeJSON
     ms.ReqMethod = fasthttp.MethodPost
     return ms
 }

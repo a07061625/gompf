@@ -81,7 +81,7 @@ func NewTagUpdate(corpId, agentTag string) *tagUpdate {
     tu := &tagUpdate{wx.NewBaseWxCorp(), "", "", "", ""}
     tu.corpId = corpId
     tu.agentTag = agentTag
-    tu.ReqContentType = project.HttpContentTypeJson
+    tu.ReqContentType = project.HTTPContentTypeJSON
     tu.ReqMethod = fasthttp.MethodPost
     return tu
 }

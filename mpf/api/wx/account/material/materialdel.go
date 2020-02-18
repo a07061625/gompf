@@ -66,7 +66,7 @@ func (md *materialDel) SendRequest() api.ApiResult {
 func NewMaterialDel(appId string) *materialDel {
     md := &materialDel{wx.NewBaseWxAccount(), "", ""}
     md.appId = appId
-    md.ReqContentType = project.HttpContentTypeJson
+    md.ReqContentType = project.HTTPContentTypeJSON
     md.ReqMethod = fasthttp.MethodPost
     return md
 }

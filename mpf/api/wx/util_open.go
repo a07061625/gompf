@@ -40,7 +40,7 @@ func (util *utilWx) RefreshOpenAccessToken(verifyTicket string) {
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
     reqBody := mpf.JsonMarshal(atMap)
@@ -114,7 +114,7 @@ func (util *utilWx) refreshOpenAuthorizeAccessToken(appId string) map[string]int
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
     reqBody := mpf.JsonMarshal(atMap)
@@ -214,7 +214,7 @@ func (util *utilWx) refreshOpenAuthorizeCodeSecret(appId string) map[string]inte
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(csUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
     req.SetBody([]byte("{}"))
 

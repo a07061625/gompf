@@ -139,7 +139,7 @@ func NewFundFlowDownload(appId string) *fundFlowDownload {
     ffd.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
     ffd.ReqData["sign_type"] = "HMAC-SHA256"
     ffd.ReqData["tar_type"] = "GZIP"
-    ffd.ReqContentType = project.HttpContentTypeXml
+    ffd.ReqContentType = project.HTTPContentTypeXML
     ffd.ReqMethod = fasthttp.MethodPost
     return ffd
 }

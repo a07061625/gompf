@@ -69,7 +69,7 @@ func (naq *nicknameAuditQuery) SendRequest() api.ApiResult {
 func NewNicknameAuditQuery(appId string) *nicknameAuditQuery {
     naq := &nicknameAuditQuery{wx.NewBaseWxOpen(), "", ""}
     naq.appId = appId
-    naq.ReqContentType = project.HttpContentTypeJson
+    naq.ReqContentType = project.HTTPContentTypeJSON
     naq.ReqMethod = fasthttp.MethodPost
     return naq
 }

@@ -68,7 +68,7 @@ func (ca *audit) SendRequest() api.ApiResult {
 func NewAudit(appId string) *audit {
     ca := &audit{wx.NewBaseWxOpen(), "", make([]map[string]interface{}, 0)}
     ca.appId = appId
-    ca.ReqContentType = project.HttpContentTypeJson
+    ca.ReqContentType = project.HTTPContentTypeJSON
     ca.ReqMethod = fasthttp.MethodPost
     return ca
 }

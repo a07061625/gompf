@@ -77,7 +77,7 @@ func NewUserDeleteBatch(corpId, agentTag string) *userDeleteBatch {
     udb := &userDeleteBatch{wx.NewBaseWxCorp(), "", "", make([]string, 0)}
     udb.corpId = corpId
     udb.agentTag = agentTag
-    udb.ReqContentType = project.HttpContentTypeJson
+    udb.ReqContentType = project.HTTPContentTypeJSON
     udb.ReqMethod = fasthttp.MethodPost
     return udb
 }

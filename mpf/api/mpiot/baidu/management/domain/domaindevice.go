@@ -87,7 +87,7 @@ func (dd *domainDevice) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewDomainDevice() *domainDevice {
     dd := &domainDevice{mpiot.NewBaseBaiDu(), "", make([]string, 0), make([]string, 0)}
     dd.ReqData["modify"] = ""
-    dd.ReqContentType = project.HttpContentTypeJson
+    dd.ReqContentType = project.HTTPContentTypeJSON
     dd.ReqMethod = fasthttp.MethodPut
     return dd
 }

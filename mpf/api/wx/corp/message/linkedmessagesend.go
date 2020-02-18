@@ -151,7 +151,7 @@ func NewLinkedMessageSend(corpId, agentTag string) *linkedMessageSend {
     lms.agentTag = agentTag
     lms.sendFlag = 0
     lms.safeFlag = 0
-    lms.ReqContentType = project.HttpContentTypeJson
+    lms.ReqContentType = project.HTTPContentTypeJSON
     lms.ReqMethod = fasthttp.MethodPost
     return lms
 }

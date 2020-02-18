@@ -63,7 +63,7 @@ func (ca *categoryAdd) SendRequest() api.ApiResult {
 func NewCategoryAdd(appId string) *categoryAdd {
     ca := &categoryAdd{wx.NewBaseWxOpen(), "", make([]map[string]interface{}, 0)}
     ca.appId = appId
-    ca.ReqContentType = project.HttpContentTypeJson
+    ca.ReqContentType = project.HTTPContentTypeJSON
     ca.ReqMethod = fasthttp.MethodPost
     return ca
 }

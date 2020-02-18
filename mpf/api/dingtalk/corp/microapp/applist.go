@@ -28,7 +28,7 @@ func NewAppList(corpId, agentTag, atType string) *appList {
     al.corpId = corpId
     al.agentTag = agentTag
     al.atType = atType
-    al.ReqContentType = project.HttpContentTypeJson
+    al.ReqContentType = project.HTTPContentTypeJSON
     al.ReqMethod = fasthttp.MethodPost
     return al
 }

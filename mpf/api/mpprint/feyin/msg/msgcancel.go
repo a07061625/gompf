@@ -68,6 +68,6 @@ func NewMsgCancel(appId string) *msgCancel {
     mc := &msgCancel{mpprint.NewBaseFeYin(), ""}
     mc.SetAppId(appId)
     mc.ReqMethod = fasthttp.MethodPost
-    mc.ReqContentType = project.HttpContentTypeJson
+    mc.ReqContentType = project.HTTPContentTypeJSON
     return mc
 }

@@ -79,7 +79,7 @@ func (au *accountUpdate) SendRequest() api.ApiResult {
 func NewAccountUpdate(appId string) *accountUpdate {
     au := &accountUpdate{wx.NewBaseWxAccount(), "", "", ""}
     au.appId = appId
-    au.ReqContentType = project.HttpContentTypeJson
+    au.ReqContentType = project.HTTPContentTypeJSON
     au.ReqMethod = fasthttp.MethodPost
     return au
 }

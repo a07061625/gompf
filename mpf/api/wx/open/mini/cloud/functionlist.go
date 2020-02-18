@@ -92,7 +92,7 @@ func NewFunctionList(appId string) *functionList {
     fl.appId = appId
     fl.offset = 0
     fl.limit = 10
-    fl.ReqContentType = project.HttpContentTypeJson
+    fl.ReqContentType = project.HTTPContentTypeJSON
     fl.ReqMethod = fasthttp.MethodPost
     return fl
 }

@@ -77,7 +77,7 @@ func NewTagCreate(corpId, agentTag string) *tagCreate {
     tc := &tagCreate{wx.NewBaseWxCorp(), "", "", "", ""}
     tc.corpId = corpId
     tc.agentTag = agentTag
-    tc.ReqContentType = project.HttpContentTypeJson
+    tc.ReqContentType = project.HTTPContentTypeJSON
     tc.ReqMethod = fasthttp.MethodPost
     return tc
 }

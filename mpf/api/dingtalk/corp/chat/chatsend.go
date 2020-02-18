@@ -64,7 +64,7 @@ func NewChatSend(corpId, agentTag string) *chatSend {
     cs := &chatSend{dingtalk.NewCorp(), "", "", "", make(map[string]interface{})}
     cs.corpId = corpId
     cs.agentTag = agentTag
-    cs.ReqContentType = project.HttpContentTypeJson
+    cs.ReqContentType = project.HTTPContentTypeJSON
     cs.ReqMethod = fasthttp.MethodPost
     return cs
 }

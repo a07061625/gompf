@@ -82,7 +82,7 @@ func (vu *viewUpdate) CheckData() (*fasthttp.Client, *fasthttp.Request) {
 func NewViewUpdate() *viewUpdate {
     vu := &viewUpdate{mpiot.NewBaseBaiDu(), "", 0, make(map[string]interface{}), make(map[string]interface{})}
     vu.ReqData["updateView"] = ""
-    vu.ReqContentType = project.HttpContentTypeJson
+    vu.ReqContentType = project.HTTPContentTypeJSON
     vu.ReqMethod = fasthttp.MethodPut
     return vu
 }

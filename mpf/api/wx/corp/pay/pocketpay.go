@@ -249,7 +249,7 @@ func NewPocketPay(corpId, agentTag string) *pocketPay {
     pp.msgType = "NORMAL_MSG"
     pp.amount = 0
     pp.acceptKeys = append(pp.acceptKeys, "amount", "appid", "desc", "mch_id", "nonce_str", "openid", "partner_trade_no", "ww_msg_type")
-    pp.ReqContentType = project.HttpContentTypeXml
+    pp.ReqContentType = project.HTTPContentTypeXML
     pp.ReqMethod = fasthttp.MethodPost
     return pp
 }

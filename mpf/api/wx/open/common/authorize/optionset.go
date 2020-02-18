@@ -79,7 +79,7 @@ func NewOptionSet(appId string) *optionSet {
     os := &optionSet{wx.NewBaseWxOpen(), "", ""}
     os.ReqData["component_appid"] = conf.GetAppId()
     os.ReqData["authorizer_appid"] = appId
-    os.ReqContentType = project.HttpContentTypeJson
+    os.ReqContentType = project.HTTPContentTypeJSON
     os.ReqMethod = fasthttp.MethodPost
     return os
 }

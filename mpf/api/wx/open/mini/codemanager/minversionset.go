@@ -66,7 +66,7 @@ func (mvs *minVersionSet) SendRequest() api.ApiResult {
 func NewMinVersionSet(appId string) *minVersionSet {
     mvs := &minVersionSet{wx.NewBaseWxOpen(), "", ""}
     mvs.appId = appId
-    mvs.ReqContentType = project.HttpContentTypeJson
+    mvs.ReqContentType = project.HTTPContentTypeJSON
     mvs.ReqMethod = fasthttp.MethodPost
     return mvs
 }

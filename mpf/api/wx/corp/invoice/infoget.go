@@ -80,7 +80,7 @@ func NewInfoGet(corpId, agentTag string) *infoGet {
     ig := &infoGet{wx.NewBaseWxCorp(), "", "", "", ""}
     ig.corpId = corpId
     ig.agentTag = agentTag
-    ig.ReqContentType = project.HttpContentTypeJson
+    ig.ReqContentType = project.HTTPContentTypeJSON
     ig.ReqMethod = fasthttp.MethodPost
     return ig
 }

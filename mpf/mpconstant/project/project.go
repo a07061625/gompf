@@ -18,22 +18,22 @@ import (
 const (
     // http常量
 
-    // HttpHeadKeyCookie 请求头名称-cookie
-    HttpHeadKeyCookie = "Set-Cookie"
-    // HttpHeadKeyContentType 请求头名称-内容类型
-    HttpHeadKeyContentType = "Content-Type"
-    // HttpHeadKeyContentLength 请求头名称-内容长度
-    HttpHeadKeyContentLength = "Content-Length"
-    // HttpContentTypeForm http内容类型-表单
-    HttpContentTypeForm = "application/x-www-form-urlencoded; charset=utf-8"
-    // HttpContentTypeJson http内容类型-json
-    HttpContentTypeJson = "application/json; charset=utf-8"
-    // HttpContentTypeXml http内容类型-xml
-    HttpContentTypeXml = "application/xml; charset=utf-8"
-    // HttpContentTypeHtml http内容类型-html
-    HttpContentTypeHtml = "text/html; charset=utf-8"
-    // HttpContentTypeText http内容类型-text
-    HttpContentTypeText = "text/plain; charset=utf-8"
+    // HTTPHeadKeyCookie 请求头名称-cookie
+    HTTPHeadKeyCookie = "Set-Cookie"
+    // HTTPHeadKeyContentType 请求头名称-内容类型
+    HTTPHeadKeyContentType = "Content-Type"
+    // HTTPHeadKeyContentLength 请求头名称-内容长度
+    HTTPHeadKeyContentLength = "Content-Length"
+    // HTTPContentTypeForm http内容类型-表单
+    HTTPContentTypeForm = "application/x-www-form-urlencoded; charset=utf-8"
+    // HTTPContentTypeJSON http内容类型-json
+    HTTPContentTypeJSON = "application/json; charset=utf-8"
+    // HTTPContentTypeXML http内容类型-xml
+    HTTPContentTypeXML = "application/xml; charset=utf-8"
+    // HTTPContentTypeHTML http内容类型-html
+    HTTPContentTypeHTML = "text/html; charset=utf-8"
+    // HTTPContentTypeText http内容类型-text
+    HTTPContentTypeText = "text/plain; charset=utf-8"
 
     // 正则表达式
 
@@ -51,21 +51,21 @@ const (
     RegexDigitLower = `^[0-9a-z]+$`
     // RegexDigitUpper 数字和大写字母
     RegexDigitUpper = `^[0-9A-Z]+$`
-    // RegexIp ip
-    RegexIp = `^(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){4}$`
+    // RegexIP ip
+    RegexIP = `^(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){4}$`
     // RegexEmail 邮箱
     RegexEmail = `^\w+([-+.]\w+)*\@\w+([-.]\w+)*\.\w+([-.]\w+)*$`
-    // RegexUrlHttp http链接
-    RegexUrlHttp = `^(http|https)://\S+$`
+    // RegexURLHTTP http链接
+    RegexURLHTTP = `^(http|https)://\S+$`
 
     // 数据
 
-    // DataPrefixXml 前缀-xml
-    DataPrefixXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    // DataParamKeyReqId 参数键名-请求ID
-    DataParamKeyReqId = "_mp_req_id"
-    // DataParamKeyReqUrl 参数键名-请求url
-    DataParamKeyReqUrl = "_mp_req_url"
+    // DataPrefixXML 前缀-xml
+    DataPrefixXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    // DataParamKeyReqID 参数键名-请求ID
+    DataParamKeyReqID = "_mp_req_id"
+    // DataParamKeyReqURL 参数键名-请求url
+    DataParamKeyReqURL = "_mp_req_url"
     // DataParamKeyRespData 参数键名-响应数据
     DataParamKeyRespData = "_mp_resp_data"
     // DataParamKeyRespType 参数键名-响应类型
@@ -101,10 +101,10 @@ const (
     RedisPrefixDingTalkProviderSuite = "dingtalk_provider_suite"
     // RedisPrefixDingTalkProviderAuthorize 钉钉服务商-授权企业
     RedisPrefixDingTalkProviderAuthorize = "dingtalk_provider_authorize"
-    // RedisPrefixJpushUidPush 极光推送唯一标识符-推送
-    RedisPrefixJpushUidPush = "jpush_uid_push"
-    // RedisPrefixJpushUidSchedule 极光推送唯一标识符-定时任务
-    RedisPrefixJpushUidSchedule = "jpush_uid_schedule"
+    // RedisPrefixJpushUIDPush 极光推送唯一标识符-推送
+    RedisPrefixJpushUIDPush = "jpush_uid_push"
+    // RedisPrefixJpushUIDSchedule 极光推送唯一标识符-定时任务
+    RedisPrefixJpushUIDSchedule = "jpush_uid_schedule"
     // RedisPrefixPrintFeiYinAccount 飞印打印-账号
     RedisPrefixPrintFeiYinAccount = "print_feiyin_account"
     // RedisPrefixMQRedis 消息队列-Redis
@@ -152,8 +152,8 @@ const (
     WxConfigCorpStatusInvalid = 0
     // WxConfigCorpStatusValid 企业微信状态-有效
     WxConfigCorpStatusValid = 1
-    // WxConfigDefaultClientIp 默认客户端IP
-    WxConfigDefaultClientIp = "127.0.0.1"
+    // WxConfigDefaultClientIP 默认客户端IP
+    WxConfigDefaultClientIP = "127.0.0.1"
 
     // 支付宝支付常量
 
@@ -232,9 +232,8 @@ func RedisPrefix(key string) string {
     val, ok := ins.redisPrefix[key]
     if ok {
         return val
-    } else {
-        return ""
     }
+    return ""
 }
 
 var (
@@ -262,8 +261,8 @@ func init() {
     ins.redisPrefix[RedisPrefixDingTalkProviderAccount] = redisKeyPrefix + "120100_"
     ins.redisPrefix[RedisPrefixDingTalkProviderSuite] = redisKeyPrefix + "120101_"
     ins.redisPrefix[RedisPrefixDingTalkProviderAuthorize] = redisKeyPrefix + "120102_"
-    ins.redisPrefix[RedisPrefixJpushUidPush] = redisKeyPrefix + "130000_"
-    ins.redisPrefix[RedisPrefixJpushUidSchedule] = redisKeyPrefix + "130001_"
+    ins.redisPrefix[RedisPrefixJpushUIDPush] = redisKeyPrefix + "130000_"
+    ins.redisPrefix[RedisPrefixJpushUIDSchedule] = redisKeyPrefix + "130001_"
     ins.redisPrefix[RedisPrefixPrintFeiYinAccount] = redisKeyPrefix + "130100_"
     ins.redisPrefix[RedisPrefixMQRedis] = redisKeyPrefix + "130200_"
 }

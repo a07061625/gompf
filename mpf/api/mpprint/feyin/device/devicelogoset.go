@@ -37,7 +37,7 @@ func (dls *deviceLogoSet) SetDeviceNo(deviceNo string) {
 }
 
 func (dls *deviceLogoSet) SetPath(path string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, path)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, path)
     if match {
         dls.ReqData["path"] = path
     } else {
@@ -94,6 +94,6 @@ func NewDeviceLogoSet(appId string) *deviceLogoSet {
     db.SetAppId(appId)
     db.ReqData["threshold"] = "200"
     db.ReqMethod = fasthttp.MethodPost
-    db.ReqContentType = project.HttpContentTypeJson
+    db.ReqContentType = project.HTTPContentTypeJSON
     return db
 }

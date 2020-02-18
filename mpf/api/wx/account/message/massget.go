@@ -69,7 +69,7 @@ func (mg *massGet) SendRequest() api.ApiResult {
 func NewMassGet(appId string) *massGet {
     mg := &massGet{wx.NewBaseWxAccount(), "", ""}
     mg.appId = appId
-    mg.ReqContentType = project.HttpContentTypeJson
+    mg.ReqContentType = project.HTTPContentTypeJSON
     mg.ReqMethod = fasthttp.MethodPost
     return mg
 }

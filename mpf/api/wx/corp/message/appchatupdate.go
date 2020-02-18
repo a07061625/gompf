@@ -126,7 +126,7 @@ func NewAppChatUpdate(corpId, agentTag string) *appChatUpdate {
     acu := &appChatUpdate{wx.NewBaseWxCorp(), "", "", "", "", "", make([]string, 0), make([]string, 0)}
     acu.corpId = corpId
     acu.agentTag = agentTag
-    acu.ReqContentType = project.HttpContentTypeJson
+    acu.ReqContentType = project.HTTPContentTypeJSON
     acu.ReqMethod = fasthttp.MethodPost
     return acu
 }

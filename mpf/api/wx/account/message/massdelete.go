@@ -81,7 +81,7 @@ func NewMassDelete(appId string) *massDelete {
     md := &massDelete{wx.NewBaseWxAccount(), "", "", 0}
     md.appId = appId
     md.articleIndex = 0
-    md.ReqContentType = project.HttpContentTypeJson
+    md.ReqContentType = project.HTTPContentTypeJSON
     md.ReqMethod = fasthttp.MethodPost
     return md
 }

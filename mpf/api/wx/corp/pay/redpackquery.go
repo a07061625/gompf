@@ -105,7 +105,7 @@ func NewRedPackQuery(corpId, agentTag string) *redPackQuery {
     rpq.ReqData["appid"] = conf.GetCorpId()
     rpq.ReqData["mch_id"] = conf.GetPayMchId()
     rpq.ReqData["nonce_str"] = mpf.ToolCreateNonceStr(32, "numlower")
-    rpq.ReqContentType = project.HttpContentTypeXml
+    rpq.ReqContentType = project.HTTPContentTypeXML
     rpq.ReqMethod = fasthttp.MethodPost
     return rpq
 }

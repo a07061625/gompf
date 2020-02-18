@@ -55,7 +55,7 @@ func (c *configAccount) GetSellerId() string {
 }
 
 func (c *configAccount) SetUrlNotify(urlNotify string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlNotify)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlNotify)
     if match {
         c.urlNotify = urlNotify
     } else {
@@ -68,7 +68,7 @@ func (c *configAccount) GetUrlNotify() string {
 }
 
 func (c *configAccount) SetUrlReturn(urlReturn string) {
-    match, _ := regexp.MatchString(project.RegexUrlHttp, urlReturn)
+    match, _ := regexp.MatchString(project.RegexURLHTTP, urlReturn)
     if match {
         c.urlReturn = urlReturn
     } else {

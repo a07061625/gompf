@@ -23,7 +23,7 @@ func GetProblemHandleBasic(result *mpresponse.ResultProblem, retryAfter interfac
     problem.Title(result.Title)
     problem.Status(result.Status)
     problem.Key("tag", result.Tag)
-    problem.Key("req_id", result.ReqId)
+    problem.Key("req_id", result.ReqID)
     problem.Key("code", result.Code)
     problem.Key("time", result.Time)
     problem.Key("msg", result.Msg)
@@ -42,10 +42,10 @@ func NewBasicSend() context.Handler {
             data := respData.Value()
             switch data.(type) {
             case string:
-                ctx.Values().Set(project.DataParamKeyRespType, project.HttpContentTypeText)
+                ctx.Values().Set(project.DataParamKeyRespType, project.HTTPContentTypeText)
                 ctx.WriteString(data.(string))
             default:
-                result := mpresponse.NewResultApi()
+                result := mpresponse.NewResultAPI()
                 result.Data = data.(interface{})
                 ctx.JSON(result, context.JSON{Indent: "  "})
             }
@@ -68,16 +68,16 @@ func HandleEndBasic(ctx context.Context) {
     ctx.StatusCode(iris.StatusOK)
     ctx.Header("Connection", "close") // 解决大量ESTABLISHED状态请求问题
     // 设置响应数据类型
-    ctx.Recorder().Header().Del(project.HttpHeadKeyContentType)
+    ctx.Recorder().Header().Del(project.HTTPHeadKeyContentType)
     respType, ok := ctx.Values().GetEntry(project.DataParamKeyRespType)
-    if ok && (project.HttpContentTypeText == respType.Value().(string)) {
-        ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeText)
+    if ok && (project.HTTPContentTypeText == respType.Value().(string)) {
+        ctx.Header(project.HTTPHeadKeyContentType, project.HTTPContentTypeText)
     } else {
-        ctx.Header(project.HttpHeadKeyContentType, project.HttpContentTypeJson)
+        ctx.Header(project.HTTPHeadKeyContentType, project.HTTPContentTypeJSON)
     }
 
-    os.Unsetenv(project.DataParamKeyReqId)
-    ctx.Values().Remove(project.DataParamKeyReqUrl)
+    os.Unsetenv(project.DataParamKeyReqID)
+    ctx.Values().Remove(project.DataParamKeyReqURL)
     ctx.Values().Remove(project.DataParamKeyRespData)
     ctx.Values().Remove(project.DataParamKeyRespType)
     // 最后退出上下文的时候,不要用ctx.EndRequest(),它会导致响应的数据被复制一份

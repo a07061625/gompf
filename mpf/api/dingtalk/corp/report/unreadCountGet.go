@@ -49,7 +49,7 @@ func NewUnreadCountGet(corpId, agentTag, atType string) *unreadCountGet {
     ucg.corpId = corpId
     ucg.agentTag = agentTag
     ucg.atType = atType
-    ucg.ReqContentType = project.HttpContentTypeJson
+    ucg.ReqContentType = project.HTTPContentTypeJSON
     ucg.ReqMethod = fasthttp.MethodPost
     return ucg
 }

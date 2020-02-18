@@ -76,7 +76,7 @@ func NewOnJobQuery(corpId, agentTag, atType string) *onJobQuery {
     ojq.atType = atType
     ojq.ExtendData["offset"] = 0
     ojq.ExtendData["size"] = 10
-    ojq.ReqContentType = project.HttpContentTypeJson
+    ojq.ReqContentType = project.HTTPContentTypeJSON
     ojq.ReqMethod = fasthttp.MethodPost
     return ojq
 }

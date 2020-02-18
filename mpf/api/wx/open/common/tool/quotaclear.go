@@ -46,7 +46,7 @@ func NewQuotaClear(appId string) *quotaClear {
     conf := wx.NewConfig().GetOpen()
     qc := &quotaClear{wx.NewBaseWxOpen()}
     qc.ReqData["component_appid"] = conf.GetAppId()
-    qc.ReqContentType = project.HttpContentTypeJson
+    qc.ReqContentType = project.HTTPContentTypeJSON
     qc.ReqMethod = fasthttp.MethodPost
     return qc
 }

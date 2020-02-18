@@ -32,7 +32,7 @@ func (util *utilWx) refreshProviderToken() map[string]interface{} {
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(ptUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
     reqBody := mpf.JsonMarshal(ptMap)
@@ -112,7 +112,7 @@ func (util *utilWx) refreshProviderSuiteToken() map[string]interface{} {
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
     reqBody := mpf.JsonMarshal(atMap)
@@ -204,7 +204,7 @@ func (util *utilWx) refreshProviderAuthorizeAccessToken(corpId string) map[strin
 
     req := fasthttp.AcquireRequest()
     req.Header.SetRequestURI(atUrl)
-    req.Header.SetContentType(project.HttpContentTypeJson)
+    req.Header.SetContentType(project.HTTPContentTypeJSON)
     req.Header.SetMethod(fasthttp.MethodPost)
 
     reqBody := mpf.JsonMarshal(atMap)

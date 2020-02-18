@@ -155,7 +155,7 @@ func NewChatUpdate(corpId, agentTag string) *chatUpdate {
     cu := &chatUpdate{dingtalk.NewCorp(), "", "", ""}
     cu.corpId = corpId
     cu.agentTag = agentTag
-    cu.ReqContentType = project.HttpContentTypeJson
+    cu.ReqContentType = project.HTTPContentTypeJSON
     cu.ReqMethod = fasthttp.MethodPost
     return cu
 }

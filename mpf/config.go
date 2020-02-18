@@ -13,14 +13,12 @@ import (
     "github.com/spf13/viper"
 )
 
-// ConfigViper viper配置
-type ConfigViper struct {
+type configViper struct {
     list       map[string]*viper.Viper
     dirConfigs string
 }
 
-// GetConfig 获取配置
-func (config *ConfigViper) GetConfig(fileName string) *viper.Viper {
+func (config *configViper) GetConfig(fileName string) *viper.Viper {
     conf, ok := config.list[fileName]
     if !ok {
         conf = viper.New()
@@ -38,14 +36,14 @@ func (config *ConfigViper) GetConfig(fileName string) *viper.Viper {
 }
 
 var (
-    insConfig *ConfigViper
+    insConfig *configViper
 )
 
 func init() {
-    insConfig = &ConfigViper{make(map[string]*viper.Viper), ""}
+    insConfig = &configViper{make(map[string]*viper.Viper), ""}
 }
 
 // NewConfig 获取配置单例
-func NewConfig() *ConfigViper {
+func NewConfig() *configViper {
     return insConfig
 }

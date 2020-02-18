@@ -1,9 +1,6 @@
-/**
- * 日志
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 9:22
- */
+// Package mplog log
+// User: 姜伟
+// Time: 2020-02-19 04:52:43
 package mplog
 
 import (
@@ -20,15 +17,25 @@ import (
 )
 
 const (
-    LogTypeDebug  = 1
-    LogTypeWarn   = 2
-    LogTypeInfo   = 3
-    LogTypeError  = 4
+    // 日志类型
+
+    // LogTypeDebug Debug
+    LogTypeDebug = 1
+    // LogTypeWarn Warn
+    LogTypeWarn = 2
+    // LogTypeInfo Info
+    LogTypeInfo = 3
+    // LogTypeError Error
+    LogTypeError = 4
+    // LogTypeDPanic DPanic
     LogTypeDPanic = 5
-    LogTypePanic  = 6
-    LogTypeFatal  = 7
+    // LogTypePanic Panic
+    LogTypePanic = 6
+    // LogTypeFatal Fatal
+    LogTypeFatal = 7
 )
 
+// LogField 日志字段
 type LogField struct {
     Key string
     Val interface{}
@@ -152,9 +159,9 @@ func (ld *logDaily) log(level int, msg string, fields ...LogField) {
         }
     }
 
-    fieldJson, _ := json.Marshal(fieldList)
+    fieldJSON, _ := json.Marshal(fieldList)
     prefixStr := time.Now().Format("2006-01-02 03:04:05.000")
-    logMsg := " | " + os.Getenv("MP_REQ_ID") + ld.logPrefix + " | " + string(fieldJson) + "\n" + "Msg: " + msg
+    logMsg := " | " + os.Getenv("MP_REQ_ID") + ld.logPrefix + " | " + string(fieldJSON) + "\n" + "Msg: " + msg
     if level >= LogTypeError {
         logMsg += "\n" + "Stack:"
     }
@@ -199,6 +206,7 @@ func init() {
     ins.cron = cron.New()
 }
 
+// Load 初始化加载
 func Load(conf *viper.Viper, fields map[string]interface{}, extend map[string]interface{}) {
     once.Do(func() {
         ins.logPrefix = " | " + extend["server_host"].(string)
@@ -232,30 +240,37 @@ func Load(conf *viper.Viper, fields map[string]interface{}, extend map[string]in
     })
 }
 
+// LogDebug Debug日志
 func LogDebug(msg string, fields ...LogField) {
     ins.log(LogTypeDebug, msg, fields...)
 }
 
+// LogWarn Warn日志
 func LogWarn(msg string, fields ...LogField) {
     ins.log(LogTypeWarn, msg, fields...)
 }
 
+// LogInfo Info日志
 func LogInfo(msg string, fields ...LogField) {
     ins.log(LogTypeInfo, msg, fields...)
 }
 
+// LogError Error日志
 func LogError(msg string, fields ...LogField) {
     ins.log(LogTypeError, msg, fields...)
 }
 
+// LogDPanic DPanic日志
 func LogDPanic(msg string, fields ...LogField) {
     ins.log(LogTypeDPanic, msg, fields...)
 }
 
+// LogPanic Panic日志
 func LogPanic(msg string, fields ...LogField) {
     ins.log(LogTypePanic, msg, fields...)
 }
 
+// LogFatal Fatal日志
 func LogFatal(msg string, fields ...LogField) {
     ins.log(LogTypeFatal, msg, fields...)
 }
