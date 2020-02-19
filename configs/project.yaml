@@ -1,16 +1,16 @@
 base: &projectbase
-  prefix:
-    redis:
-      wx_account: "mpa01000000_"
-  defaultpage: 1
-  defaultlimit: 10
-  time:
-    clearlocal:
-      wxaccount: 300
-      wxcorp: 300
-      alipayaccount: 300
-      dingtalkcorp: 300
-      jpushapp: 300
-      jpushgroup: 300
+    prefix:
+        redis:
+            wx_account: "mpa01000000_"
+    defaultpage: 1
+    defaultlimit: 10
+    time:
+        clearlocal:
+            wxaccount: 300
+            wxcorp: 300
+            alipayaccount: 300
+            dingtalkcorp: 300
+            jpushapp: 300
+            jpushgroup: 300
 deva01:
-  <<: *projectbase
+    <<: *projectbase

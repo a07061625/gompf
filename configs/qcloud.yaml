@@ -1,14 +1,14 @@
 cos:
-  base: &cosbase
-    app:
-      id: "1111"
-    secret:
-      id: "1111"
-      key: "1111"
-    bucket:
-      name: "1111"
-      domain: "http://www.baidu.com"
-    region:
-      tag: "ap-beijing"
-  deva01:
-    <<: *cosbase
+    base: &cosbase
+        app:
+            id: "1111"
+        secret:
+            id: "1111"
+            key: "1111"
+        bucket:
+            name: "1111"
+            domain: "http://www.baidu.com"
+        region:
+            tag: "ap-beijing"
+    deva01:
+        <<: *cosbase

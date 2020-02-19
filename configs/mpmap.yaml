@@ -1,24 +1,24 @@
 # 腾讯地图
 tencent:
-  base: &tencentbase
-    key: "1111"
-    serverip: "127.0.0.1"
-    domain: "http://map.xxx.cn"
-  deva01:
-    <<: *tencentbase
+    base: &tencentbase
+        key: "1111"
+        serverip: "127.0.0.1"
+        domain: "http://map.xxx.cn"
+    deva01:
+        <<: *tencentbase
 
 # 百度地图
 baidu:
-  base: &baidubase
-    ak: "1111"
-    serverip: "127.0.0.1"
-  deva01:
-    <<: *baidubase
+    base: &baidubase
+        ak: "1111"
+        serverip: "127.0.0.1"
+    deva01:
+        <<: *baidubase
 
 # 高德地图
 gaode:
-  base: &gaodebase
-    key: "1111"
-    secret: "1111"
-  deva01:
-    <<: *gaodebase
+    base: &gaodebase
+        key: "1111"
+        secret: "1111"
+    deva01:
+        <<: *gaodebase

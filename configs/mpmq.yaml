@@ -1,19 +1,19 @@
 common:
-  base: &commonbase
-    mqtype: "rabbit"
-  deva01:
-    <<: *commonbase
+    base: &commonbase
+        mqtype: "rabbit"
+    deva01:
+        <<: *commonbase
 producer:
-  base: &producerbase
-    rabbit:
-      uri: "amqp://guest:guest@localhost:5672/"
-  deva01:
-    <<: *producerbase
+    base: &producerbase
+        rabbit:
+            uri: "amqp://guest:guest@localhost:5672/"
+    deva01:
+        <<: *producerbase
 consumer:
-  base: &consumerbase
-    rabbit:
-      uri: "amqp://guest:guest@localhost:5672/"
-    redis:
-      pullnum: 100
-  deva01:
-    <<: *consumerbase
+    base: &consumerbase
+        rabbit:
+            uri: "amqp://guest:guest@localhost:5672/"
+        redis:
+            pullnum: 100
+    deva01:
+        <<: *consumerbase

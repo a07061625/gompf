@@ -1,25 +1,25 @@
 aliyun:
-  base: &aliyunbase
-    region:
-      id: "cn-hangzhou"
-    app:
-      key: "1111"
-      secret: "1111"
-  deva01:
-    <<: *aliyunbase
+    base: &aliyunbase
+        region:
+            id: "cn-hangzhou"
+        app:
+            key: "1111"
+            secret: "1111"
+    deva01:
+        <<: *aliyunbase
 dayu:
-  base: &dayubase
-    app:
-      key: "1111"
-      secret: "1111"
-  deva01:
-    <<: *dayubase
+    base: &dayubase
+        app:
+            key: "1111"
+            secret: "1111"
+    deva01:
+        <<: *dayubase
 yun253:
-  base: &yun253base
-    app:
-      key: "1111"
-      secret: "1111"
-    url:
-      smssend: "http://www.baidu.com"
-  deva01:
-    <<: *yun253base
+    base: &yun253base
+        app:
+            key: "1111"
+            secret: "1111"
+        url:
+            smssend: "http://www.baidu.com"
+    deva01:
+        <<: *yun253base
