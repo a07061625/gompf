@@ -4,8 +4,8 @@ go 1.13
 
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1 // indirect
-	github.com/CloudyKit/fastprinter v0.0.0-20170127035650-74b38d55f37a // indirect
-	github.com/aliyun/alibaba-cloud-sdk-go v1.60.381
+	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
+	github.com/aliyun/alibaba-cloud-sdk-go v1.60.392
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.5+incompatible
 	github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b
 	github.com/buaazp/fasthttprouter v0.1.1 // indirect
