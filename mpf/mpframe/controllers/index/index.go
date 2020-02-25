@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/8 0008
- * Time: 8:34
- */
+// Package index index
+// User: 姜伟
+// Time: 2020-02-25 11:09:20
 package index
 
 type indexController struct {

@@ -1,11 +1,9 @@
-/**
- * 版本中间件,需要设置请求头,下面两个方式任选其一
- *   Accept: "application/json; version=1.0"
- *   Accept-Version: "1.0"
- * User: 姜伟
- * Date: 2020/2/9 0009
- * Time: 23:38
- */
+// Package mpversion basic
+// 版本中间件,需要设置请求头,下面两个方式任选其一
+//   Accept: "application/json; version=1.0"
+//   Accept-Version: "1.0"
+// User: 姜伟
+// Time: 2020-02-25 10:56:39
 package mpversion
 
 import (
@@ -18,7 +16,7 @@ import (
     "github.com/kataras/iris/v12/versioning"
 )
 
-// 版本错误
+// NewBasicError 版本错误
 func NewBasicError() context.Handler {
     return func(ctx context.Context) {
         errTag := ""
@@ -50,7 +48,7 @@ func NewBasicError() context.Handler {
     }
 }
 
-// 版本将移除
+// NewBasicDeprecated 版本将移除
 func NewBasicDeprecated(handler context.Handler, warn string, info string) context.Handler {
     return versioning.Deprecated(handler, versioning.DeprecationOptions{
         WarnMessage:     warn,
@@ -59,7 +57,7 @@ func NewBasicDeprecated(handler context.Handler, warn string, info string) conte
     })
 }
 
-// 版本匹配
+// NewBasicMatcher 版本匹配
 func NewBasicMatcher(handlers map[string]context.Handler) context.Handler {
     return versioning.NewMatcher(versioning.Map(handlers))
 }

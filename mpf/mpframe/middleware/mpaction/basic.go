@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/8 0008
- * Time: 12:48
- */
+// Package mpaction basic
+// User: 姜伟
+// Time: 2020-02-25 10:53:26
 package mpaction
 
 import (
@@ -20,26 +17,26 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
-// 动作日志
+// NewBasicLog 动作日志
 func NewBasicLog() context.Handler {
     return func(ctx context.Context) {
-        reqUrl := ctx.Values().GetString(project.DataParamKeyReqURL)
-        mplog.LogInfo(reqUrl + " action-enter")
+        reqURL := ctx.Values().GetString(project.DataParamKeyReqURL)
+        mplog.LogInfo(reqURL + " action-enter")
 
         // 业务结束日志
         actionStart := time.Now()
         defer func() {
             costTime := time.Since(actionStart).Seconds()
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
-            mplog.LogInfo(reqUrl + " action-exit,cost_time: " + costTimeStr + "s")
+            mplog.LogInfo(reqURL + " action-exit,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_action"].(float64) {
-                mplog.LogWarn("handle " + reqUrl + " action-timeout,cost_time: " + costTimeStr + "s")
+                mplog.LogWarn("handle " + reqURL + " action-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
     }
 }
 
-// 简单签名验证(只有api模块验证签名)
+// NewBasicSignSimple 简单签名验证(只有api模块验证签名)
 func NewBasicSignSimple() context.Handler {
     return func(ctx context.Context) {
         errMsg := ""

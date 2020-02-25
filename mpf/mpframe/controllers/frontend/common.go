@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/8 0008
- * Time: 9:32
- */
+// Package frontend common
+// User: 姜伟
+// Time: 2020-02-25 11:10:11
 package frontend
 
 import (

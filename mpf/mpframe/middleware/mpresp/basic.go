@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/8 0008
- * Time: 12:47
- */
+// Package mpresp basic
+// User: 姜伟
+// Time: 2020-02-25 10:55:20
 package mpresp
 
 import (
@@ -17,7 +14,7 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
-// 获取错误处理
+// GetProblemHandleBasic 获取错误处理
 func GetProblemHandleBasic(result *mpresponse.ResultProblem, retryAfter interface{}) (context.Problem, context.ProblemOptions) {
     problem := iris.NewProblem()
     problem.Title(result.Title)
@@ -34,7 +31,7 @@ func GetProblemHandleBasic(result *mpresponse.ResultProblem, retryAfter interfac
     }
 }
 
-// 发送响应数据
+// NewBasicSend 发送响应数据
 func NewBasicSend() context.Handler {
     return func(ctx context.Context) {
         respData, ok := ctx.Values().GetEntry(project.DataParamKeyRespData)
@@ -63,7 +60,7 @@ func NewBasicSend() context.Handler {
     }
 }
 
-// 请求最终清理
+// HandleEndBasic 请求最终清理
 func HandleEndBasic(ctx context.Context) {
     ctx.StatusCode(iris.StatusOK)
     ctx.Header("Connection", "close") // 解决大量ESTABLISHED状态请求问题
@@ -85,7 +82,7 @@ func HandleEndBasic(ctx context.Context) {
     ctx.Recorder().EndResponse()
 }
 
-// 请求响应结束
+// NewBasicEnd 请求响应结束
 func NewBasicEnd() context.Handler {
     return func(ctx context.Context) {
         HandleEndBasic(ctx)

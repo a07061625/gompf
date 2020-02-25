@@ -45,27 +45,28 @@ func (app *appBasic) SetGlobalMiddlewareSuffix(middlewareList ...context.Handler
 func (app *appBasic) SetConfApp() {
     conf := mpf.NewConfig().GetConfig("server")
     confPrefix := mpf.EnvType() + "." + mpf.EnvProjectKeyModule() + "."
-    appConf := make([]iris.Configurator, 20)
+    appConf := make([]iris.Configurator, 21)
     appConf[0] = iris.WithoutStartupLog
     appConf[1] = iris.WithoutInterruptHandler
     appConf[2] = iris.WithoutPathCorrectionRedirection
     appConf[3] = iris.WithOptimizations
     appConf[4] = iris.WithoutBodyConsumptionOnUnmarshal
-    appConf[5] = iris.WithCharset("UTF-8")
-    appConf[6] = iris.WithoutServerError(iris.ErrServerClosed)
-    appConf[7] = iris.WithRemoteAddrHeader("X-Real-Ip")
-    appConf[8] = iris.WithRemoteAddrHeader("X-Forwarded-For")
-    appConf[9] = iris.WithRemoteAddrHeader("CF-Connecting-IP")
-    appConf[10] = iris.WithOtherValue("server_host", conf.GetString(confPrefix+"host"))
-    appConf[11] = iris.WithOtherValue("server_port", conf.GetInt(confPrefix+"port"))
-    appConf[12] = iris.WithOtherValue("server_type", conf.GetString(confPrefix+"type"))
-    appConf[13] = iris.WithOtherValue("version_min", conf.GetString(confPrefix+"version.min"))
-    appConf[14] = iris.WithOtherValue("version_deprecated", conf.GetString(confPrefix+"version.deprecated"))
-    appConf[15] = iris.WithOtherValue("version_current", conf.GetString(confPrefix+"version.current"))
-    appConf[16] = iris.WithOtherValue("version_max", conf.GetString(confPrefix+"version.max"))
-    appConf[17] = iris.WithOtherValue("timeout_request", conf.GetFloat64(confPrefix+"timeout.request"))
-    appConf[18] = iris.WithOtherValue("timeout_controller", conf.GetFloat64(confPrefix+"timeout.controller"))
-    appConf[19] = iris.WithOtherValue("timeout_action", conf.GetFloat64(confPrefix+"timeout.action"))
+    appConf[5] = iris.WithPostMaxMemory(conf.GetInt64(confPrefix + "maxsize.reqbody"))
+    appConf[6] = iris.WithCharset("UTF-8")
+    appConf[7] = iris.WithoutServerError(iris.ErrServerClosed)
+    appConf[8] = iris.WithRemoteAddrHeader("X-Real-Ip")
+    appConf[9] = iris.WithRemoteAddrHeader("X-Forwarded-For")
+    appConf[10] = iris.WithRemoteAddrHeader("CF-Connecting-IP")
+    appConf[11] = iris.WithOtherValue("server_host", conf.GetString(confPrefix+"host"))
+    appConf[12] = iris.WithOtherValue("server_port", conf.GetInt(confPrefix+"port"))
+    appConf[13] = iris.WithOtherValue("server_type", conf.GetString(confPrefix+"type"))
+    appConf[14] = iris.WithOtherValue("version_min", conf.GetString(confPrefix+"version.min"))
+    appConf[15] = iris.WithOtherValue("version_deprecated", conf.GetString(confPrefix+"version.deprecated"))
+    appConf[16] = iris.WithOtherValue("version_current", conf.GetString(confPrefix+"version.current"))
+    appConf[17] = iris.WithOtherValue("version_max", conf.GetString(confPrefix+"version.max"))
+    appConf[18] = iris.WithOtherValue("timeout_request", conf.GetFloat64(confPrefix+"timeout.request"))
+    appConf[19] = iris.WithOtherValue("timeout_controller", conf.GetFloat64(confPrefix+"timeout.controller"))
+    appConf[20] = iris.WithOtherValue("timeout_action", conf.GetFloat64(confPrefix+"timeout.action"))
     app.instance.Configure(appConf...)
 }
 

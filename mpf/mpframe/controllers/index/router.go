@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/9 0009
- * Time: 16:11
- */
+// Package index router
+// User: 姜伟
+// Time: 2020-02-25 11:09:33
 package index
 
 import (
@@ -28,6 +25,7 @@ func init() {
     insRouter.controllers[1] = &indexController{newCommon()}
 }
 
+// NewRouter 实例化路由
 func NewRouter() *router {
     return insRouter
 }

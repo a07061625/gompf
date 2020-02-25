@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/9 0009
- * Time: 15:46
- */
+// Package controllers router
+// User: 姜伟
+// Time: 2020-02-25 11:00:22
 package controllers
 
 import (
@@ -44,6 +41,7 @@ func newControllerSorter(data map[int]IControllerBasic) *controllerSorter {
     return cs
 }
 
+// IRouterBasic 基础路由接口
 type IRouterBasic interface {
     GetControllers() map[int]IControllerBasic
 }
@@ -91,6 +89,7 @@ func init() {
     insRouter.routers = make(map[string]IRouterBasic)
 }
 
+// NewRouter 实例化路由
 func NewRouter() *routerBasic {
     return insRouter
 }

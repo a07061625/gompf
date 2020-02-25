@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/8 0008
- * Time: 12:48
- */
+// Package mpcontroller basic
+// User: 姜伟
+// Time: 2020-02-25 10:54:23
 package mpcontroller
 
 import (
@@ -15,20 +12,20 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
-// 控制器日志
+// NewBasicLog 控制器日志
 func NewBasicLog() context.Handler {
     return func(ctx context.Context) {
-        reqUrl := ctx.Values().GetString(project.DataParamKeyReqURL)
-        mplog.LogInfo(reqUrl + " controller-enter")
+        reqURL := ctx.Values().GetString(project.DataParamKeyReqURL)
+        mplog.LogInfo(reqURL + " controller-enter")
 
         // 业务结束日志
         controllerStart := time.Now()
         defer func() {
             costTime := time.Since(controllerStart).Seconds()
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
-            mplog.LogInfo(reqUrl + " controller-exit,cost_time: " + costTimeStr + "s")
+            mplog.LogInfo(reqURL + " controller-exit,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_controller"].(float64) {
-                mplog.LogWarn("handle " + reqUrl + " controller-timeout,cost_time: " + costTimeStr + "s")
+                mplog.LogWarn("handle " + reqURL + " controller-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
     }

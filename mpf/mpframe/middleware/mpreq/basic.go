@@ -1,9 +1,6 @@
-/**
- * Created by GoLand.
- * User: 姜伟
- * Date: 2020/2/8 0008
- * Time: 12:48
- */
+// Package mpreq basic
+// User: 姜伟
+// Time: 2020-02-25 10:51:09
 package mpreq
 
 import (
@@ -22,7 +19,7 @@ import (
     "github.com/kataras/iris/v12/context"
 )
 
-// 请求开始
+// NewBasicBegin 请求开始
 func NewBasicBegin() context.Handler {
     return iris.FromStd(func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
         mplog.LogInfo(r.Method + " http://" + r.Host + r.URL.String() + " request-begin")
@@ -36,40 +33,40 @@ func NewBasicBegin() context.Handler {
     })
 }
 
-// 请求初始化
+// NewBasicInit 请求初始化
 func NewBasicInit() context.Handler {
     return func(ctx context.Context) {
         ctx.Record()
 
-        reqId := ""
+        reqID := ""
         if mpf.EnvServerTypeRPC == ctx.Application().ConfigurationReadOnly().GetOther()["server_type"].(string) {
-            reqId = ctx.PostValueDefault(project.DataParamKeyReqID, "")
+            reqID = ctx.PostValueDefault(project.DataParamKeyReqID, "")
         }
-        mpf.ToolCreateReqID(reqId)
+        mpf.ToolCreateReqID(reqID)
 
-        reqUrl := ctx.FullRequestURI()
+        reqURL := ctx.FullRequestURI()
         if len(ctx.Request().URL.RawQuery) > 0 {
-            reqUrl += "?" + ctx.Request().URL.RawQuery
+            reqURL += "?" + ctx.Request().URL.RawQuery
         }
-        ctx.Values().Set(project.DataParamKeyReqURL, reqUrl)
+        ctx.Values().Set(project.DataParamKeyReqURL, reqURL)
 
         ctx.Next()
     }
 }
 
-// 请求日志
+// NewBasicLog 请求日志
 func NewBasicLog() context.Handler {
     return func(ctx context.Context) {
-        reqUrl := ctx.Values().GetString(project.DataParamKeyReqURL)
-        mplog.LogInfo(reqUrl + " request-enter")
+        reqURL := ctx.Values().GetString(project.DataParamKeyReqURL)
+        mplog.LogInfo(reqURL + " request-enter")
 
         reqStart := time.Now()
         defer func() {
             costTime := time.Since(reqStart).Seconds()
             costTimeStr := strconv.FormatFloat(costTime, 'f', 6, 64)
-            mplog.LogInfo(reqUrl + " request-exit,cost_time: " + costTimeStr + "s")
+            mplog.LogInfo(reqURL + " request-exit,cost_time: " + costTimeStr + "s")
             if costTime >= ctx.Application().ConfigurationReadOnly().GetOther()["timeout_request"].(float64) {
-                mplog.LogWarn("handle " + reqUrl + " request-timeout,cost_time: " + costTimeStr + "s")
+                mplog.LogWarn("handle " + reqURL + " request-timeout,cost_time: " + costTimeStr + "s")
             }
         }()
 
@@ -77,7 +74,7 @@ func NewBasicLog() context.Handler {
     }
 }
 
-// 错误捕获
+// NewBasicRecover 错误捕获
 func NewBasicRecover() context.Handler {
     return func(ctx context.Context) {
         defer func() {
