@@ -22,7 +22,7 @@ require (
 	github.com/json-iterator/go v1.1.9
 	github.com/kataras/iris/v12 v12.1.8
 	github.com/klauspost/compress v1.10.1 // indirect
-	github.com/klauspost/cpuid v1.2.2 // indirect
+	github.com/klauspost/cpuid v1.2.3 // indirect
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/lib/pq v1.3.0 // indirect
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
