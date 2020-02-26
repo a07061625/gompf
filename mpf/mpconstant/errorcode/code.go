@@ -1,10 +1,6 @@
-// Package errorcode 错误码
-/**
- * 错误码
- * User: 姜伟
- * Date: 2020/1/17 0017
- * Time: 19:24
- */
+// Package errorcode code
+// User: 姜伟
+// Time: 2020-02-26 14:47:37
 package errorcode
 
 const (
@@ -21,6 +17,8 @@ const (
     CommonBaseServer uint = 10001
     // CommonBaseWebSocket WebSocket服务错误
     CommonBaseWebSocket uint = 10002
+    // CommonBaseFuse 熔断器错误
+    CommonBaseFuse uint = 10003
 
     // 公共请求
 

@@ -1,10 +1,6 @@
-// Package project 项目常量
-/**
- * 项目常量
- * User: 姜伟
- * Date: 2019/12/24 0024
- * Time: 15:39
- */
+// Package project project
+// User: 姜伟
+// Time: 2020-02-26 14:48:04
 package project
 
 import (
@@ -109,6 +105,11 @@ const (
     RedisPrefixPrintFeiYinAccount = "print_feiyin_account"
     // RedisPrefixMQRedis 消息队列-Redis
     RedisPrefixMQRedis = "mq_redis"
+
+    // 本地缓存前缀
+
+    // LocalPrefixFuse 熔断器
+    LocalPrefixFuse = "0000"
 
     // 微信开放平台常量
 

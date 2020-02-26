@@ -21,6 +21,13 @@ base: &serverbase
                 index: "默认"
                 frontend: "前端"
                 backend: "后端"
+    fuse: # 熔断器
+        time:
+            closekeep: 15 # 关闭状态保持时间,单位为秒
+            openkeep: 10 # 开启状态保持时间,单位为秒
+        reqnum:
+            fail: 10 # 失败请求次数
+            halfsuccess: 8 # 半开状态成功请求次数
 dev:
     a01api:
         <<: *serverbase

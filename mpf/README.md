@@ -9,6 +9,7 @@
 - mperr: 自定义错误
 - mpframe: 框架
 - mplog: 日志
+- mpmodule: 模块
 - mpmq: 消息队列
 - mprequest: 请求
 - mpresponse: 响应
