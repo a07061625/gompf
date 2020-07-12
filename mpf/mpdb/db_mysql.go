@@ -32,6 +32,10 @@ func (database *dbMysql) connect() {
     if err != nil {
         panic(mperr.NewDbMysql(errorcode.DbMysqlConnect, "mysql连接失败", err))
     }
+    conn.SetMaxIdleConns(conf.GetInt("mysql." + mpf.EnvProjectKey() + ".conn.idle"))
+    conn.SetMaxOpenConns(conf.GetInt("mysql." + mpf.EnvProjectKey() + ".conn.open"))
+    lifeTime := conf.GetInt("mysql." + mpf.EnvProjectKey() + ".conn.life")
+    conn.SetConnMaxLifetime(time.Duration(lifeTime) * time.Second)
 
     database.conn = conn
     database.connTime = time.Now().Unix()

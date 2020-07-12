@@ -2,6 +2,10 @@ mysql:
     base: &mysqlbase
         dbname: ""
         idle: 30
+        conn:
+            idle: 10
+            open: 30
+            life: 30
         dsn:
             prefix: "root:password@tcp(127.0.0.1:3306)/"
             params: "?charset=utf8mb4,utf8&timeout=1s&writeTimeout=2s&readTimeout=5s"
